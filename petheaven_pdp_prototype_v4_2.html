@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pet Heaven PDP — Interactive Prototype v4</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-size:14px;line-height:1.6;font-family:'DM Sans',sans-serif;color:#1a1a1a}
+.vp-bar{display:flex;gap:8px;padding:10px 16px;border-bottom:2px solid #e6e6e0;background:#f5f5f2;position:sticky;top:0;z-index:100;align-items:center}
+.vp-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:6px 18px;border:2px solid #c5c5bc;border-radius:20px;background:#ffffff;color:#5a5a54;cursor:pointer;outline:none;}
+.vp-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.vp-label{font-size:11px;color:#9a9a94;margin-left:auto}
+.frame{max-width:100%;margin:0 auto;transition:max-width .3s}
+.breadcrumb{padding:9px 16px;font-size:11px;color:#9a9a94;background:#f5f5f2;border-bottom:1px solid #e6e6e0}
+.breadcrumb a{color:#9a9a94;text-decoration:none}
+.bc-active{color:#3a9e3f;font-weight:600}
+.hero{display:grid;gap:0}
+.hero.desk{grid-template-columns:1fr 1fr}
+.hero.mob{grid-template-columns:1fr}
+.prod-img-col{background:#f5f5f2;display:flex;align-items:center;justify-content:center;min-height:300px;position:relative}
+.desk .prod-img-col{border-right:1px solid #e6e6e0}
+.mob .prod-img-col{border-bottom:1px solid #e6e6e0;min-height:220px}
+.img-ph{width:160px;height:200px;background:#e6e6e0;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:11px;color:#9a9a94;text-align:center}
+.low-badge{position:absolute;top:12px;left:12px;background:#e05c2a;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:none}
+.prod-info{padding:22px 20px}
+.mob .prod-info{padding:16px}
+.brand-lbl{font-size:11px;color:#9a9a94;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:4px}
+.prod-name{font-family:'DM Serif Display',serif;font-size:24px;line-height:1.2;margin-bottom:10px;color:#1a1a1a}
+.mob .prod-name{font-size:20px}
+.rating-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;cursor:pointer;flex-wrap:wrap}
+.star-row{display:flex;gap:1px}
+.star{width:15px;height:15px;fill:#1a1a1a}
+.rating-num{font-size:13px;color:#5a5a54;font-weight:500}
+.vlink{font-size:12px;color:#1a6fd4;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.price-val{font-size:28px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.stock-pill{display:inline-block;font-size:11px;font-weight:700;color:#c0392b;background:#fdf0ee;padding:4px 10px;border-radius:20px;margin-bottom:18px;border:1px solid #f5c5b8}
+.size-lbl{font-size:12px;font-weight:700;color:#1a1a1a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.size-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.sz-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;min-width:60px;padding:9px 12px;border:2px solid #888888;border-radius:4px;background:#ffffff;color:#1a1a1a;cursor:pointer;text-align:center;line-height:1;outline:none;}
+.sz-btn:hover{border-color:#3a9e3f;color:#2d7a31}
+.sz-btn.active{background:#3a9e3f;color:#ffffff;border-color:#3a9e3f}
+.qty-row{display:flex;align-items:center;border:2px solid #888888;border-radius:4px;overflow:hidden;margin-bottom:8px;background:#fff;width:100%}
+.qty-btn{font-family:'DM Sans',sans-serif;width:48px;height:48px;border:none;background:#f5f5f2;cursor:pointer;font-size:22px;color:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.qty-btn:first-child{border-right:1px solid #c5c5bc}
+.qty-btn:last-child{border-left:1px solid #c5c5bc}
+.qty-btn:hover{background:#e6e6e0}
+.qty-val{flex:1;text-align:center;font-size:16px;font-weight:700;border:none;outline:none;background:#fff;color:#1a1a1a}
+.add-btn{width:100%;height:48px;background:#3a9e3f;color:#ffffff;border:none;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px;display:block;}
+.add-btn:hover{background:#2d7a31}
+.sched-btn{width:100%;height:46px;background:#f3eef8;color:#6b3fa0;border:2px solid #c9b3e0;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;outline:none;}
+.sched-btn:hover{background:#ebe5f3}
+.sched-dot{width:18px;height:18px;border-radius:50%;background:#c9b3e0;border:2px solid #6b3fa0;flex-shrink:0;display:inline-block}
+.snip-section{border-top:1px solid #e6e6e0;border-bottom:1px solid #e6e6e0;padding:16px 20px;background:#f5f5f2}
+.snip-hd{font-size:11px;font-weight:700;color:#9a9a94;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.snip-grid{display:grid;gap:12px}
+.snip-grid.d2{grid-template-columns:1fr 1fr}
+.snip-grid.d1{grid-template-columns:1fr}
+.snip-card{background:#fff;border:1px solid #e6e6e0;border-radius:8px;padding:14px}
+.snip-type{font-size:10px;font-weight:700;color:#2d7a31;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.snip-dot{width:6px;height:6px;border-radius:50%;background:#3a9e3f;flex-shrink:0;display:inline-block}
+.snip-srow{display:flex;gap:1px;margin-bottom:6px}
+.snip-star{width:12px;height:12px;fill:#1a1a1a}
+.snip-title{font-size:13px;font-weight:700;margin-bottom:3px;color:#1a1a1a}
+.snip-body{font-size:12px;color:#5a5a54;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.snip-body.exp{display:block}
+.snip-more{font-size:11px;color:#3a9e3f;cursor:pointer;font-weight:700;margin-top:4px;display:inline-block}
+.snip-meta{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:#9a9a94;flex-wrap:wrap}
+.vbadge{display:inline-flex;align-items:center;gap:3px;background:#e8f1fc;color:#1a6fd4;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+.tabs-bar{display:flex;border-bottom:2px solid #e6e6e0;background:#fff;overflow-x:auto}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 20px;border:none;border-bottom:2px solid transparent;background:transparent;color:#9a9a94;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-bottom:-2px;outline:none;}
+.tab-btn.on{color:#2d7a31;border-bottom-color:#3a9e3f}
+.tab-btn:hover:not(.on){color:#1a1a1a}
+.tc{padding:20px;display:none}
+.tc.on{display:block}
+.desc-p{font-size:13px;color:#5a5a54;line-height:1.8;max-width:580px}
+.feat-ul{list-style:none;margin-top:14px}
+.feat-ul li{display:flex;gap:10px;font-size:13px;color:#5a5a54;margin-bottom:10px;line-height:1.5}
+.feat-ul li::before{content:"›";color:#3a9e3f;font-weight:700;font-size:15px;flex-shrink:0}
+.rev-wrap{padding:24px 20px;border-top:4px solid #e6e6e0}
+.rev-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:20px;color:#1a1a1a}
+.rev-summary{display:flex;gap:20px;margin-bottom:22px;align-items:flex-start;flex-wrap:wrap}
+.big-sc{font-family:'DM Serif Display',serif;font-size:54px;line-height:1;color:#1a1a1a}
+.sc-meta{display:flex;flex-direction:column;gap:3px;justify-content:center}
+.rb-wrap{flex:1;min-width:150px}
+.rb-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.rb-lbl{font-size:11px;color:#5a5a54;width:28px;text-align:right;flex-shrink:0}
+.rb-bar{flex:1;height:5px;background:#e6e6e0;border-radius:3px;overflow:hidden}
+.rb-fill{height:100%;background:#1a1a1a;border-radius:3px}
+.rb-n{font-size:11px;color:#9a9a94;width:20px;text-align:right;flex-shrink:0}
+.write-cta{display:flex;align-items:center;justify-content:space-between;background:#eef7ee;border:2px solid #a8d4aa;border-radius:8px;padding:16px 18px;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.write-cta-text p{font-size:13px;color:#2d7a31;font-weight:700;margin:0 0 2px}
+.write-cta-text span{font-size:12px;color:#2d7a31;opacity:.75}
+.write-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;background:#3a9e3f;color:#ffffff;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;flex-shrink:0;outline:none;}
+.write-btn:hover{background:#2d7a31}
+.ctrl-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.sel-pair{display:flex;gap:8px}
+.sel-pair.stacked{flex-direction:column;width:100%}
+.sel-pair.stacked select{width:100%}
+.fsel{font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 12px;border:2px solid #888888;border-radius:4px;background:#ffffff;color:#1a1a1a;cursor:pointer;outline:none;}
+.fsel:focus{border-color:#3a9e3f}
+.vtog{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:8px 14px;border:2px solid #888888;border-radius:4px;background:#ffffff;color:#1a1a1a;cursor:pointer;white-space:nowrap;outline:none;}
+.vtog.on{background:#1a1a1a;color:#ffffff;border-color:#1a1a1a}
+.rv-card{padding:18px 0;border-bottom:1px solid #e6e6e0}
+.rv-card:last-child{border-bottom:none}
+.rv-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:3px}
+.rv-name{font-size:13px;font-weight:700;color:#1a1a1a}
+.rv-date{font-size:11px;color:#9a9a94;margin-bottom:8px}
+.rv-stars{display:flex;gap:1px;margin-bottom:7px}
+.rvs{width:13px;height:13px;fill:#1a1a1a}
+.rvs.e{fill:none;stroke:#1a1a1a;stroke-width:1.5}
+.rv-t{font-size:14px;font-weight:700;margin-bottom:4px;color:#1a1a1a}
+.rv-b{font-size:13px;color:#5a5a54;line-height:1.65}
+.rv-foot{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:12px;flex-wrap:wrap}
+.hlp-lbl{font-size:12px;color:#5a5a54;font-weight:600;margin-right:auto}
+.hlp-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:#1a1a1a;background:#ffffff;border:2px solid #888888;border-radius:4px;padding:7px 14px;cursor:pointer;outline:none;}
+.hlp-btn:hover{border-color:#3a9e3f;color:#2d7a31;background:#eef7ee}
+.hlp-btn.voted{background:#eef7ee;border-color:#3a9e3f;color:#2d7a31}
+.hlp-btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+.hlp-count{font-size:11px;color:#9a9a94}
+.vbadge-sm{display:inline-flex;align-items:center;gap:3px;background:#e8f1fc;color:#1a6fd4;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;flex-shrink:0}
+.no-res{text-align:center;padding:40px 20px;color:#9a9a94;font-size:13px}
+.wform{background:#f5f5f2;border:2px solid #e6e6e0;border-radius:8px;padding:20px;margin-top:4px;display:none}
+.wform.open{display:block}
+.wf-title{font-size:15px;font-weight:700;margin-bottom:16px;color:#1a1a1a}
+.fg{margin-bottom:14px}
+.fl{font-size:12px;font-weight:700;color:#5a5a54;margin-bottom:6px;display:block}
+.fl span{color:#c0392b}
+.sp-row{display:flex;gap:4px}
+.sps{width:30px;height:30px;fill:#c5c5bc;cursor:pointer;transition:fill .1s}
+.sps.lit{fill:#1a1a1a}
+.finput{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:2px solid #888888;border-radius:4px;background:#ffffff;outline:none;color:#1a1a1a;}
+.finput:focus{border-color:#3a9e3f}
+.fta{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:2px solid #888888;border-radius:4px;background:#ffffff;outline:none;color:#1a1a1a;resize:vertical;min-height:80px;}
+.fta:focus{border-color:#3a9e3f}
+.frow{display:flex;gap:8px;margin-top:16px}
+.fsub{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;background:#3a9e3f;color:#ffffff;border:none;border-radius:4px;cursor:pointer;outline:none;}
+.fsub:hover{background:#2d7a31}
+.fcan{font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 18px;background:#ffffff;color:#5a5a54;border:2px solid #888888;border-radius:4px;cursor:pointer;outline:none;}
+.fnote{font-size:11px;color:#9a9a94;margin-top:10px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="vp-bar">
+  <button class="vp-btn active" onclick="setVP('desk',this)">Desktop</button>
+  <button class="vp-btn" onclick="setVP('mob',this)">Mobile</button>
+  <span class="vp-label">Pet Heaven PDP · Interactive prototype v4</span>
+</div>
+<div class="frame" id="frame">
+<nav class="breadcrumb"><a href="#">Home</a> › <a href="#">Dogs</a> › <a href="#">Dog Food</a> › <a href="#">Montego</a> › <span class="bc-active">Montego Classic Adult Dog Food</span></nav>
+<div class="hero desk" id="hero">
+  <div class="prod-img-col">
+    <span class="low-badge">Low stock</span>
+    <div class="img-ph"><div style="font-size:42px">🐾</div><div>Montego Classic</div></div>
+  </div>
+  <div class="prod-info">
+    <div class="brand-lbl">Montego</div>
+    <div class="prod-name">Classic Adult Dog Food</div>
+    <div class="rating-row" onclick="document.getElementById('rev-wrap').scrollIntoView({behavior:'smooth'})">
+      <div class="star-row">
+        <svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+        <svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+        <svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+        <svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+        <svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+      </div>
+      <span class="rating-num">4.8</span>
+      <span class="vlink">48 verified reviews</span>
+    </div>
+    <div class="price-val">R92.00</div>
+    <div style="margin-bottom:18px"><span class="stock-pill">Low stock — order now</span></div>
+    <div class="size-lbl">Choose an option</div>
+    <div class="size-grid">
+      <button class="sz-btn active" onclick="setSz(this)">2kg</button>
+      <button class="sz-btn" onclick="setSz(this)">5kg</button>
+      <button class="sz-btn" onclick="setSz(this)">10kg</button>
+      <button class="sz-btn" onclick="setSz(this)">20kg</button>
+      <button class="sz-btn" onclick="setSz(this)">25kg</button>
+      <button class="sz-btn" onclick="setSz(this)">40kg</button>
+    </div>
+    <div class="qty-row">
+      <button class="qty-btn" onclick="adj(-1)">−</button>
+      <input class="qty-val" id="qty" value="1" readonly>
+      <button class="qty-btn" onclick="adj(1)">+</button>
+    </div>
+    <button class="add-btn">Add to Cart</button>
+    <button class="sched-btn"><span class="sched-dot"></span>Schedule &amp; Save — R89.00</button>
+  </div>
+</div>
+<div class="snip-section">
+  <div class="snip-hd">What customers are saying</div>
+  <div class="snip-grid d2" id="snip-grid">
+    <div class="snip-card">
+      <div class="snip-type"><span class="snip-dot"></span>Most helpful</div>
+      <div class="snip-srow"><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg></div>
+      <div class="snip-title">Exceptional quality for the price</div>
+      <div class="snip-body" id="snip1">My Rottweiler has been on this for 8 months — coat is shiny, energy levels are great and he maintains a healthy weight. Will never switch.</div>
+      <span class="snip-more" onclick="exSnip('snip1',this)">Read more</span>
+      <div class="snip-meta"><span>Debi M.</span><span>·</span><span class="vbadge"><svg style="width:9px;height:9px;fill:#1a6fd4" viewBox="0 0 12 12"><path d="M5 9.5L1.5 6 2.9 4.6 5 6.7 9.1 2.5 10.5 3.9z"/></svg>Verified purchase</span></div>
+    </div>
+    <div class="snip-card">
+      <div class="snip-type"><span class="snip-dot"></span>Most recent</div>
+      <div class="snip-srow"><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg></div>
+      <div class="snip-title">Great dog food</div>
+      <div class="snip-body" id="snip2">My mini schnauzer absolutely loves this food — awesome amount of protein and he's been thriving since we switched.</div>
+      <span class="snip-more" onclick="exSnip('snip2',this)">Read more</span>
+      <div class="snip-meta"><span>Elmarie K.</span><span>·</span><span style="font-size:11px;color:#9a9a94">19 Jan 2026</span></div>
+    </div>
+  </div>
+</div>
+<div class="tabs-bar">
+  <button class="tab-btn on" onclick="swTab('desc',this)">Description</button>
+  <button class="tab-btn" onclick="swTab('addl',this)">Additional Info</button>
+  <button class="tab-btn" onclick="swTab('ship',this)">Shipping Info</button>
+</div>
+<div id="tc-desc" class="tc on">
+  <p class="desc-p">Montego Classic Adult Dog Food is a complete and balanced premium dog food that is enticingly delicious and highly digestible nutrition for your adult dog.</p>
+  <ul class="feat-ul">
+    <li><strong>Energy</strong> — High protein meal to help your dog build lean muscles and maintain a healthy weight.</li>
+    <li><strong>Well-being</strong> — Meat-based proteins to support cardiac functions and retinal health.</li>
+    <li><strong>Agility</strong> — Glucosamine and Chondroitin for natural joint support.</li>
+    <li><strong>Immunity</strong> — Vitamins and minerals to support a healthy immune system.</li>
+  </ul>
+</div>
+<div id="tc-addl" class="tc"><p class="desc-p">Suitable for all breeds from 12 months (small/medium) or 24 months (large/giant). 22% protein minimum.</p></div>
+<div id="tc-ship" class="tc"><p class="desc-p">We deliver to Johannesburg and Cape Town. Standard delivery 2–4 business days. Free delivery on orders over R500.</p></div>
+<div class="rev-wrap" id="rev-wrap">
+  <div class="rev-title">Customer Reviews</div>
+  <div class="rev-summary" id="rev-summary">
+    <div style="display:flex;align-items:center;gap:16px;flex-shrink:0">
+      <div class="big-sc">4.8</div>
+      <div class="sc-meta">
+        <div class="star-row" style="margin-bottom:3px"><svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg><svg class="star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg></div>
+        <div style="font-size:12px;color:#9a9a94">61 reviews total</div>
+        <div style="font-size:12px;color:#1a6fd4;font-weight:700">48 verified purchases</div>
+      </div>
+    </div>
+    <div class="rb-wrap">
+      <div class="rb-row"><span class="rb-lbl">5★</span><div class="rb-bar"><div class="rb-fill" style="width:78%"></div></div><span class="rb-n">48</span></div>
+      <div class="rb-row"><span class="rb-lbl">4★</span><div class="rb-bar"><div class="rb-fill" style="width:13%"></div></div><span class="rb-n">8</span></div>
+      <div class="rb-row"><span class="rb-lbl">3★</span><div class="rb-bar"><div class="rb-fill" style="width:5%"></div></div><span class="rb-n">3</span></div>
+      <div class="rb-row"><span class="rb-lbl">2★</span><div class="rb-bar"><div class="rb-fill" style="width:2%"></div></div><span class="rb-n">1</span></div>
+      <div class="rb-row"><span class="rb-lbl">1★</span><div class="rb-bar"><div class="rb-fill" style="width:2%"></div></div><span class="rb-n">1</span></div>
+    </div>
+  </div>
+  <div class="write-cta">
+    <div class="write-cta-text"><p>Bought this product? Share your experience.</p><span>Your review helps other pet owners make better choices.</span></div>
+    <button class="write-btn" onclick="toggleWF()">+ Write a review</button>
+  </div>
+  <div class="wform" id="wform">
+    <div class="wf-title">Write a review</div>
+    <div class="fg"><label class="fl">Your rating <span>*</span></label>
+      <div class="sp-row">
+        <svg class="sps" viewBox="0 0 28 28" onclick="setR(1)" onmouseover="hovR(1)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+        <svg class="sps" viewBox="0 0 28 28" onclick="setR(2)" onmouseover="hovR(2)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+        <svg class="sps" viewBox="0 0 28 28" onclick="setR(3)" onmouseover="hovR(3)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+        <svg class="sps" viewBox="0 0 28 28" onclick="setR(4)" onmouseover="hovR(4)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+        <svg class="sps" viewBox="0 0 28 28" onclick="setR(5)" onmouseover="hovR(5)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Review title <span>*</span></label><input class="finput" id="rv-t" placeholder="Summarise your experience" type="text"></div>
+    <div class="fg"><label class="fl">Your review <span>*</span></label><textarea class="fta" id="rv-b" placeholder="Tell other pet owners what you think..."></textarea></div>
+    <div class="frow"><button class="fsub" onclick="subR()">Submit review</button><button class="fcan" onclick="toggleWF()">Cancel</button></div>
+    <div class="fnote">Your review will appear after moderation. All fields are required.</div>
+  </div>
+  <div class="ctrl-row">
+    <div class="sel-pair" id="sel-pair">
+      <select class="fsel" onchange="render()" id="sort-sel"><option value="relevance">Sort: Relevance</option><option value="recent">Sort: Most recent</option><option value="useful">Sort: Most useful</option><option value="highest">Sort: Highest rated</option></select>
+      <select class="fsel" onchange="render()" id="star-sel"><option value="0">All ratings</option><option value="5">5 stars only</option><option value="4">4 stars only</option><option value="3">3 stars only</option><option value="2">2 stars only</option><option value="1">1 star only</option></select>
+    </div>
+    <button class="vtog" id="vtog" onclick="togV()">Verified only</button>
+  </div>
+  <div id="rv-list"></div>
+  <div class="no-res" id="no-res" style="display:none">No reviews match your filters.</div>
+</div>
+</div>
+<script>
+const rvs=[{id:1,name:"Debi M.",rating:5,title:"Exceptional quality for the price",body:"My Rottweiler has been on this for 8 months — coat is shiny, energy levels are great and he maintains a healthy weight. Will never switch.",date:"11 Jul 2025",verified:true,useful:14,voted:false},{id:2,name:"Elmarie K.",rating:5,title:"Great dog food",body:"My mini schnauzer absolutely loves this food — awesome amount of protein and he's been thriving since we switched.",date:"19 Jan 2026",verified:true,useful:8,voted:false},{id:3,name:"Sandra B.",rating:5,title:"Amazing website and product",body:"Stock always available, delivered on time. Wide variety and website is logically organised. Love Pet Heaven!",date:"3 Dec 2025",verified:true,useful:11,voted:false},{id:4,name:"Johan V.",rating:4,title:"Good overall, slightly pricey on larger bags",body:"Quality is definitely there — my two labs love it. Only reason for 4 stars is the price jump on larger bags.",date:"28 Nov 2025",verified:true,useful:5,voted:false},{id:5,name:"Thandi N.",rating:5,title:"My babies love it",body:"My babies are so happy with their yummy food. Will always recommend. My Rottweiler's coat is shiny and healthy.",date:"15 Oct 2025",verified:false,useful:7,voted:false},{id:6,name:"Pieter S.",rating:3,title:"Decent but switched brands",body:"It was fine for a while but my border collie started having loose stools after a few months.",date:"2 Sep 2025",verified:true,useful:3,voted:false},{id:7,name:"Karen O.",rating:5,title:"Best food on the market",body:"I have tried so many brands over the years and this one wins every time. My German Shepherd's coat has never looked better.",date:"7 Jan 2026",verified:true,useful:9,voted:false}];
+let vOnly=false,cr=0;
+function strs(n,sz){return Array.from({length:5},(_,i)=>`<svg class="rvs${i>=n?' e':''}" viewBox="0 0 16 16" style="width:${sz}px;height:${sz}px"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>`).join('')}
+function render(){let list=[...rvs];if(vOnly)list=list.filter(r=>r.verified);const sr=parseInt(document.getElementById('star-sel').value);if(sr>0)list=list.filter(r=>r.rating===sr);const s=document.getElementById('sort-sel').value;if(s==='recent')list.sort((a,b)=>new Date(b.date)-new Date(a.date));else if(s==='useful')list.sort((a,b)=>b.useful-a.useful);else if(s==='highest')list.sort((a,b)=>b.rating-a.rating);else list.sort((a,b)=>(b.rating*.4+b.useful*.3+(b.verified?2:0))-(a.rating*.4+a.useful*.3+(a.verified?2:0)));const el=document.getElementById('rv-list');const nr=document.getElementById('no-res');if(!list.length){el.innerHTML='';nr.style.display='block';return;}nr.style.display='none';el.innerHTML=list.map(r=>`<div class="rv-card"><div class="rv-card-top"><div><div class="rv-name">${r.name}</div><div class="rv-date">${r.date}</div></div>${r.verified?`<span class="vbadge-sm"><svg style="width:9px;height:9px;fill:#1a6fd4" viewBox="0 0 12 12"><path d="M5 9.5L1.5 6 2.9 4.6 5 6.7 9.1 2.5 10.5 3.9z"/></svg>Verified purchase</span>`:''}</div><div class="rv-stars">${strs(r.rating,13)}</div><div class="rv-t">${r.title}</div><div class="rv-b">${r.body}</div><div class="rv-foot"><span class="hlp-lbl">Was this helpful?</span><button class="hlp-btn${r.voted?' voted':''}" onclick="vote(${r.id})"><svg viewBox="0 0 16 16"><path d="M1 7h3v7H1zM5 7l3-5 1 1-2 4h7l-1 7H5z" fill-rule="evenodd"/></svg>${r.voted?'Thanks for your feedback':'Yes, helpful'}</button>${r.useful>0?`<span class="hlp-count">${r.useful} ${r.useful===1?'person':'people'} found this helpful</span>`:''}</div></div>`).join('');}
+function vote(id){const r=rvs.find(x=>x.id===id);if(!r)return;r.voted=!r.voted;r.useful+=r.voted?1:-1;render();}
+function togV(){vOnly=!vOnly;document.getElementById('vtog').classList.toggle('on',vOnly);render();}
+function swTab(n,btn){document.querySelectorAll('.tc').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('on'));document.getElementById('tc-'+n).classList.add('on');btn.classList.add('on');}
+function setSz(btn){document.querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function adj(d){const e=document.getElementById('qty');e.value=Math.max(1,parseInt(e.value)+d);}
+function exSnip(id,btn){const e=document.getElementById(id);e.classList.toggle('exp');btn.textContent=e.classList.contains('exp')?'Show less':'Read more';}
+function toggleWF(){const f=document.getElementById('wform');f.classList.toggle('open');if(f.classList.contains('open'))setTimeout(()=>f.scrollIntoView({behavior:'smooth',block:'nearest'}),50);}
+function hovR(n){document.querySelectorAll('.sps').forEach((s,i)=>s.classList.toggle('lit',i<n));}
+function rstR(){document.querySelectorAll('.sps').forEach((s,i)=>s.classList.toggle('lit',i<cr));}
+function setR(n){cr=n;rstR();}
+function subR(){const t=document.getElementById('rv-t').value.trim();const b=document.getElementById('rv-b').value.trim();if(!cr||!t||!b){alert('Please complete all fields — star rating, title and review are all required.');return;}document.getElementById('wform').innerHTML='<div style="padding:20px;text-align:center"><div style="font-size:15px;font-weight:700;color:#3a9e3f;margin-bottom:6px">Thank you for your review!</div><div style="font-size:13px;color:#5a5a54">Your review has been submitted and will appear after moderation.</div></div>';}
+function setVP(v,btn){document.querySelectorAll('.vp-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const mob=(v==='mob');const frame=document.getElementById('frame');document.getElementById('hero').className='hero '+(mob?'mob':'desk');document.getElementById('snip-grid').className='snip-grid '+(mob?'d1':'d2');const sp=document.getElementById('sel-pair');const rs=document.getElementById('rev-summary');if(mob){frame.style.maxWidth='390px';frame.style.borderLeft='1px solid #e6e6e0';frame.style.borderRight='1px solid #e6e6e0';sp.classList.add('stacked');sp.querySelectorAll('select').forEach(s=>s.style.width='100%');rs.style.flexDirection='column';}else{frame.style.maxWidth='100%';frame.style.borderLeft='none';frame.style.borderRight='none';sp.classList.remove('stacked');sp.querySelectorAll('select').forEach(s=>s.style.width='');rs.style.flexDirection='';}}
+render();
+</script>
+</body>
+</html>
