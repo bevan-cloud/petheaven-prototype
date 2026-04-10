@@ -166,8 +166,8 @@ a{text-decoration:none;color:inherit}
 /* REVIEWS TAB */
 .snip-section{background:#f5f5f5;padding:18px 20px;border-radius:4px;margin-bottom:24px}
 
-/* Snip section when inline inside info column */
-.info-col .snip-section{background:none;padding:0;margin-bottom:0;border-radius:0;border-top:1px solid #eee;margin-top:20px;padding-top:16px}
+/* Snip section when used as standalone grid item (below image on desktop) */
+#snip-preview{background:none;padding:0;margin-bottom:0;border-radius:0;}
 .snip-hd{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
 .snip-all-link{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:#43b02a;text-decoration:none}
 .snip-all-link:hover{text-decoration:underline}
@@ -393,6 +393,28 @@ a{text-decoration:none;color:inherit}
   .footer-grid{grid-template-columns:1fr 1fr}
   .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1}
   .site-footer{padding:24px 12px}
+
+  /* ── SNIP SECTION: reset grid placement so it flows naturally in single-col ── */
+  #snip-preview{grid-column:auto;grid-row:auto;}
+  .buy-panel{grid-column:auto;grid-row:auto;}
+  .img-col{align-self:auto;display:block;}
+  .img-wrap{height:auto;display:block;}
+  .img-wrap img{flex:none;height:auto;object-fit:fill;}
+}
+
+/* DESKTOP: image fills info-col height; snip section drops below image */
+@media(min-width:769px){
+  /* Image column stretches to match info-col row height */
+  .img-col{align-self:stretch;display:flex;flex-direction:column;}
+  .img-wrap{flex:1;display:flex;flex-direction:column;}
+  .img-wrap img{flex:1;object-fit:contain;width:100%;min-height:0;height:0;}
+
+  /* Snip section: grid row 2, column 1 (below image) */
+  #snip-preview{grid-column:1;grid-row:2;padding-top:16px;border-top:1px solid #eee;}
+  #snip-preview .snip-grid{grid-template-columns:1fr;}
+
+  /* Buy panel: spans both rows so it doesn't leave empty space */
+  .buy-panel{grid-column:3;grid-row:1/3;}
 }
 </style>
 </head>
@@ -402,7 +424,7 @@ a{text-decoration:none;color:inherit}
 <div class="proto-bar">
   <button class="proto-btn active" onclick="setVP('desk',this)">Desktop</button>
   <button class="proto-btn" onclick="setVP('mob',this)">Mobile</button>
-  <span class="proto-lbl">Pet Heaven PDP · v2 — Reviews in Product Column</span>
+  <span class="proto-lbl">Pet Heaven PDP · v2 — Reviews Below Image</span>
 </div>
 
 <div class="site-wrap" id="site-wrap">
@@ -517,47 +539,6 @@ a{text-decoration:none;color:inherit}
         <p>To get the most out of life, your pal requires an optimally balanced diet that is rich in nutrients, energy and flavour. <strong>Montego Classic Adult Dog Food</strong> has a premium formulation that is designed to deliver in all these areas, providing adult dogs with everything they need for continual physical development and well-being. Suitable for all dog breeds from the age of 12 months old for <strong>small and medium breeds</strong>, or 24 months for <strong>large and giant</strong> breeds.</p>
       </div>
 
-      <!-- WHAT CUSTOMERS ARE SAYING — moved inline to fill gap below description -->
-      <div class="snip-section">
-        <div class="snip-hd">What customers are saying</div>
-        <div class="snip-grid" id="snip-grid">
-          <div class="snip-card">
-            <div class="snip-type"><span class="snip-dot"></span>Most helpful</div>
-            <div class="snip-stars">
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            </div>
-            <div class="snip-title">Exceptional quality for the price</div>
-            <div class="snip-body" id="snip1">My Rottweiler has been on this for 8 months — coat is shiny, energy levels are great and he maintains a healthy weight. Will never switch.</div>
-            <span class="snip-more" onclick="exSnip('snip1',this)">Read more</span>
-            <div class="snip-meta">
-              <span>Debi M.</span><span>·</span>
-              <span class="vbadge"><svg style="width:9px;height:9px;fill:#43b02a" viewBox="0 0 12 12"><path d="M5 9.5L1.5 6 2.9 4.6 5 6.7 9.1 2.5 10.5 3.9z"/></svg>Verified purchase</span>
-            </div>
-          </div>
-          <div class="snip-card">
-            <div class="snip-type"><span class="snip-dot"></span>Most recent</div>
-            <div class="snip-stars">
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-              <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            </div>
-            <div class="snip-title">Jumpy jump</div>
-            <div class="snip-body" id="snip2">Our dog runs in circles when we bring out the food. She doesn't do that for other brands.</div>
-            <span class="snip-more" onclick="exSnip('snip2',this)">Read more</span>
-            <div class="snip-meta">
-              <span>Joleen</span><span>·</span><span style="font-size:11px;color:#999">22 Dec 2025</span>
-            </div>
-          </div>
-        </div>
-        <a class="snip-all-link" href="#customer-reviews">Read all 61 reviews ↓</a>
-      </div>
-
     </div>
 
     <!-- BUY PANEL -->
@@ -633,6 +614,47 @@ a{text-decoration:none;color:inherit}
           </li>
         </ul>
       </div>
+    </div>
+
+    <!-- WHAT CUSTOMERS ARE SAYING — sits below image on desktop, after buy panel on mobile -->
+    <div class="snip-section" id="snip-preview">
+      <div class="snip-hd">What customers are saying</div>
+      <div class="snip-grid" id="snip-grid">
+        <div class="snip-card">
+          <div class="snip-type"><span class="snip-dot"></span>Most helpful</div>
+          <div class="snip-stars">
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+          </div>
+          <div class="snip-title">Exceptional quality for the price</div>
+          <div class="snip-body" id="snip1">My Rottweiler has been on this for 8 months — coat is shiny, energy levels are great and he maintains a healthy weight. Will never switch.</div>
+          <span class="snip-more" onclick="exSnip('snip1',this)">Read more</span>
+          <div class="snip-meta">
+            <span>Debi M.</span><span>·</span>
+            <span class="vbadge"><svg style="width:9px;height:9px;fill:#43b02a" viewBox="0 0 12 12"><path d="M5 9.5L1.5 6 2.9 4.6 5 6.7 9.1 2.5 10.5 3.9z"/></svg>Verified purchase</span>
+          </div>
+        </div>
+        <div class="snip-card">
+          <div class="snip-type"><span class="snip-dot"></span>Most recent</div>
+          <div class="snip-stars">
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="snip-star" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+          </div>
+          <div class="snip-title">Jumpy jump</div>
+          <div class="snip-body" id="snip2">Our dog runs in circles when we bring out the food. She doesn't do that for other brands.</div>
+          <span class="snip-more" onclick="exSnip('snip2',this)">Read more</span>
+          <div class="snip-meta">
+            <span>Joleen</span><span>·</span><span style="font-size:11px;color:#999">22 Dec 2025</span>
+          </div>
+        </div>
+      </div>
+      <a class="snip-all-link" href="#customer-reviews">Read all 61 reviews ↓</a>
     </div>
 
   </div><!-- /product-main -->
@@ -1060,8 +1082,11 @@ function setVP(v,btn){
         .site-nav li a{padding:10px 12px!important;font-size:12px!important}
         .page-wrap{padding:0 12px!important}
         .product-main{grid-template-columns:1fr!important;gap:0!important;padding:10px 0 16px!important}
-        .img-col,.buy-panel{position:static!important}
-        .buy-panel{border-top:1px solid #eee!important;padding-top:16px!important;margin-top:8px!important}
+        .img-col{position:static!important;align-self:auto!important;display:block!important}
+        .img-wrap{height:auto!important;display:block!important}
+        .img-wrap img{flex:none!important;height:auto!important;object-fit:fill!important}
+        .buy-panel{position:static!important;grid-column:auto!important;grid-row:auto!important;border-top:1px solid #eee!important;padding-top:16px!important;margin-top:8px!important}
+        #snip-preview{grid-column:auto!important;grid-row:auto!important;padding-top:0!important;border-top:none!important}
         .info-col h1{font-size:19px!important}
         .prod-price{font-size:24px!important}
         .tabs-nav{display:none!important}
