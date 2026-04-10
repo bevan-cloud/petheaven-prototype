@@ -166,6 +166,8 @@ a{text-decoration:none;color:inherit}
 /* REVIEWS TAB */
 .snip-section{background:#f5f5f5;padding:18px 20px;border-radius:4px;margin-bottom:24px}
 .snip-hd{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.snip-all-link{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:#43b02a;text-decoration:none}
+.snip-all-link:hover{text-decoration:underline}
 .snip-grid{display:grid;gap:12px;grid-template-columns:1fr 1fr}
 .snip-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:14px}
 .snip-type{font-size:10px;font-weight:700;color:#2d8a1e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
@@ -176,7 +178,8 @@ a{text-decoration:none;color:inherit}
 .snip-body{font-size:12px;color:#666;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .snip-body.exp{display:block}
 .snip-more{font-size:11px;color:#43b02a;cursor:pointer;font-weight:700;margin-top:4px;display:inline-block}
-.snip-meta{display:flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:#999;flex-wrap:wrap}
+.snip-meta{display:flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:#999}
+.snip-meta .vbadge{margin-left:auto}
 .vbadge{display:inline-flex;align-items:center;gap:3px;background:#e8f5e3;color:#43b02a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
 
 .rev-title{font-size:20px;font-weight:800;color:#222;margin-bottom:16px}
@@ -514,83 +517,8 @@ a{text-decoration:none;color:inherit}
           </div>
         </div>
       </div>
+      <a class="snip-all-link" href="#customer-reviews">Read all 61 reviews ↓</a>
     </div>
-
-    <!-- Reviews summary + full list -->
-    <div class="rev-title">Customer Reviews</div>
-    <div class="rev-summary" id="rev-summary">
-      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0">
-        <div class="big-score">4.8</div>
-        <div class="score-meta">
-          <div class="score-stars">
-            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-          </div>
-          <div class="score-total">61 reviews total</div>
-          <div class="score-vfd">48 verified purchases</div>
-        </div>
-      </div>
-      <div class="rb-wrap">
-        <div class="rb-row"><span class="rb-lbl">5★</span><div class="rb-track"><div class="rb-fill" style="width:78%"></div></div><span class="rb-count">48</span></div>
-        <div class="rb-row"><span class="rb-lbl">4★</span><div class="rb-track"><div class="rb-fill" style="width:13%"></div></div><span class="rb-count">8</span></div>
-        <div class="rb-row"><span class="rb-lbl">3★</span><div class="rb-track"><div class="rb-fill" style="width:5%"></div></div><span class="rb-count">3</span></div>
-        <div class="rb-row"><span class="rb-lbl">2★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">1</span></div>
-        <div class="rb-row"><span class="rb-lbl">1★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">1</span></div>
-      </div>
-    </div>
-
-    <div class="write-cta">
-      <div>
-        <p>Bought this product? Share your experience.</p>
-        <span>Your review helps other pet owners make better choices.</span>
-      </div>
-      <button class="write-btn" onclick="toggleWF()">+ Write a review</button>
-    </div>
-
-    <div class="rev-form" id="wform">
-      <div class="rev-form-title">Write a review</div>
-      <div class="fg">
-        <label class="fl">Your rating <span>*</span></label>
-        <div class="star-picker">
-          <svg class="sps" viewBox="0 0 28 28" onclick="setR(1)" onmouseover="hovR(1)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
-          <svg class="sps" viewBox="0 0 28 28" onclick="setR(2)" onmouseover="hovR(2)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
-          <svg class="sps" viewBox="0 0 28 28" onclick="setR(3)" onmouseover="hovR(3)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
-          <svg class="sps" viewBox="0 0 28 28" onclick="setR(4)" onmouseover="hovR(4)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
-          <svg class="sps" viewBox="0 0 28 28" onclick="setR(5)" onmouseover="hovR(5)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
-        </div>
-      </div>
-      <div class="fg"><label class="fl">Review title <span>*</span></label><input class="finput" id="rv-t" type="text" placeholder="Summarise your experience"></div>
-      <div class="fg"><label class="fl">Your review <span>*</span></label><textarea class="fta" id="rv-b" placeholder="Tell other pet owners what you think..."></textarea></div>
-      <div class="frow"><button class="fsub" onclick="subR()">Submit review</button><button class="fcan" onclick="toggleWF()">Cancel</button></div>
-      <div class="fnote">Your review will appear after moderation. All fields are required.</div>
-    </div>
-
-    <div class="rev-controls">
-      <div style="display:flex;gap:8px;flex-wrap:wrap" id="sel-pair">
-        <select class="rev-select" id="sort-sel" onchange="renderRevs()">
-          <option value="relevance">Sort: Relevance</option>
-          <option value="recent">Sort: Most recent</option>
-          <option value="useful">Sort: Most useful</option>
-          <option value="highest">Sort: Highest rated</option>
-        </select>
-        <select class="rev-select" id="star-sel" onchange="renderRevs()">
-          <option value="0">All ratings</option>
-          <option value="5">5 stars only</option>
-          <option value="4">4 stars only</option>
-          <option value="3">3 stars only</option>
-          <option value="2">2 stars only</option>
-          <option value="1">1 star only</option>
-        </select>
-      </div>
-      <button class="rev-toggle" id="vtog" onclick="togV()">Verified only</button>
-    </div>
-    <div id="rv-list"></div>
-    <div class="no-res" id="no-res" style="display:none">No reviews match your filters.</div>
-
-  </div><!-- /reviews-section -->
 
   <!-- PRODUCT TABS -->
   <div class="product-tabs">
@@ -671,6 +599,82 @@ a{text-decoration:none;color:inherit}
     </div>
 
   </div><!-- /product-tabs -->
+
+    <!-- Reviews summary + full list -->
+    <div class="rev-title" id="customer-reviews">Customer Reviews</div>
+    <div class="rev-summary" id="rev-summary">
+      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0">
+        <div class="big-score">4.8</div>
+        <div class="score-meta">
+          <div class="score-stars">
+            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+            <svg class="sstar" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+          </div>
+          <div class="score-total">61 reviews total</div>
+          <div class="score-vfd">48 verified purchases</div>
+        </div>
+      </div>
+      <div class="rb-wrap">
+        <div class="rb-row"><span class="rb-lbl">5★</span><div class="rb-track"><div class="rb-fill" style="width:78%"></div></div><span class="rb-count">48</span></div>
+        <div class="rb-row"><span class="rb-lbl">4★</span><div class="rb-track"><div class="rb-fill" style="width:13%"></div></div><span class="rb-count">8</span></div>
+        <div class="rb-row"><span class="rb-lbl">3★</span><div class="rb-track"><div class="rb-fill" style="width:5%"></div></div><span class="rb-count">3</span></div>
+        <div class="rb-row"><span class="rb-lbl">2★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">1</span></div>
+        <div class="rb-row"><span class="rb-lbl">1★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-count">1</span></div>
+      </div>
+    </div>
+
+    <div class="write-cta">
+      <div>
+        <p>Bought this product? Share your experience.</p>
+        <span>Your review helps other pet owners make better choices.</span>
+      </div>
+      <button class="write-btn" onclick="toggleWF()">+ Write a review</button>
+    </div>
+
+    <div class="rev-form" id="wform">
+      <div class="rev-form-title">Write a review</div>
+      <div class="fg">
+        <label class="fl">Your rating <span>*</span></label>
+        <div class="star-picker">
+          <svg class="sps" viewBox="0 0 28 28" onclick="setR(1)" onmouseover="hovR(1)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+          <svg class="sps" viewBox="0 0 28 28" onclick="setR(2)" onmouseover="hovR(2)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+          <svg class="sps" viewBox="0 0 28 28" onclick="setR(3)" onmouseover="hovR(3)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+          <svg class="sps" viewBox="0 0 28 28" onclick="setR(4)" onmouseover="hovR(4)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+          <svg class="sps" viewBox="0 0 28 28" onclick="setR(5)" onmouseover="hovR(5)" onmouseout="rstR()"><polygon points="14,2 17,10 26,10 19,16 22,24 14,19 6,24 9,16 2,10 11,10"/></svg>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Review title <span>*</span></label><input class="finput" id="rv-t" type="text" placeholder="Summarise your experience"></div>
+      <div class="fg"><label class="fl">Your review <span>*</span></label><textarea class="fta" id="rv-b" placeholder="Tell other pet owners what you think..."></textarea></div>
+      <div class="frow"><button class="fsub" onclick="subR()">Submit review</button><button class="fcan" onclick="toggleWF()">Cancel</button></div>
+      <div class="fnote">Your review will appear after moderation. All fields are required.</div>
+    </div>
+
+    <div class="rev-controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="sel-pair">
+        <select class="rev-select" id="sort-sel" onchange="renderRevs()">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="recent">Sort: Most recent</option>
+          <option value="useful">Sort: Most useful</option>
+          <option value="highest">Sort: Highest rated</option>
+        </select>
+        <select class="rev-select" id="star-sel" onchange="renderRevs()">
+          <option value="0">All ratings</option>
+          <option value="5">5 stars only</option>
+          <option value="4">4 stars only</option>
+          <option value="3">3 stars only</option>
+          <option value="2">2 stars only</option>
+          <option value="1">1 star only</option>
+        </select>
+      </div>
+      <button class="rev-toggle" id="vtog" onclick="togV()">Verified only</button>
+    </div>
+    <div id="rv-list"></div>
+    <div class="no-res" id="no-res" style="display:none">No reviews match your filters.</div>
+
+  </div><!-- /reviews-section -->
 
 </div><!-- /page-wrap -->
 
