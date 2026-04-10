@@ -85,22 +85,27 @@ a{text-decoration:none;color:inherit}
 
 /* PURCHASE OPTION CARDS */
 .purch-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-.popt{border:2px solid #e0e0e0;border-radius:8px;padding:11px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;user-select:none}
-.popt.sns-sel{border-color:#9c27b0;background:#faf5ff}
-.popt.once-sel{border-color:#43b02a;background:#f0faf0}
+.popt{border:2px solid #e8e0f0;border-radius:8px;padding:11px;cursor:pointer;background:#faf5ff;transition:border-color .15s,background .15s;user-select:none;position:relative}
+#card-once{border-color:#e0e0e0;background:#f8f8f8}
+.popt.sns-sel{border-color:#9c27b0;background:#ede8f8}
+.popt.once-sel{border-color:#43b02a;background:#edf7ee}
 
-/* Radio */
-.popt-hdr{display:flex;align-items:center;gap:10px}
-.popt-radio{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+/* Most Popular badge */
+.popt-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#9c27b0;color:#fff;font-size:9px;font-weight:800;padding:2px 12px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+
+/* Radio + header */
+.popt-hdr{display:flex;align-items:flex-start;gap:10px}
+.popt-radio{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s;margin-top:2px}
 .popt-radio-dot{width:10px;height:10px;border-radius:50%;background:transparent;transition:background .15s;flex-shrink:0}
 .popt.sns-sel .popt-radio{border-color:#9c27b0}
 .popt.sns-sel .popt-radio-dot{background:#9c27b0}
 .popt.once-sel .popt-radio{border-color:#43b02a}
 .popt.once-sel .popt-radio-dot{background:#43b02a}
-.popt-title{font-size:13px;font-weight:700;color:#333}
-.popt-title-sub{font-size:12px;color:#777;font-weight:400}
-.popt-info-btn{width:16px;height:16px;border-radius:50%;border:1.5px solid #bbb;font-size:9px;font-weight:700;color:#999;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-left:4px}
-.popt-hdr-price{margin-left:auto;font-size:18px;font-weight:800;color:#222;white-space:nowrap;padding-left:8px}
+.popt-title-wrap{flex:1;min-width:0}
+.popt-title{font-size:13px;font-weight:700;color:#333;display:block}
+.popt-title-sub{font-size:11px;color:#777;font-weight:400;display:block;margin-top:1px}
+.popt-info-btn{width:16px;height:16px;border-radius:50%;border:1.5px solid #bbb;font-size:9px;font-weight:700;color:#999;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px}
+.popt-hdr-price{font-size:17px;font-weight:800;color:#222;white-space:nowrap;padding-left:6px;flex-shrink:0;line-height:1.2}
 
 /* Price row (always visible) */
 .popt-price-row{display:flex;align-items:baseline;gap:6px;margin:5px 0 0;padding-left:30px}
@@ -333,15 +338,14 @@ a{text-decoration:none;color:inherit}
 /* DESKTOP-ONLY: compact SNS card further */
 @media(min-width:769px){
   .popt-price-row{display:none}
-  .popt-perks{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px}
-  .popt-perks li{font-size:11px}
+  .popt-perks{display:flex;flex-direction:column;gap:4px}
+  .popt-perks li{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  /* On mobile: hide the inline header price, show the standalone price row */
-  .popt-hdr-price{display:none}
-  .popt-price-row{display:flex!important}
+  .popt-price-row{display:none!important}
+  .popt-hdr-price{font-size:15px}
   /* ── HEADER: two-row layout with search below logo/cart ── */
   .site-header{padding:8px 12px;height:auto;gap:8px;flex-wrap:wrap;align-items:center}
   .hdr-logo{order:1;flex-shrink:0}
@@ -574,9 +578,13 @@ a{text-decoration:none;color:inherit}
 
         <!-- SCHEDULE & SAVE CARD -->
         <div class="popt sns-sel" id="card-sns" onclick="selOpt('sns')">
+          <span class="popt-badge">Most Popular</span>
           <div class="popt-hdr">
             <div class="popt-radio"><div class="popt-radio-dot"></div></div>
-            <span class="popt-title">Schedule &amp; Save &nbsp;·&nbsp; <span class="popt-title-sub">Easy, repeat deliveries</span></span>
+            <div class="popt-title-wrap">
+              <span class="popt-title">Schedule &amp; Save</span>
+              <span class="popt-title-sub">Easy, repeat deliveries</span>
+            </div>
             <div class="popt-info-btn">i</div>
             <span class="popt-hdr-price"><span id="sns-price">R710.00</span> <span class="popt-price-tag">/ order</span></span>
           </div>
@@ -611,10 +619,10 @@ a{text-decoration:none;color:inherit}
         <div class="popt" id="card-once" onclick="selOpt('once')">
           <div class="popt-hdr">
             <div class="popt-radio"><div class="popt-radio-dot"></div></div>
-            <span class="popt-title">Buy once</span>
-          </div>
-          <div class="popt-price-row">
-            <span class="popt-price" id="once-price">R732.00</span>
+            <div class="popt-title-wrap">
+              <span class="popt-title">Once-off</span>
+            </div>
+            <span class="popt-hdr-price"><span id="once-price">R732.00</span></span>
           </div>
         </div>
 
