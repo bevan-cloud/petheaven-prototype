@@ -1064,7 +1064,7 @@ function setVP(v,btn){
   let ms=document.getElementById('mob-vp-style');
   if(v==='mob'){
     wrap.style.maxWidth='390px';wrap.style.margin='0 auto';wrap.style.boxShadow='0 0 0 1px #ddd';
-    if(bn){bn.style.display='flex';var _r=wrap.getBoundingClientRect();bn.style.setProperty('left',_r.left+'px','important');bn.style.setProperty('width',_r.width+'px','important');bn.style.setProperty('right','auto','important');}
+    if(bn){bn.style.display='flex';setTimeout(function(){var _r=wrap.getBoundingClientRect();bn.style.setProperty('left',_r.left+'px','important');bn.style.setProperty('width',_r.width+'px','important');bn.style.setProperty('right','auto','important');},320);}
     document.body.style.paddingBottom='56px';
     if(!ms){
       ms=document.createElement('style');ms.id='mob-vp-style';
