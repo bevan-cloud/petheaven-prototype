@@ -296,12 +296,80 @@ a{text-decoration:none;color:inherit}
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .product-main{grid-template-columns:1fr}
-  .img-col,.buy-panel{position:static}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .snip-grid{grid-template-columns:1fr}
-  .ship-areas{grid-template-columns:1fr}
+  /* ── HEADER ── */
+  .site-header{padding:0 12px;height:52px;gap:8px}
+  .hdr-logo-text{font-size:14px}
   .hdr-search{display:none}
+  .hdr-app-btn{display:none}
+  .hdr-link{display:none}
+  .hdr-cart{font-size:12px;gap:4px}
+  .hdr-actions{gap:8px}
+
+  /* ── PROMO BAR ── */
+  .promo-bar{flex-direction:column;align-items:center;gap:3px;padding:6px 12px;font-size:11px;text-align:center}
+  .promo-item{font-size:11px;justify-content:center}
+
+  /* ── NAV ── */
+  .site-nav ul{padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .site-nav ul::-webkit-scrollbar{display:none}
+  .site-nav li a{padding:10px 12px;font-size:12px}
+
+  /* ── PAGE WRAP ── */
+  .page-wrap{padding:0 12px}
+
+  /* ── PRODUCT MAIN ── */
+  .product-main{grid-template-columns:1fr;gap:0;padding:10px 0 16px}
+  .img-col,.buy-panel{position:static}
+  .buy-panel{border-top:1px solid #eee;padding-top:16px;margin-top:8px}
+  .info-col h1{font-size:19px}
+  .prod-price{font-size:24px}
+
+  /* ── TABS NAV: scrollable so no tabs are cut off ── */
+  .tabs-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;white-space:nowrap;display:flex}
+  .tabs-nav::-webkit-scrollbar{display:none}
+  .tab-btn{white-space:nowrap;flex-shrink:0}
+
+  /* ── FEEDING TABLE: allow horizontal scroll ── */
+  .feed-table{font-size:11px}
+  .tab-panel{overflow-x:auto}
+
+  /* ── SNIP CARDS ── */
+  .snip-grid{grid-template-columns:1fr}
+
+  /* ── RELATED PRODUCTS: single column stacked ── */
+  .related-grid{grid-template-columns:1fr}
+  .rel-card{text-align:left}
+  .rel-card a{display:grid;grid-template-columns:88px 1fr;grid-template-rows:auto auto auto;gap:0 12px;align-items:start}
+  .rel-img{width:88px;height:88px;grid-row:1/4;margin:0}
+  .rel-name{font-size:13px;min-height:auto;margin-bottom:4px;align-self:start}
+  .rel-price{margin-bottom:6px;align-self:start}
+  .rel-atc{width:auto;align-self:start;font-size:12px;padding:6px 14px}
+
+  /* ── SHIP AREAS ── */
+  .ship-areas{grid-template-columns:1fr}
+
+  /* ── REV SUMMARY ── */
+  .rev-summary{flex-direction:column;gap:12px}
+  .rb-wrap{min-width:100%}
+
+  /* ── WRITE CTA ── */
+  .write-cta{flex-direction:column;gap:8px;align-items:flex-start}
+  .write-btn{width:100%}
+
+  /* ── REV FORM ── */
+  .frow{flex-direction:column;gap:8px}
+  .fsub,.fcan{width:100%}
+
+  /* ── REV CONTROLS ── */
+  .rev-controls{flex-direction:column;gap:8px;align-items:stretch}
+  #sel-pair{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .rev-select{width:100%}
+  #vtog{width:100%}
+
+  /* ── FOOTER ── */
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1}
+  .site-footer{padding:24px 12px}
 }
 </style>
 </head>
