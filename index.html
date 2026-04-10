@@ -168,6 +168,23 @@ a{text-decoration:none;color:inherit}
 .snip-hd{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
 .snip-all-link{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:#43b02a;text-decoration:none}
 .snip-all-link:hover{text-decoration:underline}
+.size-sel{margin-bottom:14px}
+.size-sel-lbl{font-size:12px;font-weight:600;color:#555;margin-bottom:8px}
+.size-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.size-btn{padding:8px 4px;border:1px solid #ccc;border-radius:4px;background:#fff;font-size:13px;font-weight:600;color:#333;cursor:pointer;transition:all .15s}
+.size-btn:hover{border-color:#43b02a;color:#43b02a}
+.size-btn-on{background:#43b02a!important;border-color:#43b02a!important;color:#fff!important}
+.related-section{padding:24px 0 16px;border-top:2px solid #e0e0e0;margin-top:4px}
+.related-hd{font-size:16px;font-weight:700;color:#222;margin-bottom:16px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rel-card{border:1px solid #e0e0e0;border-radius:6px;overflow:hidden;text-align:center;padding:16px;transition:box-shadow .15s}
+.rel-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.rel-card a{text-decoration:none;color:inherit;display:block}
+.rel-img{width:120px;height:120px;object-fit:contain;margin:0 auto 10px;display:block}
+.rel-name{font-size:13px;font-weight:600;color:#222;margin-bottom:6px;line-height:1.3;min-height:34px}
+.rel-price{font-size:14px;font-weight:700;color:#222;margin-bottom:10px}
+.rel-atc{background:#43b02a;color:#fff;border:none;border-radius:4px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;width:100%}
+.rel-atc:hover{background:#379622}
 .snip-grid{display:grid;gap:12px;grid-template-columns:1fr 1fr}
 .snip-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:14px}
 .snip-type{font-size:10px;font-weight:700;color:#2d8a1e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
@@ -397,7 +414,7 @@ a{text-decoration:none;color:inherit}
         <a class="rev-link" onclick="goToReviews()">5 Review(s)</a>
         <a class="add-rev-link" onclick="goToReviews();toggleWF()">Add Your Review</a>
       </div>
-      <div class="prod-price">R732.00</div>
+      <div class="prod-price" id="prod-price">R732.00</div>
       <div class="delivery-row">
         <span class="dlv-badge">JHB</span>
         <span class="dlv-badge">CPT</span>
@@ -412,6 +429,17 @@ a{text-decoration:none;color:inherit}
 
     <!-- BUY PANEL -->
     <div class="buy-panel">
+      <div class="size-sel">
+        <div class="size-sel-lbl">Choose an Option:</div>
+        <div class="size-btns">
+          <button class="size-btn" onclick="setSize(2,this)">2kg</button>
+          <button class="size-btn" onclick="setSize(5,this)">5kg</button>
+          <button class="size-btn" onclick="setSize(10,this)">10kg</button>
+          <button class="size-btn" onclick="setSize(20,this)">20kg</button>
+          <button class="size-btn size-btn-on" onclick="setSize(25,this)">25kg</button>
+          <button class="size-btn" onclick="setSize(40,this)">40kg</button>
+        </div>
+      </div>
       <div class="buy-opts">
         <div class="buy-opt" id="opt-sched" onclick="setOpt('sched')">
           <div class="buy-radio" id="radio-sched"><div class="buy-radio-dot" id="dot-sched"></div></div>
@@ -600,6 +628,37 @@ a{text-decoration:none;color:inherit}
 
   </div><!-- /product-tabs -->
 
+  <!-- RELATED PRODUCTS -->
+  <div class="related-section">
+    <div class="related-hd">Related Products</div>
+    <div class="related-grid">
+      <div class="rel-card">
+        <a href="#">
+          <img class="rel-img" src="https://www.petheaven.co.za/media/catalog/product/cache/1/small_image/196x196/9df78eab33525d08d6e5fb8d27136e95/r/c/rc-shn-dry-maxi_5__01_1.jpg" alt="Royal Canin Maxi Mature 5+ Adult Dog Food">
+          <div class="rel-name">Royal Canin Maxi Mature 5+ Adult Dog Food</div>
+          <div class="rel-price">from R1,756.00</div>
+          <button class="rel-atc">View Product</button>
+        </a>
+      </div>
+      <div class="rel-card">
+        <a href="#">
+          <img class="rel-img" src="https://www.petheaven.co.za/media/catalog/product/cache/1/small_image/196x196/9df78eab33525d08d6e5fb8d27136e95/r/o/rogz_flossy_grinz_blue_1.png" alt="Rogz Flossy Grinz Oral Care Dog Toy-Blue">
+          <div class="rel-name">Rogz Flossy Grinz Oral Care Dog Toy-Blue</div>
+          <div class="rel-price">R120.00</div>
+          <button class="rel-atc">Add to Cart</button>
+        </a>
+      </div>
+      <div class="rel-card">
+        <a href="#">
+          <img class="rel-img" src="https://www.petheaven.co.za/media/catalog/product/cache/1/small_image/196x196/9df78eab33525d08d6e5fb8d27136e95/s/c/screenshot_2019-12-30_at_07.58.54.png" alt="Triworm-D Individual Pack Large Dog Deworming Tablet">
+          <div class="rel-name">Triworm-D Individual Pack Large Dog Deworming Tablet</div>
+          <div class="rel-price">from R110.00</div>
+          <button class="rel-atc">View Product</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
     <!-- Reviews summary + full list -->
     <div class="rev-title" id="customer-reviews">Customer Reviews</div>
     <div class="rev-summary" id="rev-summary">
@@ -782,6 +841,24 @@ function swTab(n,btn){
   btn.classList.add('on');
 }
 
+const PRICES = {
+  2:  {once:92,   sns:89},
+  5:  {once:202,  sns:196},
+  10: {once:343,  sns:333},
+  20: {once:600,  sns:582},
+  25: {once:732,  sns:710},
+  40: {once:1145, sns:1111}
+};
+function setSize(kg, btn) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('size-btn-on'));
+  btn.classList.add('size-btn-on');
+  const p = PRICES[kg];
+  const fmt = n => 'R' + n.toLocaleString('en-ZA', {minimumFractionDigits:2, maximumFractionDigits:2});
+  document.getElementById('prod-price').textContent = fmt(p.once);
+  document.querySelector('#opt-sched .buy-opt-price').textContent = fmt(p.sns);
+  document.querySelector('#opt-once .buy-opt-price').textContent = fmt(p.once);
+  document.querySelector('h1').textContent = 'Montego Classic Adult Dog Food-' + kg + 'kg';
+}
 function goToReviews(){
   document.getElementById('reviews-section').scrollIntoView({behavior:'smooth',block:'start'});
 }
