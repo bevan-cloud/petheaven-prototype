@@ -83,55 +83,66 @@ a{text-decoration:none;color:inherit}
 /* BUY PANEL */
 .buy-panel{position:sticky;top:48px}
 
-/* SPLIT CTA PANEL */
-.split-cta{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+/* PURCHASE OPTION CARDS */
+.purch-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.popt{border:2px solid #e0e0e0;border-radius:8px;padding:14px 14px 14px 14px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;user-select:none}
+.popt.sns-sel{border-color:#9c27b0;background:#faf5ff}
+.popt.once-sel{border-color:#43b02a;background:#f0faf0}
 
-/* Once-off block */
-.cta-once{border:1px solid #ddd;border-radius:6px;padding:14px;background:#fff}
-.cta-once-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.cta-once-label{font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.04em}
-.cta-once-price{font-size:20px;font-weight:800;color:#222}
-.cta-once-sub{font-size:11px;color:#999;margin-bottom:10px}
-.qty-atc-row{display:flex;gap:8px;align-items:stretch;height:46px}
+/* Radio */
+.popt-hdr{display:flex;align-items:center;gap:10px}
+.popt-radio{width:20px;height:20px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.popt-radio-dot{width:10px;height:10px;border-radius:50%;background:transparent;transition:background .15s;flex-shrink:0}
+.popt.sns-sel .popt-radio{border-color:#9c27b0}
+.popt.sns-sel .popt-radio-dot{background:#9c27b0}
+.popt.once-sel .popt-radio{border-color:#43b02a}
+.popt.once-sel .popt-radio-dot{background:#43b02a}
+.popt-title{font-size:13px;font-weight:700;color:#333}
+.popt-title-sub{font-size:12px;color:#777;font-weight:400}
+.popt-info-btn{width:16px;height:16px;border-radius:50%;border:1.5px solid #bbb;font-size:9px;font-weight:700;color:#999;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-left:4px}
 
-/* Subscribe block */
-.cta-sub{border:2px solid #9c27b0;border-radius:6px;padding:14px;background:#faf5ff;position:relative}
-.cta-sub-badge{position:absolute;top:-10px;left:14px;background:#9c27b0;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
-.cta-sub-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
-.cta-sub-label{font-size:12px;font-weight:600;color:#9c27b0;text-transform:uppercase;letter-spacing:.04em}
-.cta-sub-price{font-size:20px;font-weight:800;color:#9c27b0}
-.cta-sub-saving{font-size:11px;color:#9c27b0;font-weight:600;margin-bottom:10px}
-.cta-sub-freq{width:100%;font-family:'Open Sans',sans-serif;font-size:12px;padding:8px 10px;border:1.5px solid #d0a8e0;border-radius:4px;background:#fff;color:#333;outline:none;margin-bottom:10px;cursor:pointer}
-.cta-sub-freq:focus{border-color:#9c27b0}
-.sub-btn{width:100%;height:46px;background:#9c27b0;color:#fff;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.sub-btn:hover{background:#7b1fa2}
-.sub-btn svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;flex-shrink:0}
-.cta-sub-perks{list-style:none;margin-top:10px;padding-top:10px;border-top:1px solid #e0d0f0;display:flex;flex-direction:column;gap:5px}
-.cta-sub-perks li{display:flex;align-items:center;gap:7px;font-size:11px;color:#555}
-.cta-sub-perks li svg{width:14px;height:14px;fill:#9c27b0;flex-shrink:0}
+/* Price row (always visible) */
+.popt-price-row{display:flex;align-items:baseline;gap:6px;margin:8px 0 0;padding-left:30px}
+.popt-price{font-size:22px;font-weight:800;color:#222}
+.popt-price-tag{font-size:12px;color:#666}
 
-/* default: once-off selected (legacy, kept for JS compat) */
-#opt-sched{display:none}
-#opt-once{display:none}
+/* SNS expanded detail (hidden when once-off selected) */
+.popt-sns-detail{padding-left:30px;margin-top:6px;display:none}
+.popt.sns-sel .popt-sns-detail{display:block}
+.popt-save-line{font-size:12px;font-weight:700;color:#9c27b0;margin-bottom:6px}
+.popt-save-line a{color:#9c27b0;text-decoration:underline}
+.popt-future-line{font-size:13px;color:#555;font-weight:600;margin-bottom:10px}
+.popt-freq-sel{width:100%;font-family:'Open Sans',sans-serif;font-size:12px;padding:8px 10px;border:1.5px solid #d0a8e0;border-radius:4px;background:#fff;color:#333;outline:none;margin-bottom:10px;cursor:pointer}
+.popt-freq-sel:focus{border-color:#9c27b0}
+.popt-perks{list-style:none;border-top:1px solid #e0d0f0;padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.popt-perks li{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
+.popt-perks li .perk-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.popt-perks li .perk-icon svg{width:22px;height:22px}
 
-/* SNS freq panel */
-.freq-panel{display:none;background:#faf5ff;border:1px solid #e0d0f0;border-radius:4px;padding:12px;margin-bottom:10px}
-.freq-panel.open{display:block}
-.freq-select{width:100%;font-family:'Open Sans',sans-serif;font-size:13px;padding:8px 10px;border:1px solid #ccc;border-radius:4px;margin-bottom:8px;outline:none;color:#333;background:#fff}
-.freq-hint{font-size:12px;color:#666;line-height:1.5}
-.freq-hint strong{color:#333}
-.freq-more{color:#43b02a;text-decoration:underline;cursor:pointer}
-
-/* QTY + ATC */
-.qty-atc{display:flex;gap:8px;margin-bottom:12px;align-items:stretch;height:46px}
+/* QTY + CTA */
+.qty-atc{display:flex;gap:8px;margin-bottom:12px;align-items:stretch;height:48px}
 .qty-ctrl{display:flex;border:1px solid #ccc;border-radius:4px;overflow:hidden;flex-shrink:0}
 .qty-num{width:48px;text-align:center;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:700;border:none;outline:none;color:#333;padding:0}
 .qty-arrows{display:flex;flex-direction:column;border-left:1px solid #ccc}
 .qty-arr{width:26px;height:23px;border:none;background:#f5f5f5;cursor:pointer;font-size:9px;color:#555;display:flex;align-items:center;justify-content:center;line-height:1}
 .qty-arr:hover{background:#e0e0e0}
 .qty-arr+.qty-arr{border-top:1px solid #ccc}
-.atc-btn{flex:1;background:#43b02a;color:#fff;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.atc-btn{flex:1;background:#43b02a;color:#fff;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}
 .atc-btn:hover{background:#2d8a1e}
+.atc-btn.sns-mode{background:#9c27b0}
+.atc-btn.sns-mode:hover{background:#7b1fa2}
+.atc-btn svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;flex-shrink:0}
+
+/* NEW CUSTOMERS TAG */
+.new-cust-tag{display:flex;align-items:flex-start;gap:8px;background:#fff8f0;border:1px solid #f5c97a;border-radius:6px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:#7a5100;line-height:1.5}
+.new-cust-tag svg{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.new-cust-tag strong{font-weight:700}
+.new-cust-tag a{color:#7a5100;text-decoration:underline;font-weight:700}
+
+/* legacy compat */
+#opt-sched{display:none}
+#opt-once{display:none}
+.freq-panel{display:none}
 
 /* WISHLIST */
 .wishlist-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer}
@@ -547,55 +558,80 @@ a{text-decoration:none;color:inherit}
           <button class="size-btn" onclick="setSize(40,this)">40kg</button>
         </div>
       </div>
-      <!-- SPLIT CTA: Once-off + Subscribe -->
-      <div class="split-cta">
+      <!-- PURCHASE OPTION CARDS -->
+      <div class="purch-opts">
 
-        <!-- ONCE-OFF -->
-        <div class="cta-once">
-          <div class="cta-once-top">
-            <span class="cta-once-label">Once-off</span>
-            <span class="cta-once-price" id="opt-once-price">R732.00</span>
+        <!-- SCHEDULE & SAVE CARD -->
+        <div class="popt sns-sel" id="card-sns" onclick="selOpt('sns')">
+          <div class="popt-hdr">
+            <div class="popt-radio"><div class="popt-radio-dot"></div></div>
+            <span class="popt-title">Schedule &amp; Save &nbsp;·&nbsp; <span class="popt-title-sub">Easy, repeat deliveries</span></span>
+            <div class="popt-info-btn">i</div>
           </div>
-          <div class="cta-once-sub">No commitment — pay once and we'll ship it.</div>
-          <div class="qty-atc-row">
-            <div class="qty-ctrl">
-              <input class="qty-num" id="qty" type="text" value="1" readonly>
-              <div class="qty-arrows">
-                <button class="qty-arr" onclick="adjQty(1)">▲</button>
-                <button class="qty-arr" onclick="adjQty(-1)">▼</button>
-              </div>
-            </div>
-            <button class="atc-btn">Add to Cart</button>
+          <div class="popt-price-row">
+            <span class="popt-price" id="sns-price">R710.00</span>
+            <span class="popt-price-tag">this order</span>
+          </div>
+          <div class="popt-sns-detail">
+            <div class="popt-save-line" id="sns-save-line">Save 3% (R22.00) today when you set up a Schedule &amp; Save. <a href="#">Details</a></div>
+            <div class="popt-future-line" id="sns-future-line">R710.00 (-3%) on future orders</div>
+            <select class="popt-freq-sel" id="sns-freq" onclick="event.stopPropagation()">
+              <option>Deliver every Week</option>
+              <option>Deliver every 2 Weeks</option>
+              <option selected>Deliver every 3 Weeks</option>
+              <option>Deliver every Month</option>
+              <option>Deliver every 6 Weeks</option>
+              <option>Deliver every 2 Months</option>
+            </select>
+            <ul class="popt-perks">
+              <li>
+                <span class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9c27b0" stroke-width="1.8" stroke-linecap="round"><path d="M19 9c0 3.5-3 6-7 8-4-2-7-4.5-7-8a5 5 0 0110 0"/><circle cx="12" cy="9" r="2"/></svg></span>
+                Keep saving <strong id="sns-perk-pct">3%</strong> on every order
+              </li>
+              <li>
+                <span class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9c27b0" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                Get deliveries on your schedule
+              </li>
+              <li>
+                <span class="perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9c27b0" stroke-width="1.8" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg></span>
+                Skip, change, or cancel at any time
+              </li>
+            </ul>
           </div>
         </div>
 
-        <!-- SUBSCRIBE & SAVE -->
-        <div class="cta-sub">
-          <span class="cta-sub-badge">Most Popular</span>
-          <div class="cta-sub-top">
-            <span class="cta-sub-label">Subscribe &amp; Save</span>
-            <span class="cta-sub-price" id="opt-sched-price">R710.00</span>
+        <!-- BUY ONCE CARD -->
+        <div class="popt" id="card-once" onclick="selOpt('once')">
+          <div class="popt-hdr">
+            <div class="popt-radio"><div class="popt-radio-dot"></div></div>
+            <span class="popt-title">Buy once</span>
           </div>
-          <div class="cta-sub-saving" id="opt-sched-saving">Save R22.00 (3%) on every delivery</div>
-          <select class="cta-sub-freq" id="sub-freq">
-            <option>Deliver every Week</option>
-            <option>Deliver every 2 Weeks</option>
-            <option selected>Deliver every 3 Weeks</option>
-            <option>Deliver every Month</option>
-            <option>Deliver every 6 Weeks</option>
-            <option>Deliver every 2 Months</option>
-          </select>
-          <button class="sub-btn">
-            <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>
-            Subscribe &amp; Save
-          </button>
-          <ul class="cta-sub-perks">
-            <li><svg viewBox="0 0 16 16"><path d="M3 8.5L6.5 12 13 5"/></svg>Edit or cancel any time</li>
-            <li><svg viewBox="0 0 16 16"><path d="M3 8.5L6.5 12 13 5"/></svg>Never run out — delivered on your schedule</li>
-            <li><svg viewBox="0 0 16 16"><path d="M3 8.5L6.5 12 13 5"/></svg>Exclusive subscriber pricing</li>
-          </ul>
+          <div class="popt-price-row">
+            <span class="popt-price" id="once-price">R732.00</span>
+          </div>
         </div>
 
+      </div>
+
+      <!-- QTY + DYNAMIC CTA -->
+      <div class="qty-atc">
+        <div class="qty-ctrl">
+          <input class="qty-num" id="qty" type="text" value="1" readonly>
+          <div class="qty-arrows">
+            <button class="qty-arr" onclick="adjQty(1)">▲</button>
+            <button class="qty-arr" onclick="adjQty(-1)">▼</button>
+          </div>
+        </div>
+        <button class="atc-btn sns-mode" id="main-cta">
+          <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>
+          Create Schedule
+        </button>
+      </div>
+
+      <!-- NEW CUSTOMERS TAG -->
+      <div class="new-cust-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f0a500" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7" cy="7" r="1" fill="#f0a500"/></svg>
+        <span><strong>New Customers Only:</strong> Spend R500+, get R100 eGift Card + Free Shipping with code: <strong>WELCOME</strong> &nbsp;<a href="#">Shop the Deal</a></span>
       </div>
 
       <!-- hidden legacy elements for JS compat -->
@@ -610,28 +646,6 @@ a{text-decoration:none;color:inherit}
         <span class="wl-lbl">Add to Wishlist</span>
       </div>
 
-      <div class="sns-card">
-        <div class="sns-card-hd">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="#43b02a"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm-1.5 11l-3-3 1.4-1.4 1.6 1.6 4.1-4.1 1.4 1.4-5.5 5.5z"/></svg>
-          <span class="sns-logo">SCHEDULE<span>&amp;</span>SAVE</span>
-          <div class="sns-info">i</div>
-        </div>
-        <div class="sns-sub">Select products | Create your schedule | Save</div>
-        <ul class="sns-list">
-          <li>
-            <div class="sns-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
-            Save up to 5% on every order.
-          </li>
-          <li>
-            <div class="sns-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
-            Deliveries on your schedule.
-          </li>
-          <li>
-            <div class="sns-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
-            Skip, change, or cancel anytime.
-          </li>
-        </ul>
-      </div>
     </div>
 
   </div><!-- /product-main -->
@@ -1023,6 +1037,28 @@ const PRICES = {
   25: {once:732,  sns:710},
   40: {once:1145, sns:1111}
 };
+let currentOpt = 'sns';
+
+function selOpt(type) {
+  currentOpt = type;
+  const cardSns = document.getElementById('card-sns');
+  const cardOnce = document.getElementById('card-once');
+  const cta = document.getElementById('main-cta');
+  if (type === 'sns') {
+    cardSns.classList.add('sns-sel');
+    cardSns.classList.remove('once-sel');
+    cardOnce.classList.remove('once-sel','sns-sel');
+    cta.classList.add('sns-mode');
+    cta.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg> Create Schedule';
+  } else {
+    cardOnce.classList.add('once-sel');
+    cardOnce.classList.remove('sns-sel');
+    cardSns.classList.remove('sns-sel','once-sel');
+    cta.classList.remove('sns-mode');
+    cta.innerHTML = 'Add to Cart';
+  }
+}
+
 function setSize(kg, btn) {
   document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('size-btn-on'));
   btn.classList.add('size-btn-on');
@@ -1031,9 +1067,11 @@ function setSize(kg, btn) {
   const saving = p.once - p.sns;
   const pct = Math.round((saving / p.once) * 100);
   document.getElementById('prod-price').textContent = fmt(p.once);
-  document.getElementById('opt-once-price').textContent = fmt(p.once);
-  document.getElementById('opt-sched-price').textContent = fmt(p.sns);
-  document.getElementById('opt-sched-saving').textContent = 'Save ' + fmt(saving) + ' (' + pct + '%) on every delivery';
+  document.getElementById('sns-price').textContent = fmt(p.sns);
+  document.getElementById('once-price').textContent = fmt(p.once);
+  document.getElementById('sns-save-line').innerHTML = 'Save ' + pct + '% (' + fmt(saving) + ') today when you set up a Schedule &amp; Save. <a href="#">Details</a>';
+  document.getElementById('sns-future-line').textContent = fmt(p.sns) + ' (-' + pct + '%) on future orders';
+  document.getElementById('sns-perk-pct').textContent = pct + '%';
   document.querySelector('h1').textContent = 'Montego Classic Adult Dog Food-' + kg + 'kg';
 }
 function goToReviews(){
