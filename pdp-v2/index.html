@@ -404,8 +404,8 @@ a{text-decoration:none;color:inherit}
 
 /* DESKTOP: image fills info-col height; snip section drops below image */
 @media(min-width:769px){
-  /* Image column stretches to match info-col row height */
-  .img-col{align-self:stretch;display:flex;flex-direction:column;}
+  /* Image column stretches to match info-col row height; not sticky (would overlap row 2) */
+  .img-col{position:static;align-self:stretch;display:flex;flex-direction:column;}
   .img-wrap{flex:1;display:flex;flex-direction:column;}
   .img-wrap img{flex:1;object-fit:contain;width:100%;min-height:0;height:0;}
 
