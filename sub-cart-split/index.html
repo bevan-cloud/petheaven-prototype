@@ -85,10 +85,18 @@ a{text-decoration:none;color:inherit}
 
 /* PURCHASE OPTION CARDS */
 .purch-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+
+/* Unselected: washed background */
 .popt{border:2px solid #e8e0f0;border-radius:8px;padding:11px;cursor:pointer;background:#faf5ff;transition:border-color .15s,background .15s;user-select:none;position:relative}
 #card-once{border-color:#e0e0e0;background:#f8f8f8}
-.popt.sns-sel{border-color:#9c27b0;background:#ede8f8}
-.popt.once-sel{border-color:#43b02a;background:#edf7ee}
+
+/* Selected: white background + strong border */
+.popt.sns-sel{border-color:#9c27b0;background:#fff}
+.popt.once-sel{border-color:#43b02a;background:#fff}
+
+/* Hide price + info btn in SNS header when unselected (frees space for subtitle) */
+#card-sns:not(.sns-sel) .popt-hdr-price{display:none}
+#card-sns:not(.sns-sel) .popt-info-btn{display:none}
 
 /* Most Popular badge */
 .popt-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#9c27b0;color:#fff;font-size:9px;font-weight:800;padding:2px 12px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
@@ -103,7 +111,7 @@ a{text-decoration:none;color:inherit}
 .popt.once-sel .popt-radio-dot{background:#43b02a}
 .popt-title-wrap{flex:1;min-width:0}
 .popt-title{font-size:13px;font-weight:700;color:#333;display:block}
-.popt-title-sub{font-size:11px;color:#777;font-weight:400;display:block;margin-top:1px}
+.popt-title-sub{font-size:11px;color:#777;font-weight:400;display:block;margin-top:1px;white-space:nowrap}
 .popt-info-btn{width:16px;height:16px;border-radius:50%;border:1.5px solid #bbb;font-size:9px;font-weight:700;color:#999;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px}
 .popt-hdr-price{font-size:17px;font-weight:800;color:#222;white-space:nowrap;padding-left:6px;flex-shrink:0;line-height:1.2}
 
@@ -358,17 +366,16 @@ a{text-decoration:none;color:inherit}
   .hdr-cart{font-size:12px;gap:4px}
   .hdr-actions{gap:8px}
 
-  /* ── BODY padding so content isn't hidden behind bottom nav ── */
-  body{padding-bottom:56px}
+  /* ── NAV: hidden on mobile ── */
+  .site-nav{display:none}
+
+  /* ── BOTTOM NAV: hidden on this page ── */
+  .mob-bottom-nav{display:none!important}
+  body{padding-bottom:0}
 
   /* ── PROMO BAR ── */
   .promo-bar{flex-direction:column;align-items:center;gap:3px;padding:6px 12px;font-size:11px;text-align:center}
   .promo-item{font-size:11px;justify-content:center}
-
-  /* ── NAV ── */
-  .site-nav ul{padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .site-nav ul::-webkit-scrollbar{display:none}
-  .site-nav li a{padding:10px 12px;font-size:12px}
 
   /* ── PAGE WRAP ── */
   .page-wrap{padding:0 12px}
@@ -1151,8 +1158,8 @@ function setVP(v,btn){
         .hdr-cart{font-size:12px!important;gap:4px!important}
         .promo-bar{flex-direction:column!important;align-items:center!important;gap:3px!important;padding:6px 12px!important;text-align:center!important}
         .promo-item{font-size:11px!important;justify-content:center!important}
-        .site-nav ul{padding:0!important;overflow-x:auto!important;scrollbar-width:none!important}
-        .site-nav li a{padding:10px 12px!important;font-size:12px!important}
+        .site-nav{display:none!important}
+        .mob-bottom-nav{display:none!important}
         .page-wrap{padding:0 12px!important}
         .product-main{grid-template-columns:1fr!important;gap:0!important;padding:10px 0 16px!important}
         .img-col,.buy-panel{position:static!important}
