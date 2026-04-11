@@ -5,18 +5,16 @@
 <title>Dog Food | Pet Heaven</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* RESET */
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Open Sans',sans-serif;font-size:14px;color:#333;background:#f5f5f5;line-height:1.5}
 a{text-decoration:none;color:inherit}
 
-/* PROTOTYPE BAR */
+/* PROTO BAR */
 .proto-bar{display:flex;gap:8px;padding:8px 16px;background:#f0f0f0;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:1000;align-items:center}
 .proto-btn{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border:1.5px solid #bbb;border-radius:20px;background:#fff;color:#555;cursor:pointer;outline:none}
 .proto-btn.active{background:#43b02a;color:#fff;border-color:#43b02a}
 .proto-lbl{font-size:10px;color:#aaa;margin-left:auto;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
 
-/* SITE WRAP */
 .site-wrap{max-width:100%;transition:max-width .3s}
 
 /* HEADER */
@@ -46,7 +44,6 @@ a{text-decoration:none;color:inherit}
 .site-nav li.active a{border-bottom-color:#fff}
 .site-nav li a:hover{background:rgba(0,0,0,.1)}
 
-/* PAGE CONTAINER */
 .page-wrap{max-width:1280px;margin:0 auto;padding:0 24px}
 
 /* BREADCRUMB */
@@ -56,59 +53,64 @@ a{text-decoration:none;color:inherit}
 .bc-sep{color:#bbb;margin:0 2px;font-size:11px}
 .bc-cur{color:#43b02a;font-weight:600}
 
-/* ── HERO BANNER ──────────────────────────────────────────────────── */
-.cat-hero{background:linear-gradient(135deg,#1e6e10 0%,#2d8a1e 45%,#43b02a 100%);border-radius:6px;overflow:hidden;position:relative;margin-bottom:32px}
-.cat-hero-inner{display:flex;align-items:stretch;min-height:220px}
-.cat-hero-text{padding:36px 40px;flex:1;z-index:1;position:relative}
-.cat-hero-eyebrow{font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-.cat-hero-text h1{font-size:36px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px}
-.cat-hero-text p{font-size:14px;color:rgba(255,255,255,.85);max-width:440px;line-height:1.65;margin-bottom:20px}
-.cat-hero-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#2d8a1e;padding:11px 22px;border-radius:4px;font-size:13px;font-weight:700;transition:background .15s}
+/* ── 1. HERO — reduced height ──────────────────────────────── */
+.cat-hero{background:linear-gradient(135deg,#1e6e10 0%,#2d8a1e 45%,#43b02a 100%);border-radius:6px;overflow:hidden;position:relative;margin-bottom:20px}
+.cat-hero-inner{display:flex;align-items:stretch;min-height:140px}
+.cat-hero-text{padding:22px 32px;flex:1;z-index:1;position:relative;display:flex;flex-direction:column;justify-content:center}
+.cat-hero-eyebrow{font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.cat-hero-text h1{font-size:28px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:8px}
+.cat-hero-text p{font-size:13px;color:rgba(255,255,255,.85);max-width:420px;line-height:1.6;margin-bottom:14px}
+.cat-hero-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#2d8a1e;padding:9px 20px;border-radius:4px;font-size:12px;font-weight:700;width:fit-content;transition:background .15s}
 .cat-hero-cta:hover{background:#f0faf0}
-.cat-hero-cta svg{width:14px;height:14px;stroke:#2d8a1e;fill:none;stroke-width:2.5}
-.cat-hero-img{width:320px;flex-shrink:0;position:relative;overflow:hidden}
+.cat-hero-cta svg{width:13px;height:13px;stroke:#2d8a1e;fill:none;stroke-width:2.5}
+.cat-hero-img{width:280px;flex-shrink:0;overflow:hidden}
 .cat-hero-img img{width:100%;height:100%;object-fit:cover;object-position:center}
-.cat-hero-img-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.1);font-size:96px}
-/* decorative circles */
-.cat-hero::before{content:'';position:absolute;right:280px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05)}
-.cat-hero::after{content:'';position:absolute;right:240px;bottom:-80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.05)}
+.cat-hero-img-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px}
+.cat-hero::before{content:'';position:absolute;right:240px;top:-50px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05)}
 
-/* ── SECTION SHARED ──────────────────────────────────────────────── */
-.sec{background:#fff;border-radius:6px;padding:28px 28px 32px;margin-bottom:24px}
-.sec-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;gap:12px}
-.sec-title{font-size:18px;font-weight:800;color:#222}
+/* ── 5. SCHEDULE & SAVE BLOCK ─────────────────────────────── */
+.sns-block{background:#fff;border:1px solid #e8e0f4;border-radius:6px;padding:18px 24px;margin-bottom:20px;display:flex;align-items:center;gap:24px}
+.sns-block-logo{flex-shrink:0}
+.sns-logo-mark{font-size:15px;font-weight:800;color:#9c27b0;letter-spacing:-.01em;white-space:nowrap}
+.sns-logo-mark span{color:#43b02a}
+.sns-logo-sub{font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.sns-divider{width:1px;height:48px;background:#e0e0e0;flex-shrink:0}
+.sns-usps{display:flex;gap:0;flex:1}
+.sns-usp{display:flex;align-items:center;gap:10px;padding:0 20px;border-right:1px solid #f0e8ff}
+.sns-usp:last-child{border-right:none}
+.sns-usp-icon{width:32px;height:32px;border-radius:50%;background:#f3e5f5;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sns-usp-icon svg{width:16px;height:16px;stroke:#9c27b0;fill:none;stroke-width:2;stroke-linecap:round}
+.sns-usp-text strong{display:block;font-size:12px;font-weight:700;color:#222}
+.sns-usp-text span{font-size:11px;color:#888}
+.sns-block-cta{flex-shrink:0;padding:9px 20px;background:#9c27b0;color:#fff;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.sns-block-cta:hover{background:#7b1fa2}
+
+/* ── SECTION SHARED ──────────────────────────────────────── */
+.sec{background:#fff;border-radius:6px;padding:24px 28px 28px;margin-bottom:20px}
+.sec-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;gap:12px}
+.sec-title{font-size:17px;font-weight:800;color:#222}
 .sec-link{font-size:13px;font-weight:700;color:#43b02a;cursor:pointer}
 .sec-link:hover{text-decoration:underline}
 
-/* ── SHOP BY CATEGORY ────────────────────────────────────────────── */
-.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.cat-tile{border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;display:block}
-.cat-tile:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-.cat-tile-img{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
-.cat-tile-img span.tile-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.3);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
-.cat-tile-label{padding:10px 12px 12px;background:#fff;border:1px solid #e8e8e8;border-top:none;border-radius:0 0 8px 8px}
+/* ── 2. SHOP BY CATEGORY — real images, no colour bg ──────── */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cat-tile{border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid #e8e8e8;transition:transform .15s,box-shadow .15s;display:block;background:#fff}
+.cat-tile:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.cat-tile-img{aspect-ratio:4/3;overflow:hidden;position:relative;background:#f0f0f0}
+.cat-tile-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.cat-tile:hover .cat-tile-img img{transform:scale(1.04)}
+.cat-tile-img .tile-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;backdrop-filter:blur(2px)}
+.cat-tile-label{padding:10px 12px 12px}
 .cat-tile-label strong{display:block;font-size:13px;font-weight:700;color:#222;margin-bottom:2px}
-.cat-tile-label span{font-size:11px;color:#999}
+.cat-tile-label span{font-size:11px;color:#888}
 
-/* Tile colours */
-.ct-dry{background:linear-gradient(135deg,#ff8f00,#ffa726)}
-.ct-wet{background:linear-gradient(135deg,#1565c0,#42a5f5)}
-.ct-raw{background:linear-gradient(135deg,#2e7d32,#66bb6a)}
-.ct-puppy{background:linear-gradient(135deg,#f9a825,#ffee58)}
-.ct-senior{background:linear-gradient(135deg,#6a1b9a,#ab47bc)}
-.ct-rx{background:linear-gradient(135deg,#00695c,#26a69a)}
-.ct-gf{background:linear-gradient(135deg,#bf360c,#ff7043)}
-.ct-toppers{background:linear-gradient(135deg,#37474f,#78909c)}
-
-/* ── SHOP BY DIET ─────────────────────────────────────────────────── */
+/* ── SHOP BY DIET ──────────────────────────────────────────── */
 .diet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.diet-tile{border:1.5px solid #e0e0e0;border-radius:8px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s;background:#fff}
+.diet-tile{border:1.5px solid #e8e8e8;border-radius:8px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s;background:#fff}
 .diet-tile:hover{border-color:#43b02a;background:#f5faf4}
-.diet-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.diet-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .diet-info strong{display:block;font-size:13px;font-weight:700;color:#222;margin-bottom:1px}
 .diet-info span{font-size:11px;color:#888}
-
-/* Diet tile colours */
 .di-gf .diet-icon{background:#fff3e0}
 .di-hp .diet-icon{background:#e8f5e3}
 .di-wm .diet-icon{background:#e3f2fd}
@@ -118,77 +120,84 @@ a{text-decoration:none;color:inherit}
 .di-ha .diet-icon{background:#fff9c4}
 .di-sr .diet-icon{background:#ede7f6}
 
-/* ── SHOP BY BRAND ────────────────────────────────────────────────── */
+/* ── 3. BRAND TILES — hover reveal ───────────────────────── */
 .brand-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.brand-tile{border:1.5px solid #e8e8e8;border-radius:6px;padding:16px 12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .15s,box-shadow .15s;background:#fff}
-.brand-tile:hover{border-color:#43b02a;box-shadow:0 2px 8px rgba(67,176,42,.15)}
-.brand-tile-name{font-size:13px;font-weight:800;color:#333;text-align:center;line-height:1.3}
-.brand-tile-count{font-size:10px;color:#999;font-weight:400;display:block;margin-top:2px}
+.brand-tile{position:relative;border:1.5px solid #e8e8e8;border-radius:6px;overflow:hidden;cursor:pointer;background:#fff;height:80px;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+.brand-tile:hover{border-color:#43b02a}
+.brand-tile-face{text-align:center;padding:0 10px}
+.brand-tile-name{display:block;font-size:14px;font-weight:800;color:#333;letter-spacing:-.02em;line-height:1.2}
+.brand-tile-tagline{display:block;font-size:9px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+.brand-tile-overlay{position:absolute;inset:0;background:#43b02a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transform:translateY(8px);transition:opacity .22s,transform .22s}
+.brand-tile:hover .brand-tile-overlay{opacity:1;transform:translateY(0)}
+.brand-tile-overlay .ov-count{font-size:13px;font-weight:700;color:#fff}
+.brand-tile-overlay .ov-link{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);text-decoration:underline}
 
-/* ── PRODUCT GRID ─────────────────────────────────────────────────── */
-.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+/* ── 4. PRODUCT CARDS — Pet Heaven slider style ──────────── */
+/* Slider wrapper */
+.prod-slider-wrap{position:relative}
+.prod-slider{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 
-/* ── PRODUCT CARD ─────────────────────────────────────────────────── */
-.prod-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;overflow:hidden;transition:box-shadow .15s;position:relative;display:flex;flex-direction:column}
-.prod-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);border-color:#ccc}
-.prod-card-img-wrap{position:relative;padding:12px;background:#fafafa;border-bottom:1px solid #f0f0f0}
-.prod-card-img{width:100%;aspect-ratio:1;object-fit:contain;display:block}
-.prod-card-img-fallback{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:11px;color:#bbb}
-.prod-badge{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:3px;font-size:10px;font-weight:800;letter-spacing:.03em}
+.prod-card{background:#fff;border:1px solid #e8e8e8;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s}
+.prod-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1);border-color:#d0d0d0}
+
+/* Image block */
+.prod-img-wrap{position:relative;padding:16px 16px 12px;background:#fff}
+.prod-img-wrap img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block}
+.prod-img-fallback{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:11px;color:#ccc}
+.prod-badge{position:absolute;top:8px;left:0;padding:3px 8px 3px 6px;font-size:10px;font-weight:800;letter-spacing:.02em;border-radius:0 3px 3px 0}
 .prod-badge.sale{background:#e53935;color:#fff}
 .prod-badge.new{background:#9c27b0;color:#fff}
-.prod-badge.best{background:#ff6f00;color:#fff}
-.prod-wl{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .15s}
+.prod-badge.best{background:#e65100;color:#fff}
+.prod-wl{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid #eee;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .prod-wl:hover{border-color:#9c27b0}
-.prod-wl svg{width:14px;height:14px;stroke:#bbb;fill:none;stroke-width:2}
+.prod-wl svg{width:13px;height:13px;stroke:#ccc;fill:none;stroke-width:2}
 .prod-wl:hover svg{stroke:#9c27b0}
-.prod-card-body{padding:10px 10px 12px;display:flex;flex-direction:column;flex:1}
-.prod-brand{font-size:10px;font-weight:700;color:#43b02a;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
-.prod-name{font-size:12px;font-weight:600;color:#222;line-height:1.4;margin-bottom:5px;flex:1;display:block}
-.prod-name:hover{color:#43b02a}
-.prod-stars{display:flex;align-items:center;gap:4px;margin-bottom:6px}
-.pstar-sm{width:11px;height:11px;fill:#ff9900}
-.pstar-sm.empty{fill:none;stroke:#ff9900;stroke-width:1.5}
-.prod-rev-count{font-size:10px;color:#999}
-.prod-pricing{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.prod-price{font-size:15px;font-weight:800;color:#222}
-.prod-was{font-size:11px;color:#bbb;text-decoration:line-through}
-.prod-save{font-size:10px;font-weight:700;color:#e53935}
-.prod-atc{width:100%;padding:8px;background:#43b02a;color:#fff;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:auto}
-.prod-atc:hover{background:#2d8a1e}
-.prod-atc svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
-.prod-sns-tag{font-size:10px;color:#9c27b0;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:3px}
-.prod-sns-tag svg{width:10px;height:10px;fill:#9c27b0}
 
-/* VIEW MORE BTN */
-.view-more-wrap{text-align:center;padding:20px 0 4px}
-.view-more-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border:2px solid #43b02a;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#43b02a;background:#fff;cursor:pointer;transition:all .15s}
+/* Card body */
+.prod-card-body{padding:8px 12px 12px;display:flex;flex-direction:column;flex:1;border-top:1px solid #f5f5f5}
+.prod-card-brand{font-size:10px;font-weight:700;color:#43b02a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.prod-card-name{font-size:12px;font-weight:600;color:#333;line-height:1.45;margin-bottom:6px;flex:1;display:block}
+.prod-card-name:hover{color:#43b02a}
+.prod-card-stars{display:flex;align-items:center;gap:3px;margin-bottom:6px}
+.pstar-s{width:11px;height:11px;fill:#ff9900;flex-shrink:0}
+.pstar-s.empty{fill:none;stroke:#ff9900;stroke-width:1.5}
+.prod-card-revs{font-size:10px;color:#aaa;margin-left:2px}
+.prod-card-sns{font-size:10px;color:#9c27b0;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.prod-card-sns svg{width:10px;height:10px;fill:#9c27b0}
+.prod-card-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:8px;flex-wrap:wrap}
+.prod-card-price{font-size:16px;font-weight:800;color:#222}
+.prod-card-was{font-size:11px;color:#bbb;text-decoration:line-through}
+.prod-card-save{font-size:10px;font-weight:700;color:#e53935;background:#fff3f3;padding:1px 5px;border-radius:3px}
+.prod-card-atc{width:100%;padding:9px;background:#43b02a;color:#fff;border:none;border-radius:3px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.01em}
+.prod-card-atc:hover{background:#2d8a1e}
+
+/* View more */
+.view-more-wrap{text-align:center;padding:18px 0 4px}
+.view-more-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 26px;border:2px solid #43b02a;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#43b02a;background:#fff;cursor:pointer;transition:all .15s}
 .view-more-btn:hover{background:#43b02a;color:#fff}
-.view-more-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.view-more-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5}
 
 /* TRUST STRIP */
-.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 0 0}
-.trust-item{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border:1px solid #e0e0e0;border-radius:6px}
-.trust-icon{width:40px;height:40px;border-radius:50%;background:#e8f5e3;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.trust-icon svg{width:20px;height:20px;stroke:#43b02a;fill:none;stroke-width:2;stroke-linecap:round}
-.trust-text strong{display:block;font-size:13px;font-weight:700;color:#222;margin-bottom:2px}
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px 0 0}
+.trust-item{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid #e0e0e0;border-radius:6px}
+.trust-icon{width:38px;height:38px;border-radius:50%;background:#e8f5e3;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-icon svg{width:18px;height:18px;stroke:#43b02a;fill:none;stroke-width:2;stroke-linecap:round}
+.trust-text strong{display:block;font-size:12px;font-weight:700;color:#222;margin-bottom:1px}
 .trust-text span{font-size:11px;color:#888}
 
 /* FOOTER */
-.site-footer{background:#43b02a;padding:32px 24px 20px;margin-top:40px}
+.site-footer{background:#43b02a;padding:32px 24px 20px;margin-top:32px}
 .footer-inner{max-width:1280px;margin:0 auto}
 .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:24px}
 .footer-col h3{font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
 .footer-col ul{list-style:none}
 .footer-col ul li{margin-bottom:6px}
 .footer-col ul li a{font-size:12px;color:rgba(255,255,255,.8)}
-.footer-col ul li a:hover{color:#fff}
 .footer-contact{font-size:12px;color:rgba(255,255,255,.85);line-height:1.9}
-.footer-contact a{color:rgba(255,255,255,.85)}
-.footer-social{display:flex;gap:8px;margin-top:10px}
-.footer-social a{width:30px;height:30px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .footer-newsletter input{width:100%;padding:9px 12px;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:12px;margin-bottom:8px;outline:none;color:#333}
 .footer-newsletter button{width:100%;padding:9px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:4px;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+.footer-social{display:flex;gap:8px;margin-top:10px}
+.footer-social a{width:30px;height:30px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.7)}
 
@@ -205,7 +214,6 @@ a{text-decoration:none;color:inherit}
   .hdr-logo-text{font-size:14px}
   .hdr-actions{order:2;margin-left:auto;flex-shrink:0;gap:8px}
   .hdr-search{order:3;flex:0 0 100%;max-width:100%;margin:4px 0 2px;display:flex}
-  .hdr-search input{font-size:12px;padding:8px 36px 8px 12px}
   .hdr-app-btn,.hdr-link{display:none}
   body{padding-bottom:56px}
   .promo-bar{flex-direction:column;align-items:center;gap:3px;padding:6px 12px}
@@ -213,58 +221,38 @@ a{text-decoration:none;color:inherit}
   .site-nav ul{padding:0}
   .site-nav li a{padding:10px 12px;font-size:12px}
   .page-wrap{padding:0 12px}
-
-  /* Hero */
   .cat-hero-inner{flex-direction:column}
-  .cat-hero-text{padding:24px 20px 20px}
-  .cat-hero-text h1{font-size:24px}
-  .cat-hero-text p{font-size:12px;margin-bottom:16px}
+  .cat-hero-text{padding:20px 16px 16px}
+  .cat-hero-text h1{font-size:22px}
+  .cat-hero-text p{display:none}
   .cat-hero-img{display:none}
-
-  /* Sections */
-  .sec{padding:20px 16px 24px;border-radius:0;margin-bottom:12px}
-  .sec-title{font-size:16px}
-
-  /* Category tiles: 2 cols */
+  .sns-block{flex-direction:column;gap:12px;padding:16px}
+  .sns-usps{flex-direction:column;gap:10px}
+  .sns-usp{border-right:none;padding:0;border-bottom:1px solid #f0e8ff;padding-bottom:10px}
+  .sns-usp:last-child{border-bottom:none;padding-bottom:0}
+  .sns-divider{display:none}
+  .sns-block-cta{width:100%;text-align:center}
+  .sec{padding:16px 14px 20px;border-radius:0;margin-bottom:10px}
+  .sec-title{font-size:15px}
   .cat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .cat-tile-img{font-size:36px}
-  .cat-tile-label strong{font-size:12px}
-
-  /* Diet: 2 cols */
   .diet-grid{grid-template-columns:repeat(2,1fr);gap:8px}
-  .diet-tile{padding:10px 12px;gap:10px}
-  .diet-icon{width:34px;height:34px;font-size:18px}
-  .diet-info strong{font-size:12px}
+  .diet-tile{padding:10px 12px}
+  .diet-icon{width:34px;height:34px;font-size:17px}
   .diet-info span{display:none}
-
-  /* Brand: 3 cols */
   .brand-row{grid-template-columns:repeat(3,1fr);gap:8px}
-  .brand-tile{padding:12px 8px}
-  .brand-tile-name{font-size:11px}
-
-  /* Product grid: 2 cols */
-  .prod-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .prod-card-body{padding:8px}
-  .prod-name{font-size:11px}
-  .prod-price{font-size:13px}
-
-  /* Trust */
+  .brand-tile{height:64px}
+  .brand-tile-name{font-size:12px}
+  .prod-slider{grid-template-columns:repeat(2,1fr);gap:10px}
   .trust-strip{grid-template-columns:1fr 1fr}
-  .trust-item{padding:10px}
-
-  /* Footer */
   .footer-grid{grid-template-columns:1fr 1fr}
   .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1}
   .site-footer{padding:24px 12px}
-
-  /* Bottom nav */
   .mob-bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#43b02a;z-index:600;border-top:2px solid rgba(255,255,255,.25);height:56px}
 }
 </style>
 </head>
 <body>
 
-<!-- PROTOTYPE TOOLBAR -->
 <div class="proto-bar">
   <button class="proto-btn active" onclick="setVP('desk',this)">Desktop</button>
   <button class="proto-btn" onclick="setVP('mob',this)">Mobile</button>
@@ -273,23 +261,14 @@ a{text-decoration:none;color:inherit}
 
 <div class="site-wrap" id="site-wrap">
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="hdr-logo">
-    <svg class="hdr-logo-icon" viewBox="0 0 32 32">
-      <ellipse cx="8" cy="8" rx="4" ry="5.5"/>
-      <ellipse cx="24" cy="8" rx="4" ry="5.5"/>
-      <ellipse cx="3" cy="19" rx="3.5" ry="4.5"/>
-      <ellipse cx="29" cy="19" rx="3.5" ry="4.5"/>
-      <ellipse cx="16" cy="23" rx="10" ry="8"/>
-    </svg>
+    <svg class="hdr-logo-icon" viewBox="0 0 32 32"><ellipse cx="8" cy="8" rx="4" ry="5.5"/><ellipse cx="24" cy="8" rx="4" ry="5.5"/><ellipse cx="3" cy="19" rx="3.5" ry="4.5"/><ellipse cx="29" cy="19" rx="3.5" ry="4.5"/><ellipse cx="16" cy="23" rx="10" ry="8"/></svg>
     <span class="hdr-logo-text">PET HEAVEN</span>
   </div>
   <div class="hdr-search">
     <input type="text" placeholder="Search entire store here...">
-    <button class="hdr-search-btn">
-      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="#666" stroke-width="2"/><line x1="13" y1="13" x2="18" y2="18" stroke="#666" stroke-width="2"/></svg>
-    </button>
+    <button class="hdr-search-btn"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="#666" stroke-width="2"/><line x1="13" y1="13" x2="18" y2="18" stroke="#666" stroke-width="2"/></svg></button>
   </div>
   <div class="hdr-actions">
     <button class="hdr-app-btn">Get App</button>
@@ -297,25 +276,16 @@ a{text-decoration:none;color:inherit}
     <span class="hdr-link">Account</span>
     <div class="hdr-cart">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
-      My Cart ▾
-      <span class="hdr-cart-badge">3</span>
+      My Cart ▾<span class="hdr-cart-badge">3</span>
     </div>
   </div>
 </header>
 
-<!-- PROMO BAR -->
 <div class="promo-bar">
-  <div class="promo-item">
-    <svg width="14" height="14" viewBox="0 0 20 20" fill="#fff"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-    <strong>SCHEDULE&amp;SAVE</strong> up to 5% on recurring deliveries
-  </div>
-  <div class="promo-item">
-    <svg width="16" height="12" viewBox="0 0 24 18" fill="#fff"><rect x="0" y="1" width="16" height="12" rx="2"/><path d="M16 5h5l3 6v4h-8V5z"/><circle cx="5" cy="16" r="2"/><circle cx="19" cy="16" r="2"/></svg>
-    <strong>*Free Delivery</strong> for orders over R500
-  </div>
+  <div class="promo-item"><svg width="14" height="14" viewBox="0 0 20 20" fill="#fff"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg><strong>SCHEDULE&amp;SAVE</strong> up to 5% on recurring deliveries</div>
+  <div class="promo-item"><svg width="16" height="12" viewBox="0 0 24 18" fill="#fff"><rect x="0" y="1" width="16" height="12" rx="2"/><path d="M16 5h5l3 6v4h-8V5z"/><circle cx="5" cy="16" r="2"/><circle cx="19" cy="16" r="2"/></svg><strong>*Free Delivery</strong> for orders over R500</div>
 </div>
 
-<!-- SITE NAV -->
 <nav class="site-nav">
   <ul>
     <li class="active"><a href="#">Dogs</a></li>
@@ -329,38 +299,60 @@ a{text-decoration:none;color:inherit}
   </ul>
 </nav>
 
-<!-- PAGE CONTENT -->
 <div class="page-wrap">
 
-  <!-- BREADCRUMB -->
   <div class="breadcrumb">
     <a href="#">Home</a><span class="bc-sep">→</span>
     <a href="#">Dogs</a><span class="bc-sep">→</span>
     <span class="bc-cur">Dog Food</span>
   </div>
 
-  <!-- ── HERO ────────────────────────────────────────────────────── -->
+  <!-- ① HERO (reduced height) -->
   <div class="cat-hero">
     <div class="cat-hero-inner">
       <div class="cat-hero-text">
         <div class="cat-hero-eyebrow">Dogs · Nutrition</div>
         <h1>Dog Food</h1>
-        <p>Premium nutrition for every breed and life stage. From everyday dry kibble to raw diets and prescription food — find exactly what your dog needs.</p>
-        <a class="cat-hero-cta" href="#">
-          Shop All Dog Food
-          <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
-        </a>
+        <p>Premium nutrition for every breed and life stage. From everyday dry kibble to raw diets — find exactly what your dog needs.</p>
+        <a class="cat-hero-cta" href="#">Shop All Dog Food <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></a>
       </div>
       <div class="cat-hero-img">
-        <img src="https://www.petheaven.co.za/media/catalog/product/cache/1/image/600x/040ec09b1e35df139433887a97daa66f/m/o/montego-dog-food-all-breed-classic-adult_4.jpg"
-             alt="Dog Food"
+        <img src="https://www.petheaven.co.za/media/catalog/product/cache/1/image/600x/040ec09b1e35df139433887a97daa66f/m/o/montego-dog-food-all-breed-classic-adult_4.jpg" alt="Dog Food"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="cat-hero-img-fallback" style="display:none">🐾</div>
       </div>
     </div>
   </div>
 
-  <!-- ── SHOP BY CATEGORY ──────────────────────────────────────── -->
+  <!-- ⑤ SCHEDULE & SAVE BLOCK -->
+  <div class="sns-block">
+    <div class="sns-block-logo">
+      <div class="sns-logo-mark">SCHEDULE<span>&amp;</span>SAVE</div>
+      <div class="sns-logo-sub">Repeat deliveries</div>
+    </div>
+    <div class="sns-divider"></div>
+    <div class="sns-usps">
+      <div class="sns-usp">
+        <div class="sns-usp-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div class="sns-usp-text"><strong>Save up to 5%</strong><span>On every recurring order</span></div>
+      </div>
+      <div class="sns-usp">
+        <div class="sns-usp-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="sns-usp-text"><strong>Your schedule</strong><span>Weekly, fortnightly or monthly</span></div>
+      </div>
+      <div class="sns-usp">
+        <div class="sns-usp-icon"><svg viewBox="0 0 24 24"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <div class="sns-usp-text"><strong>Skip or cancel</strong><span>No lock-in, change anytime</span></div>
+      </div>
+      <div class="sns-usp">
+        <div class="sns-usp-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="sns-usp-text"><strong>Set it &amp; forget it</strong><span>Auto-delivers so you never run out</span></div>
+      </div>
+    </div>
+    <button class="sns-block-cta">Start Saving →</button>
+  </div>
+
+  <!-- ② SHOP BY CATEGORY (real images) -->
   <div class="sec">
     <div class="sec-hdr">
       <h2 class="sec-title">Shop by Category</h2>
@@ -369,386 +361,305 @@ a{text-decoration:none;color:inherit}
     <div class="cat-grid">
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-dry">🥩<span class="tile-count">112</span></div>
-        <div class="cat-tile-label">
-          <strong>Dry Food</strong>
-          <span>Kibble for all breeds &amp; life stages</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/dryfood/400/300" alt="Dry Food" onerror="this.style.display='none'">
+          <span class="tile-count">112 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Dry Food</strong><span>Kibble for all breeds &amp; life stages</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-wet">🥫<span class="tile-count">48</span></div>
-        <div class="cat-tile-label">
-          <strong>Wet Food</strong>
-          <span>Pouches, tins &amp; trays</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/wetfood/400/300" alt="Wet Food" onerror="this.style.display='none'">
+          <span class="tile-count">48 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Wet Food</strong><span>Pouches, tins &amp; trays</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-raw">🌿<span class="tile-count">21</span></div>
-        <div class="cat-tile-label">
-          <strong>Raw &amp; Freeze-Dried</strong>
-          <span>Natural, minimally processed</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/rawfood/400/300" alt="Raw Food" onerror="this.style.display='none'">
+          <span class="tile-count">21 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Raw &amp; Freeze-Dried</strong><span>Natural, minimally processed</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-puppy">🐶<span class="tile-count">34</span></div>
-        <div class="cat-tile-label">
-          <strong>Puppy Food</strong>
-          <span>For dogs under 12 months</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/puppyfood/400/300" alt="Puppy Food" onerror="this.style.display='none'">
+          <span class="tile-count">34 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Puppy Food</strong><span>For dogs under 12 months</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-senior">🦴<span class="tile-count">18</span></div>
-        <div class="cat-tile-label">
-          <strong>Senior Food</strong>
-          <span>Tailored for older dogs 7+</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/seniorfood/400/300" alt="Senior Food" onerror="this.style.display='none'">
+          <span class="tile-count">18 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Senior Food</strong><span>Tailored for older dogs 7+</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-rx">💊<span class="tile-count">14</span></div>
-        <div class="cat-tile-label">
-          <strong>Prescription Diet</strong>
-          <span>Vet-recommended therapeutic food</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/rxfood/400/300" alt="Prescription Diet" onerror="this.style.display='none'">
+          <span class="tile-count">14 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Prescription Diet</strong><span>Vet-recommended therapeutic food</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-gf">🌾<span class="tile-count">29</span></div>
-        <div class="cat-tile-label">
-          <strong>Grain Free</strong>
-          <span>No wheat, corn or soy</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/grainfree/400/300" alt="Grain Free" onerror="this.style.display='none'">
+          <span class="tile-count">29 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Grain Free</strong><span>No wheat, corn or soy</span></div>
       </a>
 
       <a class="cat-tile" href="#">
-        <div class="cat-tile-img ct-toppers">🍖<span class="tile-count">9</span></div>
-        <div class="cat-tile-label">
-          <strong>Toppers &amp; Mixers</strong>
-          <span>Enhance your dog's bowl</span>
+        <div class="cat-tile-img">
+          <img src="https://picsum.photos/seed/toppers/400/300" alt="Toppers" onerror="this.style.display='none'">
+          <span class="tile-count">9 products</span>
         </div>
+        <div class="cat-tile-label"><strong>Toppers &amp; Mixers</strong><span>Enhance your dog's bowl</span></div>
       </a>
 
     </div>
   </div>
 
-  <!-- ── SHOP BY DIET & HEALTH ─────────────────────────────────── -->
+  <!-- SHOP BY DIET -->
   <div class="sec">
     <div class="sec-hdr">
       <h2 class="sec-title">Shop by Diet &amp; Health Need</h2>
       <a class="sec-link" href="#">All dietary options →</a>
     </div>
     <div class="diet-grid">
-
-      <a class="diet-tile di-gf" href="#">
-        <div class="diet-icon">🌾</div>
-        <div class="diet-info">
-          <strong>Grain Free</strong>
-          <span>29 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-hp" href="#">
-        <div class="diet-icon">💪</div>
-        <div class="diet-info">
-          <strong>High Protein</strong>
-          <span>24 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-wm" href="#">
-        <div class="diet-icon">⚖️</div>
-        <div class="diet-info">
-          <strong>Weight Management</strong>
-          <span>16 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-ss" href="#">
-        <div class="diet-icon">🫁</div>
-        <div class="diet-info">
-          <strong>Sensitive Stomach</strong>
-          <span>18 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-jh" href="#">
-        <div class="diet-icon">🦴</div>
-        <div class="diet-info">
-          <strong>Joint &amp; Hip Support</strong>
-          <span>12 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-hi" href="#">
-        <div class="diet-icon">🧬</div>
-        <div class="diet-info">
-          <strong>Limited Ingredient</strong>
-          <span>9 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-ha" href="#">
-        <div class="diet-icon">🌼</div>
-        <div class="diet-info">
-          <strong>Hypoallergenic</strong>
-          <span>11 products</span>
-        </div>
-      </a>
-
-      <a class="diet-tile di-sr" href="#">
-        <div class="diet-icon">👴</div>
-        <div class="diet-info">
-          <strong>Senior Support</strong>
-          <span>18 products</span>
-        </div>
-      </a>
-
+      <a class="diet-tile di-gf" href="#"><div class="diet-icon">🌾</div><div class="diet-info"><strong>Grain Free</strong><span>29 products</span></div></a>
+      <a class="diet-tile di-hp" href="#"><div class="diet-icon">💪</div><div class="diet-info"><strong>High Protein</strong><span>24 products</span></div></a>
+      <a class="diet-tile di-wm" href="#"><div class="diet-icon">⚖️</div><div class="diet-info"><strong>Weight Management</strong><span>16 products</span></div></a>
+      <a class="diet-tile di-ss" href="#"><div class="diet-icon">🫁</div><div class="diet-info"><strong>Sensitive Stomach</strong><span>18 products</span></div></a>
+      <a class="diet-tile di-jh" href="#"><div class="diet-icon">🦴</div><div class="diet-info"><strong>Joint &amp; Hip Support</strong><span>12 products</span></div></a>
+      <a class="diet-tile di-hi" href="#"><div class="diet-icon">🧬</div><div class="diet-info"><strong>Limited Ingredient</strong><span>9 products</span></div></a>
+      <a class="diet-tile di-ha" href="#"><div class="diet-icon">🌼</div><div class="diet-info"><strong>Hypoallergenic</strong><span>11 products</span></div></a>
+      <a class="diet-tile di-sr" href="#"><div class="diet-icon">👴</div><div class="diet-info"><strong>Senior Support</strong><span>18 products</span></div></a>
     </div>
   </div>
 
-  <!-- ── SHOP BY BRAND ────────────────────────────────────────── -->
+  <!-- ③ SHOP BY BRAND (hover reveal) -->
   <div class="sec">
     <div class="sec-hdr">
       <h2 class="sec-title">Shop by Brand</h2>
       <a class="sec-link" href="#">All brands →</a>
     </div>
     <div class="brand-row">
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Montego</span><span class="brand-tile-count">45 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name">Montego</span>
+          <span class="brand-tile-tagline">South African</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">45 products</span>
+          <span class="ov-link">Shop Montego →</span>
+        </div>
       </a>
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Hill's Science Plan</span><span class="brand-tile-count">32 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name" style="font-size:11px">Hill's Science Plan</span>
+          <span class="brand-tile-tagline">Vet Recommended</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">32 products</span>
+          <span class="ov-link">Shop Hill's →</span>
+        </div>
       </a>
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Royal Canin</span><span class="brand-tile-count">28 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name" style="font-size:12px">Royal Canin</span>
+          <span class="brand-tile-tagline">Breed Specific</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">28 products</span>
+          <span class="ov-link">Shop Royal Canin →</span>
+        </div>
       </a>
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Eukanuba</span><span class="brand-tile-count">18 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name">Eukanuba</span>
+          <span class="brand-tile-tagline">Performance</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">18 products</span>
+          <span class="ov-link">Shop Eukanuba →</span>
+        </div>
       </a>
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Acana</span><span class="brand-tile-count">12 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name">Acana</span>
+          <span class="brand-tile-tagline">Biologically Apt.</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">12 products</span>
+          <span class="ov-link">Shop Acana →</span>
+        </div>
       </a>
+
       <a class="brand-tile" href="#">
-        <div><span class="brand-tile-name">Orijen</span><span class="brand-tile-count">9 products</span></div>
+        <div class="brand-tile-face">
+          <span class="brand-tile-name">Orijen</span>
+          <span class="brand-tile-tagline">Whole Prey</span>
+        </div>
+        <div class="brand-tile-overlay">
+          <span class="ov-count">9 products</span>
+          <span class="ov-link">Shop Orijen →</span>
+        </div>
       </a>
+
     </div>
   </div>
 
-  <!-- ── FEATURED PRODUCTS ─────────────────────────────────────── -->
+  <!-- ④ TOP SELLERS — Pet Heaven slider card style -->
   <div class="sec">
     <div class="sec-hdr">
       <h2 class="sec-title">Top Sellers in Dog Food</h2>
       <a class="sec-link" href="#">View all 247 products →</a>
     </div>
-    <div class="prod-grid">
+    <div class="prod-slider-wrap">
+      <div class="prod-slider">
 
-      <!-- Card 1 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <img class="prod-card-img" src="https://www.petheaven.co.za/media/catalog/product/cache/1/image/600x/040ec09b1e35df139433887a97daa66f/m/o/montego-dog-food-all-breed-classic-adult_4.jpg" alt="Montego Classic 25kg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="prod-card-img-fallback" style="display:none"><span style="font-size:36px">🐾</span></div>
-          <span class="prod-badge best">Best Seller</span>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Montego</div>
-          <a class="prod-name" href="#">Classic Adult Dog Food – Chicken &amp; Rice 25kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(61)</span>
+        <!-- Card 1 -->
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://www.petheaven.co.za/media/catalog/product/cache/1/image/600x/040ec09b1e35df139433887a97daa66f/m/o/montego-dog-food-all-breed-classic-adult_4.jpg"
+                 alt="Montego Classic 25kg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="prod-img-fallback" style="display:none"><span style="font-size:30px">🐾</span></div>
+            <span class="prod-badge best">Best Seller</span>
+            <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
           </div>
-          <div class="prod-sns-tag"><svg viewBox="0 0 12 12"><path d="M10 6a4 4 0 11-8 0 4 4 0 018 0zm-3.5 0l-1.5-1.5"/></svg>From R695/order with S&amp;S</div>
-          <div class="prod-pricing"><span class="prod-price">R732.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">Montego</div>
+            <a class="prod-card-name" href="#">Classic Adult Chicken &amp; Rice 25kg</a>
+            <div class="prod-card-stars">
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <span class="prod-card-revs">(61)</span>
+            </div>
+            <div class="prod-card-sns"><svg viewBox="0 0 12 12"><path d="M10 6a4 4 0 11-8 0 4 4 0 018 0z"/></svg>From R695/order with S&amp;S</div>
+            <div class="prod-card-price-row"><span class="prod-card-price">R732.00</span></div>
+            <button class="prod-card-atc">Add to Cart</button>
+          </div>
         </div>
-      </div>
 
-      <!-- Card 2 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#fafafa"><span style="font-size:36px">🐾</span></div>
-          <span class="prod-badge best">Best Seller</span>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Montego</div>
-          <a class="prod-name" href="#">Classic Adult Dog Food – Chicken &amp; Rice 8kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(48)</span>
+        <!-- Card 2 -->
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <div class="prod-img-fallback" style="display:flex;background:#fafafa"><span style="font-size:30px">🐾</span></div>
+            <span class="prod-badge best">Best Seller</span>
+            <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
           </div>
-          <div class="prod-pricing"><span class="prod-price">R258.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">Montego</div>
+            <a class="prod-card-name" href="#">Classic Adult Chicken &amp; Rice 8kg</a>
+            <div class="prod-card-stars">
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <span class="prod-card-revs">(48)</span>
+            </div>
+            <div class="prod-card-price-row"><span class="prod-card-price">R258.00</span></div>
+            <button class="prod-card-atc">Add to Cart</button>
+          </div>
         </div>
-      </div>
 
-      <!-- Card 3 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#e8f0fe"><span style="font-size:36px">🦴</span></div>
-          <span class="prod-badge sale">Save 8%</span>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Hill's Science Plan</div>
-          <a class="prod-name" href="#">Adult Medium Breed Chicken 14kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(29)</span>
+        <!-- Card 3 -->
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <div class="prod-img-fallback" style="display:flex;background:#f7f0ff"><span style="font-size:30px">🦴</span></div>
+            <span class="prod-badge sale">-8%</span>
+            <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
           </div>
-          <div class="prod-pricing">
-            <span class="prod-price">R1,289.00</span>
-            <span class="prod-was">R1,399.00</span>
-            <span class="prod-save">-8%</span>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">Hill's Science Plan</div>
+            <a class="prod-card-name" href="#">Adult Medium Breed Chicken 14kg</a>
+            <div class="prod-card-stars">
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <span class="prod-card-revs">(29)</span>
+            </div>
+            <div class="prod-card-sns"><svg viewBox="0 0 12 12"><path d="M10 6a4 4 0 11-8 0 4 4 0 018 0z"/></svg>From R1,220/order with S&amp;S</div>
+            <div class="prod-card-price-row">
+              <span class="prod-card-price">R1,289.00</span>
+              <span class="prod-card-was">R1,399.00</span>
+              <span class="prod-card-save">-8%</span>
+            </div>
+            <button class="prod-card-atc">Add to Cart</button>
           </div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
         </div>
-      </div>
 
-      <!-- Card 4 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#f0f0f8"><span style="font-size:36px">👑</span></div>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Royal Canin</div>
-          <a class="prod-name" href="#">Medium Adult Dry Dog Food 15kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(41)</span>
+        <!-- Card 4 -->
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <div class="prod-img-fallback" style="display:flex;background:#f0f0f8"><span style="font-size:30px">👑</span></div>
+            <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
           </div>
-          <div class="prod-pricing"><span class="prod-price">R1,150.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#fff9e6"><span style="font-size:36px">🐶</span></div>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-          <span class="prod-badge new">New</span>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Hill's Science Plan</div>
-          <a class="prod-name" href="#">Puppy Medium Breed Chicken 14kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm empty" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(17)</span>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">Royal Canin</div>
+            <a class="prod-card-name" href="#">Medium Adult Dry Dog Food 15kg</a>
+            <div class="prod-card-stars">
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <span class="prod-card-revs">(41)</span>
+            </div>
+            <div class="prod-card-price-row"><span class="prod-card-price">R1,150.00</span></div>
+            <button class="prod-card-atc">Add to Cart</button>
           </div>
-          <div class="prod-pricing"><span class="prod-price">R1,345.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
         </div>
-      </div>
 
-      <!-- Card 6 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#e8f5e3"><span style="font-size:36px">🌿</span></div>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Eukanuba</div>
-          <a class="prod-name" href="#">Adult Medium Breed Dry Dog Food 15kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm empty" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(18)</span>
+        <!-- Card 5 -->
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <div class="prod-img-fallback" style="display:flex;background:#fdf3e7"><span style="font-size:30px">🏕️</span></div>
+            <span class="prod-badge new">Premium</span>
+            <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
           </div>
-          <div class="prod-pricing"><span class="prod-price">R879.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
-        </div>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#fdf3e7"><span style="font-size:36px">🏕️</span></div>
-          <span class="prod-badge new">Premium</span>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Acana</div>
-          <a class="prod-name" href="#">Grasslands Free-Run Lamb Dog Food 11.4kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(9)</span>
+          <div class="prod-card-body">
+            <div class="prod-card-brand">Acana</div>
+            <a class="prod-card-name" href="#">Grasslands Free-Run Lamb 11.4kg</a>
+            <div class="prod-card-stars">
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <svg class="pstar-s" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
+              <span class="prod-card-revs">(9)</span>
+            </div>
+            <div class="prod-card-price-row"><span class="prod-card-price">R1,599.00</span></div>
+            <button class="prod-card-atc">Add to Cart</button>
           </div>
-          <div class="prod-pricing"><span class="prod-price">R1,599.00</span></div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
         </div>
-      </div>
 
-      <!-- Card 8 -->
-      <div class="prod-card">
-        <div class="prod-card-img-wrap">
-          <div class="prod-card-img-fallback" style="display:flex;background:#f5f5f5"><span style="font-size:36px">🐕</span></div>
-          <span class="prod-badge sale">Save 17%</span>
-          <div class="prod-wl"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-brand">Pro Nutrition</div>
-          <a class="prod-name" href="#">Classic Adult Large Breed 20kg</a>
-          <div class="prod-stars">
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm empty" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <svg class="pstar-sm empty" viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,12 3.5,15 5,9.5 1,6 6,6"/></svg>
-            <span class="prod-rev-count">(6)</span>
-          </div>
-          <div class="prod-pricing">
-            <span class="prod-price">R429.00</span>
-            <span class="prod-was">R519.00</span>
-            <span class="prod-save">-17%</span>
-          </div>
-          <button class="prod-atc"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>Add to Cart</button>
-        </div>
-      </div>
-
-    </div><!-- /prod-grid -->
-
-    <!-- VIEW MORE -->
-    <div class="view-more-wrap">
-      <button class="view-more-btn">
-        View All 247 Products
-        <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
-      </button>
+      </div><!-- /prod-slider -->
     </div>
 
-  </div><!-- /sec -->
+    <div class="view-more-wrap">
+      <button class="view-more-btn">View All 247 Products <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></button>
+    </div>
+  </div>
 
   <!-- TRUST STRIP -->
   <div class="trust-strip">
@@ -772,51 +683,13 @@ a{text-decoration:none;color:inherit}
 
 </div><!-- /page-wrap -->
 
-<!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-grid">
-      <div class="footer-col">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#">Manage Schedule</a></li>
-          <li><a href="#">Create Account</a></li>
-          <li><a href="#">Pet Heaven Blog</a></li>
-          <li><a href="#">My Account</a></li>
-          <li><a href="#">My Order Status</a></li>
-          <li><a href="#">Shelter Donations</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Delivery Costs</a></li>
-          <li><a href="#">Returns Policy</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Schedule &amp; Save</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Contact Us</h3>
-        <div class="footer-contact">
-          Mon–Fri, 9am–5pm<br>
-          <a href="#">support@petheaven.co.za</a><br>
-          WhatsApp: 071 279 3842<br>
-          Tel: 087 095 7468
-        </div>
-        <div class="footer-social">
-          <a href="#">f</a><a href="#">in</a><a href="#">yt</a><a href="#">tw</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h3>Newsletter</h3>
-        <div class="footer-newsletter">
-          <input type="email" placeholder="Your email address">
-          <button>Subscribe</button>
-        </div>
-      </div>
+      <div class="footer-col"><h3>Quick Links</h3><ul><li><a href="#">Manage Schedule</a></li><li><a href="#">Create Account</a></li><li><a href="#">Pet Heaven Blog</a></li><li><a href="#">My Account</a></li><li><a href="#">My Order Status</a></li></ul></div>
+      <div class="footer-col"><h3>Company</h3><ul><li><a href="#">About Us</a></li><li><a href="#">FAQs</a></li><li><a href="#">Delivery Costs</a></li><li><a href="#">Returns Policy</a></li><li><a href="#">Schedule &amp; Save</a></li></ul></div>
+      <div class="footer-col"><h3>Contact Us</h3><div class="footer-contact">Mon–Fri, 9am–5pm<br><a href="#">support@petheaven.co.za</a><br>WhatsApp: 071 279 3842</div><div class="footer-social"><a href="#">f</a><a href="#">in</a><a href="#">yt</a><a href="#">tw</a></div></div>
+      <div class="footer-col"><h3>Newsletter</h3><div class="footer-newsletter"><input type="email" placeholder="Your email address"><button>Subscribe</button></div></div>
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 Pet Heaven. All rights reserved.</span>
@@ -825,29 +698,12 @@ a{text-decoration:none;color:inherit}
   </div>
 </footer>
 
-<!-- MOBILE BOTTOM NAV -->
 <nav class="mob-bottom-nav" id="mob-bottom-nav">
-  <button class="mob-nav-btn">
-    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    <span>Menu</span>
-  </button>
-  <button class="mob-nav-btn">
-    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    <span>Call</span>
-  </button>
-  <button class="mob-nav-btn">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Account</span>
-  </button>
-  <button class="mob-nav-btn" style="position:relative">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
-    <span class="mob-cart-badge">3</span>
-    <span>Cart</span>
-  </button>
-  <button class="mob-nav-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-    <span>Top</span>
-  </button>
+  <button class="mob-nav-btn"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><span>Menu</span></button>
+  <button class="mob-nav-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>Call</span></button>
+  <button class="mob-nav-btn"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span></button>
+  <button class="mob-nav-btn" style="position:relative"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg><span class="mob-cart-badge">3</span><span>Cart</span></button>
+  <button class="mob-nav-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg><span>Top</span></button>
 </nav>
 
 </div><!-- /site-wrap -->
@@ -867,29 +723,27 @@ function setVP(v,btn){
       ms=document.createElement('style');ms.id='mob-vp-style';
       ms.textContent=`
         .site-header{padding:8px 12px!important;height:auto!important;flex-wrap:wrap!important}
-        .hdr-logo{order:1}
-        .hdr-actions{order:2!important;margin-left:auto!important;gap:8px!important}
+        .hdr-logo{order:1}.hdr-actions{order:2!important;margin-left:auto!important;gap:8px!important}
         .hdr-search{order:3!important;flex:0 0 100%!important;max-width:100%!important;margin:4px 0 2px!important;display:flex!important}
-        .hdr-app-btn,.hdr-link{display:none!important}
-        .hdr-logo-text{font-size:14px!important}
+        .hdr-app-btn,.hdr-link{display:none!important}.hdr-logo-text{font-size:14px!important}
         .promo-bar{flex-direction:column!important;align-items:center!important;gap:3px!important;padding:6px 12px!important}
         .promo-item{font-size:11px!important;justify-content:center!important}
         .site-nav ul{padding:0!important;overflow-x:auto!important}
         .page-wrap{padding:0 12px!important}
-        .cat-hero-inner{flex-direction:column!important}
-        .cat-hero-text{padding:24px 20px 20px!important}
-        .cat-hero-text h1{font-size:24px!important}
-        .cat-hero-img{display:none!important}
-        .sec{padding:20px 16px 24px!important;border-radius:0!important;margin-bottom:12px!important}
-        .sec-title{font-size:16px!important}
+        .cat-hero-inner{flex-direction:column!important}.cat-hero-text{padding:20px 16px 16px!important}
+        .cat-hero-text h1{font-size:22px!important}.cat-hero-text p{display:none!important}.cat-hero-img{display:none!important}
+        .sns-block{flex-direction:column!important;gap:12px!important;padding:16px!important}
+        .sns-usps{flex-direction:column!important;gap:10px!important}
+        .sns-usp{border-right:none!important;padding:0 0 10px!important;border-bottom:1px solid #f0e8ff!important}
+        .sns-usp:last-child{border-bottom:none!important;padding-bottom:0!important}
+        .sns-divider{display:none!important}.sns-block-cta{width:100%!important}
+        .sec{padding:16px 14px 20px!important;border-radius:0!important;margin-bottom:10px!important}
+        .sec-title{font-size:15px!important}
         .cat-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
-        .cat-tile-img{font-size:36px!important}
         .diet-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-        .diet-tile{padding:10px 12px!important;gap:10px!important}
-        .diet-icon{width:34px!important;height:34px!important;font-size:18px!important}
-        .diet-info span{display:none!important}
-        .brand-row{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
-        .prod-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+        .diet-tile{padding:10px 12px!important}.diet-info span{display:none!important}
+        .brand-row{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}.brand-tile{height:64px!important}
+        .prod-slider{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
         .trust-strip{grid-template-columns:1fr 1fr!important}
         .footer-grid{grid-template-columns:1fr 1fr!important}
         .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1!important}
