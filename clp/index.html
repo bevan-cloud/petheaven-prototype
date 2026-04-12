@@ -35,7 +35,7 @@ a{text-decoration:none;color:inherit}
 .promo-item{display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:500}
 .promo-item strong{font-weight:800}
 
-/* SITE NAV */
+/* SITE NAV — hidden on mobile */
 .site-nav{background:#43b02a;border-top:1px solid rgba(255,255,255,.2)}
 .site-nav ul{list-style:none;display:flex;padding:0 24px;max-width:1280px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
 .site-nav ul::-webkit-scrollbar{display:none}
@@ -127,7 +127,7 @@ a{text-decoration:none;color:inherit}
 .brand-tile-face img{max-width:90px;max-height:40px;object-fit:contain;display:block;filter:grayscale(30%) opacity(.8);transition:filter .2s}
 .brand-tile:hover .brand-tile-face img{filter:grayscale(0%) opacity(1)}
 .brand-tile-name-fb{display:none;font-size:13px;font-weight:800;color:#333;text-align:center;line-height:1.2}
-.brand-tile-tagline{font-size:9px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.08em}
+.brand-tile-tagline{display:none}
 .brand-tile-overlay{position:absolute;inset:0;background:#43b02a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transform:translateY(8px);transition:opacity .22s,transform .22s}
 .brand-tile:hover .brand-tile-overlay{opacity:1;transform:translateY(0)}
 .brand-tile-overlay .ov-count{font-size:13px;font-weight:700;color:#fff}
@@ -217,8 +217,7 @@ a{text-decoration:none;color:inherit}
   body{padding-bottom:56px}
   .promo-bar{flex-direction:column;align-items:center;gap:3px;padding:6px 12px}
   .promo-item{font-size:11px;justify-content:center}
-  .site-nav ul{padding:0}
-  .site-nav li a{padding:10px 12px;font-size:12px}
+  .site-nav{display:none}
   .page-wrap{padding:0 12px}
   .cat-hero-inner{flex-direction:column}
   .cat-hero-text{padding:20px 16px 16px}
@@ -237,10 +236,8 @@ a{text-decoration:none;color:inherit}
   .diet-tile{padding:10px 12px}.diet-icon{width:34px;height:34px;font-size:17px}.diet-info span{display:none}
   .brand-row{grid-template-columns:repeat(3,1fr);gap:8px}
   .brand-tile{height:64px}.brand-tile-face img{max-width:70px;max-height:34px}
-  .slider-nav-btns{display:none}
-  .prod-slider-outer{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
-  .prod-slider{transform:none!important;transition:none!important;gap:10px}
-  .prod-card{flex:0 0 calc(50% - 5px);scroll-snap-align:start}
+  .prod-slider-outer{overflow:hidden}
+  .prod-card{flex:0 0 calc(50% - 5px)}
   .trust-strip{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
   .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1}
@@ -354,12 +351,12 @@ a{text-decoration:none;color:inherit}
   <div class="sec">
     <div class="sec-hdr"><h2 class="sec-title">Shop by Brand</h2><a class="sec-link" href="#">All brands →</a></div>
     <div class="brand-row">
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/montego.co.za" alt="Montego" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Montego</span><span class="brand-tile-tagline">South African</span></div><div class="brand-tile-overlay"><span class="ov-count">45 products</span><span class="ov-link">Shop Montego →</span></div></a>
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/hillspet.com" alt="Hill's" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Hill's Science Plan</span><span class="brand-tile-tagline">Vet Recommended</span></div><div class="brand-tile-overlay"><span class="ov-count">32 products</span><span class="ov-link">Shop Hill's →</span></div></a>
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/royalcanin.com" alt="Royal Canin" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Royal Canin</span><span class="brand-tile-tagline">Breed Specific</span></div><div class="brand-tile-overlay"><span class="ov-count">28 products</span><span class="ov-link">Shop Royal Canin →</span></div></a>
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/eukanuba.com" alt="Eukanuba" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Eukanuba</span><span class="brand-tile-tagline">Performance</span></div><div class="brand-tile-overlay"><span class="ov-count">18 products</span><span class="ov-link">Shop Eukanuba →</span></div></a>
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/acana.com" alt="Acana" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Acana</span><span class="brand-tile-tagline">Biologically Apt.</span></div><div class="brand-tile-overlay"><span class="ov-count">12 products</span><span class="ov-link">Shop Acana →</span></div></a>
-      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://logo.clearbit.com/orijen.ca" alt="Orijen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Orijen</span><span class="brand-tile-tagline">Whole Prey</span></div><div class="brand-tile-overlay"><span class="ov-count">9 products</span><span class="ov-link">Shop Orijen →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/montego.png" alt="Montego" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Montego</span></div><div class="brand-tile-overlay"><span class="ov-count">45 products</span><span class="ov-link">Shop Montego →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/hills.png" alt="Hill's Science Plan" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Hill's Science Plan</span></div><div class="brand-tile-overlay"><span class="ov-count">32 products</span><span class="ov-link">Shop Hill's →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/royal_canin.png" alt="Royal Canin" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Royal Canin</span></div><div class="brand-tile-overlay"><span class="ov-count">28 products</span><span class="ov-link">Shop Royal Canin →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/eukanuba.png" alt="Eukanuba" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Eukanuba</span></div><div class="brand-tile-overlay"><span class="ov-count">18 products</span><span class="ov-link">Shop Eukanuba →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/acana.png" alt="Acana" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Acana</span></div><div class="brand-tile-overlay"><span class="ov-count">12 products</span><span class="ov-link">Shop Acana →</span></div></a>
+      <a class="brand-tile" href="#"><div class="brand-tile-face"><img src="https://www.petheaven.co.za/media/wysiwyg/infortis/brands/orijen.png" alt="Orijen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-tile-name-fb">Orijen</span></div><div class="brand-tile-overlay"><span class="ov-count">9 products</span><span class="ov-link">Shop Orijen →</span></div></a>
     </div>
   </div>
 
@@ -501,13 +498,8 @@ function slideProd(dir) {
   var outer = slider.parentElement;
   var card = slider.querySelector('.prod-card');
   if (!card) return;
-  var gap = 14;
+  var gap = parseFloat(getComputedStyle(slider).gap) || 14;
   var cardW = card.offsetWidth + gap;
-  var ovX = getComputedStyle(outer).overflowX;
-  if (ovX === 'auto' || ovX === 'scroll') {
-    outer.scrollBy({left: dir * cardW, behavior: 'smooth'});
-    return;
-  }
   var cards = slider.querySelectorAll('.prod-card');
   var visible = Math.max(1, Math.round(outer.offsetWidth / cardW));
   var maxPos = Math.max(0, cards.length - visible);
@@ -537,7 +529,7 @@ function setVP(v, btn) {
         .hdr-app-btn,.hdr-link{display:none!important}.hdr-logo-text{font-size:14px!important}
         .promo-bar{flex-direction:column!important;align-items:center!important;gap:3px!important;padding:6px 12px!important}
         .promo-item{font-size:11px!important;justify-content:center!important}
-        .site-nav ul{padding:0!important;overflow-x:auto!important}
+        .site-nav{display:none!important}
         .page-wrap{padding:0 12px!important}
         .cat-hero-inner{flex-direction:column!important}.cat-hero-text{padding:20px 16px 16px!important}
         .cat-hero-text h1{font-size:22px!important}.cat-hero-text p,.cat-hero-img{display:none!important}
@@ -553,10 +545,8 @@ function setVP(v, btn) {
         .diet-tile{padding:10px 12px!important}.diet-info span{display:none!important}
         .brand-row{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}.brand-tile{height:64px!important}
         .brand-tile-face img{max-width:70px!important;max-height:34px!important}
-        .slider-nav-btns{display:none!important}
-        .prod-slider-outer{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:x mandatory!important}
-        .prod-slider{transform:none!important;transition:none!important;gap:10px!important}
-        .prod-card{flex:0 0 calc(50% - 5px)!important;scroll-snap-align:start!important}
+        .prod-slider-outer{overflow:hidden!important}
+        .prod-card{flex:0 0 calc(50% - 5px)!important}
         .trust-strip{grid-template-columns:1fr 1fr!important}
         .footer-grid{grid-template-columns:1fr 1fr!important}
         .footer-col:nth-child(3),.footer-col:nth-child(4){grid-column:1/-1!important}
