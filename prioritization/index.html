@@ -354,6 +354,14 @@ const items = [
   {id:54, name:"Health & Wellness Top Nav", theme:"—", type:"Quick Win", bucket:"Growth & Experience", notionImpact:"High", ai:false, desc:"Add H&W as permanent top-level nav item — currently missing from homepage navigation", r:8, i:3, c:5, e:1},
   {id:55, name:"Competitive Price Scraper", theme:"—", type:"Quick Win", bucket:"Process", notionImpact:"High", ai:false, desc:"Monitor top 50 SKUs vs Takealot + Absolute Pets weekly, flag where PH is >10% above market", r:3, i:4, c:4, e:2},
   {id:56, name:"Subs Failure Report by SKU", theme:"—", type:"Quick Win", bucket:"BRAINSTORMING", notionImpact:"High", ai:true, desc:"Live report of subscription failures per SKU, grouped by supplier by revenue lost", r:3, i:5, c:4, e:2},
+  // ADDITIONAL ITEMS (previously missing)
+  {id:57, name:'Add an AI "Ask a pet question" widget — PDPs & New Pet Parents page', theme:"—", type:"Quick Win", bucket:"BRAINSTORMING", notionImpact:"High", ai:true, desc:'Brand education widget: "Ask a pet question" surfaced on PDPs and the New Pet Parents page', r:7, i:4, c:3, e:2},
+  {id:58, name:"Health & Wellness buried — DISCOVERABILITY", theme:"—", type:"Quick Win", bucket:"BRAINSTORMING", notionImpact:"High", ai:false, desc:"Health & Wellness is buried and hard to discover — needs surfacing in navigation and on-site", r:8, i:3, c:5, e:1},
+  {id:59, name:"FTN M2 Analytics", theme:"—", type:"—", bucket:"—", notionImpact:"—", ai:false, desc:"", r:null, i:null, c:null, e:null},
+  {id:60, name:"My Shop for PH", theme:"—", type:"Quick Win", bucket:"—", notionImpact:"—", ai:false, desc:"", r:null, i:null, c:null, e:null},
+  {id:61, name:"Solution based categories", theme:"—", type:"Quick Win", bucket:"—", notionImpact:"—", ai:false, desc:"", r:null, i:null, c:null, e:null},
+  {id:62, name:"Start Using PostHog", theme:"—", type:"Quick Win", bucket:"—", notionImpact:"—", ai:false, desc:"", r:null, i:null, c:null, e:null},
+  {id:63, name:"What are we doing with pet profile data? Can we do more?", theme:"—", type:"Quick Win", bucket:"BRAINSTORMING", notionImpact:"—", ai:false, desc:"", r:null, i:null, c:null, e:null},
 ];
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
@@ -362,6 +370,7 @@ let sortDir = 'desc';
 
 // ─── RICE ────────────────────────────────────────────────────────────────────
 function rice(item) {
+  if (item.r == null || item.i == null || item.c == null || item.e == null) return null;
   return Math.round((item.r * item.i * item.c) / item.e * 10) / 10;
 }
 
@@ -437,6 +446,10 @@ function getSorted(filtered) {
     else if (sortCol === 'theme') { av = a.theme; bv = b.theme; }
     else if (sortCol === 'type') { av = a.type; bv = b.type; }
     else { av = 0; bv = 0; }
+    // Nulls always sort to the bottom regardless of direction
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
     if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortDir === 'asc' ? av - bv : bv - av;
   });
@@ -446,7 +459,8 @@ function getSorted(filtered) {
 function render() {
   const filtered = getFiltered();
   const sorted = getSorted(filtered);
-  const maxRice = sorted.length ? Math.max(...sorted.map(rice)) : 1;
+  const riceScores = sorted.map(rice).filter(v => v != null);
+  const maxRice = riceScores.length ? Math.max(...riceScores) : 1;
 
   // Update count
   document.getElementById('row-count').innerHTML = `<strong>${sorted.length}</strong> of ${items.length} initiatives`;
@@ -471,8 +485,15 @@ function render() {
 
   tbody.innerHTML = sorted.map((item, idx) => {
     const score = rice(item);
-    const barPct = Math.round((score / maxRice) * 100);
-    const tier = score >= 60 ? 'tier-high' : score >= 30 ? 'tier-mid' : 'tier-low';
+    const hasScore = score != null;
+    const barPct = hasScore ? Math.round((score / maxRice) * 100) : 0;
+    const tier = !hasScore ? 'tier-low' : score >= 60 ? 'tier-high' : score >= 30 ? 'tier-mid' : 'tier-low';
+
+    function scoreCell(field, cls, title) {
+      const val = item[field];
+      if (val == null) return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}" style="color:var(--gray-3)">–</span></td>`;
+      return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}">${val}</span></td>`;
+    }
 
     return `<tr class="${tier}" data-id="${item.id}">
       <td class="td-rank">${idx + 1}</td>
@@ -483,14 +504,16 @@ function render() {
       <td><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></td>
       <td><span class="type-pill ${typeClass(item.type)}">${esc(item.type)}</span></td>
       <td style="text-align:center">${item.ai ? '<span class="ai-badge">✦ AI</span>' : ''}</td>
-      <td class="td-score"><span class="score-val sv-r editable" data-field="r" title="Reach 1–10">${item.r}</span></td>
-      <td class="td-score"><span class="score-val sv-i editable" data-field="i" title="Impact 1–5">${item.i}</span></td>
-      <td class="td-score"><span class="score-val sv-c editable" data-field="c" title="Confidence 1–5">${item.c}</span></td>
-      <td class="td-score"><span class="score-val sv-e editable" data-field="e" title="Effort 1–5">${item.e}</span></td>
+      ${scoreCell('r','sv-r','Reach 1–10')}
+      ${scoreCell('i','sv-i','Impact 1–5')}
+      ${scoreCell('c','sv-c','Confidence 1–5')}
+      ${scoreCell('e','sv-e','Effort 1–5')}
       <td class="td-rice">
         <div class="rice-wrap">
-          <div class="rice-bar-track"><div class="rice-bar" style="width:${barPct}%"></div></div>
-          <span class="rice-num">${score}</span>
+          ${hasScore
+            ? `<div class="rice-bar-track"><div class="rice-bar" style="width:${barPct}%"></div></div><span class="rice-num">${score}</span>`
+            : `<span style="font-size:12px;color:var(--gray-3);padding-left:4px">Not scored</span>`
+          }
         </div>
       </td>
     </tr>`;
@@ -520,7 +543,7 @@ function startEdit(e) {
   input.type = 'number';
   input.min = 1;
   input.max = max;
-  input.value = item[field];
+  input.value = item[field] ?? '';
   input.className = 'score-input';
 
   span.textContent = '';
@@ -529,8 +552,14 @@ function startEdit(e) {
   input.select();
 
   function save() {
-    const val = Math.min(max, Math.max(1, parseInt(input.value) || item[field]));
-    item[field] = val;
+    const parsed = parseInt(input.value);
+    if (!isNaN(parsed)) {
+      item[field] = Math.min(max, Math.max(1, parsed));
+    } else if (item[field] == null) {
+      // Leave as null if user didn't enter a valid number
+    } else {
+      // Keep old value
+    }
     render();
   }
 
@@ -556,8 +585,8 @@ function exportCSV() {
     item.ai ? 'Yes' : 'No',
     item.notionImpact,
     `"${item.desc.replace(/"/g,'""')}"`,
-    item.r, item.i, item.c, item.e,
-    rice(item)
+    item.r ?? '', item.i ?? '', item.c ?? '', item.e ?? '',
+    rice(item) ?? ''
   ]);
   const csv = [header, ...rows].map(r => r.join(',')).join('\n');
   const blob = new Blob([csv], {type:'text/csv'});
