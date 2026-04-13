@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faithful to Nature M2 — Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* FTN M2 Brand */
+  --ftn-green:#006654;
+  --ftn-green-dark:#204B4A;
+  --ftn-green-mid:#2D6A4F;
+  --ftn-rust:#D46327;
+  --ftn-amber:#F8AF44;
+  --ftn-charcoal:#191919;
+  --ftn-teal:#204B4A;
+
+  /* Page surface — NOT white */
+  --surface-page:#F4F2ED;
+  --surface-white:#FFFFFF;
+  --surface-warm:#EDE9E2;
+  --surface-green-tint:#EBF0EF;
+
+  /* Text */
+  --text-body:#3D3D3D;
+  --text-dark:#191919;
+  --text-muted:#6B6B6B;
+  --text-price:#D46327;
+
+  /* Borders */
+  --border-light:#D8D3CB;
+  --border-input:#C5BFB5;
+
+  /* UI vars */
+  --radius-btn:4px;
+  --radius-card:4px;
+  --gray-1:#f0ede7;--gray-2:#e5e0d8;--gray-3:#c8c2b8;--gray-4:#9a9590;--gray-5:#5a5652;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans','proxima-nova',sans-serif;color:var(--text-body);background:var(--surface-page);font-size:16px;line-height:1.6}
+
+/* SITE HEADER */
+.site-header{background:var(--ftn-green-dark);padding:0 48px;height:56px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.site-header-brand{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:0.02em}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);font-family:'DM Sans',sans-serif}
+
+/* COMPANY SWITCHER */
+.company-switcher{position:relative;margin-left:auto}
+.switcher-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:12px;font-weight:500;padding:6px 12px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif}
+.switcher-btn::after{content:'▾';font-size:10px;opacity:0.7}
+.switcher-dropdown{display:none;position:absolute;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--gray-2);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,0.12);min-width:180px;z-index:200;overflow:hidden}
+.company-switcher:hover .switcher-dropdown{display:block}
+.switcher-item{display:block;padding:10px 14px;font-size:13px;color:var(--gray-5);text-decoration:none;font-family:'DM Sans',sans-serif;transition:background .12s}
+.switcher-item:hover{background:var(--gray-1)}
+.switcher-item.active{color:var(--ftn-green);font-weight:600;background:#f0f7f5}
+.switcher-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+
+/* NAV */
+.site-nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--surface-page);border-bottom:1px solid var(--gray-2);
+  padding:0 48px;
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;
+  height:52px;
+}
+.site-nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:0 14px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0;text-decoration:none}
+.site-nav a:hover{color:var(--text-body)}
+.site-nav a.active{color:var(--ftn-green);border-bottom-color:var(--ftn-green)}
+
+/* BREADCRUMB */
+.breadcrumb{background:var(--surface-page);border-bottom:1px solid var(--gray-2);padding:10px 48px;font-size:12px;display:flex;align-items:center;gap:0}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}
+.breadcrumb a:hover{color:var(--ftn-green)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
+.bc-cur{color:var(--gray-4)}
+
+/* PAGE — note: background is parchment, not white */
+.page{max-width:1040px;margin:0 auto;padding:48px 48px 100px}
+
+/* SECTION */
+.sg-section{margin-bottom:72px}
+.sg-section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.sg-section-title{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+.sg-section-desc{font-size:14px;color:var(--gray-5);line-height:1.7;margin-bottom:28px;max-width:600px}
+
+/* HERO */
+.sg-hero{background:var(--ftn-green-dark);border-radius:12px;padding:48px;margin-bottom:72px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:32px;overflow:hidden;position:relative}
+.sg-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.sg-hero::after{content:'';position:absolute;right:60px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.sg-hero-text{position:relative;z-index:1}
+.sg-hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:8px;font-family:'DM Sans',sans-serif}
+.sg-hero-title{font-size:32px;font-weight:700;line-height:1.1;margin-bottom:8px;font-family:'DM Serif Display',serif}
+.sg-hero-sub{font-size:14px;opacity:.75;font-family:'DM Sans',sans-serif}
+.sg-hero-meta{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.hero-badge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:8px 14px;text-align:center;font-family:'DM Sans',sans-serif}
+.hero-badge-label{font-size:10px;opacity:.6;text-transform:uppercase;letter-spacing:.08em}
+.hero-badge-value{font-size:15px;font-weight:700;margin-top:2px}
+
+/* KEY DIFFERENCE CALLOUT */
+.diff-callout{background:var(--surface-white);border-radius:8px;border:2px solid var(--ftn-rust);padding:16px 20px;margin-bottom:32px;font-family:'DM Sans',sans-serif}
+.diff-callout-title{font-size:12px;font-weight:700;color:var(--ftn-rust);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.diff-callout-text{font-size:13px;color:var(--gray-5);line-height:1.6}
+
+/* SWATCHES */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+.swatch-card{border-radius:8px;overflow:hidden;background:var(--surface-white);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.swatch-color{height:80px}
+.swatch-info{padding:10px 12px}
+.swatch-name{font-size:12px;font-weight:600;color:var(--text-dark);margin-bottom:2px;font-family:'DM Sans',sans-serif}
+.swatch-hex{font-size:11px;color:var(--gray-4);font-family:monospace}
+.swatch-role{font-size:10px;color:var(--gray-4);margin-top:3px;line-height:1.4}
+
+/* TYPE SHOWCASE */
+.type-showcase{background:var(--surface-white);border-radius:8px;border:1px solid var(--gray-2);overflow:hidden;margin-bottom:24px}
+.type-row{display:flex;align-items:baseline;gap:24px;padding:16px 20px;border-bottom:1px solid var(--gray-2)}
+.type-row:last-child{border-bottom:none}
+.type-meta{width:160px;flex-shrink:0}
+.type-label{font-size:11px;font-weight:600;color:var(--gray-4);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Sans',sans-serif}
+.type-spec{font-size:10px;color:var(--gray-4);margin-top:2px;font-family:'DM Sans',sans-serif}
+.type-sample{flex:1}
+
+/* BUTTONS */
+.btn-grid{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;align-items:flex-start}
+.btn{font-family:'DM Sans','proxima-nova',sans-serif;cursor:pointer;border:none;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;transition:background .15s}
+
+/* FTN M2 button styles */
+.btn-primary{background:var(--ftn-green);color:#fff;border-radius:4px;padding:0 24px;line-height:44px;font-size:16px;font-weight:600}
+.btn-primary:hover{background:var(--ftn-green-dark)}
+.btn-secondary{background:transparent;color:var(--ftn-green);border:1.5px solid var(--ftn-green);border-radius:4px;padding:0 20px;line-height:40px;font-size:15px;font-weight:600}
+.btn-secondary:hover{background:var(--ftn-green);color:#fff}
+.btn-text-amber{background:transparent;color:var(--ftn-amber);font-size:14px;font-weight:600;border:none;padding:0;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn-dark{background:var(--ftn-charcoal);color:#fff;border-radius:4px;padding:0 20px;line-height:42px;font-size:15px;font-weight:600}
+.btn-rust{background:var(--ftn-rust);color:#fff;border-radius:4px;padding:0 16px;line-height:36px;font-size:14px;font-weight:600}
+.btn-disabled{background:var(--gray-2);color:var(--gray-4);border-radius:4px;padding:0 20px;line-height:42px;font-size:15px;cursor:not-allowed}
+
+/* COMPONENTS */
+.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.component-card{background:var(--surface-white);border-radius:8px;border:1px solid var(--gray-2);overflow:hidden}
+.component-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);padding:10px 14px;border-bottom:1px solid var(--gray-2);font-family:'DM Sans',sans-serif}
+.component-body{padding:20px}
+
+/* FTN M2 Header */
+.m2-header{background:var(--ftn-green-dark);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.m2-logo{color:#fff;font-weight:700;font-size:15px;font-family:'DM Serif Display',serif;letter-spacing:0.02em}
+.m2-logo-tag{color:rgba(255,255,255,0.55);font-size:10px;margin-top:1px;font-family:'DM Sans',sans-serif}
+.m2-topnav{background:var(--surface-page);border-bottom:1px solid var(--border-light);padding:0 16px;display:flex;gap:0}
+.m2-nav-item{font-size:12px;font-weight:500;color:var(--text-body);padding:10px 12px;border-bottom:2px solid transparent;text-decoration:none;font-family:'DM Sans',sans-serif}
+.m2-nav-item.active{color:var(--ftn-green);border-bottom-color:var(--ftn-green);font-weight:600}
+
+/* M2 Product Card */
+.m2-product{background:var(--surface-white);border-radius:4px;padding:14px;border:1px solid var(--border-light)}
+.m2-product-img{width:100%;height:80px;background:var(--surface-page);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--gray-3);font-size:11px;margin-bottom:10px;font-family:'DM Sans',sans-serif}
+.m2-product-brand{font-size:10px;font-weight:600;color:var(--gray-4);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Sans',sans-serif;margin-bottom:4px}
+.m2-product-name{font-size:14px;font-weight:500;color:var(--text-dark);font-family:'DM Sans',sans-serif;margin-bottom:6px;line-height:1.4}
+.m2-product-price{font-size:18px;font-weight:700;color:var(--ftn-rust);font-family:'DM Sans',sans-serif}
+.m2-product-was{font-size:12px;color:var(--gray-4);text-decoration:line-through;margin-left:6px}
+.m2-product-cta{margin-top:10px;width:100%;background:var(--ftn-green);color:#fff;border:none;border-radius:4px;padding:8px 0;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:center}
+
+/* M2 Hero banner */
+.m2-hero-banner{background:linear-gradient(135deg,#1a3d3c 0%,var(--ftn-green-dark) 100%);border-radius:6px;padding:24px;color:#fff;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden}
+.m2-hero-badge{display:inline-block;background:var(--ftn-rust);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;margin-bottom:10px;letter-spacing:.05em}
+.m2-hero-title{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.2;margin-bottom:6px}
+.m2-hero-sub{font-size:12px;opacity:0.7;margin-bottom:14px}
+.m2-hero-cta{background:var(--ftn-green);border:none;color:#fff;font-size:13px;font-weight:600;padding:8px 18px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* M2 Form */
+.m2-form-group{margin-bottom:12px}
+.m2-form-label{font-size:12px;font-weight:600;color:var(--text-dark);font-family:'DM Sans',sans-serif;display:block;margin-bottom:5px}
+.m2-form-input{width:100%;border:1px solid var(--border-input);background:var(--surface-white);border-radius:4px;padding:10px 14px;font-size:15px;color:var(--text-body);font-family:'DM Sans',sans-serif;outline:none}
+.m2-form-input:focus{border-color:var(--ftn-green);box-shadow:0 0 0 3px rgba(0,102,84,0.1)}
+.m2-form-hint{font-size:11px;color:var(--gray-4);margin-top:3px;font-family:'DM Sans',sans-serif}
+
+/* LAYOUT TABLE */
+.layout-table{width:100%;border-collapse:collapse;background:var(--surface-white);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.layout-table th{background:var(--gray-2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);padding:10px 16px;text-align:left;font-family:'DM Sans',sans-serif}
+.layout-table td{padding:11px 16px;font-size:13px;color:var(--text-body);border-top:1px solid var(--gray-2);font-family:'DM Sans',sans-serif}
+.layout-table td:first-child{font-weight:600;color:var(--gray-5);width:220px}
+.layout-table td code{font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px}
+
+/* QUICK REF */
+.qr-block{background:var(--ftn-green-dark);border-radius:10px;padding:32px;color:#fff}
+.qr-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:20px}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.qr-group-label{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.5;margin-bottom:10px}
+.qr-item{margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;font-family:monospace;font-size:12px}
+.qr-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.qr-text{opacity:.85;line-height:1.4}
+
+@media(max-width:700px){
+  .page{padding:24px 20px 80px}
+  .component-grid{grid-template-columns:1fr}
+  .qr-grid{grid-template-columns:1fr 1fr}
+  .sg-hero{flex-direction:column;align-items:flex-start}
+  .site-header{padding:0 20px}
+  .site-nav{padding:0 20px}
+  .breadcrumb{padding:10px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="site-header-brand">Faithful to Nature</div>
+  <div class="site-header-divider"></div>
+  <span class="site-header-label">Magento 2 — Style Guide</span>
+  <div class="company-switcher">
+    <button class="switcher-btn">FTN M2</button>
+    <div class="switcher-dropdown">
+      <a class="switcher-item" href="../../../style-guide/"><span class="switcher-dot" style="background:#50B848"></span>Pet Heaven</a>
+      <a class="switcher-item" href="../m1/"><span class="switcher-dot" style="background:#006654"></span>FTN M1</a>
+      <a class="switcher-item active" href="./"><span class="switcher-dot" style="background:#204B4A"></span>FTN M2</a>
+      <a class="switcher-item" href="../../../ucook/style-guide/"><span class="switcher-dot" style="background:#FF6803"></span>UCook</a>
+    </div>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="site-nav">
+  <a href="#colours" class="active">Colours</a>
+  <a href="#typography">Typography</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#components">Components</a>
+  <a href="#layout">Layout</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../../../style-guide/">Pet Heaven</a>
+  <span class="bc-sep">›</span>
+  <a href="../">Faithful to Nature</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-cur">M2 Style Guide</span>
+</div>
+
+<main class="page">
+
+  <!-- HERO -->
+  <div class="sg-hero">
+    <div class="sg-hero-text">
+      <div class="sg-hero-eyebrow">Magento 2 · innovate.faithful-to-nature.co.za</div>
+      <h1 class="sg-hero-title">Faithful to Nature<br>M2 Design System</h1>
+      <p class="sg-hero-sub">Modern replatform — editorial typography, parchment surfaces, rust pricing</p>
+    </div>
+    <div class="sg-hero-meta">
+      <div class="hero-badge">
+        <div class="hero-badge-label">Platform</div>
+        <div class="hero-badge-value">Magento 2</div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-label">Primary Font</div>
+        <div class="hero-badge-value">proxima-nova</div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-label">Page BG</div>
+        <div class="hero-badge-value">#F4F2ED</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY DIFFERENCES CALLOUT -->
+  <div class="diff-callout">
+    <div class="diff-callout-title">Key differences vs M1</div>
+    <div class="diff-callout-text">
+      The M2 site is a major visual departure from M1. Page background is <strong>#F4F2ED</strong> (warm parchment — not white). Heading colour shifts from olive #353222 to dark teal <strong>#204B4A</strong>. Price colour changes from black/grey to <strong>#D46327 rust</strong>. Body font switches from Open Sans to <strong>proxima-nova</strong> at 16px (not 13px). The overall feel is more editorial and premium.
+    </div>
+  </div>
+
+  <!-- 01 COLOURS -->
+  <section class="sg-section" id="colours">
+    <div class="sg-section-label">01 — Colours</div>
+    <h2 class="sg-section-title">Colour System</h2>
+    <p class="sg-section-desc">M2 retains the core FTN green but introduces a warmer, more editorial palette. The parchment page background and rust price colour give a premium, nature-editorial feel distinct from M1's flat green aesthetic.</p>
+
+    <div class="swatch-grid">
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#006654"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">FTN Green</div>
+          <div class="swatch-hex">#006654</div>
+          <div class="swatch-role">Primary — buttons, CTAs, active states</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#204B4A"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">FTN Dark Teal</div>
+          <div class="swatch-hex">#204B4A</div>
+          <div class="swatch-role">Header, H3/H4 headings, footer</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#191919"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">FTN Charcoal</div>
+          <div class="swatch-hex">#191919</div>
+          <div class="swatch-role">H1 / primary page title headings</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#D46327"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">FTN Rust</div>
+          <div class="swatch-hex">#D46327</div>
+          <div class="swatch-role">Product prices — all price display</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#F8AF44"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">FTN Amber</div>
+          <div class="swatch-hex">#F8AF44</div>
+          <div class="swatch-role">Links, accents, highlights</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#3D3D3D"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Text Body</div>
+          <div class="swatch-hex">#3D3D3D</div>
+          <div class="swatch-role">Primary body text</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#6B6B6B"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Text Muted</div>
+          <div class="swatch-hex">#6B6B6B</div>
+          <div class="swatch-role">Secondary / helper text</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#F4F2ED;border:1px solid #d8d3cb"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Page Parchment</div>
+          <div class="swatch-hex">#F4F2ED</div>
+          <div class="swatch-role">Page background — NOT white</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#EDE9E2;border:1px solid #d8d3cb"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Surface</div>
+          <div class="swatch-hex">#EDE9E2</div>
+          <div class="swatch-role">Alternate section / card backgrounds</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#EBF0EF;border:1px solid #d8d3cb"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Green Tint</div>
+          <div class="swatch-hex">#EBF0EF</div>
+          <div class="swatch-role">Subtle green-tinted section wash</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#FFFFFF;border:1px solid #d8d3cb"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">White</div>
+          <div class="swatch-hex">#FFFFFF</div>
+          <div class="swatch-role">Cards, modals, inputs — NOT page bg</div>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-color" style="background:#D8D3CB"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Border Light</div>
+          <div class="swatch-hex">#D8D3CB</div>
+          <div class="swatch-role">Card borders, dividers</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface-white);border-radius:8px;border:2px solid #D46327;padding:16px 20px;font-size:13px;color:var(--gray-5);font-family:'DM Sans',sans-serif">
+      <strong style="color:#D46327">Critical: Page background is #F4F2ED</strong> — warm parchment, not white. Always set <code style="font-family:monospace;background:var(--gray-2);padding:1px 5px;border-radius:3px">background-color: #F4F2ED</code> on body/page wrapper. White (#FFF) is only for cards, inputs, and modals placed on top of the parchment.
+    </div>
+  </section>
+
+  <!-- 02 TYPOGRAPHY -->
+  <section class="sg-section" id="typography">
+    <div class="sg-section-label">02 — Typography</div>
+    <h2 class="sg-section-title">Typography</h2>
+    <p class="sg-section-desc">M2 uses <strong>proxima-nova</strong> (a clean humanist sans) for all body and UI text, and the <strong>fortescue</strong> serif family for editorial headings. Body text is 16px (vs 13px on M1) — a significantly more spacious reading experience.</p>
+
+    <div class="type-showcase">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">H1 / Page Title</div>
+          <div class="type-spec">fortescue · serif · 36px · #191919</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Serif Display',Georgia,serif;font-size:36px;font-weight:400;color:#191919;line-height:1.1">Organic Living, Delivered</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">H2 / Section Title</div>
+          <div class="type-spec">fortescue · serif · 28px · #204B4A</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Serif Display',Georgia,serif;font-size:28px;font-weight:400;color:#204B4A;line-height:1.15">Food &amp; Beverage</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">H3 / Card Title</div>
+          <div class="type-spec">proxima-nova · 20px · 700 · #204B4A</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:#204B4A">Top Sellers This Week</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Body</div>
+          <div class="type-spec">proxima-nova · 16px · 400 · #3D3D3D</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;color:#3D3D3D;line-height:1.65">Faithful to Nature sources products that are better for you and the planet — natural, organic, cruelty-free and sustainably made.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Nav / UI Label</div>
+          <div class="type-spec">proxima-nova · 14px · 500 · #3D3D3D</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#3D3D3D">Food · Health · Body &amp; Beauty · Home · New Arrivals · Deals</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Link</div>
+          <div class="type-spec">proxima-nova · 14px · 600 · #F8AF44</div>
+        </div>
+        <div class="type-sample"><a href="#" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#F8AF44;text-decoration:none">Browse all products →</a></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Price</div>
+          <div class="type-spec">proxima-nova · 18–22px · 700 · #D46327</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:#D46327">R 129.95 <span style="font-size:13px;color:#9a9590;text-decoration:line-through;font-weight:400;margin-left:6px">R 159.95</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-label">Button</div>
+          <div class="type-spec">proxima-nova · 16px · 600 · white</div>
+        </div>
+        <div class="type-sample" style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:#006654">Add to basket</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface-white);border-radius:8px;border:1px solid var(--gray-2);padding:16px 20px;font-size:13px;color:var(--gray-5);font-family:'DM Sans',sans-serif">
+      <strong style="color:var(--text-dark)">Prototype font substitute:</strong> proxima-nova is not available on Google Fonts. Use <code style="font-family:monospace;background:var(--gray-2);padding:1px 5px;border-radius:3px">DM Sans</code> as a close equivalent for prototypes. For fortescue, use <code style="font-family:monospace;background:var(--gray-2);padding:1px 5px;border-radius:3px">DM Serif Display</code> or <code style="font-family:monospace;background:var(--gray-2);padding:1px 5px;border-radius:3px">Georgia, serif</code>.
+    </div>
+  </section>
+
+  <!-- 03 BUTTONS -->
+  <section class="sg-section" id="buttons">
+    <div class="sg-section-label">03 — Buttons</div>
+    <h2 class="sg-section-title">Buttons</h2>
+    <p class="sg-section-desc">M2 buttons are slightly larger than M1 (16px text, 44px height) with the same 4px radius. Font weight is 600 (vs 400 on M1). The primary CTA remains "Add to basket".</p>
+
+    <div class="btn-grid">
+      <button class="btn btn-primary">Add to basket</button>
+      <button class="btn btn-secondary">View range</button>
+      <button class="btn btn-dark">Create account</button>
+      <button class="btn btn-rust">Sale — 30% off</button>
+      <a href="#" class="btn btn-text-amber">Browse all →</a>
+      <button class="btn btn-disabled" disabled>Out of stock</button>
+    </div>
+
+    <div class="layout-table" style="margin-top:0">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr>
+            <th style="background:var(--gray-2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);padding:10px 16px;text-align:left;font-family:'DM Sans',sans-serif">Variant</th>
+            <th style="background:var(--gray-2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);padding:10px 16px;text-align:left;font-family:'DM Sans',sans-serif">Background</th>
+            <th style="background:var(--gray-2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);padding:10px 16px;text-align:left;font-family:'DM Sans',sans-serif">Text</th>
+            <th style="background:var(--gray-2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);padding:10px 16px;text-align:left;font-family:'DM Sans',sans-serif">Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Primary</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)"><code style="font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px">#006654</code></td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">White</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">"Add to basket" — main transactional CTA</td></tr>
+          <tr><td style="padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Outline</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Transparent</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)"><code style="font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px">#006654</code></td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Secondary / low-emphasis actions</td></tr>
+          <tr><td style="padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Dark</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)"><code style="font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px">#191919</code></td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">White</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Account / registration on light bg</td></tr>
+          <tr><td style="padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Rust</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)"><code style="font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px">#D46327</code></td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">White</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Sale / deal callout buttons</td></tr>
+          <tr><td style="padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Text / Amber</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">None</td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)"><code style="font-family:monospace;font-size:12px;background:var(--gray-2);padding:1px 5px;border-radius:3px">#F8AF44</code></td><td style="padding:11px 16px;font-size:13px;font-family:'DM Sans',sans-serif;border-top:1px solid var(--gray-2)">Inline links, "view all" / "browse" CTAs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 COMPONENTS -->
+  <section class="sg-section" id="components">
+    <div class="sg-section-label">04 — Components</div>
+    <h2 class="sg-section-title">Components</h2>
+    <p class="sg-section-desc">M2 components sit on parchment backgrounds with white card surfaces. Editorial serif headings, rust pricing, subtle warm borders.</p>
+
+    <div class="component-grid">
+
+      <!-- Header -->
+      <div class="component-card">
+        <div class="component-label">Header</div>
+        <div class="m2-header">
+          <div>
+            <div class="m2-logo">faithful to nature</div>
+            <div class="m2-logo-tag">Change the way you shop, for Good</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center">
+            <span style="color:rgba(255,255,255,0.65);font-size:12px;font-family:'DM Sans',sans-serif">Search</span>
+            <span style="color:#fff;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500">Basket (0)</span>
+          </div>
+        </div>
+        <div class="m2-topnav">
+          <a class="m2-nav-item active">FOOD</a>
+          <a class="m2-nav-item">HEALTH</a>
+          <a class="m2-nav-item">BODY</a>
+          <a class="m2-nav-item">HOME</a>
+          <a class="m2-nav-item">DEALS</a>
+        </div>
+      </div>
+
+      <!-- Hero Banner -->
+      <div class="component-card">
+        <div class="component-label">Hero Banner</div>
+        <div class="component-body" style="background:var(--surface-page);padding:14px">
+          <div class="m2-hero-banner">
+            <div class="m2-hero-badge">NEW ARRIVALS</div>
+            <div class="m2-hero-title">Natural Living<br>Made Simple</div>
+            <div class="m2-hero-sub">Carbon neutral delivery on every order</div>
+            <button class="m2-hero-cta">Shop now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card on Parchment -->
+      <div class="component-card">
+        <div class="component-label">Product Card (white card on parchment)</div>
+        <div class="component-body" style="background:var(--surface-page)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="m2-product">
+              <div class="m2-product-img">Product image</div>
+              <div class="m2-product-brand">FAITHFUL TO NATURE</div>
+              <div class="m2-product-name">Organic Rooibos Tea — 100 bags</div>
+              <div style="display:flex;align-items:baseline">
+                <span class="m2-product-price">R 89.95</span>
+                <span class="m2-product-was">R 109.95</span>
+              </div>
+              <div class="m2-product-cta">Add to basket</div>
+            </div>
+            <div class="m2-product">
+              <div class="m2-product-img">Product image</div>
+              <div class="m2-product-brand">DR. BRONNER'S</div>
+              <div class="m2-product-name">Pure-Castile Soap Lavender</div>
+              <div style="display:flex;align-items:baseline">
+                <span class="m2-product-price">R 179.00</span>
+              </div>
+              <div class="m2-product-cta">Add to basket</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="component-card">
+        <div class="component-label">Form Inputs (4px radius, focus ring)</div>
+        <div class="component-body">
+          <div class="m2-form-group">
+            <label class="m2-form-label">Email address</label>
+            <input class="m2-form-input" type="text" placeholder="you@example.com" />
+            <div class="m2-form-hint">We'll send your order confirmation here</div>
+          </div>
+          <div class="m2-form-group">
+            <label class="m2-form-label">Password</label>
+            <input class="m2-form-input" type="password" placeholder="••••••••" />
+          </div>
+          <button class="btn btn-primary" style="width:100%;margin-top:4px">Sign in</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 LAYOUT -->
+  <section class="sg-section" id="layout">
+    <div class="sg-section-label">05 — Layout</div>
+    <h2 class="sg-section-title">Layout &amp; Spacing</h2>
+    <p class="sg-section-desc">Magento 2 with more modern spacing conventions and a parchment base surface instead of white.</p>
+
+    <table class="layout-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Max width</td><td><code>1280px</code></td><td>Slightly wider than M1</td></tr>
+        <tr><td>Page background</td><td><code>#F4F2ED</code></td><td>Parchment warm — never plain white</td></tr>
+        <tr><td>Card background</td><td><code>#FFFFFF</code></td><td>White cards sit on parchment page</td></tr>
+        <tr><td>Page gutter</td><td><code>24px</code></td><td>Left/right padding</td></tr>
+        <tr><td>Product grid columns</td><td><code>4 col</code></td><td>Desktop; 2 col on mobile</td></tr>
+        <tr><td>Product grid gap</td><td><code>16px</code></td><td>More spacious than M1</td></tr>
+        <tr><td>Button radius</td><td><code>4px</code></td><td>Consistent with M1</td></tr>
+        <tr><td>Card radius</td><td><code>4px</code></td><td>Slight rounding (unlike flat M1)</td></tr>
+        <tr><td>Input radius</td><td><code>4px</code></td><td>Rounded inputs with focus ring</td></tr>
+        <tr><td>Body font size</td><td><code>16px</code></td><td>More spacious than M1's 13px</td></tr>
+        <tr><td>Section spacing</td><td><code>40–60px</code></td><td>More breathing room than M1</td></tr>
+        <tr><td>Shadow</td><td><code>0 1px 4px rgba(0,0,0,0.06)</code></td><td>Very subtle card lift</td></tr>
+        <tr><td>Focus ring</td><td><code>0 0 0 3px rgba(0,102,84,0.1)</code></td><td>Green focus indicator on inputs</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 06 QUICK REF -->
+  <section class="sg-section" id="quickref">
+    <div class="sg-section-label">06 — Quick Reference</div>
+    <h2 class="sg-section-title">Quick Reference</h2>
+
+    <div class="qr-block">
+      <div class="qr-title">FTN M2 — innovate.faithful-to-nature.co.za</div>
+      <div class="qr-grid">
+        <div>
+          <div class="qr-group-label">Colours</div>
+          <div class="qr-item"><span class="qr-dot" style="background:#006654"></span><span class="qr-text">#006654 — Green<br>Buttons, active states</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#204B4A"></span><span class="qr-text">#204B4A — Dark Teal<br>Header, H2–H3 headings</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#191919"></span><span class="qr-text">#191919 — Charcoal<br>H1 / page titles</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#D46327"></span><span class="qr-text">#D46327 — Rust<br>ALL product prices</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#F8AF44"></span><span class="qr-text">#F8AF44 — Amber<br>Links, text accents</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#3D3D3D"></span><span class="qr-text">#3D3D3D — Body text</span></div>
+        </div>
+        <div>
+          <div class="qr-group-label">Typography</div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">proxima-nova (DM Sans)<br>Body · UI · 16px · wt 400/600</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">fortescue (DM Serif Display)<br>H1–H2 editorial headings</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">H1: #191919 · 36px<br>H2: #204B4A · 28px</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">H3: #204B4A · 20px · 700<br>(proxima not fortescue)</span></div>
+          <div class="qr-group-label" style="margin-top:12px">CTA Wording</div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">"Add to basket"<br>NOT "Add to cart"</span></div>
+        </div>
+        <div>
+          <div class="qr-group-label">Surfaces</div>
+          <div class="qr-item"><span class="qr-dot" style="background:#F4F2ED;border:1px solid rgba(255,255,255,0.3)"></span><span class="qr-text">#F4F2ED — Page bg<br>Parchment (not white!)</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#FFFFFF;border:1px solid rgba(255,255,255,0.3)"></span><span class="qr-text">#FFFFFF — Cards only<br>Not page background</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:#EBF0EF;border:1px solid rgba(255,255,255,0.2)"></span><span class="qr-text">#EBF0EF — Green tint<br>Section wash</span></div>
+          <div class="qr-group-label" style="margin-top:12px">Borders &amp; Radii</div>
+          <div class="qr-item"><span class="qr-dot" style="background:#D8D3CB"></span><span class="qr-text">#D8D3CB — Warm border</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">4px — buttons, cards &amp; inputs<br>Subtle shadow on cards</span></div>
+          <div class="qr-item"><span class="qr-dot" style="background:rgba(255,255,255,0.3)"></span><span class="qr-text">Focus: green ring on inputs<br>More refined than M1</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

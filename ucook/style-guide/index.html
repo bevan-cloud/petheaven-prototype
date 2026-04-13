@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCook — Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --uc-orange:#FF6803;
+  --uc-orange-dark:#E87543;
+  --uc-navy:#043B87;
+  --uc-blue:#216BA5;
+  --uc-green:#32BE3F;
+  --uc-gold:#FCD266;
+  --uc-pink:#DF346D;
+  --uc-red:#F20C1A;
+  --text-heading:#1E1E1E;
+  --text-body:#333333;
+  --text-med:#525252;
+  --text-muted:#787878;
+  --text-light:#A6A6A6;
+  --surface-page:#FFFFFF;
+  --surface-off:#F0F0F0;
+  --surface-warm:#F8F8F8;
+  --border-light:#F0F0F0;
+  --border-input:#CCCCCC;
+  --gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--gray-1);font-size:14px;line-height:1.6}
+
+.site-header{background:#b84714;padding:0 48px;height:56px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.site-header-logo{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:#fff;letter-spacing:-.01em}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);font-family:'DM Sans',sans-serif}
+
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,0.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:0.7;transition:transform 0.2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,0.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:#1a1a1a;transition:background 0.1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:#b84714;opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+
+.site-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray-2);padding:0 48px;display:flex;align-items:center;gap:0;overflow-x:auto;height:52px}
+.site-nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:0 14px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0;text-decoration:none}
+.site-nav a:hover{color:var(--text-body)}
+.site-nav a.active{color:var(--uc-orange);border-bottom-color:var(--uc-orange)}
+
+.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:10px 48px;font-size:12px;display:flex;align-items:center;gap:0}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}
+.breadcrumb a:hover{color:var(--uc-orange)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
+.bc-cur{color:var(--gray-4)}
+
+.page{max-width:1040px;margin:0 auto;padding:48px 48px 100px}
+
+.sg-section{margin-bottom:72px}
+.sg-section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.sg-section-title{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:700;color:var(--text-body);margin-bottom:8px}
+.sg-section-desc{font-size:13px;color:var(--gray-5);line-height:1.7;margin-bottom:28px;max-width:600px}
+
+.sg-hero{background:var(--uc-orange);border-radius:var(--radius-xl);padding:48px;margin-bottom:72px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:32px;overflow:hidden;position:relative}
+.sg-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.sg-hero::after{content:'';position:absolute;right:60px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.sg-hero-text{position:relative;z-index:1}
+.sg-hero-eyebrow{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.7);margin-bottom:10px}
+.sg-hero-title{font-family:'Nunito',sans-serif;font-size:36px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:8px}
+.sg-hero-sub{font-family:'Nunito',sans-serif;font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6}
+.sg-hero-logo{position:relative;z-index:1;flex-shrink:0;font-family:'Nunito',sans-serif;font-size:42px;font-weight:900;color:rgba(255,255,255,0.25);letter-spacing:-.02em}
+
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.swatch-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden}
+.swatch-block{height:100px}
+.swatch-info{padding:12px 14px}
+.swatch-hex{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text-body);display:block;margin-bottom:2px;letter-spacing:.02em}
+.swatch-name{font-size:12px;font-weight:600;color:var(--gray-5);display:block;margin-bottom:4px}
+.swatch-role{font-size:11px;color:var(--gray-4);line-height:1.5;display:block}
+.swatch-group-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:12px;margin-top:24px}
+.swatch-group-label:first-child{margin-top:0}
+
+.type-showcase{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px}
+.type-showcase-header{padding:14px 20px;background:var(--gray-1);border-bottom:1px solid var(--gray-2);display:flex;align-items:center;justify-content:space-between}
+.type-showcase-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4)}
+.type-showcase-meta{font-size:11px;color:var(--gray-4)}
+.type-showcase-body{padding:24px 28px}
+
+.weight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.weight-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:20px 22px}
+.weight-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);margin-bottom:10px}
+.weight-specimen{font-family:'Nunito',sans-serif;font-size:22px;color:var(--text-body);line-height:1.3}
+.weight-detail{font-size:11px;color:var(--gray-4);margin-top:6px}
+
+.heading-scale{display:flex;flex-direction:column;gap:0}
+.heading-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid var(--gray-2)}
+.heading-row:last-child{border-bottom:none}
+.heading-meta{font-size:11px;color:var(--gray-4);width:80px;flex-shrink:0}
+.heading-size{font-size:11px;color:var(--gray-3);width:50px;flex-shrink:0}
+.heading-weight{font-size:11px;color:var(--gray-3);width:40px;flex-shrink:0}
+
+.btn-grid{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:24px}
+.btn-group{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:20px 22px;min-width:200px}
+.btn-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);margin-bottom:14px}
+.btn-group-buttons{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+
+.uc-btn-primary{font-family:'Nunito',sans-serif;background:#FF6803;color:#fff;border:none;border-radius:20px;padding:14px 28px;font-size:15px;font-weight:900;cursor:pointer;display:inline-block;text-decoration:none;letter-spacing:.25px}
+.uc-btn-primary:hover{background:#E87543}
+.uc-btn-secondary{font-family:'Nunito',sans-serif;background:transparent;color:#FF6803;border:2px solid #FF6803;border-radius:20px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;display:inline-block}
+.uc-btn-navy{font-family:'Nunito',sans-serif;background:#043B87;color:#fff;border:none;border-radius:20px;padding:14px 28px;font-size:15px;font-weight:900;cursor:pointer;display:inline-block}
+.uc-btn-dark{font-family:'Nunito',sans-serif;background:#1E1E1E;color:#fff;border:none;border-radius:20px;padding:14px 28px;font-size:15px;font-weight:900;cursor:pointer;display:inline-block}
+.uc-btn-pill{font-family:'Nunito',sans-serif;background:#F0F0F0;color:#333;border:none;border-radius:50px;padding:6px 16px;font-size:13px;font-weight:500;cursor:pointer;display:inline-block}
+.uc-btn-pill-active{font-family:'Nunito',sans-serif;background:#FF6803;color:#fff;border:none;border-radius:50px;padding:6px 16px;font-size:13px;font-weight:500;cursor:pointer;display:inline-block}
+.uc-btn-disabled{font-family:'Nunito',sans-serif;background:#CCCCCC;color:#787878;border:none;border-radius:20px;padding:14px 28px;font-size:15px;font-weight:900;cursor:not-allowed;opacity:0.65;display:inline-block}
+
+.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.component-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.component-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);padding:12px 18px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.component-preview{padding:20px 18px}
+
+.uc-header-demo{background:#fff;border:1px solid #F0F0F0;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;border-radius:8px}
+.uc-header-logo{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#1E1E1E;letter-spacing:-.01em}
+.uc-header-cta{background:#FF6803;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer}
+
+.uc-hero-demo{background:#FF6803;border-radius:10px;padding:24px;color:#fff;text-align:center}
+.uc-hero-title{font-family:'Nunito',sans-serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
+.uc-hero-sub{font-family:'Nunito',sans-serif;font-size:13px;color:rgba(255,255,255,0.88);margin-bottom:14px}
+.uc-hero-btn{background:#fff;color:#FF6803;border:none;border-radius:20px;padding:10px 20px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;display:inline-block}
+
+.uc-meal-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07)}
+.uc-meal-img{height:80px;background:#F0F0F0;display:flex;align-items:center;justify-content:center;position:relative}
+.uc-meal-promo{position:absolute;top:8px;left:8px;background:#FF6803;color:#fff;border-radius:50px;padding:2px 8px;font-family:'Nunito',sans-serif;font-size:10px;font-weight:700}
+.uc-meal-body{padding:10px 12px 12px}
+.uc-meal-title{font-family:'Nunito',sans-serif;font-size:13px;font-weight:500;color:#1E1E1E;margin-bottom:4px}
+.uc-meal-meta{font-family:'Nunito',sans-serif;font-size:11px;color:#787878}
+.uc-meal-tag{display:inline-block;background:#F0F0F0;color:#525252;border-radius:50px;padding:2px 8px;font-family:'Nunito',sans-serif;font-size:10px;font-weight:500;margin-top:6px}
+
+.uc-tab-bar{display:flex;gap:6px;margin-bottom:10px}
+.uc-tab{background:#F0F0F0;color:#525252;border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:500;cursor:pointer;border:none}
+.uc-tab-active{background:#FF6803;color:#fff;border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:500;cursor:pointer;border:none}
+
+.uc-plan-card{background:#fff;border:2px solid #F0F0F0;border-radius:16px;padding:20px}
+.uc-plan-featured{background:#fff;border:2px solid #FF6803;border-radius:16px;padding:20px}
+.uc-plan-title{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:#1E1E1E;margin-bottom:4px}
+.uc-plan-price{font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#FF6803;line-height:1}
+.uc-plan-sub{font-family:'Nunito',sans-serif;font-size:11px;color:#787878;margin-bottom:10px}
+
+.uc-footer-demo{background:#1E1E1E;padding:16px 20px;border-radius:8px}
+.uc-footer-head{font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.uc-footer-link{font-family:'Nunito',sans-serif;font-size:12px;color:#A6A6A6}
+
+.layout-table{width:100%;border-collapse:collapse}
+.layout-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.layout-table td{font-size:13px;padding:11px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6;color:var(--text-body)}
+.layout-table tr:last-child td{border-bottom:none}
+.layout-table tr:hover td{background:var(--gray-1)}
+.code{font-family:monospace;font-size:12px;background:var(--gray-1);padding:1px 6px;border-radius:3px;color:var(--uc-orange)}
+
+.quick-ref{background:#1a1a1a;border-radius:var(--radius-xl);padding:32px 36px;color:#fff}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.qr-group-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.4);margin-bottom:14px}
+.qr-item{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.qr-swatch{width:18px;height:18px;border-radius:4px;flex-shrink:0}
+.qr-label{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.8)}
+.qr-hex{font-family:monospace;font-size:11px;color:rgba(255,255,255,0.45);margin-left:auto}
+.qr-divider{height:1px;background:rgba(255,255,255,0.08);margin:20px 0}
+.qr-rule{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;padding-left:12px;border-left:2px solid rgba(255,255,255,0.15);margin-bottom:10px}
+.qr-rule strong{color:rgba(255,255,255,0.85)}
+
+@media(max-width:768px){
+  .site-nav{padding:0 20px}
+  .breadcrumb{padding:10px 20px}
+  .page{padding:32px 20px 60px}
+  .component-grid{grid-template-columns:1fr}
+  .swatch-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .weight-grid{grid-template-columns:1fr}
+  .qr-grid{grid-template-columns:1fr}
+  .sg-hero{flex-direction:column;padding:32px}
+  .sg-hero-logo{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="site-header-logo">UCOOK</span>
+  <div class="site-header-divider"></div>
+  <span class="site-header-label">Style Guide</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#FF6803"></span>
+      UCook
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../style-guide/"><span class="cs-option-dot" style="background:#50B848"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/style-guide/"><span class="cs-option-dot" style="background:#006654"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option active" href="../style-guide/"><span class="cs-option-dot" style="background:#FF6803"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <a href="#colours" class="active">Colours</a>
+  <a href="#typography">Typography</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#components">Components</a>
+  <a href="#layout">Layout</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../home/">Home</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-cur">Style Guide</span>
+</div>
+
+<div class="page">
+
+  <div class="sg-hero">
+    <div class="sg-hero-text">
+      <div class="sg-hero-eyebrow">UCook · Corporate Identity</div>
+      <div class="sg-hero-title">Design System</div>
+      <div class="sg-hero-sub">Complete brand reference for ucook.co.za — colours, typography,<br>buttons, and components sourced from the live site.</div>
+    </div>
+    <div class="sg-hero-logo">UCOOK</div>
+  </div>
+
+  <!-- COLOURS -->
+  <div class="sg-section" id="colours">
+    <div class="sg-section-label">01 — Colour system</div>
+    <div class="sg-section-title">Colour Palette</div>
+    <p class="sg-section-desc">All colours extracted from ucook.co.za. UC Orange is the universal brand signal — warm, energetic, and distinctive. Each secondary colour has a strict use case.</p>
+
+    <div class="swatch-group-label">Primary brand colours</div>
+    <div class="swatch-grid">
+      <div class="swatch-card"><div class="swatch-block" style="background:#FF6803"></div><div class="swatch-info"><span class="swatch-hex">#FF6803</span><span class="swatch-name">UC Orange</span><span class="swatch-role">Primary CTA buttons, active nav, brand accent, icon fills</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#E87543"></div><div class="swatch-info"><span class="swatch-hex">#E87543</span><span class="swatch-name">UC Orange Dark</span><span class="swatch-role">Button hover/active states — never standalone</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#043B87"></div><div class="swatch-info"><span class="swatch-hex">#043B87</span><span class="swatch-name">UC Navy</span><span class="swatch-role">Premium / trust signals, subscription CTAs</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#216BA5"></div><div class="swatch-info"><span class="swatch-hex">#216BA5</span><span class="swatch-name">UC Blue</span><span class="swatch-role">Datepicker, secondary interactive elements</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#32BE3F"></div><div class="swatch-info"><span class="swatch-hex">#32BE3F</span><span class="swatch-name">UC Green</span><span class="swatch-role">Success states, confirmed orders — not decorative</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#FCD266"></div><div class="swatch-info"><span class="swatch-hex">#FCD266</span><span class="swatch-name">UC Gold</span><span class="swatch-role">Deals callouts, "Best value" / featured labels</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#DF346D"></div><div class="swatch-info"><span class="swatch-hex">#DF346D</span><span class="swatch-name">UC Pink</span><span class="swatch-role">Gift category, promotional overlays, occasions</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#F20C1A"></div><div class="swatch-info"><span class="swatch-hex">#F20C1A</span><span class="swatch-name">UC Red</span><span class="swatch-role">Error / alert states ONLY — never decorative</span></div></div>
+    </div>
+
+    <div class="swatch-group-label">Text colours</div>
+    <div class="swatch-grid">
+      <div class="swatch-card"><div class="swatch-block" style="background:#1E1E1E"></div><div class="swatch-info"><span class="swatch-hex">#1E1E1E</span><span class="swatch-name">Text Near-Black</span><span class="swatch-role">H1, H2 primary headings</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#333333"></div><div class="swatch-info"><span class="swatch-hex">#333333</span><span class="swatch-name">Text Dark</span><span class="swatch-role">Body copy, nav links, card labels</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#525252"></div><div class="swatch-info"><span class="swatch-hex">#525252</span><span class="swatch-name">Text Medium</span><span class="swatch-role">Secondary descriptions, supporting copy</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#787878;border:1px solid #eee"></div><div class="swatch-info"><span class="swatch-hex">#787878</span><span class="swatch-name">Text Muted</span><span class="swatch-role">Helper text, timestamps, meta labels</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#A6A6A6;border:1px solid #eee"></div><div class="swatch-info"><span class="swatch-hex">#A6A6A6</span><span class="swatch-name">Text Light</span><span class="swatch-role">Placeholder text, disabled labels</span></div></div>
+    </div>
+
+    <div class="swatch-group-label">Surfaces &amp; borders</div>
+    <div class="swatch-grid">
+      <div class="swatch-card"><div class="swatch-block" style="background:#FFFFFF;border:1px solid #eee"></div><div class="swatch-info"><span class="swatch-hex">#FFFFFF</span><span class="swatch-name">White</span><span class="swatch-role">Page background, cards, modals, inputs</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#F0F0F0;border:1px solid #eee"></div><div class="swatch-info"><span class="swatch-hex">#F0F0F0</span><span class="swatch-name">Surface Light</span><span class="swatch-role">Alternating sections, input fills, pill tags</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#CCCCCC;border:1px solid #eee"></div><div class="swatch-info"><span class="swatch-hex">#CCCCCC</span><span class="swatch-name">Border Input</span><span class="swatch-role">Form field borders, disabled states</span></div></div>
+      <div class="swatch-card"><div class="swatch-block" style="background:#1E1E1E"></div><div class="swatch-info"><span class="swatch-hex">#1E1E1E</span><span class="swatch-name">Footer Dark</span><span class="swatch-role">Footer background ONLY</span></div></div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="sg-section" id="typography">
+    <div class="sg-section-label">02 — Typography</div>
+    <div class="sg-section-title">Font Family — Gordita</div>
+    <p class="sg-section-desc">Gordita is the primary brand typeface (hosted via UCOOK's CDN). For prototyping, use Nunito from Google Fonts as the closest substitute. Utopia is used for editorial/recipe contexts only. Never use Arial or Roboto as a primary substitute.</p>
+
+    <div class="type-showcase">
+      <div class="type-showcase-header">
+        <span class="type-showcase-label">Font weights</span>
+        <span class="type-showcase-meta">Gordita (prototype: Nunito) · 6 weights active</span>
+      </div>
+      <div class="type-showcase-body">
+        <div class="weight-grid">
+          <div class="weight-card"><div class="weight-label">Light · 300</div><div class="weight-specimen" style="font-weight:300">Dinner, made easy</div><div class="weight-detail">Large display text, hero sub-copy</div></div>
+          <div class="weight-card"><div class="weight-label">Regular · 400</div><div class="weight-specimen" style="font-weight:400">Dinner, made easy</div><div class="weight-detail">Body copy, descriptions, breadcrumbs</div></div>
+          <div class="weight-card"><div class="weight-label">Medium · 500</div><div class="weight-specimen" style="font-weight:500">Dinner, made easy</div><div class="weight-detail">Secondary headings, card labels</div></div>
+          <div class="weight-card"><div class="weight-label">Semi-Bold · 600</div><div class="weight-specimen" style="font-weight:600">Dinner, made easy</div><div class="weight-detail">Sub-headings, filter labels</div></div>
+          <div class="weight-card"><div class="weight-label">Bold · 700</div><div class="weight-specimen" style="font-weight:700">Dinner, made easy</div><div class="weight-detail">Section headings, feature titles</div></div>
+          <div class="weight-card"><div class="weight-label">Extra-Bold · 900</div><div class="weight-specimen" style="font-weight:900">Dinner, made easy</div><div class="weight-detail">Button labels ONLY — all CTAs</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-showcase">
+      <div class="type-showcase-header">
+        <span class="type-showcase-label">Heading scale</span>
+        <span class="type-showcase-meta">Gordita · on white/light backgrounds</span>
+      </div>
+      <div class="type-showcase-body">
+        <div class="heading-scale">
+          <div class="heading-row"><span class="heading-meta">H1</span><span class="heading-size">2.5rem</span><span class="heading-weight">700</span><span style="font-family:'Nunito',sans-serif;font-size:2rem;font-weight:700;color:#1E1E1E;line-height:1.15">Dinner, made easy</span></div>
+          <div class="heading-row"><span class="heading-meta">H2</span><span class="heading-size">2rem</span><span class="heading-weight">700</span><span style="font-family:'Nunito',sans-serif;font-size:1.75rem;font-weight:700;color:#1E1E1E;line-height:1.2">Choose your meals</span></div>
+          <div class="heading-row"><span class="heading-meta">H3</span><span class="heading-size">1.5rem</span><span class="heading-weight">600</span><span style="font-family:'Nunito',sans-serif;font-size:1.35rem;font-weight:600;color:#333333;line-height:1.25">This week's featured recipes</span></div>
+          <div class="heading-row"><span class="heading-meta">H4</span><span class="heading-size">1.25rem</span><span class="heading-weight">600</span><span style="font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:600;color:#333333;line-height:1.3">Quick &amp; Easy — 30 mins</span></div>
+          <div class="heading-row"><span class="heading-meta">H5</span><span class="heading-size">1.125rem</span><span class="heading-weight">500</span><span style="font-family:'Nunito',sans-serif;font-size:1rem;font-weight:500;color:#333333;line-height:1.35">Lemon Herb Chicken</span></div>
+          <div class="heading-row"><span class="heading-meta">H6</span><span class="heading-size">0.875rem</span><span class="heading-weight">600</span><span style="font-family:'Nunito',sans-serif;font-size:0.875rem;font-weight:600;color:#525252;text-transform:uppercase;letter-spacing:.08em;line-height:1.2">MEAL KITS</span></div>
+          <div class="heading-row"><span class="heading-meta">Body</span><span class="heading-size">16px</span><span class="heading-weight">400</span><span style="font-family:'Nunito',sans-serif;font-size:15px;font-weight:400;color:#333333;line-height:1.7">Fresh ingredients, chef-designed recipes, delivered to your door.</span></div>
+          <div class="heading-row"><span class="heading-meta">Small</span><span class="heading-size">13px</span><span class="heading-weight">400</span><span style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:400;color:#787878;line-height:1.6">Serves 2 · 35 min · Easy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="sg-section" id="buttons">
+    <div class="sg-section-label">03 — Buttons</div>
+    <div class="sg-section-title">Button Variants</div>
+    <p class="sg-section-desc">All buttons use Gordita weight 900 for labels. Pill shape (border-radius: 20px) is the default for primary CTAs. CTA copy is always "Get started" or "Choose your meals" — never "Buy now" or "Add to cart".</p>
+
+    <div class="btn-grid">
+      <div class="btn-group"><div class="btn-group-label">Primary CTA</div><div class="btn-group-buttons"><button class="uc-btn-primary">Get started</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">#FF6803 · hover #E87543 · 20px radius · weight 900</div></div></div>
+      <div class="btn-group"><div class="btn-group-label">Secondary / Ghost</div><div class="btn-group-buttons"><button class="uc-btn-secondary">View menu</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">Transparent bg · #FF6803 border + text · weight 700</div></div></div>
+      <div class="btn-group"><div class="btn-group-label">Navy / Premium</div><div class="btn-group-buttons"><button class="uc-btn-navy">Upgrade plan</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">#043B87 · hover #1D5D90 · trust / subscription</div></div></div>
+      <div class="btn-group"><div class="btn-group-label">Dark / On-image</div><div class="btn-group-buttons"><button class="uc-btn-dark">Order now</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">#1E1E1E · inverted CTA on hero images</div></div></div>
+      <div class="btn-group"><div class="btn-group-label">Pill Tags</div><div class="btn-group-buttons"><button class="uc-btn-pill">Vegetarian</button><button class="uc-btn-pill-active">Quick &amp; Easy</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">Default #F0F0F0 · Active #FF6803 · 50px radius</div></div></div>
+      <div class="btn-group"><div class="btn-group-label">Disabled</div><div class="btn-group-buttons"><button class="uc-btn-disabled" disabled>Sold out</button><div style="font-size:11px;color:var(--gray-4);margin-top:4px">#CCCCCC bg · #787878 text · opacity 0.65</div></div></div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="sg-section" id="components">
+    <div class="sg-section-label">04 — Components</div>
+    <div class="sg-section-title">UI Components</div>
+    <p class="sg-section-desc">Key recurring patterns from ucook.co.za — rendered with real UC styles.</p>
+
+    <div class="component-grid">
+      <div class="component-card">
+        <div class="component-label">Header / Nav</div>
+        <div class="component-preview">
+          <div class="uc-header-demo">
+            <span class="uc-header-logo">UCOOK</span>
+            <div style="display:flex;gap:16px;align-items:center">
+              <span style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:400;color:#333">Meal Kits</span>
+              <span style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:400;color:#333">Market</span>
+              <button class="uc-header-cta">Get started</button>
+            </div>
+          </div>
+          <div style="font-family:'Nunito',sans-serif;font-size:11px;color:var(--gray-4);margin-top:8px">White header · #F0F0F0 border · #FF6803 CTA pill</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Hero Banner</div>
+        <div class="component-preview">
+          <div class="uc-hero-demo">
+            <div class="uc-hero-title">Dinner, made easy</div>
+            <div class="uc-hero-sub">Fresh ingredients, chef-designed recipes.</div>
+            <button class="uc-hero-btn">Choose your meals</button>
+          </div>
+          <div style="font-family:'Nunito',sans-serif;font-size:11px;color:var(--gray-4);margin-top:8px">#FF6803 bg · white text · inverted white pill CTA</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Meal Card</div>
+        <div class="component-preview" style="max-width:180px">
+          <div class="uc-meal-card">
+            <div class="uc-meal-img">
+              <span class="uc-meal-promo">20% OFF</span>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#F0F0F0"/><circle cx="24" cy="20" r="8" stroke="#CCCCCC" stroke-width="2"/><path d="M12 40c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#CCCCCC" stroke-width="2"/></svg>
+            </div>
+            <div class="uc-meal-body">
+              <div class="uc-meal-title">Lemon Herb Chicken</div>
+              <div class="uc-meal-meta">35 min · Serves 2</div>
+              <span class="uc-meal-tag">Quick &amp; Easy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Category Tabs</div>
+        <div class="component-preview">
+          <div class="uc-tab-bar">
+            <button class="uc-tab">All</button>
+            <button class="uc-tab-active">Quick &amp; Easy</button>
+            <button class="uc-tab">Vegetarian</button>
+            <button class="uc-tab">Family</button>
+          </div>
+          <div style="font-family:'Nunito',sans-serif;font-size:11px;color:var(--gray-4)">Default #F0F0F0 · Active #FF6803 · 50px radius pills</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Plan / Pricing Card</div>
+        <div class="component-preview">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="uc-plan-card">
+              <div class="uc-plan-title">2 people</div>
+              <div class="uc-plan-price">R189</div>
+              <div class="uc-plan-sub">per meal</div>
+            </div>
+            <div class="uc-plan-featured">
+              <div class="uc-plan-title">4 people</div>
+              <div class="uc-plan-price">R159</div>
+              <div class="uc-plan-sub">per meal · best value</div>
+            </div>
+          </div>
+          <div style="font-family:'Nunito',sans-serif;font-size:11px;color:var(--gray-4);margin-top:8px">Default: #F0F0F0 border · Featured: #FF6803 border</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Footer</div>
+        <div class="component-preview">
+          <div class="uc-footer-demo">
+            <div class="uc-footer-head">UCOOK</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap">
+              <span class="uc-footer-link">Meal Kits</span>
+              <span class="uc-footer-link">Frozen</span>
+              <span class="uc-footer-link">Wine</span>
+              <span class="uc-footer-link">Market</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="sg-section" id="layout">
+    <div class="sg-section-label">05 — Layout &amp; spacing</div>
+    <div class="sg-section-title">Layout Rules</div>
+    <p class="sg-section-desc">UCOOK uses a consistently rounded, warm, modern aesthetic. Pill buttons, soft shadows, and generous whitespace are hallmarks of the brand.</p>
+
+    <table class="layout-table" style="background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px">
+      <thead><tr><th style="width:30%">Property</th><th style="width:35%">Value</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Max content width</strong></td><td><span class="code">1280px</span></td><td>All page layouts</td></tr>
+        <tr><td><strong>Page gutter</strong></td><td><span class="code">24px</span> (mobile: <span class="code">16px</span>)</td><td>Left/right page padding</td></tr>
+        <tr><td><strong>Section vertical padding</strong></td><td><span class="code">48–80px</span></td><td>Between major page sections</td></tr>
+        <tr><td><strong>Card gap</strong></td><td><span class="code">16–20px</span></td><td>Meal card grids</td></tr>
+        <tr><td><strong>Border radius — primary buttons</strong></td><td><span class="code">20px</span> (pill)</td><td>All primary/dark/navy CTAs</td></tr>
+        <tr><td><strong>Border radius — cards</strong></td><td><span class="code">14–18px</span></td><td>Meal cards, feature panels</td></tr>
+        <tr><td><strong>Border radius — inputs</strong></td><td><span class="code">10px</span></td><td>Form fields, search</td></tr>
+        <tr><td><strong>Border radius — modals</strong></td><td><span class="code">16px</span></td><td>Drawers and overlays</td></tr>
+        <tr><td><strong>Border radius — tags</strong></td><td><span class="code">50px</span></td><td>Category pills, meal tags</td></tr>
+        <tr><td><strong>Box shadow — cards</strong></td><td><span class="code">0 2px 12px rgba(0,0,0,0.07)</span></td><td>Default meal card elevation</td></tr>
+        <tr><td><strong>Box shadow — hover</strong></td><td><span class="code">0 6px 24px rgba(0,0,0,0.12)</span></td><td>Meal card hover lift</td></tr>
+        <tr><td><strong>Box shadow — modals</strong></td><td><span class="code">0 8px 32px rgba(0,0,0,0.16)</span></td><td>Modals and drawers</td></tr>
+        <tr><td><strong>Focus ring</strong></td><td><span class="code">0 0 0 3px rgba(255,104,3,0.12)</span></td><td>Input focus state</td></tr>
+      </tbody>
+    </table>
+
+    <table class="layout-table" style="background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden">
+      <thead><tr><th>Breakpoint</th><th>Width</th><th>Key changes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mobile</strong></td><td><span class="code">&lt; 640px</span></td><td>1-col meal grid, stacked hero, bottom CTA bar</td></tr>
+        <tr><td><strong>Tablet</strong></td><td><span class="code">640–1024px</span></td><td>2-col meal grid, condensed nav</td></tr>
+        <tr><td><strong>Desktop</strong></td><td><span class="code">1024–1280px</span></td><td>3-col meal grid, full navigation</td></tr>
+        <tr><td><strong>Wide</strong></td><td><span class="code">&gt; 1280px</span></td><td>1280px max-width active, 4-col grid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUICK REF -->
+  <div class="sg-section" id="quickref">
+    <div class="sg-section-label">06 — Quick reference</div>
+    <div class="sg-section-title">Cheat Sheet</div>
+    <p class="sg-section-desc">Everything you need in one glance.</p>
+    <div class="quick-ref">
+      <div class="qr-grid">
+        <div>
+          <div class="qr-group-title">Primary palette</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FF6803"></div><span class="qr-label">UC Orange — CTAs, nav, brand accent</span><span class="qr-hex">#FF6803</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#E87543"></div><span class="qr-label">UC Orange Dark — hover states</span><span class="qr-hex">#E87543</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#043B87"></div><span class="qr-label">UC Navy — premium / trust</span><span class="qr-hex">#043B87</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#216BA5"></div><span class="qr-label">UC Blue — datepicker, secondary</span><span class="qr-hex">#216BA5</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#32BE3F"></div><span class="qr-label">UC Green — success states only</span><span class="qr-hex">#32BE3F</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FCD266"></div><span class="qr-label">UC Gold — deals / best value</span><span class="qr-hex">#FCD266</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#DF346D"></div><span class="qr-label">UC Pink — gifts / promotions</span><span class="qr-hex">#DF346D</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#F20C1A"></div><span class="qr-label">UC Red — errors only</span><span class="qr-hex">#F20C1A</span></div>
+          <div class="qr-divider"></div>
+          <div class="qr-group-title">Text</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#1E1E1E"></div><span class="qr-label">Headings</span><span class="qr-hex">#1E1E1E</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#333333"></div><span class="qr-label">Body copy</span><span class="qr-hex">#333333</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#525252"></div><span class="qr-label">Secondary</span><span class="qr-hex">#525252</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#787878"></div><span class="qr-label">Muted / meta</span><span class="qr-hex">#787878</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#A6A6A6"></div><span class="qr-label">Placeholder / disabled</span><span class="qr-hex">#A6A6A6</span></div>
+        </div>
+        <div>
+          <div class="qr-group-title">Typography</div>
+          <div class="qr-rule"><strong>Primary font:</strong> Gordita (prototype: Nunito) — non-negotiable for UCOOK UI</div>
+          <div class="qr-rule"><strong>Secondary font:</strong> Utopia — editorial / recipe contexts only</div>
+          <div class="qr-rule"><strong>300</strong> hero sub-copy &nbsp; <strong>400</strong> body &nbsp; <strong>500</strong> card labels<br><strong>600</strong> sub-headings &nbsp; <strong>700</strong> section headings<br><strong>900</strong> button labels ONLY — all CTAs</div>
+          <div class="qr-divider"></div>
+          <div class="qr-group-title">Key rules</div>
+          <div class="qr-rule"><strong>CTA copy:</strong> "Get started" · "Choose your meals" · "Order now" — NEVER "Buy now" or "Add to cart"</div>
+          <div class="qr-rule"><strong>Buttons are pills.</strong> border-radius: 20px on all primary CTAs — rounded, warm, modern.</div>
+          <div class="qr-rule"><strong>Cards have soft shadows.</strong> 0 2px 12px rgba(0,0,0,0.07) default — not flat like PH.</div>
+          <div class="qr-rule"><strong>Page background is white.</strong> #FFFFFF — not a tinted warm background.</div>
+          <div class="qr-divider"></div>
+          <div class="qr-group-title">Surfaces</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FFFFFF;border:1px solid rgba(255,255,255,0.15)"></div><span class="qr-label">White — page, cards, modals</span><span class="qr-hex">#FFFFFF</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#F0F0F0;border:1px solid rgba(255,255,255,0.1)"></div><span class="qr-label">Surface Light — sections, pill tags</span><span class="qr-hex">#F0F0F0</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#1E1E1E"></div><span class="qr-label">Footer dark</span><span class="qr-hex">#1E1E1E</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FF6803"></div><span class="qr-label">Hero / CTA bg</span><span class="qr-hex">#FF6803</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleSwitcher(){const m=document.getElementById('csMenu'),t=document.getElementById('csTrigger');const open=m.classList.toggle('open');t.setAttribute('aria-expanded',open)}
+document.addEventListener('click',e=>{const sw=document.getElementById('companySwitcher');if(!sw.contains(e.target)){document.getElementById('csMenu').classList.remove('open');document.getElementById('csTrigger').setAttribute('aria-expanded','false')}})
+document.querySelectorAll('.site-nav a').forEach(a=>{a.addEventListener('click',function(){document.querySelectorAll('.site-nav a').forEach(x=>x.classList.remove('active'));this.classList.add('active')})})
+</script>
+</body>
+</html>
