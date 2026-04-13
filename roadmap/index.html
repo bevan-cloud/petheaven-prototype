@@ -225,13 +225,18 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .tl-bar-ai{font-size:9px;font-weight:700;padding:1px 5px;border-radius:20px;background:rgba(237,233,254,.35);color:#fff;line-height:1.6}
 
 /* ── THEME VIEW ──────────────────────────────────────────────────────────── */
-.theme-sections{display:flex;flex-direction:column;gap:14px}
+.theme-sections{display:flex;flex-direction:column;gap:10px}
 .theme-section{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
-.theme-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-2)}
+.theme-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .12s}
+.theme-sec-hdr:hover{background:var(--gray-1)}
+.theme-section.open .theme-sec-hdr{border-bottom:1px solid var(--gray-2)}
 .theme-sec-bar{width:4px;height:34px;border-radius:2px;flex-shrink:0}
 .theme-sec-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);flex:1}
-.theme-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0}
-.theme-sec-body{display:grid;grid-template-columns:repeat(4,1fr)}
+.theme-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0;margin-right:8px}
+.theme-sec-chevron{color:var(--gray-4);flex-shrink:0;transition:transform .22s ease}
+.theme-section.open .theme-sec-chevron{transform:rotate(180deg)}
+.theme-sec-body{display:none;grid-template-columns:repeat(4,1fr)}
+.theme-section.open .theme-sec-body{display:grid}
 .theme-qcol{padding:10px;border-right:1px solid var(--gray-2)}
 .theme-qcol:last-child{border-right:none}
 .theme-qcol-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
@@ -307,6 +312,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- TIMELINE VIEW -->
   <div class="view-section" id="view-timeline">
+    <div class="fy-banner" id="fy-banner-tl"></div>
     <div class="tl-wrap">
       <div class="tl-table">
         <div class="tl-hdr" id="tl-hdr"></div>
@@ -322,6 +328,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- THEME VIEW -->
   <div class="view-section" id="view-theme">
+    <div class="fy-banner" id="fy-banner-theme"></div>
     <div class="theme-sections" id="theme-sections"></div>
     <div style="margin-top:24px">
       <div class="section-hdr"><div class="section-title">Backlog</div></div>
@@ -651,7 +658,7 @@ function buildCard(item) {
 }
 
 // ─── FY PROGRESS BANNER ───────────────────────────────────────────────────────
-function buildFYBanner() {
+function buildFYBanner(targetId = 'fy-banner') {
   const now   = new Date();
   const FY_START = new Date(2026, 2, 1);   // 1 Mar 2026
   const FY_END   = new Date(2027, 2, 1);   // 1 Mar 2027 (exclusive)
@@ -715,7 +722,7 @@ function buildFYBanner() {
     </div>`;
   }).join('');
 
-  document.getElementById('fy-banner').innerHTML = `
+  document.getElementById(targetId).innerHTML = `
     <div class="fyb-top">
       <div class="fyb-title">
         FY 2026/27 Progress
@@ -855,11 +862,12 @@ function buildThemeView() {
         </div>
       </div>`;
     }).join('');
-    return `<div class="theme-section">
-      <div class="theme-sec-hdr">
+    return `<div class="theme-section" id="theme-sec-${th.key}">
+      <div class="theme-sec-hdr" onclick="toggleTheme('${th.key}')">
         <div class="theme-sec-bar" style="background:${th.color}"></div>
         <div class="theme-sec-name">${th.label}</div>
         <div class="theme-sec-count">${themeItems.length} initiative${themeItems.length > 1 ? 's' : ''} this FY</div>
+        <svg class="theme-sec-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="theme-sec-body">${cols}</div>
     </div>`;
@@ -868,12 +876,27 @@ function buildThemeView() {
   document.getElementById('theme-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
 }
 
+// ─── ACCORDION (theme view) ───────────────────────────────────────────────────
+function toggleTheme(key) {
+  const all = document.querySelectorAll('.theme-section');
+  const target = document.getElementById('theme-sec-' + key);
+  const isOpen = target.classList.contains('open');
+  all.forEach(s => s.classList.remove('open'));
+  if (!isOpen) target.classList.add('open');
+  closePanel();
+}
+
 // ─── BUILD PAGE ───────────────────────────────────────────────────────────────
 function buildPage() {
-  buildFYBanner();
+  buildFYBanner('fy-banner');
+  buildFYBanner('fy-banner-tl');
+  buildFYBanner('fy-banner-theme');
   buildKanban();
   buildTimeline();
   buildThemeView();
+  // Open first theme section by default
+  const first = document.querySelector('.theme-section');
+  if (first) first.classList.add('open');
   bindClicks();
 }
 
