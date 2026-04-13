@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCook — Product Prioritization</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#e05a1e;--brand-dark:#b84714;--brand-light:#fdf1ec;--brand-mid:#f0b89a;
+  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
+  --blue:#1a6fd4;--blue-light:#e8f1fc;
+  --purple:#7b1fa2;--purple-light:#f3e5f5;
+  --teal:#00695c;--teal-light:#e0f2f1;
+  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
+  --data:#1565c0;--data-light:#e3f2fd;
+  --red:#a00000;--red-light:#fff0f0;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#fff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
+
+/* HEADER */
+.site-nav{position:sticky;top:0;z-index:100;background:var(--brand-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:14px}
+.site-nav-wordmark{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-nav-div{width:1px;height:20px;background:rgba(255,255,255,.2);flex-shrink:0}
+.site-nav-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.65)}
+
+/* COMPANY SWITCHER */
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:var(--black);transition:background .1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:9px 40px;font-size:12px;display:flex;align-items:center}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}
+.breadcrumb a:hover{color:var(--brand-dark)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
+.bc-cur{color:var(--gray-4)}
+
+/* HERO */
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:36px 40px 32px}
+.hero-inner{max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;color:var(--black);margin-bottom:6px}
+.hero-sub{font-size:14px;color:var(--gray-5);max-width:600px;line-height:1.7;margin-bottom:24px}
+.rice-cards{display:flex;gap:10px;flex-wrap:wrap}
+.rice-card{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px;flex:1;min-width:160px;max-width:200px}
+.rice-card-letter{font-family:'DM Serif Display',serif;font-size:28px;line-height:1;margin-bottom:4px}
+.rc-r{color:var(--blue)}.rc-i{color:var(--green)}.rc-c{color:var(--purple)}.rc-e{color:var(--red)}
+.rice-card-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:3px}
+.rice-card-desc{font-size:11px;color:var(--gray-4);line-height:1.5}
+.rice-formula{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500}
+.rice-formula span{opacity:.5;font-size:11px}
+.edit-hint{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:12px}
+
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px 40px 80px}
+
+/* FILTER BAR */
+.filter-bar{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:16px 20px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filter-search{flex:1;min-width:180px;position:relative}
+.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.filter-search input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--black);outline:none;background:var(--gray-1)}
+.filter-search input:focus{border-color:var(--brand);background:#fff}
+.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray-5);outline:none;background:var(--gray-1);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.filter-select:focus{border-color:var(--brand)}
+.filter-reset{font-size:12px;font-weight:500;color:var(--gray-4);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:6px 0}
+.filter-reset:hover{color:var(--red)}
+.filter-count{font-size:12px;color:var(--gray-4);margin-left:auto;white-space:nowrap}
+.filter-count strong{color:var(--black)}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:900px}
+thead tr{background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
+th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);padding:11px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;-webkit-user-select:none}
+th:hover{color:var(--black)}
+th.sorted{color:var(--brand-dark)}
+th .sort-arrow{display:inline-block;margin-left:4px;opacity:.5;font-size:9px}
+th.sorted .sort-arrow{opacity:1}
+th.th-score{text-align:center}
+th.th-rice{text-align:left;padding-left:16px}
+th.no-sort{cursor:default}
+th.no-sort:hover{color:var(--gray-4)}
+tbody tr{border-bottom:1px solid var(--gray-2);transition:background .1s;cursor:pointer}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray-1)}
+tbody tr.row-active td{background:var(--brand-light) !important}
+td{padding:10px 14px;vertical-align:middle;font-size:13px}
+tr.tier-high td:first-child{border-left:3px solid var(--green)}
+tr.tier-mid td:first-child{border-left:3px solid var(--amber-mid)}
+tr.tier-low td:first-child{border-left:3px solid var(--gray-2)}
+.td-rank{font-size:11px;font-weight:700;color:var(--gray-4);width:48px;text-align:center}
+.td-name{min-width:200px}
+.item-name{font-weight:600;color:var(--black);line-height:1.3}
+.item-desc{font-size:11px;color:var(--gray-4);margin-top:2px;line-height:1.4;max-width:280px}
+
+/* THEME PILLS */
+.theme-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
+.tp-proc{background:var(--amber-light);color:var(--amber)}
+.tp-web{background:var(--blue-light);color:var(--blue)}
+.tp-eco{background:var(--green-light);color:var(--green-dark)}
+.tp-infra{background:var(--teal-light);color:var(--teal)}
+.tp-retail{background:var(--purple-light);color:var(--purple)}
+.tp-data{background:var(--data-light);color:var(--data)}
+.tp-none{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* STATUS PILLS */
+.status-pill{display:inline-block;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8}
+.sp-live{background:var(--green-light);color:var(--green-dark)}
+.sp-inprogress{background:var(--amber-light);color:var(--amber)}
+.sp-blocked{background:var(--red-light);color:var(--red)}
+
+/* TYPE PILLS */
+.type-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
+.type-qw{background:var(--green-light);color:var(--green-dark)}
+.type-er{background:var(--blue-light);color:var(--blue)}
+
+/* SCORE CELLS */
+.td-score{text-align:center;width:60px;font-variant-numeric:tabular-nums}
+.score-val{display:inline-flex;align-items:center;justify-content:center;width:32px;height:26px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;transition:background .1s,color .1s}
+.score-val:hover{background:var(--gray-2)}
+.sv-r{color:var(--blue)}.sv-i{color:var(--green-dark)}.sv-c{color:var(--purple)}.sv-e{color:var(--red)}
+.score-input{width:36px;height:26px;border:1.5px solid var(--brand);border-radius:var(--radius);text-align:center;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;outline:none;padding:0 2px;-moz-appearance:textfield}
+.score-input::-webkit-outer-spin-button,.score-input::-webkit-inner-spin-button{-webkit-appearance:none}
+
+/* RICE COLUMN */
+.td-rice{min-width:140px}
+.rice-wrap{display:flex;align-items:center;gap:8px}
+.rice-bar-track{flex:1;height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden;min-width:60px}
+.rice-bar{height:100%;border-radius:3px;transition:width .2s ease;background:var(--green)}
+tr.tier-high .rice-bar{background:var(--green)}
+tr.tier-mid .rice-bar{background:var(--amber-mid)}
+tr.tier-low .rice-bar{background:var(--gray-3)}
+.rice-num{font-size:12px;font-weight:700;color:var(--black);width:36px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+
+/* EXPORT */
+.export-bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:16px}
+.btn-export{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius);padding:7px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,color .15s}
+.btn-export:hover{border-color:var(--brand);color:var(--brand-dark)}
+
+.empty-state{padding:48px 24px;text-align:center;color:var(--gray-4);font-size:13px}
+
+/* DETAIL PANEL */
+.dp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
+.dp-overlay.open{opacity:1;pointer-events:all}
+.dp-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#fff;z-index:201;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
+.dp-panel.open{transform:translateX(0)}
+.dp-hdr{padding:20px 20px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:flex-start;gap:10px}
+.dp-close{width:28px;height:28px;border:1px solid var(--gray-2);border-radius:var(--radius);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-4);flex-shrink:0;transition:background .1s,color .1s;margin-top:2px}
+.dp-close:hover{background:var(--gray-1);color:var(--black)}
+.dp-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.dp-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;color:var(--black)}
+.dp-body{padding:18px 20px;flex:1}
+.dp-desc{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:20px}
+.dp-sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
+.rice-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.rcell{background:var(--gray-1);border-radius:var(--radius);padding:10px 6px;text-align:center}
+.rcell-letter{font-family:'DM Serif Display',serif;font-size:18px;line-height:1;margin-bottom:2px}
+.rcell-val{font-size:16px;font-weight:700;color:var(--black)}
+.rcell-lbl{font-size:9px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.rice-result-box{background:var(--black);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.rice-formula-txt{font-size:11px;color:rgba(255,255,255,.45)}
+.rice-score-big{font-family:'DM Serif Display',serif;font-size:28px;color:#fff}
+.dp-bar-track{height:5px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.dp-bar-fill{height:100%;border-radius:3px}
+.no-score{font-size:12px;color:var(--gray-4);font-style:italic;background:var(--gray-1);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:20px;line-height:1.6}
+.dp-meta-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2);display:flex;flex-direction:column;gap:8px}
+.dp-meta-row{display:flex;gap:8px;font-size:12px;align-items:baseline}
+.dp-meta-key{color:var(--gray-4);min-width:100px;flex-shrink:0}
+.dp-meta-val{color:var(--black);font-weight:500}
+
+@media(max-width:680px){
+  .site-nav,.breadcrumb,.main,.hero{padding-left:20px;padding-right:20px}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="../home/" class="site-nav-wordmark">UCook</a>
+  <div class="site-nav-div"></div>
+  <span class="site-nav-label">Product Prioritization</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#e05a1e"></span>UCook
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../home/">Home</a><span class="bc-sep">›</span><span class="bc-cur">Prioritization</span>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>UCook · Product Backlog · RICE Framework</div>
+    <h1>Product Prioritization</h1>
+    <p class="hero-sub">All UCook product initiatives scored using the RICE framework. Click any R / I / C / E score to edit it — the RICE score recalculates instantly.</p>
+    <div class="rice-cards">
+      <div class="rice-card"><div class="rice-card-letter rc-r">R</div><div class="rice-card-name">Reach</div><div class="rice-card-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
+      <div class="rice-card"><div class="rice-card-letter rc-i">I</div><div class="rice-card-name">Impact</div><div class="rice-card-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
+      <div class="rice-card"><div class="rice-card-letter rc-c">C</div><div class="rice-card-name">Confidence</div><div class="rice-card-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
+      <div class="rice-card"><div class="rice-card-letter rc-e">E</div><div class="rice-card-name">Effort</div><div class="rice-card-desc">Build cost (higher = more work). <strong>Scale 1–5</strong></div></div>
+      <div class="rice-formula">RICE = (R × I × C) ÷ E <span>· higher is better · all scores editable</span></div>
+    </div>
+    <div class="edit-hint">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Click any R / I / C / E value to edit it. Press Enter or Tab to save, Esc to cancel.
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="filter-bar">
+    <div class="filter-search">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input type="text" id="filter-search" placeholder="Search initiatives…" oninput="applyFilters()">
+    </div>
+    <select class="filter-select" id="filter-theme" onchange="applyFilters()">
+      <option value="all">All themes</option>
+      <option value="Process Optimization">Process Optimization</option>
+      <option value="Web/App Enhancement">Web/App Enhancement</option>
+      <option value="Ecommerce Growth">Ecommerce Growth</option>
+      <option value="Tech Infrastructure">Tech Infrastructure</option>
+      <option value="Retail Growth">Retail Growth</option>
+      <option value="Data &amp; Insights">Data &amp; Insights</option>
+    </select>
+    <select class="filter-select" id="filter-status" onchange="applyFilters()">
+      <option value="all">All statuses</option>
+      <option value="live">Live</option>
+      <option value="inprogress">In Progress</option>
+      <option value="blocked">Blocked</option>
+      <option value="none">Upcoming</option>
+    </select>
+    <select class="filter-select" id="filter-type" onchange="applyFilters()">
+      <option value="all">All types</option>
+      <option value="Quick Win">Quick Win</option>
+      <option value="Existing Roadmap">Existing Roadmap</option>
+    </select>
+    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+    <span class="filter-count" id="row-count"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-rank no-sort">#</th>
+          <th onclick="setSort('name')">Name <span class="sort-arrow" id="sort-name"></span></th>
+          <th onclick="setSort('theme')">Theme <span class="sort-arrow" id="sort-theme"></span></th>
+          <th onclick="setSort('type')">Type <span class="sort-arrow" id="sort-type"></span></th>
+          <th class="no-sort">Status</th>
+          <th class="th-score" onclick="setSort('r')" title="Reach: 1–10">R <span class="sort-arrow" id="sort-r"></span></th>
+          <th class="th-score" onclick="setSort('i')" title="Impact: 1–5">I <span class="sort-arrow" id="sort-i"></span></th>
+          <th class="th-score" onclick="setSort('c')" title="Confidence: 1–5">C <span class="sort-arrow" id="sort-c"></span></th>
+          <th class="th-score" onclick="setSort('e')" title="Effort: 1–5">E <span class="sort-arrow" id="sort-e"></span></th>
+          <th class="th-rice" onclick="setSort('rice')">RICE Score <span class="sort-arrow" id="sort-rice"></span></th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div id="empty-state" class="empty-state" style="display:none">No initiatives match the current filters.</div>
+  </div>
+
+  <div class="export-bar">
+    <button class="btn-export" onclick="exportCSV()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3M1 10.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Export CSV
+    </button>
+  </div>
+</div>
+
+<div class="dp-overlay" id="dp-overlay" onclick="closePanel()"></div>
+<aside class="dp-panel" id="dp-panel">
+  <div class="dp-hdr">
+    <div style="flex:1"><div class="dp-pills" id="dp-pills"></div><div class="dp-name" id="dp-name"></div></div>
+    <button class="dp-close" onclick="closePanel()"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
+</aside>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const items = [
+  // PROCESS OPTIMIZATION
+  {id:1,  name:"Recipe Card Proofreading",           theme:"Process Optimization", type:"Quick Win",       status:"live",       desc:"Quality check and correction of all recipe card copy and imagery before delivery — improves unboxing experience and brand trust.", r:8, i:3, c:5, e:1},
+  {id:2,  name:"CS Billing Tasks Efficiencies",      theme:"Process Optimization", type:"Quick Win",       status:null,         desc:"Streamline customer service billing workflows to reduce manual tasks, resolution time, and escalation rates.", r:5, i:3, c:4, e:2},
+  {id:3,  name:"Recipe Management Portal",           theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing production errors.", r:6, i:4, c:4, e:3},
+  {id:4,  name:"Loop Implementation",               theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Implement Loop for returns and exchanges — reduces CS manual processing time and improves customer self-serve resolution.", r:5, i:4, c:3, e:3},
+  {id:5,  name:"Logistics Overhaul",                theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.", r:7, i:5, c:3, e:4},
+  {id:6,  name:"Acumatica Refactor",                theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Refactor the Acumatica ERP integration for improved reliability, maintainability, and reduced sync errors between systems.", r:4, i:4, c:3, e:4, owner:"Sahil"},
+  // WEB/APP ENHANCEMENT
+  {id:7,  name:"Customer Journey — Key Project",    theme:"Web/App Enhancement",  type:"Existing Roadmap",status:null,         desc:"Define scope, requirements, user flow mapping, and architecture for the end-to-end customer journey redesign. Development begins Q2.", r:9, i:5, c:4, e:2},
+  // ECOMMERCE GROWTH
+  {id:8,  name:"WhatsApp Payment Links",            theme:"Ecommerce Growth",     type:"Quick Win",       status:null,         desc:"Enable payment links via WhatsApp for CRM-driven checkout — reduces cart abandonment from conversational sales channels.", r:7, i:4, c:4, e:2, owner:"Anand"},
+  {id:9,  name:"Yoyo — WiCodes",                   theme:"Ecommerce Growth",     type:"Existing Roadmap",status:"live",        desc:"Integrate Yoyo WiCodes for in-store and online loyalty payment functionality across checkout.", r:6, i:3, c:5, e:2},
+  {id:10, name:"Discounts Refinements",             theme:"Ecommerce Growth",     type:"Existing Roadmap",status:null,         desc:"Improve discount engine flexibility — better rule stacking, CS override tools, and promotion management.", r:7, i:3, c:4, e:2},
+  {id:11, name:"Yoyo — Gift Voucher Replacement",   theme:"Ecommerce Growth",     type:"Existing Roadmap",status:null,         desc:"Replace the legacy gift voucher system with Yoyo-powered wrapped vouchers for improved flexibility, tracking, and redemption UX.", r:5, i:3, c:4, e:3, owner:"Anand"},
+  // RETAIL GROWTH
+  {id:12, name:"Yoyo — Loyalty Pro Integration",    theme:"Retail Growth",        type:"Existing Roadmap",status:null,         desc:"Full Yoyo Loyalty Pro integration for points earning, redemption, and tier management across retail and online channels.", r:6, i:4, c:3, e:3},
+  // TECH INFRASTRUCTURE
+  {id:13, name:"Capacitor iOS App",                 theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"live",        desc:"iOS app built with Capacitor — live on App Store with improved mobile experience, push notifications, and deeper engagement.", r:8, i:4, c:5, e:3},
+  {id:14, name:"Admin & PWA Upgrades",              theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"inprogress",  desc:"Upgrade admin panel and PWA — improved performance, dependency management, and developer tooling.", r:6, i:4, c:4, e:4, owner:"Anand + Matthew"},
+  {id:15, name:"Postgres Upgrade",                  theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Upgrade to latest PostgreSQL version for improved security, performance, and access to newer database features.", r:4, i:5, c:4, e:3},
+  {id:16, name:"Migration to Cluster",              theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.", r:5, i:5, c:3, e:4},
+  {id:17, name:"Mono Repo Architecture",            theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Migrate to monorepo structure for unified dependency management, shared tooling, and faster cross-service development cycles.", r:4, i:5, c:3, e:4, owner:"Matthew"},
+  {id:18, name:"Capacitor iOS App — Phase 2",       theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"blocked",     desc:"Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.", r:7, i:4, c:2, e:3},
+  // DATA & INSIGHTS
+  {id:19, name:"Order Attribution",                 theme:"Data & Insights",      type:"Existing Roadmap",status:null,         desc:"Implement multi-touch order attribution modelling to correctly credit marketing channels and accurately inform media spend decisions.", r:6, i:5, c:3, e:3},
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let sortCol = 'rice', sortDir = 'desc';
+
+function rice(item) {
+  if (item.r == null) return null;
+  return Math.round((item.r * item.i * item.c) / item.e * 10) / 10;
+}
+
+function themeClass(theme) {
+  const map = {
+    'Process Optimization':'tp-proc',
+    'Web/App Enhancement':'tp-web',
+    'Ecommerce Growth':'tp-eco',
+    'Tech Infrastructure':'tp-infra',
+    'Retail Growth':'tp-retail',
+    'Data & Insights':'tp-data',
+  };
+  return map[theme] || 'tp-none';
+}
+function themeShort(theme) {
+  const map = {
+    'Process Optimization':'Process',
+    'Web/App Enhancement':'Web/App',
+    'Ecommerce Growth':'Ecommerce',
+    'Tech Infrastructure':'Infrastructure',
+    'Retail Growth':'Retail',
+    'Data & Insights':'Data',
+  };
+  return map[theme] || theme;
+}
+function typeClass(type) {
+  if (type === 'Quick Win') return 'type-qw';
+  if (type === 'Existing Roadmap') return 'type-er';
+  return '';
+}
+function statusHtml(status) {
+  if (!status) return '';
+  if (status === 'live') return '<span class="status-pill sp-live">✓ Live</span>';
+  if (status === 'inprogress') return '<span class="status-pill sp-inprogress">⚡ In Progress</span>';
+  if (status === 'blocked') return '<span class="status-pill sp-blocked">✕ Blocked</span>';
+  return '';
+}
+
+function getFiltered() {
+  const search = document.getElementById('filter-search').value.toLowerCase();
+  const theme = document.getElementById('filter-theme').value;
+  const status = document.getElementById('filter-status').value;
+  const type = document.getElementById('filter-type').value;
+  return items.filter(item => {
+    if (search && !item.name.toLowerCase().includes(search) && !(item.desc||'').toLowerCase().includes(search)) return false;
+    if (theme !== 'all' && item.theme !== theme) return false;
+    if (type !== 'all' && item.type !== type) return false;
+    if (status !== 'all') {
+      if (status === 'none' && item.status != null) return false;
+      if (status !== 'none' && item.status !== status) return false;
+    }
+    return true;
+  });
+}
+function applyFilters() { render(); }
+function resetFilters() {
+  ['filter-search','filter-theme','filter-status','filter-type'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el.tagName === 'INPUT') el.value = ''; else el.value = 'all';
+  });
+  render();
+}
+
+function setSort(col) {
+  if (sortCol === col) { sortDir = sortDir === 'desc' ? 'asc' : 'desc'; }
+  else { sortCol = col; sortDir = (col === 'name' || col === 'theme' || col === 'type') ? 'asc' : 'desc'; }
+  render();
+}
+function getSorted(filtered) {
+  return [...filtered].sort((a, b) => {
+    let av, bv;
+    if (sortCol === 'rice') { av = rice(a); bv = rice(b); }
+    else if (['r','i','c','e'].includes(sortCol)) { av = a[sortCol]; bv = b[sortCol]; }
+    else if (sortCol === 'name') { av = a.name.toLowerCase(); bv = b.name.toLowerCase(); }
+    else if (sortCol === 'theme') { av = a.theme; bv = b.theme; }
+    else if (sortCol === 'type') { av = a.type; bv = b.type; }
+    else { av = 0; bv = 0; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === 'asc' ? av - bv : bv - av;
+  });
+}
+
+function render() {
+  const filtered = getFiltered();
+  const sorted = getSorted(filtered);
+  const riceScores = sorted.map(rice).filter(v => v != null);
+  const maxRice = riceScores.length ? Math.max(...riceScores) : 1;
+
+  document.getElementById('row-count').innerHTML = `<strong>${sorted.length}</strong> of ${items.length} initiatives`;
+
+  ['name','theme','type','r','i','c','e','rice'].forEach(col => {
+    const el = document.getElementById('sort-' + col);
+    if (!el) return;
+    el.textContent = sortCol === col ? (sortDir === 'desc' ? '↓' : '↑') : '↕';
+    el.closest('th').classList.toggle('sorted', sortCol === col);
+  });
+
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+  if (!sorted.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = sorted.map((item, idx) => {
+    const score = rice(item);
+    const hasScore = score != null;
+    const barPct = hasScore ? Math.round((score / maxRice) * 100) : 0;
+    const tier = !hasScore ? 'tier-low' : score >= 60 ? 'tier-high' : score >= 30 ? 'tier-mid' : 'tier-low';
+
+    function scoreCell(field, cls, title) {
+      const val = item[field];
+      if (val == null) return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}" style="color:var(--gray-3)">–</span></td>`;
+      return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}">${val}</span></td>`;
+    }
+
+    return `<tr class="${tier}" data-id="${item.id}" onclick="openPanelById(${item.id})">
+      <td class="td-rank">${idx + 1}</td>
+      <td class="td-name">
+        <div class="item-name">${esc(item.name)}</div>
+        ${item.desc ? `<div class="item-desc">${esc(item.desc.substring(0,100))}…</div>` : ''}
+      </td>
+      <td><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></td>
+      <td><span class="type-pill ${typeClass(item.type)}">${esc(item.type)}</span></td>
+      <td>${statusHtml(item.status)}</td>
+      ${scoreCell('r','sv-r','Reach 1–10')}
+      ${scoreCell('i','sv-i','Impact 1–5')}
+      ${scoreCell('c','sv-c','Confidence 1–5')}
+      ${scoreCell('e','sv-e','Effort 1–5')}
+      <td class="td-rice">
+        <div class="rice-wrap">
+          ${hasScore
+            ? `<div class="rice-bar-track"><div class="rice-bar" style="width:${barPct}%"></div></div><span class="rice-num">${score}</span>`
+            : `<span style="font-size:12px;color:var(--gray-3);padding-left:4px">Not scored</span>`}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  tbody.querySelectorAll('.editable').forEach(el => el.addEventListener('click', startEdit));
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function startEdit(e) {
+  e.stopPropagation();
+  const span = e.currentTarget;
+  if (span.querySelector('input')) return;
+  const id = parseInt(span.closest('tr').dataset.id);
+  const field = span.dataset.field;
+  const item = items.find(x => x.id === id);
+  const max = field === 'r' ? 10 : 5;
+  const input = document.createElement('input');
+  input.type = 'number'; input.min = 1; input.max = max;
+  input.value = item[field] ?? ''; input.className = 'score-input';
+  span.textContent = ''; span.appendChild(input);
+  input.focus(); input.select();
+  function save() {
+    const parsed = parseInt(input.value);
+    if (!isNaN(parsed)) item[field] = Math.min(max, Math.max(1, parsed));
+    render();
+  }
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+    if (ev.key === 'Escape') render();
+    if (ev.key === 'Tab') { ev.preventDefault(); input.blur(); }
+  });
+  input.addEventListener('click', ev => ev.stopPropagation());
+}
+
+function exportCSV() {
+  const filtered = getSorted(getFiltered());
+  const header = ['Rank','Name','Theme','Type','Status','Owner','Description','Reach','Impact','Confidence','Effort','RICE Score'];
+  const rows = filtered.map((item, idx) => [
+    idx + 1,
+    `"${item.name.replace(/"/g,'""')}"`,
+    `"${item.theme}"`,
+    `"${item.type}"`,
+    item.status || 'upcoming',
+    item.owner || '',
+    `"${(item.desc||'').replace(/"/g,'""')}"`,
+    item.r ?? '', item.i ?? '', item.c ?? '', item.e ?? '',
+    rice(item) ?? ''
+  ]);
+  const csv = [header, ...rows].map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'ucook-prioritization.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── DETAIL PANEL ─────────────────────────────────────────────────────────────
+let activeTr = null;
+
+function openPanelById(id) {
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+  if (activeTr) activeTr.classList.remove('row-active');
+  activeTr = document.querySelector(`tr[data-id="${id}"]`);
+  if (activeTr) activeTr.classList.add('row-active');
+
+  const score = rice(item);
+  const hasScore = score != null;
+  const barPct = hasScore ? Math.min(100, Math.round(score / 120 * 100)) : 0;
+  const barColor = score >= 60 ? 'var(--green)' : score >= 30 ? 'var(--amber-mid)' : 'var(--gray-3)';
+
+  document.getElementById('dp-pills').innerHTML =
+    `<span class="theme-pill ${themeClass(item.theme)}" style="font-size:10px">${item.theme}</span>
+     <span class="type-pill ${typeClass(item.type)}" style="font-size:10px">${esc(item.type)}</span>
+     ${statusHtml(item.status)}`;
+
+  document.getElementById('dp-name').textContent = item.name;
+
+  const metaRows = [];
+  if (item.owner) metaRows.push(`<div class="dp-meta-row"><span class="dp-meta-key">Owner</span><span class="dp-meta-val">${esc(item.owner)}</span></div>`);
+
+  const riceHtml = hasScore
+    ? `<div class="dp-sec-label">RICE Score Breakdown</div>
+       <div class="rice-cells">
+         <div class="rcell"><div class="rcell-letter" style="color:var(--blue)">R</div><div class="rcell-val">${item.r}</div><div class="rcell-lbl">Reach</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--green)">I</div><div class="rcell-val">${item.i}</div><div class="rcell-lbl">Impact</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--purple)">C</div><div class="rcell-val">${item.c}</div><div class="rcell-lbl">Confidence</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--red)">E</div><div class="rcell-val">${item.e}</div><div class="rcell-lbl">Effort</div></div>
+       </div>
+       <div class="rice-result-box">
+         <span class="rice-formula-txt">(${item.r} × ${item.i} × ${item.c}) ÷ ${item.e}</span>
+         <span class="rice-score-big">${score}</span>
+       </div>
+       <div class="dp-bar-track"><div class="dp-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>`
+    : `<div class="no-score">No RICE score yet — add R, I, C, E values in the table to calculate.</div>`;
+
+  document.getElementById('dp-body').innerHTML =
+    `${item.desc ? `<p class="dp-desc">${esc(item.desc)}</p>` : ''}
+     ${metaRows.length ? `<div class="dp-meta-block">${metaRows.join('')}</div>` : ''}
+     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)">${riceHtml}</div>`;
+
+  document.getElementById('dp-overlay').classList.add('open');
+  document.getElementById('dp-panel').classList.add('open');
+}
+
+function closePanel() {
+  if (activeTr) { activeTr.classList.remove('row-active'); activeTr = null; }
+  document.getElementById('dp-overlay').classList.remove('open');
+  document.getElementById('dp-panel').classList.remove('open');
+}
+
+function toggleSwitcher() {
+  const trigger = document.getElementById('csTrigger');
+  const menu = document.getElementById('csMenu');
+  const isOpen = menu.classList.contains('open');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded', !isOpen);
+}
+document.addEventListener('click', function(e) {
+  const switcher = document.getElementById('companySwitcher');
+  if (switcher && !switcher.contains(e.target)) {
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+render();
+</script>
+</body>
+</html>
