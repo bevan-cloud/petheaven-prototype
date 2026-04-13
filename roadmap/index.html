@@ -196,6 +196,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .view-tab.active svg{opacity:1}
 .view-section{display:none}.view-section.active{display:block}
 
+/* ── TIMELINE FILTER BAR ─────────────────────────────────────────────────── */
+.tl-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tl-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-right:2px;flex-shrink:0}
+.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 16px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
+.tl-filter-btn:hover{border-color:var(--gray-3);color:var(--black)}
+.tl-filter-btn.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}
+
 /* ── TIMELINE VIEW ───────────────────────────────────────────────────────── */
 .tl-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--gray-2)}
 .tl-table{min-width:860px;width:100%}
@@ -329,13 +336,21 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <!-- TIMELINE VIEW -->
   <div class="view-section" id="view-timeline">
     <div class="fy-banner" id="fy-banner-tl"></div>
+    <div class="tl-filter-bar">
+      <span class="tl-filter-label">Show:</span>
+      <button class="tl-filter-btn active" data-q="all" onclick="setTlFilter('all',this)">All quarters</button>
+      <button class="tl-filter-btn" data-q="1" onclick="setTlFilter(1,this)">Q1 · Mar–May</button>
+      <button class="tl-filter-btn" data-q="2" onclick="setTlFilter(2,this)">Q2 · Jun–Aug</button>
+      <button class="tl-filter-btn" data-q="3" onclick="setTlFilter(3,this)">Q3 · Sep–Nov</button>
+      <button class="tl-filter-btn" data-q="4" onclick="setTlFilter(4,this)">Q4 · Dec–Feb</button>
+    </div>
     <div class="tl-wrap">
       <div class="tl-table">
         <div class="tl-hdr" id="tl-hdr"></div>
         <div class="tl-body" id="tl-body"></div>
       </div>
     </div>
-    <div style="margin-top:24px">
+    <div id="tl-backlog-wrap" style="margin-top:24px">
       <div class="section-hdr"><div class="section-title">Backlog</div></div>
       <p class="section-sub">Not yet scheduled into this FY.</p>
       <div class="backlog-grid" id="tl-backlog"></div>
@@ -884,24 +899,44 @@ function buildKanban() {
   document.getElementById('backlog-grid').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
 }
 
+// ─── TIMELINE FILTER STATE ────────────────────────────────────────────────────
+let tlFilter = 'all';
+
+function setTlFilter(q, btn) {
+  tlFilter = q;
+  document.querySelectorAll('.tl-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildTimeline();
+  closePanel();
+}
+
 // ─── BUILD TIMELINE ───────────────────────────────────────────────────────────
 function buildTimeline() {
+  // Which quarters to display
+  const activeQs = tlFilter === 'all' ? Q_META : Q_META.filter(qm => qm.q === tlFilter);
+  const gridCols = `150px repeat(${activeQs.length},1fr)`;
+
   // Header
-  document.getElementById('tl-hdr').innerHTML =
+  const hdrEl = document.getElementById('tl-hdr');
+  hdrEl.style.gridTemplateColumns = gridCols;
+  hdrEl.innerHTML =
     `<div class="tl-hdr-empty"></div>` +
-    Q_META.map(qm => `
+    activeQs.map(qm => `
       <div class="tl-hdr-q${qm.current ? ' tl-cur' : ''}">
         <div class="tl-ql">${qm.label} · ${qm.title}</div>
         <div class="tl-qp">${qm.period}</div>
         ${qm.current ? '<div class="tl-qnow">Current quarter</div>' : ''}
       </div>`).join('');
 
-  // Body — one row per theme (skip themes with no scheduled items)
-  const scheduled = items.filter(x => x.q > 0);
+  // Body — one row per theme, only items in the active quarter(s)
+  const scheduled = tlFilter === 'all'
+    ? items.filter(x => x.q > 0)
+    : items.filter(x => x.q === tlFilter);
+
   document.getElementById('tl-body').innerHTML = THEMES.map(th => {
     const themeItems = scheduled.filter(x => x.theme === th.key);
     if (!themeItems.length) return '';
-    const cells = Q_META.map(qm => {
+    const cells = activeQs.map(qm => {
       const cell = themeItems.filter(x => x.q === qm.q);
       const bars = cell.map(item => {
         const score = rice(item);
@@ -917,7 +952,7 @@ function buildTimeline() {
       }).join('');
       return `<div class="tl-cell${qm.current ? ' tl-cur-col' : ''}">${bars}</div>`;
     }).join('');
-    return `<div class="tl-row">
+    return `<div class="tl-row" style="grid-template-columns:${gridCols}">
       <div class="tl-th">
         <div class="tl-th-inner">
           <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${th.color}"></div>
@@ -929,7 +964,15 @@ function buildTimeline() {
     </div>`;
   }).join('');
 
+  // Backlog — only show on "All quarters" view
+  const backlogWrap = document.getElementById('tl-backlog-wrap');
+  if (backlogWrap) backlogWrap.style.display = tlFilter === 'all' ? '' : 'none';
   document.getElementById('tl-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+
+  // Re-bind click handlers for newly rendered bars
+  document.querySelectorAll('#tl-body .tl-bar').forEach(el => {
+    el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
+  });
 }
 
 // ─── BUILD THEME VIEW ─────────────────────────────────────────────────────────
@@ -990,7 +1033,8 @@ function buildPage() {
 }
 
 function bindClicks() {
-  document.querySelectorAll('.rm-item, .tl-bar').forEach(el => {
+  // Kanban + theme cards only — timeline bars are bound inside buildTimeline()
+  document.querySelectorAll('.rm-item').forEach(el => {
     el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
   });
 }
