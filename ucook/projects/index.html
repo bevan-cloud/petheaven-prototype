@@ -19,11 +19,11 @@
   --radius:6px;--radius-lg:10px;--radius-xl:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--black);background:#fff;font-size:14px;line-height:1.6}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
 a{color:var(--brand);text-decoration:none}
 
 /* HEADER */
-.site-header{background:var(--brand-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:16px}
+.site-header{background:var(--brand-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
 .site-header-wordmark{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;font-family:'DM Sans',sans-serif}
 .site-header-divider{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
 .site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.65)}
@@ -54,7 +54,7 @@ a{color:var(--brand);text-decoration:none}
 .bc-cur{color:var(--gray-4)}
 
 /* HERO */
-.hero{background:var(--gray-1);border-bottom:1px solid var(--gray-2);padding:48px 40px 40px}
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:40px 40px 36px}
 .hero-inner{max-width:1080px;margin:0 auto}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.05em;text-transform:uppercase}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
@@ -66,8 +66,20 @@ a{color:var(--brand);text-decoration:none}
 .hero-stat-label{font-size:12px;color:var(--gray-4)}
 
 /* MAIN */
-.main{max-width:1080px;margin:0 auto;padding:40px 40px 80px}
-.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.main{max-width:1080px;margin:0 auto;padding:32px 40px 80px}
+
+/* FILTER BAR */
+.filter-bar{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:14px 18px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filter-search{flex:1;min-width:180px;position:relative}
+.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.filter-search input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--black);outline:none;background:var(--gray-1)}
+.filter-search input:focus{border-color:var(--brand);background:#fff}
+.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray-5);outline:none;background:var(--gray-1);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.filter-select:focus{border-color:var(--brand)}
+.filter-reset{font-size:12px;font-weight:500;color:var(--gray-4);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:6px 0}
+.filter-reset:hover{color:var(--red)}
+.filter-count{font-size:12px;color:var(--gray-4);margin-left:auto;white-space:nowrap}
+.filter-count strong{color:var(--black)}
 
 /* PROJECT GRID */
 .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
@@ -75,6 +87,9 @@ a{color:var(--brand);text-decoration:none}
 /* PROJECT CARD */
 .project-card{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;background:#fff;transition:box-shadow .15s}
 .project-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.project-card[data-status="live"]{border-left:3px solid var(--green)}
+.project-card[data-status="inprogress"]{border-left:3px solid var(--amber-mid)}
+.project-card[data-status="blocked"]{border-left:3px solid var(--red)}
 
 .project-card-toggle{padding:18px 20px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;user-select:none;-webkit-user-select:none}
 .project-card-toggle:hover .toggle-chevron{color:var(--black)}
@@ -82,49 +97,71 @@ a{color:var(--brand);text-decoration:none}
 .project-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px}
 
 .project-header-content{flex:1;min-width:0}
-.project-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--black);line-height:1.25;margin-bottom:5px}
+.project-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);line-height:1.3;margin-bottom:4px}
 .project-summary{font-size:12px;color:var(--gray-5);line-height:1.6}
-.project-status-wrap{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.project-meta-wrap{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
 
-.status-pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+/* THEME PILLS */
+.theme-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
+.tp-proc{background:var(--amber-light);color:var(--amber)}
+.tp-web{background:var(--blue-light);color:var(--blue)}
+.tp-eco{background:var(--green-light);color:var(--green-dark)}
+.tp-infra{background:var(--teal-light);color:var(--teal)}
+.tp-retail{background:var(--purple-light);color:var(--purple)}
+.tp-data{background:var(--data-light);color:var(--data)}
+
+/* STATUS PILLS */
+.status-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.03em}
 .sp-live{background:var(--green-light);color:var(--green-dark);border:1px solid var(--green-mid)}
 .sp-inprogress{background:var(--amber-light);color:var(--amber);border:1px solid var(--amber-mid)}
 .sp-blocked{background:var(--red-light);color:var(--red)}
-.sp-theme{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-3)}
+.sp-upcoming{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-3)}
+
+/* TYPE PILL */
+.type-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
+.tp-type-qw{background:var(--green-light);color:var(--green-dark)}
+.tp-type-enabler{background:var(--blue-light);color:var(--blue)}
+.tp-type-strategic{background:var(--purple-light);color:var(--purple)}
+
+/* OWNER PILL */
+.owner-pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2);white-space:nowrap}
 
 .toggle-chevron{flex-shrink:0;color:var(--gray-3);margin-top:4px;transition:transform .2s ease,color .15s}
 .project-card.open .toggle-chevron{transform:rotate(180deg);color:var(--gray-5)}
 
+/* EXPANDABLE BODY */
 .project-card-body{display:none;border-top:1px solid var(--gray-2)}
 .project-card.open .project-card-body{display:block}
 
 .project-card-sections{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.project-card-section{padding:18px 20px;border-right:1px solid var(--gray-2)}
+.project-card-section{padding:16px 20px;border-right:1px solid var(--gray-2)}
 .project-card-section:last-child{border-right:none}
 .pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
 
 .feat-list{list-style:none;display:flex;flex-direction:column;gap:7px}
 .feat-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-5);line-height:1.5}
-.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;background:var(--gray-3)}
 .feat-dot.proc{background:var(--amber)}
 .feat-dot.web{background:var(--blue)}
 .feat-dot.eco{background:var(--green)}
 .feat-dot.infra{background:var(--teal)}
 
-.feat-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px}
-.fb-live{background:var(--green-light);color:var(--green-dark)}
-.fb-inprogress{background:var(--amber-light);color:var(--amber)}
-.fb-blocked{background:var(--red-light);color:var(--red)}
-.fb-owner{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.meta-row{display:flex;gap:8px;font-size:12px;align-items:baseline;margin-bottom:6px}
+.meta-key{color:var(--gray-4);min-width:72px;flex-shrink:0;font-size:11px}
+.meta-val{color:var(--black);font-weight:500}
 
-.project-card-footer{padding:12px 20px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.project-card-footer{padding:11px 20px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .footer-tag{font-size:10px;font-weight:500;color:var(--gray-5);padding:2px 9px;border-radius:20px;background:#fff;border:1px solid var(--gray-3)}
+
+/* EMPTY STATE */
+.empty-state{padding:64px 24px;text-align:center;color:var(--gray-4);font-size:13px;grid-column:1/-1}
+.empty-state strong{color:var(--black);display:block;font-size:15px;margin-bottom:4px}
 
 @media(max-width:840px){
   .project-grid{grid-template-columns:1fr}
   .hero,.main{padding-left:20px;padding-right:20px}
   .hero h1{font-size:28px}
-  .site-header{padding:0 20px}
+  .site-header,.breadcrumb{padding-left:20px;padding-right:20px}
 }
 @media(max-width:480px){
   .project-card-sections{grid-template-columns:1fr}
@@ -163,9 +200,9 @@ a{color:var(--brand);text-decoration:none}
   <div class="hero-inner">
     <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · Q1</div>
     <h1>Product Projects</h1>
-    <p class="hero-sub">Q1 initiatives across all themes — click any card to expand the scope, ownership, and feature detail.</p>
+    <p class="hero-sub">Q1 initiatives across all themes — click any card to expand scope, ownership, and feature detail.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-val">9</span><span class="hero-stat-label">Q1 initiatives</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="stat-total">9</span><span class="hero-stat-label">Q1 initiatives</span></div>
       <div class="hero-stat"><span class="hero-stat-val">3</span><span class="hero-stat-label">Live</span></div>
       <div class="hero-stat"><span class="hero-stat-val">1</span><span class="hero-stat-label">In progress</span></div>
       <div class="hero-stat"><span class="hero-stat-val">4</span><span class="hero-stat-label">Themes active</span></div>
@@ -174,19 +211,52 @@ a{color:var(--brand);text-decoration:none}
 </div>
 
 <div class="main">
-  <div class="section-label">Q1 projects — click any card to expand</div>
-  <div class="project-grid">
 
-    <!-- CARD 1: PROCESS OPTIMIZATION -->
-    <div class="project-card" id="card-1">
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-search">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects…" oninput="applyFilters()">
+    </div>
+    <select class="filter-select" id="themeFilter" onchange="applyFilters()">
+      <option value="">All themes</option>
+      <option value="proc">Process Optimization</option>
+      <option value="web">Web/App Enhancement</option>
+      <option value="eco">Ecommerce Growth</option>
+      <option value="infra">Tech Infrastructure</option>
+    </select>
+    <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+      <option value="">All statuses</option>
+      <option value="live">Live</option>
+      <option value="inprogress">In Progress</option>
+      <option value="blocked">Blocked</option>
+      <option value="upcoming">Upcoming</option>
+    </select>
+    <select class="filter-select" id="typeFilter" onchange="applyFilters()">
+      <option value="">All types</option>
+      <option value="quick-win">Quick Win</option>
+      <option value="enabler">Enabler</option>
+      <option value="strategic">Strategic</option>
+    </select>
+    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+    <span class="filter-count" id="filterCount"><strong>9</strong> of 9 shown</span>
+  </div>
+
+  <!-- PROJECT GRID -->
+  <div class="project-grid" id="projectGrid">
+
+    <!-- 1. ACUMATICA REFACTOR -->
+    <div class="project-card" id="card-1" data-theme="proc" data-status="upcoming" data-type="enabler" data-search="acumatica refactor erp integration process optimization sahil">
       <div class="project-card-toggle" onclick="toggleCard('card-1')">
         <div class="project-icon" style="background:var(--amber-light)">⚙️</div>
         <div class="project-header-content">
-          <div class="project-title">Process Optimization</div>
-          <p class="project-summary">Internal system reliability and operational quality — Acumatica ERP refactoring and recipe card quality assurance.</p>
-          <div class="project-status-wrap">
-            <span class="status-pill sp-live">✓ Recipe Cards Live</span>
-            <span class="status-pill sp-theme">PROCESS OPTIMIZATION</span>
+          <div class="project-title">Acumatica Refactor</div>
+          <p class="project-summary">ERP integration overhaul to reduce sync errors and improve maintainability across fulfilment workflows.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Sahil</span>
           </div>
         </div>
         <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -194,42 +264,85 @@ a{color:var(--brand);text-decoration:none}
       <div class="project-card-body">
         <div class="project-card-sections">
           <div class="project-card-section">
-            <div class="pcs-label">Initiatives in scope</div>
+            <div class="pcs-label">Scope</div>
             <ul class="feat-list">
-              <li class="feat-item">
-                <span class="feat-dot proc"></span>
-                <span>Acumatica Refactor — ERP integration overhaul for reduced sync errors and improved maintainability</span>
-                <span class="feat-badge fb-owner">Sahil</span>
-              </li>
-              <li class="feat-item">
-                <span class="feat-dot proc"></span>
-                <span>Recipe Card Proofreading — quality review of all recipe card copy and imagery before delivery</span>
-                <span class="feat-badge fb-live">✓ Live</span>
-              </li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Audit and map all current Acumatica integration touchpoints</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Rebuild sync logic to reduce fulfilment errors and data drift</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Improve error handling and alerting for failed sync events</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Documentation of updated integration contracts</li>
             </ul>
           </div>
           <div class="project-card-section">
-            <div class="pcs-label">Objective</div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7">Improve the reliability of internal systems and customer-facing content quality. Acumatica sync failures cause downstream fulfilment issues; recipe card errors impact unboxing experience and brand trust.</p>
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Sahil</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Acumatica sync failures create downstream issues in order fulfilment. This refactor reduces operational toil and builds a more reliable foundation for future ERP integrations.</p>
           </div>
         </div>
         <div class="project-card-footer">
-          <span class="footer-tag">2 initiatives</span>
-          <span class="footer-tag">ERP · Content quality</span>
+          <span class="footer-tag">ERP · Integration</span>
           <span class="footer-tag">Owner: Sahil</span>
+          <span class="footer-tag">Q1</span>
         </div>
       </div>
     </div>
 
-    <!-- CARD 2: CUSTOMER JOURNEY -->
-    <div class="project-card" id="card-2">
+    <!-- 2. RECIPE CARD PROOFREADING -->
+    <div class="project-card" id="card-2" data-theme="proc" data-status="live" data-type="quick-win" data-search="recipe card proofreading quality content process optimization">
       <div class="project-card-toggle" onclick="toggleCard('card-2')">
+        <div class="project-icon" style="background:var(--amber-light)">📋</div>
+        <div class="project-header-content">
+          <div class="project-title">Recipe Card Proofreading</div>
+          <p class="project-summary">Quality review and correction of recipe card copy and imagery before weekly delivery to subscribers.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-live">✓ Live</span>
+            <span class="type-pill tp-type-qw">Quick Win</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot proc"></span>Pre-delivery proofing of all recipe card copy for accuracy</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Image quality checks — correct dish, correct week, no artefacts</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Standardised sign-off checklist for content team</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Feedback loop to reduce repeat errors</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Recipe card errors impact the unboxing experience and brand trust. A lightweight proofing process catches issues before they reach customers and reduces CS contacts.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Content · Quality</span>
+          <span class="footer-tag">Q1</span>
+          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CUSTOMER JOURNEY SCOPING -->
+    <div class="project-card" id="card-3" data-theme="web" data-status="upcoming" data-type="strategic" data-search="customer journey scoping web app enhancement ux redesign">
+      <div class="project-card-toggle" onclick="toggleCard('card-3')">
         <div class="project-icon" style="background:var(--blue-light)">🗺️</div>
         <div class="project-header-content">
-          <div class="project-title">Customer Journey — Key Project</div>
-          <p class="project-summary">Scoping and architecture definition in Q1 for the end-to-end customer journey redesign. Development kicks off in Q2.</p>
-          <div class="project-status-wrap">
-            <span class="status-pill sp-theme">WEB/APP ENHANCEMENT</span>
+          <div class="project-title">Customer Journey Scoping</div>
+          <p class="project-summary">End-to-end customer journey redesign — scoping and architecture in Q1, development kicks off in Q2.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-web">Web/App Enhancement</span>
+            <span class="status-pill sp-upcoming">Scoping</span>
+            <span class="type-pill tp-type-strategic">Strategic</span>
           </div>
         </div>
         <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -239,40 +352,44 @@ a{color:var(--brand);text-decoration:none}
           <div class="project-card-section">
             <div class="pcs-label">Q1 scope (scoping phase)</div>
             <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot web"></span>End-to-end customer journey mapping — from discovery through repeat order</li>
-              <li class="feat-item"><span class="feat-dot web"></span>Pain point identification and prioritisation across key touchpoints</li>
+              <li class="feat-item"><span class="feat-dot web"></span>End-to-end journey mapping from discovery through repeat order</li>
+              <li class="feat-item"><span class="feat-dot web"></span>Pain point identification across key touchpoints</li>
               <li class="feat-item"><span class="feat-dot web"></span>Technical architecture planning and dependency mapping</li>
               <li class="feat-item"><span class="feat-dot web"></span>Stakeholder alignment on scope, phasing, and success metrics</li>
               <li class="feat-item"><span class="feat-dot web"></span>Competitive benchmarking and reference design review</li>
             </ul>
           </div>
           <div class="project-card-section">
-            <div class="pcs-label">Timeline</div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px">Q1 deliverable is a fully scoped brief and agreed architecture. Development begins Q2 with a phased rollout across key journey stages.</p>
-            <div style="background:var(--gray-1);border-radius:var(--radius-lg);padding:12px 14px;display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span style="color:var(--black);font-weight:600">Q1</span><span style="color:var(--gray-5)">Scoping &amp; architecture</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--gray-3);flex-shrink:0"></span><span style="color:var(--black);font-weight:600">Q2</span><span style="color:var(--gray-5)">Development begins</span></div>
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1 scope → Q2 dev</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Web/App Enhancement</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
+            <div style="background:var(--gray-1);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;gap:7px;margin-top:10px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span style="font-weight:600">Q1</span><span style="color:var(--gray-5)">Scoping &amp; architecture</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--gray-3);flex-shrink:0"></span><span style="font-weight:600">Q2</span><span style="color:var(--gray-5)">Development begins</span></div>
             </div>
           </div>
         </div>
         <div class="project-card-footer">
           <span class="footer-tag">Key project</span>
-          <span class="footer-tag">Dev in Q2</span>
           <span class="footer-tag">Web · App · UX</span>
+          <span class="footer-tag">Dev in Q2</span>
         </div>
       </div>
     </div>
 
-    <!-- CARD 3: ECOMMERCE GROWTH -->
-    <div class="project-card" id="card-3">
-      <div class="project-card-toggle" onclick="toggleCard('card-3')">
+    <!-- 4. YOYO WICODES -->
+    <div class="project-card" id="card-4" data-theme="eco" data-status="live" data-type="quick-win" data-search="yoyo wicodes loyalty payment ecommerce growth anand">
+      <div class="project-card-toggle" onclick="toggleCard('card-4')">
         <div class="project-icon" style="background:var(--green-light)">💳</div>
         <div class="project-header-content">
-          <div class="project-title">Ecommerce Growth</div>
-          <p class="project-summary">Payment and loyalty integrations to expand checkout options and increase conversion — Yoyo WiCodes, gift vouchers, and WhatsApp payments.</p>
-          <div class="project-status-wrap">
-            <span class="status-pill sp-live">✓ Yoyo WiCodes Live</span>
-            <span class="status-pill sp-theme">ECOMMERCE GROWTH</span>
+          <div class="project-title">Yoyo — WiCodes</div>
+          <p class="project-summary">In-store and online loyalty payment integration enabling customers to pay with Yoyo wallet and earn rewards.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-eco">Ecommerce Growth</span>
+            <span class="status-pill sp-live">✓ Live</span>
+            <span class="type-pill tp-type-qw">Quick Win</span>
+            <span class="owner-pill">Anand</span>
           </div>
         </div>
         <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -280,49 +397,43 @@ a{color:var(--brand);text-decoration:none}
       <div class="project-card-body">
         <div class="project-card-sections">
           <div class="project-card-section">
-            <div class="pcs-label">Initiatives in scope</div>
+            <div class="pcs-label">Scope</div>
             <ul class="feat-list">
-              <li class="feat-item">
-                <span class="feat-dot eco"></span>
-                <span>Yoyo — WiCodes — in-store and online loyalty payment integration</span>
-                <span class="feat-badge fb-live">✓ Live</span>
-              </li>
-              <li class="feat-item">
-                <span class="feat-dot eco"></span>
-                <span>Yoyo — Gift Voucher Replacement — Yoyo-wrapped vouchers replacing legacy system</span>
-                <span class="feat-badge fb-owner">Anand</span>
-              </li>
-              <li class="feat-item">
-                <span class="feat-dot eco"></span>
-                <span>WhatsApp Payment Links — payment links via WhatsApp for CRM-driven checkout</span>
-                <span class="feat-badge fb-owner">Anand</span>
-              </li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Yoyo WiCode generation at checkout — scan-to-pay in app</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Loyalty point accrual and balance display within UCook app</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Webhook-based order confirmation and reward processing</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>In-store redemption flow for pick-up and retail orders</li>
             </ul>
           </div>
           <div class="project-card-section">
-            <div class="pcs-label">Objective</div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7">Reduce checkout friction and expand payment surface area. WhatsApp Payment Links capture conversational sales that currently drop off. The Yoyo suite builds loyalty infrastructure ahead of the Q2 Loyalty Pro integration.</p>
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
+            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">WiCodes builds the loyalty infrastructure needed for the Q2 Yoyo Loyalty Pro rollout. Expands checkout options and begins rewarding high-frequency subscribers.</p>
           </div>
         </div>
         <div class="project-card-footer">
-          <span class="footer-tag">3 initiatives</span>
           <span class="footer-tag">Payments · Loyalty</span>
           <span class="footer-tag">Owner: Anand</span>
+          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
         </div>
       </div>
     </div>
 
-    <!-- CARD 4: TECH INFRASTRUCTURE -->
-    <div class="project-card" id="card-4">
-      <div class="project-card-toggle" onclick="toggleCard('card-4')">
-        <div class="project-icon" style="background:var(--teal-light)">🏗️</div>
+    <!-- 5. YOYO GIFT VOUCHERS -->
+    <div class="project-card" id="card-5" data-theme="eco" data-status="upcoming" data-type="quick-win" data-search="yoyo gift voucher replacement ecommerce growth anand">
+      <div class="project-card-toggle" onclick="toggleCard('card-5')">
+        <div class="project-icon" style="background:var(--green-light)">🎁</div>
         <div class="project-header-content">
-          <div class="project-title">Tech Infrastructure</div>
-          <p class="project-summary">Platform foundations for scale — Capacitor iOS App (live), Admin &amp; PWA upgrades in progress, and Mono Repo migration.</p>
-          <div class="project-status-wrap">
-            <span class="status-pill sp-live">✓ iOS App Live</span>
-            <span class="status-pill sp-inprogress">⚡ PWA In Progress</span>
-            <span class="status-pill sp-theme">TECH INFRASTRUCTURE</span>
+          <div class="project-title">Yoyo — Gift Voucher Replacement</div>
+          <p class="project-summary">Replace the legacy gift voucher system with Yoyo-wrapped digital vouchers for improved redemption tracking and reporting.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-eco">Ecommerce Growth</span>
+            <span class="status-pill sp-upcoming">In Development</span>
+            <span class="type-pill tp-type-qw">Quick Win</span>
+            <span class="owner-pill">Anand</span>
           </div>
         </div>
         <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -330,37 +441,209 @@ a{color:var(--brand);text-decoration:none}
       <div class="project-card-body">
         <div class="project-card-sections">
           <div class="project-card-section">
-            <div class="pcs-label">Initiatives in scope</div>
+            <div class="pcs-label">Scope</div>
             <ul class="feat-list">
-              <li class="feat-item">
-                <span class="feat-dot infra"></span>
-                <span>Capacitor iOS App — iOS app live on App Store with push notifications and improved mobile UX</span>
-                <span class="feat-badge fb-live">✓ Live</span>
-              </li>
-              <li class="feat-item">
-                <span class="feat-dot infra"></span>
-                <span>Admin &amp; PWA Upgrades — performance, dependency management, and developer tooling improvements</span>
-                <span class="feat-badge fb-inprogress">⚡ In Progress</span>
-                <span class="feat-badge fb-owner">Anand + Matthew</span>
-              </li>
-              <li class="feat-item">
-                <span class="feat-dot infra"></span>
-                <span>Mono Repo Architecture — unified codebase structure for faster cross-service development</span>
-                <span class="feat-badge fb-owner">Matthew</span>
-              </li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Migrate gift voucher issuance to Yoyo platform</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Redemption flow at checkout (web and app)</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Balance inquiry and partial redemption support</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>CS tooling for voucher management and re-issue</li>
             </ul>
           </div>
           <div class="project-card-section">
-            <div class="pcs-label">Objective</div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7">Build the platform infrastructure that enables faster product iteration in Q2–Q4. Mono Repo and PWA upgrades reduce developer friction; the iOS App opens a new channel with higher engagement potential than mobile web.</p>
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">The legacy voucher system has limited reporting and difficult CS management. Yoyo-wrapped vouchers unify gifting within the loyalty stack and improve visibility of voucher liability.</p>
           </div>
         </div>
         <div class="project-card-footer">
-          <span class="footer-tag">3 initiatives</span>
-          <span class="footer-tag">iOS · PWA · Monorepo</span>
-          <span class="footer-tag">Anand · Matthew</span>
+          <span class="footer-tag">Gifting · Vouchers</span>
+          <span class="footer-tag">Owner: Anand</span>
+          <span class="footer-tag">Q1</span>
         </div>
       </div>
+    </div>
+
+    <!-- 6. WHATSAPP PAYMENT LINKS -->
+    <div class="project-card" id="card-6" data-theme="eco" data-status="upcoming" data-type="quick-win" data-search="whatsapp payment links crm checkout ecommerce growth anand">
+      <div class="project-card-toggle" onclick="toggleCard('card-6')">
+        <div class="project-icon" style="background:var(--green-light)">💬</div>
+        <div class="project-header-content">
+          <div class="project-title">WhatsApp Payment Links</div>
+          <p class="project-summary">Payment links sent via WhatsApp for CRM-driven checkout — captures conversational sales that currently drop off.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-eco">Ecommerce Growth</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-qw">Quick Win</span>
+            <span class="owner-pill">Anand</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot eco"></span>Generate unique payment links from CS/CRM tooling</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Automated WhatsApp delivery via existing messaging stack</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>One-click checkout landing page (pre-filled order)</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Link expiry, status tracking, and CS visibility</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Many sales conversations happen over WhatsApp but conversion breaks when customers are asked to navigate to the website. Payment links close that gap with a frictionless checkout path.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">WhatsApp · CRM</span>
+          <span class="footer-tag">Owner: Anand</span>
+          <span class="footer-tag">Q1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. CAPACITOR iOS APP -->
+    <div class="project-card" id="card-7" data-theme="infra" data-status="live" data-type="enabler" data-search="capacitor ios app store push notifications mobile tech infrastructure">
+      <div class="project-card-toggle" onclick="toggleCard('card-7')">
+        <div class="project-icon" style="background:var(--teal-light)">📱</div>
+        <div class="project-header-content">
+          <div class="project-title">Capacitor iOS App</div>
+          <p class="project-summary">Native iOS app on the App Store via Capacitor — push notifications, improved mobile UX, and offline-capable features.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-live">✓ Live</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>App Store listing — UCook iOS app live on App Store</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Push notification support via Capacitor plugin</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Improved mobile navigation and gesture support</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Deep link handling for marketing campaigns</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live on App Store</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Opens a new channel with higher engagement potential than mobile web. Phase 2 (Q3) will build on this with deeper native capabilities.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">iOS · Mobile</span>
+          <span class="footer-tag">App Store</span>
+          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. ADMIN & PWA UPGRADES -->
+    <div class="project-card" id="card-8" data-theme="infra" data-status="inprogress" data-type="enabler" data-search="admin pwa upgrades performance developer tooling tech infrastructure anand matthew">
+      <div class="project-card-toggle" onclick="toggleCard('card-8')">
+        <div class="project-icon" style="background:var(--teal-light)">🛠️</div>
+        <div class="project-header-content">
+          <div class="project-title">Admin &amp; PWA Upgrades</div>
+          <p class="project-summary">Performance improvements, dependency management, and developer tooling upgrades across the admin panel and PWA.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-inprogress">⚡ In Progress</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Anand + Matthew</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>Admin panel performance audit and lazy-load improvements</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>PWA service worker update for reliable offline and caching</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Dependency upgrades — resolve known security and compatibility issues</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Build tooling improvements to reduce CI/CD times</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand + Matthew</span></div>
+            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--amber)">⚡ In Progress</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Admin performance impacts CS team productivity daily. PWA upgrades improve reliability for subscribers on mobile. Together these reduce developer friction and enable faster Q2 delivery.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">PWA · Admin · DevEx</span>
+          <span class="footer-tag">Anand · Matthew</span>
+          <span class="footer-tag" style="background:var(--amber-light);color:var(--amber);border-color:var(--amber-mid)">⚡ In Progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. MONO REPO -->
+    <div class="project-card" id="card-9" data-theme="infra" data-status="upcoming" data-type="enabler" data-search="mono repo monorepo architecture codebase tech infrastructure matthew">
+      <div class="project-card-toggle" onclick="toggleCard('card-9')">
+        <div class="project-icon" style="background:var(--teal-light)">🏗️</div>
+        <div class="project-header-content">
+          <div class="project-title">Mono Repo Architecture</div>
+          <p class="project-summary">Unified codebase structure across services — faster cross-service development, shared utilities, and simplified CI/CD.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Matthew</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>Evaluate and select mono repo tooling (Nx / Turborepo)</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Migrate shared utilities and component libraries into shared packages</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Update CI/CD pipelines for unified build and test execution</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Developer documentation and onboarding guide</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Matthew</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Fragmented repos cause duplicated effort and slow cross-service changes. A mono repo reduces context-switching, enables shared tooling, and sets the foundation for faster Q2–Q4 delivery.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Architecture · DevEx</span>
+          <span class="footer-tag">Owner: Matthew</span>
+          <span class="footer-tag">Q1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none">
+      <strong>No projects match your filters</strong>
+      Try adjusting your search or clearing the filters.
     </div>
 
   </div>
@@ -384,6 +667,38 @@ document.addEventListener('click', function(e) {
     document.getElementById('csTrigger').setAttribute('aria-expanded', 'false');
   }
 });
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const theme  = document.getElementById('themeFilter').value;
+  const status = document.getElementById('statusFilter').value;
+  const type   = document.getElementById('typeFilter').value;
+
+  const cards = document.querySelectorAll('.project-card[data-theme]');
+  let shown = 0;
+
+  cards.forEach(card => {
+    const matchSearch = !search || card.dataset.search.includes(search) || card.querySelector('.project-title').textContent.toLowerCase().includes(search);
+    const matchTheme  = !theme  || card.dataset.theme === theme;
+    const matchStatus = !status || card.dataset.status === status;
+    const matchType   = !type   || card.dataset.type === type;
+
+    const visible = matchSearch && matchTheme && matchStatus && matchType;
+    card.style.display = visible ? '' : 'none';
+    if (visible) shown++;
+  });
+
+  document.getElementById('filterCount').innerHTML = '<strong>' + shown + '</strong> of 9 shown';
+  document.getElementById('emptyState').style.display = shown === 0 ? '' : 'none';
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('themeFilter').value = '';
+  document.getElementById('statusFilter').value = '';
+  document.getElementById('typeFilter').value = '';
+  applyFilters();
+}
 </script>
 </body>
 </html>

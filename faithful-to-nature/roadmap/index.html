@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UCook — FY2026/27 Product Roadmap</title>
+<title>Faithful to Nature — FY2026/27 Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand:#e05a1e;--brand-dark:#b84714;--brand-light:#fdf1ec;--brand-mid:#f0b89a;
+  --brand:#5a8840;--brand-dark:#3d6029;--brand-light:#f0f6ea;--brand-mid:#b0cc96;
   --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
   --blue:#1a6fd4;--blue-light:#e8f1fc;
   --purple:#7b1fa2;--purple-light:#f3e5f5;
@@ -95,12 +95,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 /* THEME PILLS */
 .th-pill{font-size:9px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8}
-.tp-proc{background:var(--amber-light);color:var(--amber)}
 .tp-web{background:var(--blue-light);color:var(--blue)}
 .tp-eco{background:var(--green-light);color:var(--green-dark)}
+.tp-content{background:var(--amber-light);color:var(--amber)}
 .tp-infra{background:var(--teal-light);color:var(--teal)}
-.tp-retail{background:var(--purple-light);color:var(--purple)}
-.tp-data{background:var(--data-light);color:var(--data)}
+.tp-growth{background:var(--purple-light);color:var(--purple)}
 .tp-none{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 
 .ty-pill{font-size:9px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
@@ -142,7 +141,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .fyb-now{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:6}
 .fyb-dot{width:18px;height:18px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;box-shadow:0 0 0 2px var(--brand);animation:nowpulse 2.4s ease-in-out infinite;cursor:default}
 .fyb-dot-core{width:7px;height:7px;border-radius:50%;background:#fff}
-@keyframes nowpulse{0%,100%{box-shadow:0 0 0 2px var(--brand),0 0 0 2px rgba(224,90,30,0)}50%{box-shadow:0 0 0 2px var(--brand),0 0 0 10px rgba(224,90,30,0)}}
+@keyframes nowpulse{0%,100%{box-shadow:0 0 0 2px var(--brand),0 0 0 2px rgba(90,136,64,0)}50%{box-shadow:0 0 0 2px var(--brand),0 0 0 10px rgba(90,136,64,0)}}
 .fyb-callout{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--black);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:var(--radius);white-space:nowrap;z-index:7}
 .fyb-callout::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--black)}
 .fyb-vline{position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--brand);z-index:5;opacity:.5}
@@ -160,29 +159,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .view-tab:hover{color:var(--black)}
 .view-tab.active{background:#fff;color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 .view-section{display:none}.view-section.active{display:block}
-
-/* TIMELINE FILTER BAR */
-.tl-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.tl-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-right:2px;flex-shrink:0}
-.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 16px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
-.tl-filter-btn:hover{border-color:var(--gray-3);color:var(--black)}
-.tl-filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
-
-/* PROJECT BRIEF IN PANEL */
-.dp-proj{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
-.dp-proj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
-.dp-proj-badge{font-size:9px;font-weight:700;background:var(--brand-light);color:var(--brand-dark);padding:1px 7px;border-radius:20px;text-transform:none;letter-spacing:.02em}
-.dp-proj-summary{font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px}
-.dp-proj-feats{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.dp-proj-feat{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--gray-5);line-height:1.5}
-.dp-proj-feat-dot{width:5px;height:5px;border-radius:50%;background:var(--brand);flex-shrink:0;margin-top:5px}
-.dp-proj-links{display:flex;flex-direction:column;gap:6px}
-.dp-proj-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);text-decoration:none;transition:border-color .15s,background .15s}
-.dp-proj-link:hover{border-color:var(--brand);background:var(--brand-light)}
-.dp-proj-link-icon{font-size:13px;flex-shrink:0;width:24px;text-align:center}
-.dp-proj-link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
-.dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
-.dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
 
 /* TIMELINE */
 .tl-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--gray-2)}
@@ -202,13 +178,20 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.3}
 .tl-th-count{font-size:10px;color:var(--gray-4)}
 .tl-cell{padding:8px;background:#fff;border-left:1px solid var(--gray-2);display:flex;flex-direction:column;gap:5px;min-height:52px}
-.tl-cell.tl-cur-col{background:#fff9f7}
+.tl-cell.tl-cur-col{background:#f4f9f0}
 .tl-bar{border-radius:var(--radius);padding:6px 9px;cursor:pointer;transition:filter .12s;border:1px solid rgba(0,0,0,.07)}
 .tl-bar:hover{filter:brightness(.93)}
 .tl-bar-name{font-size:11px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:4px}
 .tl-bar-foot{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
 .tl-bar-type{font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;line-height:1.6}
 .tl-bar-rice{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(0,0,0,.18);color:#fff;line-height:1.6}
+
+/* TIMELINE FILTER BAR */
+.tl-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tl-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-right:2px;flex-shrink:0}
+.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 16px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
+.tl-filter-btn:hover{border-color:var(--gray-3);color:var(--black)}
+.tl-filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
 
 /* THEME VIEW */
 .theme-sections{display:flex;flex-direction:column;gap:10px}
@@ -258,6 +241,22 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .dp-qblock{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
 .dp-qlabel{font-size:12px;color:var(--gray-5)}.dp-qlabel strong{color:var(--black)}
 
+/* PROJECT BRIEF PANEL STYLES */
+.dp-proj{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
+.dp-proj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.dp-proj-badge{font-size:9px;font-weight:700;background:var(--brand-light);color:var(--brand-dark);padding:1px 7px;border-radius:20px;text-transform:none;letter-spacing:.02em}
+.dp-proj-summary{font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px}
+.dp-proj-feats{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.dp-proj-feat{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--gray-5);line-height:1.5}
+.dp-proj-feat-dot{width:5px;height:5px;border-radius:50%;background:var(--brand);flex-shrink:0;margin-top:5px}
+.dp-proj-links{display:flex;flex-direction:column;gap:6px}
+.dp-proj-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);text-decoration:none;transition:border-color .15s,background .15s}
+.dp-proj-link:hover{border-color:var(--brand);background:var(--brand-light)}
+.dp-proj-link-icon{font-size:13px;flex-shrink:0;width:24px;text-align:center}
+.dp-proj-link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
+.dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
+.dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
+
 @media(max-width:1180px){.qgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){
   .qgrid{grid-template-columns:1fr}
@@ -269,19 +268,19 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <body>
 
 <header class="site-header">
-  <span class="site-header-wordmark">UCook</span>
+  <span class="site-header-wordmark">Faithful to Nature</span>
   <div class="site-header-divider"></div>
   <span class="site-header-label">FY2026/27 Roadmap</span>
   <div class="company-switcher" id="companySwitcher">
     <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
-      <span class="cs-dot" style="background:#e05a1e"></span>UCook
+      <span class="cs-dot" style="background:#5a8840"></span>Faithful to Nature
       <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="cs-menu" id="csMenu">
       <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <div class="cs-divider"></div>
-      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option" href="../../ucook/home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </header>
@@ -292,16 +291,15 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>UCook · FY 2026/27 · Tech &amp; Product</div>
-    <h1>Tech &amp; Product Roadmap</h1>
-    <p class="hero-sub">Quarterly view of FY27 initiatives. Click any card to see the description and RICE scores. Status indicators show live, in-progress, and blocked items.</p>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Faithful to Nature · FY 2026/27 · Natural Health &amp; Wellness</div>
+    <h1>FY2026/27 Roadmap</h1>
+    <p class="hero-sub">Quarterly view of FY27 natural health &amp; wellness product initiatives. Click any card to see the description and RICE scores. Status indicators show live, in-progress, and blocked items.</p>
     <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#7a5a00"></span>Process Optimization</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#1a6fd4"></span>Web/App Enhancement</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#1a6fd4"></span>Web &amp; App</span>
       <span class="legend-item"><span class="legend-dot" style="background:#3a9e3f"></span>Ecommerce Growth</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#7a5a00"></span>Content &amp; Discovery</span>
       <span class="legend-item"><span class="legend-dot" style="background:#00695c"></span>Tech Infrastructure</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#7b1fa2"></span>Retail Growth</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#1565c0"></span>Data &amp; Insights</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#7b1fa2"></span>Growth &amp; Loyalty</span>
     </div>
     <div class="status-legend">
       <span class="sl-item"><span class="sl-dot" style="color:#2d7a31">✓</span>&nbsp;Live</span>
@@ -327,11 +325,16 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     </button>
   </div>
 
+  <!-- KANBAN VIEW -->
   <div class="view-section active" id="view-kanban">
     <div class="fy-banner" id="fy-banner"></div>
     <div class="qgrid" id="qgrid"></div>
+    <div class="section-hdr"><div class="section-title">Backlog</div></div>
+    <p class="section-sub">Initiatives not yet scheduled into this financial year — scored where possible, conceptual where not. Pull forward as capacity allows.</p>
+    <div class="backlog-grid" id="backlog-grid"></div>
   </div>
 
+  <!-- TIMELINE VIEW -->
   <div class="view-section" id="view-timeline">
     <div class="fy-banner" id="fy-banner-tl"></div>
     <div class="tl-filter-bar">
@@ -342,53 +345,65 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       <button class="tl-filter-btn" data-q="3" onclick="setTlFilter(3,this)">Q3 · Sep–Nov</button>
       <button class="tl-filter-btn" data-q="4" onclick="setTlFilter(4,this)">Q4 · Dec–Feb</button>
     </div>
-    <div class="tl-wrap"><div class="tl-table"><div class="tl-hdr" id="tl-hdr"></div><div class="tl-body" id="tl-body"></div></div></div>
+    <div class="tl-wrap">
+      <div class="tl-table">
+        <div class="tl-hdr" id="tl-hdr"></div>
+        <div class="tl-body" id="tl-body"></div>
+      </div>
+    </div>
+    <div id="tl-backlog-wrap" style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="tl-backlog"></div>
+    </div>
   </div>
 
+  <!-- THEME VIEW -->
   <div class="view-section" id="view-theme">
     <div class="fy-banner" id="fy-banner-theme"></div>
     <div class="theme-sections" id="theme-sections"></div>
+    <div style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="theme-backlog"></div>
+    </div>
   </div>
+
 </div>
 
+<!-- DETAIL PANEL -->
 <div class="dp-overlay" id="dp-overlay" onclick="closePanel()"></div>
 <aside class="dp-panel" id="dp-panel">
   <div class="dp-hdr">
-    <div style="flex:1"><div class="dp-pills" id="dp-pills"></div><div class="dp-name" id="dp-name"></div></div>
-    <button class="dp-close" onclick="closePanel()"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div style="flex:1">
+      <div class="dp-pills" id="dp-pills"></div>
+      <div class="dp-name" id="dp-name"></div>
+    </div>
+    <button class="dp-close" onclick="closePanel()">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   </div>
   <div class="dp-body" id="dp-body"></div>
 </aside>
 
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
+// ─── DATA ──────────────────────────────────────────────────────────────────────
+// q: 1–4 = FY quarters, 0 = backlog
+// theme: web | eco | content | infra | growth | none
+// Add FTN initiatives here
 const items = [
-  // ── Q1: Foundation & Infrastructure (Mar–May 2026) ──────────────────────────
-  {q:1, name:"Recipe Card Proofreading",        theme:"proc", themeLabel:"Process Optimization", type:"Quick Win",       status:"live",       owner:null,            r:8,i:3,c:5,e:1, desc:"Quality check and correction of all recipe card copy and imagery before delivery — improves unboxing experience and brand trust."},
-  {q:1, name:"Acumatica Refactor",              theme:"proc", themeLabel:"Process Optimization", type:"Existing Roadmap",status:null,         owner:"Sahil",         r:4,i:4,c:3,e:4, desc:"Refactor the Acumatica ERP integration for improved reliability, maintainability, and reduced sync errors between systems."},
-  {q:1, name:"Customer Journey — Key Project",  theme:"web",  themeLabel:"Web/App Enhancement",  type:"Existing Roadmap",status:null,         owner:null,            r:9,i:5,c:4,e:2, desc:"Define scope, requirements, and architecture for the end-to-end customer journey redesign. Development begins Q2."},
-  {q:1, name:"Yoyo — WiCodes",                 theme:"eco",  themeLabel:"Ecommerce Growth",      type:"Existing Roadmap",status:"live",       owner:null,            r:6,i:3,c:5,e:2, desc:"Integrate Yoyo WiCodes for in-store and online loyalty payment functionality across checkout."},
-  {q:1, name:"Yoyo — Gift Voucher Replacement", theme:"eco",  themeLabel:"Ecommerce Growth",      type:"Existing Roadmap",status:null,         owner:"Anand",         r:5,i:3,c:4,e:3, desc:"Replace legacy gift vouchers with Yoyo-powered wrapped vouchers for improved flexibility, tracking, and redemption UX."},
-  {q:1, name:"WhatsApp Payment Links",          theme:"eco",  themeLabel:"Ecommerce Growth",      type:"Quick Win",       status:null,         owner:"Anand",         r:7,i:4,c:4,e:2, desc:"Enable payment links via WhatsApp for CRM-driven checkout — reduces cart abandonment from conversational sales channels."},
-  {q:1, name:"Capacitor iOS App",               theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:"live",       owner:null,            r:8,i:4,c:5,e:3, desc:"iOS app built with Capacitor — live on App Store with improved mobile experience, push notifications, and deeper engagement."},
-  {q:1, name:"Admin & PWA Upgrades",            theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:"inprogress", owner:"Anand + Matthew",r:6,i:4,c:4,e:4, desc:"Upgrade admin panel and PWA — improved performance, dependency management, and developer tooling."},
-  {q:1, name:"Mono Repo Architecture",          theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:null,         owner:"Matthew",       r:4,i:5,c:3,e:4, desc:"Migrate to monorepo structure for unified dependency management, shared tooling, and faster cross-service development cycles."},
+  // ── Q1 ──────────────────────────────────────────────────────────────────────
+  {q:1, name:"Placeholder Initiative A", theme:"web",     themeLabel:"Web & App",           type:"Quick Win",       status:null, owner:null, r:7,i:4,c:4,e:2, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here."},
+  {q:1, name:"Placeholder Initiative B", theme:"eco",     themeLabel:"Ecommerce Growth",    type:"Existing Roadmap",status:null, owner:null, r:6,i:3,c:4,e:3, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here."},
 
-  // ── Q2: Process & Growth (Jun–Aug 2026) ─────────────────────────────────────
-  {q:2, name:"Recipe Management Portal",        theme:"proc", themeLabel:"Process Optimization", type:"Existing Roadmap",status:null, owner:null, r:6,i:4,c:4,e:3, desc:"Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing errors."},
-  {q:2, name:"CS Billing Tasks Efficiencies",   theme:"proc", themeLabel:"Process Optimization", type:"Quick Win",       status:null, owner:null, r:5,i:3,c:4,e:2, desc:"Streamline customer service billing workflows to reduce manual tasks, resolution time, and escalation rates."},
-  {q:2, name:"Discounts Refinements",           theme:"eco",  themeLabel:"Ecommerce Growth",      type:"Existing Roadmap",status:null, owner:null, r:7,i:3,c:4,e:2, desc:"Improve discount engine flexibility — better rule stacking, CS override tools, improved promotion management."},
-  {q:2, name:"Yoyo — Loyalty Pro Integration",  theme:"retail",themeLabel:"Retail Growth",        type:"Existing Roadmap",status:null, owner:null, r:6,i:4,c:3,e:3, desc:"Full Yoyo Loyalty Pro integration for points earning, redemption, and tier management across retail and online channels."},
-  {q:2, name:"Order Attribution",               theme:"data", themeLabel:"Data & Insights",       type:"Existing Roadmap",status:null, owner:null, r:6,i:5,c:3,e:3, desc:"Implement multi-touch order attribution modelling to correctly credit marketing channels and inform media spend decisions."},
+  // ── Q2 ──────────────────────────────────────────────────────────────────────
+  {q:2, name:"Placeholder Initiative C", theme:"content", themeLabel:"Content & Discovery", type:"Quick Win",       status:null, owner:null, r:5,i:4,c:3,e:2, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here."},
 
-  // ── Q3: Platform & Scale (Sep–Nov 2026) ─────────────────────────────────────
-  {q:3, name:"Loop Implementation",             theme:"proc", themeLabel:"Process Optimization", type:"Existing Roadmap",status:null,      owner:null, r:5,i:4,c:3,e:3, desc:"Implement Loop for returns and exchanges — reduces CS manual processing and improves customer self-serve resolution."},
-  {q:3, name:"Capacitor iOS App — Phase 2",     theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:"blocked", owner:null, r:7,i:4,c:2,e:3, desc:"Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration."},
-  {q:3, name:"Postgres Upgrade",                theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:null,      owner:null, r:4,i:5,c:4,e:3, desc:"Upgrade to latest PostgreSQL version for improved security, performance, and access to newer database features."},
+  // ── Q3 ──────────────────────────────────────────────────────────────────────
+  {q:3, name:"Placeholder Initiative D", theme:"infra",   themeLabel:"Tech Infrastructure", type:"Existing Roadmap",status:null, owner:null, r:4,i:5,c:3,e:4, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here."},
 
-  // ── Q4: Operations & Resilience (Dec 2026–Feb 2027) ─────────────────────────
-  {q:4, name:"Logistics Overhaul",              theme:"proc", themeLabel:"Process Optimization", type:"Existing Roadmap",status:null, owner:null, r:7,i:5,c:3,e:4, desc:"End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks."},
-  {q:4, name:"Migration to Cluster",            theme:"infra",themeLabel:"Tech Infrastructure",   type:"Existing Roadmap",status:null, owner:null, r:5,i:5,c:3,e:4, desc:"Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk."},
+  // ── Q4 ──────────────────────────────────────────────────────────────────────
+  {q:4, name:"Placeholder Initiative E", theme:"growth",  themeLabel:"Growth & Loyalty",    type:"Existing Roadmap",status:null, owner:null, r:6,i:4,c:3,e:3, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here."},
 ];
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -407,25 +422,24 @@ function esc(s) {
 }
 
 const THEME_COLORS = {
-  proc:'#7a5a00', web:'#1a6fd4', eco:'#3a9e3f',
-  infra:'#00695c', retail:'#7b1fa2', data:'#1565c0', none:'#9a9a94'
+  web:'#1a6fd4', eco:'#3a9e3f', content:'#7a5a00',
+  infra:'#00695c', growth:'#7b1fa2', none:'#9a9a94'
 };
 
 const Q_META = [
-  {q:1, label:'Q1', title:'Foundation & Infrastructure', period:'Mar – May 2026',      current:true},
-  {q:2, label:'Q2', title:'Process & Growth',            period:'Jun – Aug 2026',      current:false},
+  {q:1, label:'Q1', title:'Foundation & Quick Wins',     period:'Mar – May 2026',      current:true},
+  {q:2, label:'Q2', title:'Growth & Discovery',          period:'Jun – Aug 2026',      current:false},
   {q:3, label:'Q3', title:'Platform & Scale',            period:'Sep – Nov 2026',      current:false},
-  {q:4, label:'Q4', title:'Operations & Resilience',     period:'Dec 2026 – Feb 2027', current:false},
+  {q:4, label:'Q4', title:'Loyalty & Resilience',        period:'Dec 2026 – Feb 2027', current:false},
 ];
 const Q_NAMES = {0:'Backlog',1:'Q1 — Mar–May 2026',2:'Q2 — Jun–Aug 2026',3:'Q3 — Sep–Nov 2026',4:'Q4 — Dec 2026–Feb 2027'};
 
 const THEMES = [
-  {key:'proc',   label:'Process Optimization',  color:'#7a5a00'},
-  {key:'web',    label:'Web/App Enhancement',    color:'#1a6fd4'},
-  {key:'eco',    label:'Ecommerce Growth',       color:'#3a9e3f'},
-  {key:'infra',  label:'Tech Infrastructure',    color:'#00695c'},
-  {key:'retail', label:'Retail Growth',          color:'#7b1fa2'},
-  {key:'data',   label:'Data & Insights',        color:'#1565c0'},
+  {key:'web',     label:'Web & App',           color:'#1a6fd4'},
+  {key:'eco',     label:'Ecommerce Growth',    color:'#3a9e3f'},
+  {key:'content', label:'Content & Discovery', color:'#7a5a00'},
+  {key:'infra',   label:'Tech Infrastructure', color:'#00695c'},
+  {key:'growth',  label:'Growth & Loyalty',    color:'#7b1fa2'},
 ];
 
 function statusBadge(status) {
@@ -493,8 +507,8 @@ function buildFYBanner(targetId) {
   const segStates = FY_QUARTERS.map(q => now >= q.end ? 'done' : now >= q.start ? 'now' : 'next');
   const segsHtml = FY_QUARTERS.map((q,i) => {
     const s = segStates[i];
-    let bg = s === 'done' ? 'style="background:#fdf1ec"'
-           : s === 'now' ? `style="background:linear-gradient(90deg,#fdf1ec ${qPct}%,var(--gray-1) ${qPct}%)"`
+    let bg = s === 'done' ? 'style="background:#f0f6ea"'
+           : s === 'now' ? `style="background:linear-gradient(90deg,#f0f6ea ${qPct}%,var(--gray-1) ${qPct}%)"`
            : 'style="background:var(--gray-1)"';
     return `<div class="fyb-seg" ${bg}></div>`;
   }).join('');
@@ -543,9 +557,10 @@ function buildKanban() {
       <div class="qbody">${qItems.map(buildCard).join('')}</div>
     </div>`;
   }).join('');
+  document.getElementById('backlog-grid').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
 }
 
-// ─── TIMELINE ─────────────────────────────────────────────────────────────────
+// ─── TIMELINE FILTER STATE ────────────────────────────────────────────────────
 let tlFilter = 'all';
 
 function setTlFilter(q, btn) {
@@ -556,20 +571,29 @@ function setTlFilter(q, btn) {
   closePanel();
 }
 
+// ─── BUILD TIMELINE ───────────────────────────────────────────────────────────
 function buildTimeline() {
+  // Which quarters to display
   const activeQs = tlFilter === 'all' ? Q_META : Q_META.filter(qm => qm.q === tlFilter);
   const gridCols = `150px repeat(${activeQs.length},1fr)`;
 
+  // Header
   const hdrEl = document.getElementById('tl-hdr');
   hdrEl.style.gridTemplateColumns = gridCols;
-  hdrEl.innerHTML = `<div class="tl-hdr-empty"></div>` +
-    activeQs.map(qm => `<div class="tl-hdr-q${qm.current?' tl-cur':''}">
-      <div class="tl-ql">${qm.label} · ${qm.title}</div>
-      <div class="tl-qp">${qm.period}</div>
-      ${qm.current?'<div class="tl-qnow">Current quarter</div>':''}
-    </div>`).join('');
+  hdrEl.innerHTML =
+    `<div class="tl-hdr-empty"></div>` +
+    activeQs.map(qm => `
+      <div class="tl-hdr-q${qm.current ? ' tl-cur' : ''}">
+        <div class="tl-ql">${qm.label} · ${qm.title}</div>
+        <div class="tl-qp">${qm.period}</div>
+        ${qm.current ? '<div class="tl-qnow">Current quarter</div>' : ''}
+      </div>`).join('');
 
-  const scheduled = tlFilter === 'all' ? items.filter(x => x.q > 0) : items.filter(x => x.q === tlFilter);
+  // Body — one row per theme, only items in the active quarter(s)
+  const scheduled = tlFilter === 'all'
+    ? items.filter(x => x.q > 0)
+    : items.filter(x => x.q === tlFilter);
+
   document.getElementById('tl-body').innerHTML = THEMES.map(th => {
     const themeItems = scheduled.filter(x => x.theme === th.key);
     if (!themeItems.length) return '';
@@ -586,25 +610,32 @@ function buildTimeline() {
           </div>
         </div>`;
       }).join('');
-      return `<div class="tl-cell${qm.current?' tl-cur-col':''}">${bars}</div>`;
+      return `<div class="tl-cell${qm.current ? ' tl-cur-col' : ''}">${bars}</div>`;
     }).join('');
     return `<div class="tl-row" style="grid-template-columns:${gridCols}">
-      <div class="tl-th"><div class="tl-th-inner">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${th.color}"></div>
-        <div class="tl-th-name">${th.label}</div>
-        <div class="tl-th-count">${themeItems.length} item${themeItems.length>1?'s':''}</div>
-      </div></div>
+      <div class="tl-th">
+        <div class="tl-th-inner">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${th.color}"></div>
+          <div class="tl-th-name">${th.label}</div>
+          <div class="tl-th-count">${themeItems.length} item${themeItems.length > 1 ? 's' : ''}</div>
+        </div>
+      </div>
       ${cells}
     </div>`;
   }).join('');
 
-  // Re-bind tl-bar clicks after DOM rebuild
-  document.querySelectorAll('.tl-bar').forEach(el => {
+  // Backlog — only show on "All quarters" view
+  const backlogWrap = document.getElementById('tl-backlog-wrap');
+  if (backlogWrap) backlogWrap.style.display = tlFilter === 'all' ? '' : 'none';
+  document.getElementById('tl-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+
+  // Re-bind click handlers for newly rendered bars
+  document.querySelectorAll('#tl-body .tl-bar').forEach(el => {
     el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
   });
 }
 
-// ─── THEME VIEW ───────────────────────────────────────────────────────────────
+// ─── BUILD THEME VIEW ─────────────────────────────────────────────────────────
 function buildThemeView() {
   const scheduled = items.filter(x => x.q > 0);
   document.getElementById('theme-sections').innerHTML = THEMES.map(th => {
@@ -613,20 +644,28 @@ function buildThemeView() {
     const cols = Q_META.map(qm => {
       const cell = themeItems.filter(x => x.q === qm.q);
       return `<div class="theme-qcol">
-        <div class="theme-qcol-hdr">${qm.label}${qm.current?' <span class="theme-qcol-now">Now</span>':''}</div>
-        <div class="theme-items">${cell.length ? cell.map(buildCard).join('') : '<div class="theme-empty">—</div>'}</div>
+        <div class="theme-qcol-hdr">
+          ${qm.label}${qm.current ? ' <span class="theme-qcol-now">Now</span>' : ''}
+        </div>
+        <div class="theme-items">
+          ${cell.length
+            ? cell.map(buildCard).join('')
+            : '<div class="theme-empty">—</div>'}
+        </div>
       </div>`;
     }).join('');
     return `<div class="theme-section" id="theme-sec-${th.key}">
       <div class="theme-sec-hdr" onclick="toggleTheme('${th.key}')">
         <div class="theme-sec-bar" style="background:${th.color}"></div>
         <div class="theme-sec-name">${th.label}</div>
-        <div class="theme-sec-count">${themeItems.length} initiative${themeItems.length>1?'s':''} this FY</div>
+        <div class="theme-sec-count">${themeItems.length} initiative${themeItems.length > 1 ? 's' : ''} this FY</div>
         <svg class="theme-sec-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="theme-sec-body">${cols}</div>
     </div>`;
   }).join('');
+
+  document.getElementById('theme-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
 }
 
 function toggleTheme(key) {
@@ -646,35 +685,29 @@ function setView(name, btn) {
   closePanel();
 }
 
-// ─── PROJECT BRIEFS ───────────────────────────────────────────────────────────
-const PROJECT_BRIEFS = {
-  // Add project briefs here as UCook projects are added to the projects page.
-  // Example:
-  // 'Customer Journey — Key Project': {
-  //   summary: 'End-to-end redesign of the customer journey...',
-  //   features: ['Feature 1', 'Feature 2'],
-  //   links: [{ icon: '📄', title: 'Project Brief', sub: 'Notion', href: '#' }]
-  // }
-};
+// ─── PROJECT BRIEFS ──────────────────────────────────────────────────────────
+// Add FTN initiatives here
+const PROJECT_BRIEFS = {};
 
 function buildProjectBriefHtml(name) {
-  const brief = PROJECT_BRIEFS[name];
-  if (!brief) return '';
-  const featsHtml = (brief.features || []).map(f =>
-    `<li class="dp-proj-feat"><span class="dp-proj-feat-dot"></span>${f}</li>`
-  ).join('');
-  const linksHtml = (brief.links || []).map(l =>
-    `<a class="dp-proj-link" href="${l.href}" target="_blank" rel="noopener">
-      <span class="dp-proj-link-icon">${l.icon}</span>
-      <span><span class="dp-proj-link-title">${l.title}</span><span class="dp-proj-link-sub">${l.sub}</span></span>
-      <svg class="dp-proj-link-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>`
-  ).join('');
+  const p = PROJECT_BRIEFS[name];
+  if (!p) return '';
   return `<div class="dp-proj">
-    <div class="dp-proj-label">Project Brief <span class="dp-proj-badge">From Projects Page</span></div>
-    ${brief.summary ? `<p class="dp-proj-summary">${brief.summary}</p>` : ''}
-    ${featsHtml ? `<ul class="dp-proj-feats">${featsHtml}</ul>` : ''}
-    ${linksHtml ? `<div class="dp-proj-links">${linksHtml}</div>` : ''}
+    <div class="dp-proj-label">Project Brief <span class="dp-proj-badge">Active project</span></div>
+    <p class="dp-proj-summary">${esc(p.summary)}</p>
+    <ul class="dp-proj-feats">
+      ${p.features.map(f => `<li class="dp-proj-feat"><span class="dp-proj-feat-dot"></span>${esc(f)}</li>`).join('')}
+    </ul>
+    <div class="dp-proj-links">
+      ${p.links.map(l => `<a class="dp-proj-link" href="${l.href}"${l.external ? ' target="_blank"' : ''}>
+        <span class="dp-proj-link-icon">${l.icon}</span>
+        <span style="flex:1">
+          <span class="dp-proj-link-title">${esc(l.label)}</span>
+          <span class="dp-proj-link-sub">${esc(l.sub)}</span>
+        </span>
+        <svg class="dp-proj-link-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>`).join('')}
+    </div>
   </div>`;
 }
 
@@ -683,7 +716,8 @@ let activeEl = null;
 
 function openPanel(item, el) {
   if (activeEl) activeEl.classList.remove('active');
-  activeEl = el; el.classList.add('active');
+  activeEl = el;
+  el.classList.add('active');
 
   const score = rice(item);
   const t = tier(score);
@@ -714,12 +748,11 @@ function openPanel(item, el) {
          <span class="rice-score-big">${score}</span>
        </div>
        <div class="rice-bar-track"><div class="rice-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>`
-    : `<div class="no-score">No RICE score yet for this initiative.</div>`;
+    : `<div class="no-score">No RICE score yet — insufficient data to estimate R, I, C, and E for this initiative. Scores can be added as the concept is developed.</div>`;
 
   document.getElementById('dp-body').innerHTML =
     `${item.desc ? `<p class="dp-desc">${esc(item.desc)}</p>` : ''}
      ${buildProjectBriefHtml(item.name)}
-     ${metaRows.length ? `<div style="margin-bottom:16px;display:flex;flex-direction:column;gap:6px">${metaRows.join('')}</div>` : ''}
      <div class="dp-qblock"><p class="dp-qlabel">Quarter: <strong>${Q_NAMES[item.q]}</strong></p></div>
      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)">${riceHtml}</div>`;
 
@@ -734,6 +767,7 @@ function closePanel() {
 }
 
 function bindClicks() {
+  // Kanban + theme cards only — timeline bars are bound inside buildTimeline()
   document.querySelectorAll('.rm-item').forEach(el => {
     el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
   });
@@ -756,15 +790,19 @@ document.addEventListener('click', function(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
 // ─── BUILD PAGE ───────────────────────────────────────────────────────────────
-buildFYBanner('fy-banner');
-buildFYBanner('fy-banner-tl');
-buildFYBanner('fy-banner-theme');
-buildKanban();
-buildTimeline();
-buildThemeView();
-const first = document.querySelector('.theme-section');
-if (first) first.classList.add('open');
-bindClicks();
+function buildPage() {
+  buildFYBanner('fy-banner');
+  buildFYBanner('fy-banner-tl');
+  buildFYBanner('fy-banner-theme');
+  buildKanban();
+  buildTimeline();
+  buildThemeView();
+  const first = document.querySelector('.theme-section');
+  if (first) first.classList.add('open');
+  bindClicks();
+}
+
+buildPage();
 </script>
 </body>
 </html>
