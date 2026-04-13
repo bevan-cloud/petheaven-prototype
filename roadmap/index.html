@@ -244,6 +244,22 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .theme-items{display:flex;flex-direction:column;gap:5px}
 .theme-empty{font-size:11px;color:var(--gray-3);padding:2px 0;font-style:italic}
 
+/* PROJECT BRIEF IN PANEL */
+.dp-proj{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
+.dp-proj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.dp-proj-badge{font-size:9px;font-weight:700;background:var(--green-light);color:var(--green-dark);padding:1px 7px;border-radius:20px;text-transform:none;letter-spacing:.02em}
+.dp-proj-summary{font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px}
+.dp-proj-feats{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.dp-proj-feat{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--gray-5);line-height:1.5}
+.dp-proj-feat-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+.dp-proj-links{display:flex;flex-direction:column;gap:6px}
+.dp-proj-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);text-decoration:none;transition:border-color .15s,background .15s}
+.dp-proj-link:hover{border-color:var(--green);background:var(--green-light)}
+.dp-proj-link-icon{font-size:13px;flex-shrink:0;width:24px;text-align:center}
+.dp-proj-link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
+.dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
+.dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
+
 /* RESPONSIVE */
 @media(max-width:1180px){.qgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){
@@ -766,6 +782,48 @@ const THEMES = [
   {key:'none', label:'Unassigned / Brainstorm',         color:'var(--gray-3)'},
 ];
 
+// ─── PROJECT BRIEFS ──────────────────────────────────────────────────────────
+const PROJECT_BRIEFS = {
+  'Enhanced Product Reviews': {
+    summary: 'A two-phase initiative to build purchase trust and increase conversion through improved review visibility, verified purchase signals, and intelligent review surfacing.',
+    features: [
+      'Star ratings on category listing & search pages',
+      'Above-fold review snippet on PDP (most helpful + most recent)',
+      'Post-purchase review request email (RFM-segmented)',
+      'Verified purchase badges — full lifecycle state machine',
+      'Mark as useful — logged-in voting, feeds relevance sort',
+      'Relevance sort + 4 customer filters',
+    ],
+    links: [
+      {label:'Project Brief', sub:'Full spec · 2 phases · 6 features', href:'../projects/reviews-brief.html', icon:'📄', external:false},
+      {label:'Prototype v1',  sub:'PDP with above-fold review snippets', href:'https://bevan-cloud.github.io/petheaven-prototype/#customer-reviews', icon:'🖥️', external:true},
+      {label:'Prototype v2',  sub:'Verified badges, useful voting & filters', href:'https://bevan-cloud.github.io/petheaven-prototype/pdp-v2/', icon:'🖥️', external:true},
+    ],
+  },
+};
+
+function buildProjectBriefHtml(name) {
+  const p = PROJECT_BRIEFS[name];
+  if (!p) return '';
+  return `<div class="dp-proj">
+    <div class="dp-proj-label">Project Brief <span class="dp-proj-badge">Active project</span></div>
+    <p class="dp-proj-summary">${esc(p.summary)}</p>
+    <ul class="dp-proj-feats">
+      ${p.features.map(f => `<li class="dp-proj-feat"><span class="dp-proj-feat-dot"></span>${esc(f)}</li>`).join('')}
+    </ul>
+    <div class="dp-proj-links">
+      ${p.links.map(l => `<a class="dp-proj-link" href="${l.href}"${l.external ? ' target="_blank"' : ''}>
+        <span class="dp-proj-link-icon">${l.icon}</span>
+        <span style="flex:1">
+          <span class="dp-proj-link-title">${esc(l.label)}</span>
+          <span class="dp-proj-link-sub">${esc(l.sub)}</span>
+        </span>
+        <svg class="dp-proj-link-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>`).join('')}
+    </div>
+  </div>`;
+}
+
 // ─── VIEW SWITCHING ───────────────────────────────────────────────────────────
 function setView(name, btn) {
   document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
@@ -945,7 +1003,8 @@ function openPanel(item, el) {
   document.getElementById('dp-body').innerHTML =
     `${item.desc ? `<p class="dp-desc">${esc(item.desc)}</p>` : ''}
      ${riceHtml}
-     <div class="dp-qblock"><p class="dp-qlabel">Quarter: <strong>${Q_NAMES[item.q]}</strong></p></div>`;
+     <div class="dp-qblock"><p class="dp-qlabel">Quarter: <strong>${Q_NAMES[item.q]}</strong></p></div>
+     ${buildProjectBriefHtml(item.name)}`;
 
   document.getElementById('dp-overlay').classList.add('open');
   document.getElementById('dp-panel').classList.add('open');
