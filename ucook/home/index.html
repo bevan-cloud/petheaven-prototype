@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pet Heaven — Product Workspace</title>
+<title>UCook — Product Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
+  --brand:#e05a1e;--brand-dark:#b84714;--brand-light:#fdf1ec;--brand-mid:#f0b89a;
   --blue:#1a6fd4;--blue-light:#e8f1fc;
   --purple:#7b1fa2;--purple-light:#f3e5f5;
   --amber:#7a5a00;--amber-light:#fef8e6;
@@ -19,8 +19,8 @@
 body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
 
 /* HEADER */
-.site-header{background:var(--green-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
-.site-header-logo{height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.95}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em}
 .site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
 .site-logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.02em}
 
@@ -67,7 +67,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option.active{background:var(--gray-1);font-weight:600}
 .cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cs-option-label{flex:1}
-.cs-option-check{color:var(--green-dark);opacity:0;flex-shrink:0}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
 
@@ -76,8 +76,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 /* INTRO */
 .intro{margin-bottom:56px;text-align:center}
-.intro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
-.intro-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.intro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
+.intro-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
 .intro h1{font-family:'DM Serif Display',serif;font-size:44px;line-height:1.12;color:var(--black);margin-bottom:12px}
 .intro-sub{font-size:16px;color:var(--gray-5);line-height:1.7;max-width:480px;margin:0 auto}
 
@@ -102,16 +102,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 }
 .nav-tile:hover{
   box-shadow:0 8px 32px rgba(0,0,0,0.10);
-  border-color:var(--green-mid);
+  border-color:var(--brand-mid);
   transform:translateY(-2px);
 }
-.nav-tile:hover .tile-arrow{color:var(--green-dark)}
+.nav-tile:hover .tile-arrow{color:var(--brand-dark)}
 
 /* TILE ACCENT */
 .tile-accent{height:6px}
-.ta-green{background:var(--green)}
-.ta-purple{background:#50B848}
-.ta-blue{background:var(--blue)}
 
 /* TILE PREVIEW */
 .tile-preview{
@@ -121,23 +118,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   overflow:hidden;
   position:relative;
 }
-.tp-projects{background:var(--gray-1)}
-.tp-styleguide{background:#1a1a1a}
 
-/* Project preview cards */
-.preview-cards{display:flex;flex-direction:column;gap:6px;width:100%}
-.preview-card{background:#fff;border:1px solid var(--gray-2);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px}
-.preview-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#fff}
-.preview-lines{flex:1;display:flex;flex-direction:column;gap:3px}
-.preview-line{height:6px;border-radius:3px;background:var(--gray-2)}
-.preview-pill{height:14px;width:50px;border-radius:20px;flex-shrink:0}
-
-/* Style guide preview swatches */
-.preview-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%}
-.preview-swatch{height:52px;border-radius:6px}
-.preview-type{position:absolute;bottom:16px;left:24px;right:24px}
-.preview-type-text{font-size:22px;font-weight:700;color:#fff;font-family:'DM Sans',sans-serif;letter-spacing:-0.02em;opacity:0.9}
-.preview-type-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:1px;letter-spacing:.04em;text-transform:uppercase}
+/* Skeleton preview */
+.skeleton-preview{display:flex;flex-direction:column;gap:8px;width:100%;align-items:center;justify-content:center}
+.skeleton-bar{border-radius:4px;background:var(--gray-2)}
+.skeleton-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4)}
 
 /* TILE BODY */
 .tile-body{padding:22px 24px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
@@ -150,17 +135,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .tile-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 
+/* COMING SOON BADGE */
+.coming-soon{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--gray-4);background:var(--gray-1);border:1px solid var(--gray-2);padding:3px 10px;border-radius:20px;margin-top:10px}
+
 /* FOOTER */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
-
-/* Roadmap preview */
-.tp-roadmap{background:#1a1a1a;position:relative;overflow:hidden}
-.rm-preview-cols{display:flex;gap:6px;width:100%;padding:0 4px}
-.rm-preview-col{flex:1;display:flex;flex-direction:column;gap:4px}
-.rm-preview-hdr{height:8px;border-radius:3px;margin-bottom:2px}
-.rm-preview-card{height:16px;border-radius:4px;opacity:.7}
-.rm-preview-card.dim{opacity:.35}
-.ta-amber{background:var(--amber-mid)}
 
 @media(max-width:680px){
   .nav-grid{grid-template-columns:1fr}
@@ -173,20 +152,20 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <body>
 
 <header class="site-header">
-  <img class="site-header-logo" src="https://www.petheaven.co.za/skin/frontend/petheaven/default/images/logo-small.png" alt="Pet Heaven">
+  <span class="site-header-wordmark">UCook</span>
   <div class="site-header-divider"></div>
   <span class="site-logo">Product Workspace</span>
 
   <div class="company-switcher" id="companySwitcher">
     <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
-      <span class="cs-dot" style="background:#3a9e3f"></span>
-      Pet Heaven
+      <span class="cs-dot" style="background:#e05a1e"></span>
+      UCook
       <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
         <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
     <div class="cs-menu" id="csMenu">
-      <a class="cs-option active" href="../home/">
+      <a class="cs-option" href="../../home/">
         <span class="cs-option-dot" style="background:#3a9e3f"></span>
         <span class="cs-option-label">Pet Heaven</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -194,14 +173,14 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         </svg>
       </a>
       <div class="cs-divider"></div>
-      <a class="cs-option" href="../faithful-to-nature/home/">
+      <a class="cs-option" href="../../faithful-to-nature/home/">
         <span class="cs-option-dot" style="background:#5a8840"></span>
         <span class="cs-option-label">Faithful to Nature</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a class="cs-option" href="../ucook/home/">
+      <a class="cs-option active" href="../../ucook/home/">
         <span class="cs-option-dot" style="background:#e05a1e"></span>
         <span class="cs-option-label">UCook</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -215,9 +194,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <div class="page">
 
   <div class="intro">
-    <div class="intro-badge"><span class="intro-badge-dot"></span>petheaven.co.za · Magento</div>
+    <div class="intro-badge"><span class="intro-badge-dot"></span>ucook.co.za</div>
     <h1>Product Workspace</h1>
-    <p class="intro-sub">Briefs, prototypes, and design resources for the Pet Heaven product team.</p>
+    <p class="intro-sub">Briefs, prototypes, and design resources for the UCook product team.</p>
   </div>
 
   <div class="section-label">Navigate to</div>
@@ -226,33 +205,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- PROJECTS TILE -->
     <a class="nav-tile" href="../projects/">
-      <div class="tile-accent ta-green"></div>
-      <div class="tile-preview tp-projects">
-        <div class="preview-cards">
-          <div class="preview-card">
-            <div class="preview-num" style="background:#3a9e3f">1</div>
-            <div class="preview-lines">
-              <div class="preview-line" style="width:70%"></div>
-              <div class="preview-line" style="width:45%"></div>
-            </div>
-            <div class="preview-pill" style="background:#eef7ee;border:1px solid #a8d4aa"></div>
-          </div>
-          <div class="preview-card">
-            <div class="preview-num" style="background:#7b1fa2">2</div>
-            <div class="preview-lines">
-              <div class="preview-line" style="width:80%"></div>
-              <div class="preview-line" style="width:50%"></div>
-            </div>
-            <div class="preview-pill" style="background:#f3e5f5"></div>
-          </div>
-          <div class="preview-card">
-            <div class="preview-num" style="background:#1a6fd4">3</div>
-            <div class="preview-lines">
-              <div class="preview-line" style="width:60%"></div>
-              <div class="preview-line" style="width:38%"></div>
-            </div>
-            <div class="preview-pill" style="background:#e8f1fc"></div>
-          </div>
+      <div class="tile-accent" style="background:var(--brand)"></div>
+      <div class="tile-preview" style="background:var(--gray-1)">
+        <div class="skeleton-preview">
+          <div class="skeleton-bar" style="width:80%;height:10px"></div>
+          <div class="skeleton-bar" style="width:60%;height:10px"></div>
+          <div class="skeleton-bar" style="width:70%;height:10px"></div>
+          <div class="skeleton-label" style="margin-top:4px">Coming soon</div>
         </div>
       </div>
       <div class="tile-body">
@@ -264,32 +223,30 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         </div>
         <p class="tile-desc">Active product initiatives — including project briefs, prototype links, and feature scope for each workstream.</p>
         <div class="tile-meta">
-          <span class="tile-tag">3 active projects</span>
-          <span class="tile-tag">3 prototypes live</span>
-          <span class="tile-tag">3 briefs complete</span>
+          <span class="coming-soon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Content coming soon
+          </span>
         </div>
       </div>
     </a>
 
     <!-- STYLE GUIDE TILE -->
     <a class="nav-tile" href="../style-guide/">
-      <div class="tile-accent" style="background:#50B848"></div>
-      <div class="tile-preview tp-styleguide">
-        <div class="preview-swatches">
-          <div class="preview-swatch" style="background:#50B848"></div>
-          <div class="preview-swatch" style="background:#BD08C3"></div>
-          <div class="preview-swatch" style="background:#FFA600"></div>
-          <div class="preview-swatch" style="background:#333333"></div>
-          <div class="preview-swatch" style="background:#F9F9F9"></div>
-          <div class="preview-swatch" style="background:#57AB4E"></div>
-          <div class="preview-swatch" style="background:#B3FA05"></div>
-          <div class="preview-swatch" style="background:#FA5800"></div>
-          <div class="preview-swatch" style="background:#3B3B3B"></div>
-          <div class="preview-swatch" style="background:#E4E4E4"></div>
-        </div>
-        <div class="preview-type">
-          <div class="preview-type-text">Poppins</div>
-          <div class="preview-type-sub">Brand typeface · 400–800</div>
+      <div class="tile-accent" style="background:var(--brand)"></div>
+      <div class="tile-preview" style="background:#1a1a1a">
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%">
+            <div style="height:40px;border-radius:6px;background:#e05a1e"></div>
+            <div style="height:40px;border-radius:6px;background:#f0834a"></div>
+            <div style="height:40px;border-radius:6px;background:#b84714"></div>
+            <div style="height:40px;border-radius:6px;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1)"></div>
+            <div style="height:40px;border-radius:6px;background:#f5f5f5"></div>
+          </div>
+          <div style="position:absolute;bottom:16px;left:24px;right:24px">
+            <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:-0.02em">Coming soon</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;letter-spacing:.04em;text-transform:uppercase">Style guide · UCook brand</div>
+          </div>
         </div>
       </div>
       <div class="tile-body">
@@ -299,34 +256,34 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Pet Heaven CI and design system — colours, typography, buttons, components, and usage rules from the live site.</p>
+        <p class="tile-desc">UCook CI and design system — colours, typography, buttons, components, and usage rules.</p>
         <div class="tile-meta">
-          <span class="tile-tag">Colour system</span>
-          <span class="tile-tag">Typography</span>
-          <span class="tile-tag">Buttons</span>
-          <span class="tile-tag">Components</span>
+          <span class="coming-soon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Content coming soon
+          </span>
         </div>
       </div>
     </a>
 
     <!-- PRIORITIZATION TILE -->
     <a class="nav-tile" href="../prioritization/">
-      <div class="tile-accent" style="background:var(--amber)"></div>
-      <div class="tile-preview" style="background:#fffbf0">
-        <div style="width:100%;display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;gap:6px">
+      <div class="tile-accent" style="background:#f0834a"></div>
+      <div class="tile-preview" style="background:#fdf4f0">
+        <div class="skeleton-preview">
+          <div style="display:flex;gap:6px;width:100%">
             <div style="flex:1;display:flex;flex-direction:column;gap:4px">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">High impact</div>
-              <div style="background:#eef7ee;border:1px solid #a8d4aa;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#2d7a31">R&R Enhancements</div>
-              <div style="background:#fef8e6;border:1px solid #f5c842;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#7a5a00">CLP Enhancements</div>
+              <div style="background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:var(--brand-dark)">Initiative A</div>
+              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Initiative B</div>
             </div>
             <div style="flex:1;display:flex;flex-direction:column;gap:4px">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">Lower impact</div>
-              <div style="background:#f3e5f5;border:1px solid #ce93d8;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#7b1fa2">S&amp;S PDP Split</div>
+              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Initiative C</div>
               <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Backlog item…</div>
             </div>
           </div>
-          <div style="display:flex;justify-content:space-between;padding:0 2px">
+          <div style="display:flex;justify-content:space-between;width:100%;padding:0 2px">
             <div style="font-size:9px;color:var(--gray-4);font-weight:600">Low effort →</div>
             <div style="font-size:9px;color:var(--gray-4);font-weight:600">→ High effort</div>
           </div>
@@ -339,51 +296,48 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Impact vs effort scoring, backlog ranking, and initiative sequencing for the Pet Heaven product roadmap.</p>
+        <p class="tile-desc">Impact vs effort scoring, backlog ranking, and initiative sequencing for the UCook product roadmap.</p>
         <div class="tile-meta">
-          <span class="tile-tag">Impact / effort</span>
-          <span class="tile-tag">Roadmap</span>
-          <span class="tile-tag">Backlog</span>
+          <span class="coming-soon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Content coming soon
+          </span>
         </div>
       </div>
     </a>
 
     <!-- ROADMAP TILE -->
     <a class="nav-tile" href="../roadmap/">
-      <div class="tile-accent ta-amber"></div>
-      <div class="tile-preview tp-roadmap">
-        <div class="rm-preview-cols">
-          <div class="rm-preview-col">
-            <div class="rm-preview-hdr" style="background:#3a9e3f;opacity:.8"></div>
-            <div class="rm-preview-card" style="background:#3a9e3f"></div>
-            <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card" style="background:#3a9e3f"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
+      <div class="tile-accent" style="background:var(--brand-dark)"></div>
+      <div class="tile-preview" style="background:#1a1a1a;position:relative;overflow:hidden">
+        <div style="display:flex;gap:6px;width:100%;padding:0 4px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#e05a1e;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#e05a1e"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#f0834a"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
           </div>
-          <div class="rm-preview-col">
-            <div class="rm-preview-hdr" style="background:#1a6fd4;opacity:.8"></div>
-            <div class="rm-preview-card" style="background:#1a6fd4"></div>
-            <div class="rm-preview-card" style="background:#1a6fd4"></div>
-            <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#f0834a;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#f0834a"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#e05a1e"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
           </div>
-          <div class="rm-preview-col">
-            <div class="rm-preview-hdr" style="background:#f5c842;opacity:.8"></div>
-            <div class="rm-preview-card" style="background:#f5c842"></div>
-            <div class="rm-preview-card" style="background:#f5c842"></div>
-            <div class="rm-preview-card" style="background:#1a6fd4"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#b84714;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#b84714"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
           </div>
-          <div class="rm-preview-col">
-            <div class="rm-preview-hdr" style="background:#00695c;opacity:.8"></div>
-            <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card" style="background:#00695c"></div>
-            <div class="rm-preview-card" style="background:#f5c842"></div>
-            <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card dim" style="background:#fff"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#e05a1e;opacity:.4"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
           </div>
         </div>
       </div>
@@ -394,18 +348,19 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">FY2026/27 quarterly plan. Click any initiative to drill into the brief, RICE scores, and rationale behind the prioritisation.</p>
+        <p class="tile-desc">Quarterly product plan. Click any initiative to drill into the brief, RICE scores, and rationale behind the prioritisation.</p>
         <div class="tile-meta">
-          <span class="tile-tag">FY2026/27</span>
-          <span class="tile-tag">Q1 – Q4</span>
-          <span class="tile-tag">63 initiatives</span>
+          <span class="coming-soon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Content coming soon
+          </span>
         </div>
       </div>
     </a>
 
   </div>
 
-  <p class="page-footer">petheaven.co.za · Magento · Product workspace</p>
+  <p class="page-footer">ucook.co.za · Product workspace</p>
 
 </div>
 
