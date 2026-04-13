@@ -896,7 +896,12 @@ function switchView(v) {
 }
 
 const themeColorMap = {
-  sub:'#7b1fa2', pers:'#1a6fd4', cat:'#7a5a00', site:'#3a9e3f', eco:'#00695c', unassigned:'#9a9a94'
+  'Subscription Growth & Retention':'#7b1fa2',
+  'Personalisation & Intelligence':'#1a6fd4',
+  'Catalogue & Merchandising':'#7a5a00',
+  'Site Experience & Growth':'#3a9e3f',
+  'Ecosystem & Services Expansion':'#00695c',
+  '—':'#9a9a94'
 };
 
 function renderMatrix() {
@@ -911,7 +916,7 @@ function renderMatrix() {
 
   if (unscored.length) {
     unscoredEl.style.display = '';
-    unscoredEl.querySelector('.matrix-unscored-list').innerHTML =
+    document.getElementById('matrix-unscored-chips').innerHTML =
       unscored.map(u => `<span class="mu-chip">${esc(u.name)}</span>`).join('');
   } else {
     unscoredEl.style.display = 'none';

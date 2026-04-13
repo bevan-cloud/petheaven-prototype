@@ -719,7 +719,11 @@ function switchView(v) {
 }
 
 const themeColorMap = {
-  web:'#1a6fd4', eco:'#3a9e3f', content:'#7a5a00', infra:'#00695c', growth:'#7b1fa2'
+  'Web & App':'#1a6fd4',
+  'Ecommerce Growth':'#3a9e3f',
+  'Content & Discovery':'#7a5a00',
+  'Tech Infrastructure':'#00695c',
+  'Growth & Loyalty':'#7b1fa2'
 };
 
 function renderMatrix() {
@@ -734,7 +738,7 @@ function renderMatrix() {
 
   if (unscored.length) {
     unscoredEl.style.display = '';
-    unscoredEl.querySelector('.matrix-unscored-list').innerHTML =
+    document.getElementById('matrix-unscored-chips').innerHTML =
       unscored.map(u => `<span class="mu-chip">${esc(u.name)}</span>`).join('');
   } else {
     unscoredEl.style.display = 'none';
