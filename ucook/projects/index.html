@@ -198,14 +198,14 @@ a{color:var(--brand);text-decoration:none}
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · Q1</div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · All Quarters</div>
     <h1>Product Projects</h1>
-    <p class="hero-sub">Q1 initiatives across all themes — click any card to expand scope, ownership, and feature detail.</p>
+    <p class="hero-sub">FY2026/27 initiatives across all themes and quarters — click any card to expand scope, ownership, and feature detail.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-val" id="stat-total">9</span><span class="hero-stat-label">Q1 initiatives</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="stat-total">19</span><span class="hero-stat-label">FY initiatives</span></div>
       <div class="hero-stat"><span class="hero-stat-val">3</span><span class="hero-stat-label">Live</span></div>
       <div class="hero-stat"><span class="hero-stat-val">1</span><span class="hero-stat-label">In progress</span></div>
-      <div class="hero-stat"><span class="hero-stat-val">4</span><span class="hero-stat-label">Themes active</span></div>
+      <div class="hero-stat"><span class="hero-stat-val">6</span><span class="hero-stat-label">Themes active</span></div>
     </div>
   </div>
 </div>
@@ -224,6 +224,8 @@ a{color:var(--brand);text-decoration:none}
       <option value="web">Web/App Enhancement</option>
       <option value="eco">Ecommerce Growth</option>
       <option value="infra">Tech Infrastructure</option>
+      <option value="retail">Retail Growth</option>
+      <option value="data">Data &amp; Insights</option>
     </select>
     <select class="filter-select" id="statusFilter" onchange="applyFilters()">
       <option value="">All statuses</option>
@@ -238,15 +240,22 @@ a{color:var(--brand);text-decoration:none}
       <option value="enabler">Enabler</option>
       <option value="strategic">Strategic</option>
     </select>
+    <select class="filter-select" id="quarterFilter" onchange="applyFilters()">
+      <option value="">All quarters</option>
+      <option value="q1">Q1 · Mar–May</option>
+      <option value="q2">Q2 · Jun–Aug</option>
+      <option value="q3">Q3 · Sep–Nov</option>
+      <option value="q4">Q4 · Dec–Feb</option>
+    </select>
     <button class="filter-reset" onclick="resetFilters()">Reset</button>
-    <span class="filter-count" id="filterCount"><strong>9</strong> of 9 shown</span>
+    <span class="filter-count" id="filterCount"><strong>19</strong> of 19 shown</span>
   </div>
 
   <!-- PROJECT GRID -->
   <div class="project-grid" id="projectGrid">
 
     <!-- 1. ACUMATICA REFACTOR -->
-    <div class="project-card" id="card-1" data-theme="proc" data-status="upcoming" data-type="enabler" data-search="acumatica refactor erp integration process optimization sahil">
+    <div class="project-card" id="card-1" data-theme="proc" data-status="upcoming" data-type="enabler" data-quarter="q1" data-search="acumatica refactor erp integration process optimization sahil">
       <div class="project-card-toggle" onclick="toggleCard('card-1')">
         <div class="project-icon" style="background:var(--amber-light)">⚙️</div>
         <div class="project-header-content">
@@ -290,7 +299,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 2. RECIPE CARD PROOFREADING -->
-    <div class="project-card" id="card-2" data-theme="proc" data-status="live" data-type="quick-win" data-search="recipe card proofreading quality content process optimization">
+    <div class="project-card" id="card-2" data-theme="proc" data-status="live" data-type="quick-win" data-quarter="q1" data-search="recipe card proofreading quality content process optimization">
       <div class="project-card-toggle" onclick="toggleCard('card-2')">
         <div class="project-icon" style="background:var(--amber-light)">📋</div>
         <div class="project-header-content">
@@ -333,7 +342,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 3. CUSTOMER JOURNEY SCOPING -->
-    <div class="project-card" id="card-3" data-theme="web" data-status="upcoming" data-type="strategic" data-search="customer journey scoping web app enhancement ux redesign">
+    <div class="project-card" id="card-3" data-theme="web" data-status="upcoming" data-type="strategic" data-quarter="q1" data-search="customer journey scoping web app enhancement ux redesign">
       <div class="project-card-toggle" onclick="toggleCard('card-3')">
         <div class="project-icon" style="background:var(--blue-light)">🗺️</div>
         <div class="project-header-content">
@@ -379,7 +388,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 4. YOYO WICODES -->
-    <div class="project-card" id="card-4" data-theme="eco" data-status="live" data-type="quick-win" data-search="yoyo wicodes loyalty payment ecommerce growth anand">
+    <div class="project-card" id="card-4" data-theme="eco" data-status="live" data-type="quick-win" data-quarter="q1" data-search="yoyo wicodes loyalty payment ecommerce growth anand">
       <div class="project-card-toggle" onclick="toggleCard('card-4')">
         <div class="project-icon" style="background:var(--green-light)">💳</div>
         <div class="project-header-content">
@@ -423,7 +432,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 5. YOYO GIFT VOUCHERS -->
-    <div class="project-card" id="card-5" data-theme="eco" data-status="upcoming" data-type="quick-win" data-search="yoyo gift voucher replacement ecommerce growth anand">
+    <div class="project-card" id="card-5" data-theme="eco" data-status="upcoming" data-type="quick-win" data-quarter="q1" data-search="yoyo gift voucher replacement ecommerce growth anand">
       <div class="project-card-toggle" onclick="toggleCard('card-5')">
         <div class="project-icon" style="background:var(--green-light)">🎁</div>
         <div class="project-header-content">
@@ -467,7 +476,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 6. WHATSAPP PAYMENT LINKS -->
-    <div class="project-card" id="card-6" data-theme="eco" data-status="upcoming" data-type="quick-win" data-search="whatsapp payment links crm checkout ecommerce growth anand">
+    <div class="project-card" id="card-6" data-theme="eco" data-status="upcoming" data-type="quick-win" data-quarter="q1" data-search="whatsapp payment links crm checkout ecommerce growth anand">
       <div class="project-card-toggle" onclick="toggleCard('card-6')">
         <div class="project-icon" style="background:var(--green-light)">💬</div>
         <div class="project-header-content">
@@ -511,7 +520,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 7. CAPACITOR iOS APP -->
-    <div class="project-card" id="card-7" data-theme="infra" data-status="live" data-type="enabler" data-search="capacitor ios app store push notifications mobile tech infrastructure">
+    <div class="project-card" id="card-7" data-theme="infra" data-status="live" data-type="enabler" data-quarter="q1" data-search="capacitor ios app store push notifications mobile tech infrastructure">
       <div class="project-card-toggle" onclick="toggleCard('card-7')">
         <div class="project-icon" style="background:var(--teal-light)">📱</div>
         <div class="project-header-content">
@@ -554,7 +563,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 8. ADMIN & PWA UPGRADES -->
-    <div class="project-card" id="card-8" data-theme="infra" data-status="inprogress" data-type="enabler" data-search="admin pwa upgrades performance developer tooling tech infrastructure anand matthew">
+    <div class="project-card" id="card-8" data-theme="infra" data-status="inprogress" data-type="enabler" data-quarter="q1" data-search="admin pwa upgrades performance developer tooling tech infrastructure anand matthew">
       <div class="project-card-toggle" onclick="toggleCard('card-8')">
         <div class="project-icon" style="background:var(--teal-light)">🛠️</div>
         <div class="project-header-content">
@@ -598,7 +607,7 @@ a{color:var(--brand);text-decoration:none}
     </div>
 
     <!-- 9. MONO REPO -->
-    <div class="project-card" id="card-9" data-theme="infra" data-status="upcoming" data-type="enabler" data-search="mono repo monorepo architecture codebase tech infrastructure matthew">
+    <div class="project-card" id="card-9" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q1" data-search="mono repo monorepo architecture codebase tech infrastructure matthew">
       <div class="project-card-toggle" onclick="toggleCard('card-9')">
         <div class="project-icon" style="background:var(--teal-light)">🏗️</div>
         <div class="project-header-content">
@@ -641,6 +650,439 @@ a{color:var(--brand);text-decoration:none}
       </div>
     </div>
 
+
+    <!-- ── Q2: Process & Growth (Jun–Aug 2026) ──────────────────────────── -->
+
+    <!-- 10. RECIPE MANAGEMENT PORTAL -->
+    <div class="project-card" id="card-10" data-theme="proc" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="recipe management portal culinary team content process optimization q2">
+      <div class="project-card-toggle" onclick="toggleCard('card-10')">
+        <div class="project-icon" style="background:var(--amber-light)">👨‍🍳</div>
+        <div class="project-header-content">
+          <div class="project-title">Recipe Management Portal</div>
+          <p class="project-summary">Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing content errors.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-strategic">Strategic</span>
+            <span class="owner-pill">Q2</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot proc"></span>Culinary team portal for creating and editing recipe card content</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Approval and sign-off workflow before content goes to print/digital</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Version history and change tracking per recipe</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Integration with existing recipe database and fulfilment schedule</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Manual recipe card handoffs between culinary, content, and production teams create errors and delays. A dedicated portal reduces coordination overhead and builds a single source of truth for all recipe content.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Content · Operations</span>
+          <span class="footer-tag">Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. CS BILLING TASKS EFFICIENCIES -->
+    <div class="project-card" id="card-11" data-theme="proc" data-status="upcoming" data-type="quick-win" data-quarter="q2" data-search="cs billing tasks efficiencies customer service process optimization quick win q2">
+      <div class="project-card-toggle" onclick="toggleCard('card-11')">
+        <div class="project-icon" style="background:var(--amber-light)">⚡</div>
+        <div class="project-header-content">
+          <div class="project-title">CS Billing Tasks Efficiencies</div>
+          <p class="project-summary">Streamline customer service billing workflows — fewer manual tasks, faster resolution, and lower escalation rates.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-qw">Quick Win</span>
+            <span class="owner-pill">Q2</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot proc"></span>Audit current CS billing workflows to identify manual bottlenecks</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Automate repetitive billing adjustments and refund processing</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Improve billing visibility within CS tooling</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Reduce escalation rate through better self-serve resolution options</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">CS billing tasks consume significant agent time each day. Small automation and tooling improvements can meaningfully reduce AHT and free agents to focus on higher-value subscriber interactions.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">CS · Billing</span>
+          <span class="footer-tag">Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. DISCOUNTS REFINEMENTS -->
+    <div class="project-card" id="card-12" data-theme="eco" data-status="upcoming" data-type="enabler" data-quarter="q2" data-search="discounts refinements promotions ecommerce growth q2">
+      <div class="project-card-toggle" onclick="toggleCard('card-12')">
+        <div class="project-icon" style="background:var(--green-light)">🏷️</div>
+        <div class="project-header-content">
+          <div class="project-title">Discounts Refinements</div>
+          <p class="project-summary">Improved discount engine flexibility — better rule stacking, CS override tools, and more powerful promotion management for the marketing team.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-eco">Ecommerce Growth</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Q2</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot eco"></span>Improved discount rule stacking and priority ordering</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>CS override tools for manual discount application and adjustment</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Better promotion management UI for the marketing team</li>
+              <li class="feat-item"><span class="feat-dot eco"></span>Discount usage reporting and limit enforcement</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">The current discount engine lacks flexibility for complex campaign structures. Refinements unlock richer promotional mechanics and give CS the tools to resolve discount-related contacts without escalation.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Promotions · CRM</span>
+          <span class="footer-tag">Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. YOYO LOYALTY PRO INTEGRATION -->
+    <div class="project-card" id="card-13" data-theme="retail" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="yoyo loyalty pro integration points redemption retail growth q2">
+      <div class="project-card-toggle" onclick="toggleCard('card-13')">
+        <div class="project-icon" style="background:var(--purple-light)">⭐</div>
+        <div class="project-header-content">
+          <div class="project-title">Yoyo — Loyalty Pro Integration</div>
+          <p class="project-summary">Full Yoyo Loyalty Pro integration — points earning, redemption, and tier management across retail and online channels.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-retail">Retail Growth</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-strategic">Strategic</span>
+            <span class="owner-pill">Q2</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Loyalty Pro programme setup — tiers, earning rules, and rewards catalogue</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Points accrual across online orders, retail, and pick-up</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Redemption at checkout — both web and in-app</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Loyalty dashboard in customer account view</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Retail Growth</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
+            <div style="background:var(--gray-1);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;gap:7px;margin-top:10px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span><span style="font-weight:600">Q1</span><span style="color:var(--gray-5)">WiCodes foundation live</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span style="font-weight:600">Q2</span><span style="color:var(--gray-5)">Full Loyalty Pro integration</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Loyalty · Retail</span>
+          <span class="footer-tag">Builds on WiCodes</span>
+          <span class="footer-tag">Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. ORDER ATTRIBUTION -->
+    <div class="project-card" id="card-14" data-theme="data" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="order attribution multi-touch marketing channel data insights q2">
+      <div class="project-card-toggle" onclick="toggleCard('card-14')">
+        <div class="project-icon" style="background:var(--data-light)">📊</div>
+        <div class="project-header-content">
+          <div class="project-title">Order Attribution</div>
+          <p class="project-summary">Multi-touch order attribution modelling to correctly credit marketing channels and inform media spend decisions.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-data">Data &amp; Insights</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-strategic">Strategic</span>
+            <span class="owner-pill">Q2</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Multi-touch attribution model design and data source mapping</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Channel-level reporting — paid, organic, CRM, referral</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>First-order and repeat-order attribution segmentation</li>
+              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Dashboard for marketing team with media spend recommendations</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Data &amp; Insights</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Without multi-touch attribution, media spend decisions rely on last-click data. Proper attribution gives the marketing team confidence in channel ROI and enables smarter budget allocation.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Analytics · Marketing</span>
+          <span class="footer-tag">Q2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Q3: Platform & Scale (Sep–Nov 2026) ──────────────────────────── -->
+
+    <!-- 15. LOOP IMPLEMENTATION -->
+    <div class="project-card" id="card-15" data-theme="proc" data-status="upcoming" data-type="enabler" data-quarter="q3" data-search="loop returns exchanges customer service process optimization q3">
+      <div class="project-card-toggle" onclick="toggleCard('card-15')">
+        <div class="project-icon" style="background:var(--amber-light)">🔄</div>
+        <div class="project-header-content">
+          <div class="project-title">Loop Implementation</div>
+          <p class="project-summary">Implement Loop for returns and exchanges — reduces manual CS processing and enables customer self-serve resolution.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Q3</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot proc"></span>Loop platform integration with UCook order management</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Customer-facing self-serve returns portal</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Automated return approval rules and refund triggers</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>CS dashboard view for exception handling and escalations</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Returns currently require CS manual intervention for every case. Loop automates the most common resolution paths, reducing agent workload and improving the post-purchase experience for subscribers.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Returns · CS</span>
+          <span class="footer-tag">Q3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. CAPACITOR iOS APP — PHASE 2 -->
+    <div class="project-card" id="card-16" data-theme="infra" data-status="blocked" data-type="enabler" data-quarter="q3" data-search="capacitor ios app phase 2 deep link notifications app clips tech infrastructure q3">
+      <div class="project-card-toggle" onclick="toggleCard('card-16')">
+        <div class="project-icon" style="background:var(--teal-light)">📱</div>
+        <div class="project-header-content">
+          <div class="project-title">Capacitor iOS App — Phase 2</div>
+          <p class="project-summary">Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-blocked">✕ Blocked</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Q3</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>Deep-linked push notifications tied to order and delivery events</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Improved offline support and background data sync</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>App Clips for frictionless trial and first-order flow</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Enhanced in-app navigation and transition animations</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--red)">✕ Blocked</span></div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <div style="background:var(--red-light);border-radius:var(--radius);padding:10px 12px;margin-top:10px;font-size:12px;color:var(--red);line-height:1.6">Blocked — pending resolution of Phase 1 deep-link dependency before Phase 2 scoping can begin.</div>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">iOS · Mobile · Phase 2</span>
+          <span class="footer-tag" style="background:var(--red-light);color:var(--red)">✕ Blocked</span>
+          <span class="footer-tag">Q3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17. POSTGRES UPGRADE -->
+    <div class="project-card" id="card-17" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q3" data-search="postgres postgresql upgrade database security performance tech infrastructure q3">
+      <div class="project-card-toggle" onclick="toggleCard('card-17')">
+        <div class="project-icon" style="background:var(--teal-light)">🗄️</div>
+        <div class="project-header-content">
+          <div class="project-title">Postgres Upgrade</div>
+          <p class="project-summary">Upgrade to the latest PostgreSQL version for improved security, performance, and access to modern database features.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Q3</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>Upgrade PostgreSQL to latest stable LTS version</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Pre-upgrade compatibility testing across all services</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Zero-downtime migration using pg_upgrade or logical replication</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Post-upgrade performance benchmarking and monitoring</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Running an outdated PostgreSQL version creates security exposure and blocks access to newer query optimisations. The upgrade is prerequisite for the Q4 cluster migration and improves overall platform reliability.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Database · Infrastructure</span>
+          <span class="footer-tag">Q3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Q4: Operations & Resilience (Dec 2026–Feb 2027) ──────────────── -->
+
+    <!-- 18. LOGISTICS OVERHAUL -->
+    <div class="project-card" id="card-18" data-theme="proc" data-status="upcoming" data-type="strategic" data-quarter="q4" data-search="logistics overhaul delivery operations supplier process optimization q4">
+      <div class="project-card-toggle" onclick="toggleCard('card-18')">
+        <div class="project-icon" style="background:var(--amber-light)">🚚</div>
+        <div class="project-header-content">
+          <div class="project-title">Logistics Overhaul</div>
+          <p class="project-summary">End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-proc">Process Optimization</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-strategic">Strategic</span>
+            <span class="owner-pill">Q4</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot proc"></span>Audit of current delivery SLAs, failure points, and supplier performance</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Route optimisation and zone assignment improvements</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Supplier SLA renegotiation and contingency planning</li>
+              <li class="feat-item"><span class="feat-dot proc"></span>Real-time tracking integration for customer delivery communications</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q4 · Dec 2026–Feb 2027</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Delivery variability is a top churn driver. A structured logistics overhaul addresses the root causes of late deliveries and creates a more resilient, cost-effective delivery network going into FY28.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Delivery · Operations</span>
+          <span class="footer-tag">Q4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19. MIGRATION TO CLUSTER -->
+    <div class="project-card" id="card-19" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q4" data-search="migration cluster architecture infrastructure scalability reliability tech q4">
+      <div class="project-card-toggle" onclick="toggleCard('card-19')">
+        <div class="project-icon" style="background:var(--teal-light)">☁️</div>
+        <div class="project-header-content">
+          <div class="project-title">Migration to Cluster</div>
+          <p class="project-summary">Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.</p>
+          <div class="project-meta-wrap">
+            <span class="theme-pill tp-infra">Tech Infrastructure</span>
+            <span class="status-pill sp-upcoming">Upcoming</span>
+            <span class="type-pill tp-type-enabler">Enabler</span>
+            <span class="owner-pill">Q4</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot infra"></span>Design cluster architecture with failover and auto-scaling policies</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Service-by-service migration with blue-green deployment strategy</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Load balancer configuration and health check implementation</li>
+              <li class="feat-item"><span class="feat-dot infra"></span>Runbook documentation and disaster recovery testing</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Details</div>
+            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q4 · Dec 2026–Feb 2027</span></div>
+            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
+            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
+            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Single-node deployments create availability risk. Moving to a cluster enables zero-downtime deploys, horizontal scaling during peak weeks, and a more resilient platform as UCook continues to grow.</p>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Infrastructure · DevOps</span>
+          <span class="footer-tag">Requires Postgres Upgrade</span>
+          <span class="footer-tag">Q4</span>
+        </div>
+      </div>
+    </div>
+
     <div class="empty-state" id="emptyState" style="display:none">
       <strong>No projects match your filters</strong>
       Try adjusting your search or clearing the filters.
@@ -669,26 +1111,29 @@ document.addEventListener('click', function(e) {
 });
 
 function applyFilters() {
-  const search = document.getElementById('searchInput').value.toLowerCase().trim();
-  const theme  = document.getElementById('themeFilter').value;
-  const status = document.getElementById('statusFilter').value;
-  const type   = document.getElementById('typeFilter').value;
+  const search  = document.getElementById('searchInput').value.toLowerCase().trim();
+  const theme   = document.getElementById('themeFilter').value;
+  const status  = document.getElementById('statusFilter').value;
+  const type    = document.getElementById('typeFilter').value;
+  const quarter = document.getElementById('quarterFilter').value;
 
   const cards = document.querySelectorAll('.project-card[data-theme]');
   let shown = 0;
+  const total = cards.length;
 
   cards.forEach(card => {
-    const matchSearch = !search || card.dataset.search.includes(search) || card.querySelector('.project-title').textContent.toLowerCase().includes(search);
-    const matchTheme  = !theme  || card.dataset.theme === theme;
-    const matchStatus = !status || card.dataset.status === status;
-    const matchType   = !type   || card.dataset.type === type;
+    const matchSearch  = !search  || card.dataset.search.includes(search) || card.querySelector('.project-title').textContent.toLowerCase().includes(search);
+    const matchTheme   = !theme   || card.dataset.theme === theme;
+    const matchStatus  = !status  || card.dataset.status === status;
+    const matchType    = !type    || card.dataset.type === type;
+    const matchQuarter = !quarter || card.dataset.quarter === quarter;
 
-    const visible = matchSearch && matchTheme && matchStatus && matchType;
+    const visible = matchSearch && matchTheme && matchStatus && matchType && matchQuarter;
     card.style.display = visible ? '' : 'none';
     if (visible) shown++;
   });
 
-  document.getElementById('filterCount').innerHTML = '<strong>' + shown + '</strong> of 9 shown';
+  document.getElementById('filterCount').innerHTML = '<strong>' + shown + '</strong> of ' + total + ' shown';
   document.getElementById('emptyState').style.display = shown === 0 ? '' : 'none';
 }
 
@@ -697,6 +1142,7 @@ function resetFilters() {
   document.getElementById('themeFilter').value = '';
   document.getElementById('statusFilter').value = '';
   document.getElementById('typeFilter').value = '';
+  document.getElementById('quarterFilter').value = '';
   applyFilters();
 }
 </script>

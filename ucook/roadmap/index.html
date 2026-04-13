@@ -648,13 +648,82 @@ function setView(name, btn) {
 
 // ─── PROJECT BRIEFS ───────────────────────────────────────────────────────────
 const PROJECT_BRIEFS = {
-  // Add project briefs here as UCook projects are added to the projects page.
-  // Example:
-  // 'Customer Journey — Key Project': {
-  //   summary: 'End-to-end redesign of the customer journey...',
-  //   features: ['Feature 1', 'Feature 2'],
-  //   links: [{ icon: '📄', title: 'Project Brief', sub: 'Notion', href: '#' }]
-  // }
+  'Recipe Card Proofreading': {
+    summary: 'Quality review and correction of recipe card copy and imagery before weekly delivery to subscribers.',
+    features: ['Pre-delivery proofing of all recipe card copy for accuracy','Image quality checks — correct dish, correct week, no artefacts','Standardised sign-off checklist for content team','Feedback loop to reduce repeat errors']
+  },
+  'Acumatica Refactor': {
+    summary: 'ERP integration overhaul to reduce sync errors and improve maintainability across fulfilment workflows.',
+    features: ['Audit and map all current Acumatica integration touchpoints','Rebuild sync logic to reduce fulfilment errors and data drift','Improve error handling and alerting for failed sync events','Documentation of updated integration contracts']
+  },
+  'Customer Journey — Key Project': {
+    summary: 'End-to-end customer journey redesign — scoping and architecture in Q1, development kicks off in Q2.',
+    features: ['End-to-end journey mapping from discovery through repeat order','Pain point identification across key touchpoints','Technical architecture planning and dependency mapping','Stakeholder alignment on scope, phasing, and success metrics','Competitive benchmarking and reference design review']
+  },
+  'Yoyo — WiCodes': {
+    summary: 'In-store and online loyalty payment integration enabling customers to pay with Yoyo wallet and earn rewards.',
+    features: ['Yoyo WiCode generation at checkout — scan-to-pay in app','Loyalty point accrual and balance display within UCook app','Webhook-based order confirmation and reward processing','In-store redemption flow for pick-up and retail orders']
+  },
+  'Yoyo — Gift Voucher Replacement': {
+    summary: 'Replace the legacy gift voucher system with Yoyo-wrapped digital vouchers for improved redemption tracking and reporting.',
+    features: ['Migrate gift voucher issuance to Yoyo platform','Redemption flow at checkout (web and app)','Balance inquiry and partial redemption support','CS tooling for voucher management and re-issue']
+  },
+  'WhatsApp Payment Links': {
+    summary: 'Payment links sent via WhatsApp for CRM-driven checkout — captures conversational sales that currently drop off.',
+    features: ['Generate unique payment links from CS/CRM tooling','Automated WhatsApp delivery via existing messaging stack','One-click checkout landing page (pre-filled order)','Link expiry, status tracking, and CS visibility']
+  },
+  'Capacitor iOS App': {
+    summary: 'Native iOS app on the App Store via Capacitor — push notifications, improved mobile UX, and offline-capable features.',
+    features: ['App Store listing — UCook iOS app live on App Store','Push notification support via Capacitor plugin','Improved mobile navigation and gesture support','Deep link handling for marketing campaigns']
+  },
+  'Admin & PWA Upgrades': {
+    summary: 'Performance improvements, dependency management, and developer tooling upgrades across the admin panel and PWA.',
+    features: ['Admin panel performance audit and lazy-load improvements','PWA service worker update for reliable offline and caching','Dependency upgrades — resolve known security and compatibility issues','Build tooling improvements to reduce CI/CD times']
+  },
+  'Mono Repo Architecture': {
+    summary: 'Unified codebase structure across services — faster cross-service development, shared utilities, and simplified CI/CD.',
+    features: ['Evaluate and select mono repo tooling (Nx / Turborepo)','Migrate shared utilities and component libraries into shared packages','Update CI/CD pipelines for unified build and test execution','Developer documentation and onboarding guide']
+  },
+  'Recipe Management Portal': {
+    summary: 'Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing content errors.',
+    features: ['Culinary team portal for creating and editing recipe card content','Approval and sign-off workflow before content goes to print/digital','Version history and change tracking per recipe','Integration with existing recipe database and fulfilment schedule']
+  },
+  'CS Billing Tasks Efficiencies': {
+    summary: 'Streamline customer service billing workflows — fewer manual tasks, faster resolution, and lower escalation rates.',
+    features: ['Audit current CS billing workflows to identify manual bottlenecks','Automate repetitive billing adjustments and refund processing','Improve billing visibility within CS tooling','Reduce escalation rate through better self-serve resolution options']
+  },
+  'Discounts Refinements': {
+    summary: 'Improved discount engine flexibility — better rule stacking, CS override tools, and more powerful promotion management.',
+    features: ['Improved discount rule stacking and priority ordering','CS override tools for manual discount application and adjustment','Better promotion management UI for the marketing team','Discount usage reporting and limit enforcement']
+  },
+  'Yoyo — Loyalty Pro Integration': {
+    summary: 'Full Yoyo Loyalty Pro integration — points earning, redemption, and tier management across retail and online channels.',
+    features: ['Loyalty Pro programme setup — tiers, earning rules, and rewards catalogue','Points accrual across online orders, retail, and pick-up','Redemption at checkout — both web and in-app','Loyalty dashboard in customer account view']
+  },
+  'Order Attribution': {
+    summary: 'Multi-touch order attribution modelling to correctly credit marketing channels and inform media spend decisions.',
+    features: ['Multi-touch attribution model design and data source mapping','Channel-level reporting — paid, organic, CRM, referral','First-order and repeat-order attribution segmentation','Dashboard for marketing team with media spend recommendations']
+  },
+  'Loop Implementation': {
+    summary: 'Implement Loop for returns and exchanges — reduces manual CS processing and enables customer self-serve resolution.',
+    features: ['Loop platform integration with UCook order management','Customer-facing self-serve returns portal','Automated return approval rules and refund triggers','CS dashboard view for exception handling and escalations']
+  },
+  'Capacitor iOS App — Phase 2': {
+    summary: 'Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.',
+    features: ['Deep-linked push notifications tied to order and delivery events','Improved offline support and background data sync','App Clips for frictionless trial and first-order flow','Enhanced in-app navigation and transition animations']
+  },
+  'Postgres Upgrade': {
+    summary: 'Upgrade to the latest PostgreSQL version for improved security, performance, and access to modern database features.',
+    features: ['Upgrade PostgreSQL to latest stable LTS version','Pre-upgrade compatibility testing across all services','Zero-downtime migration using pg_upgrade or logical replication','Post-upgrade performance benchmarking and monitoring']
+  },
+  'Logistics Overhaul': {
+    summary: 'End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.',
+    features: ['Audit of current delivery SLAs, failure points, and supplier performance','Route optimisation and zone assignment improvements','Supplier SLA renegotiation and contingency planning','Real-time tracking integration for customer delivery communications']
+  },
+  'Migration to Cluster': {
+    summary: 'Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.',
+    features: ['Design cluster architecture with failover and auto-scaling policies','Service-by-service migration with blue-green deployment strategy','Load balancer configuration and health check implementation','Runbook documentation and disaster recovery testing']
+  },
 };
 
 function buildProjectBriefHtml(name) {
