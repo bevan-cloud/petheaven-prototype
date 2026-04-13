@@ -22,8 +22,9 @@ a{color:var(--green);text-decoration:none}
 
 /* HEADER */
 .site-header{background:var(--green-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:16px}
-.site-logo{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;letter-spacing:0.02em}
-.site-logo span{opacity:0.6;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;margin-left:12px}
+.site-header-logo{height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.95}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);font-family:'DM Sans',sans-serif}
 
 /* HERO */
 .hero{background:var(--gray-1);border-bottom:1px solid var(--gray-2);padding:48px 40px 40px}
@@ -151,7 +152,9 @@ a{color:var(--green);text-decoration:none}
 <body>
 
 <header class="site-header">
-  <span class="site-logo">Pet Heaven <span>Product Projects</span></span>
+  <img class="site-header-logo" src="https://www.petheaven.co.za/skin/frontend/petheaven/default/images/logo-small.png" alt="Pet Heaven">
+  <div class="site-header-divider"></div>
+  <span class="site-header-label">Product Projects</span>
 </header>
 
 <div class="breadcrumb">

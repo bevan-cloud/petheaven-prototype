@@ -38,6 +38,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;color:var(--text-dark);background:var(--gray-1);font-size:14px;line-height:1.6}
 
+/* SITE HEADER */
+.site-header{background:#2d7a31;padding:0 48px;height:56px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.site-header-logo{height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.95}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);font-family:'DM Sans',sans-serif}
+
 /* NAV */
 .site-nav{
   position:sticky;top:0;z-index:100;
@@ -47,7 +53,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-dark);background:var(--gr
   overflow-x:auto;
   height:52px;
 }
-.nav-logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ph-green);padding:0;margin-right:24px;white-space:nowrap;flex-shrink:0}
 .site-nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:0 14px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0;text-decoration:none}
 .site-nav a:hover{color:var(--text-dark)}
 .site-nav a.active{color:var(--ph-green);border-bottom-color:var(--ph-green)}
@@ -219,8 +224,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-dark);background:var(--gr
 </head>
 <body>
 
+<header class="site-header">
+  <img class="site-header-logo" src="https://www.petheaven.co.za/skin/frontend/petheaven/default/images/logo-small.png" alt="Pet Heaven">
+  <div class="site-header-divider"></div>
+  <span class="site-header-label">Style Guide</span>
+</header>
+
 <nav class="site-nav">
-  <span class="nav-logo">PH Style Guide</span>
   <a href="#colours" class="active">Colours</a>
   <a href="#typography">Typography</a>
   <a href="#buttons">Buttons</a>
