@@ -201,6 +201,44 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 .dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
 .dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
 
+/* ─── VIEW TABS ─────────────────────────────────────────────────────────── */
+.view-tabs{display:flex;gap:0;margin-bottom:20px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:5px;width:fit-content;align-items:center}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 18px;border-radius:var(--radius-lg);border:none;background:none;cursor:pointer;color:var(--gray-4);transition:background .15s,color .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;line-height:1}
+.view-tab:hover{color:var(--black)}
+.view-tab.active{background:var(--black);color:#fff}
+
+/* ─── IMPACT VS EFFORT MATRIX ────────────────────────────────────────────── */
+.matrix-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.matrix-inner{padding:20px 24px 24px}
+.matrix-canvas{position:relative;width:100%;padding-bottom:62%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
+.q-tl,.q-tr,.q-bl,.q-br{position:absolute;width:50%;height:50%}
+.q-tl{top:0;left:0;background:rgba(58,158,63,.08)}
+.q-tr{top:0;right:0;background:rgba(26,111,212,.08)}
+.q-bl{bottom:0;left:0;background:rgba(210,210,200,.4)}
+.q-br{bottom:0;right:0;background:rgba(160,0,0,.06)}
+.q-line-h{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--gray-3)}
+.q-line-v{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--gray-3)}
+.q-label{position:absolute;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-4);padding:10px 12px;line-height:1.5;pointer-events:none}
+.q-label.tl{top:0;left:0}.q-label.tr{top:0;right:0;text-align:right}
+.q-label.bl{bottom:0;left:0}.q-label.br{bottom:0;right:0;text-align:right}
+.q-axis-x-lo,.q-axis-x-hi{position:absolute;bottom:5px;font-size:9px;font-weight:500;color:var(--gray-3);pointer-events:none}
+.q-axis-x-lo{left:8px}.q-axis-x-hi{right:8px}
+.q-axis-y-lo,.q-axis-y-hi{position:absolute;right:6px;font-size:9px;font-weight:500;color:var(--gray-3);pointer-events:none}
+.q-axis-y-lo{bottom:8px}.q-axis-y-hi{top:8px}
+.m-dot{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.6);box-shadow:0 2px 6px rgba(0,0,0,.15);transition:box-shadow .15s;z-index:5;line-height:1}
+.m-dot:hover{box-shadow:0 4px 18px rgba(0,0,0,.25);z-index:20}
+.m-tip{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.9);color:#fff;font-size:11px;padding:6px 10px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;max-width:220px;white-space:normal;text-align:center;line-height:1.5}
+.m-dot:hover .m-tip{opacity:1}
+.matrix-axis-label{display:flex;justify-content:space-between;align-items:center;padding:6px 0 0;font-size:11px;color:var(--gray-4)}
+.matrix-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.m-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.m-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.matrix-unscored{margin-top:14px;padding:12px 16px;background:var(--gray-1);border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
+.mu-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);margin-bottom:8px}
+.mu-chips{display:flex;flex-wrap:wrap;gap:5px}
+.mu-chip{font-size:11px;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:20px;padding:2px 10px;cursor:pointer;transition:border-color .1s,color .1s}
+.mu-chip:hover{border-color:var(--brand);color:var(--brand-dark)}
+
 @media(max-width:680px){
   .site-nav,.breadcrumb,.main,.hero{padding-left:20px;padding-right:20px}
 }
@@ -250,6 +288,18 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 </div>
 
 <div class="main">
+  <!-- VIEW TABS -->
+  <div class="view-tabs">
+    <button class="view-tab active" id="tab-rice" onclick="switchView('rice')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0.5" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".4"/><rect x="0" y="4.75" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".7"/><rect x="0" y="9" width="12" height="2.5" rx="1.2" fill="currentColor"/></svg>
+      RICE Table
+    </button>
+    <button class="view-tab" id="tab-matrix" onclick="switchView('matrix')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="9.5" r="1.5" fill="currentColor" opacity=".4"/><circle cx="5" cy="5" r="1.5" fill="currentColor" opacity=".7"/><circle cx="9.5" cy="2" r="2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.5" fill="currentColor" opacity=".5"/></svg>
+      Impact vs Effort
+    </button>
+  </div>
+  <div id="rice-view">
   <div class="filter-bar">
     <div class="filter-search">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -305,6 +355,38 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3M1 10.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Export CSV
     </button>
+  </div>
+  </div><!-- /rice-view -->
+
+  <!-- IMPACT VS EFFORT MATRIX -->
+  <div id="matrix-view" style="display:none">
+    <div class="matrix-wrap">
+      <div class="matrix-inner">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--black)">Impact vs Effort Matrix</div>
+            <div style="font-size:12px;color:var(--gray-4);margin-top:2px">Bubble size reflects RICE score · click any bubble to open details</div>
+          </div>
+          <div class="matrix-legend" id="matrix-legend"></div>
+        </div>
+        <div class="matrix-canvas" id="matrix-canvas">
+          <div class="q-tl"></div><div class="q-tr"></div>
+          <div class="q-bl"></div><div class="q-br"></div>
+          <div class="q-line-h"></div><div class="q-line-v"></div>
+          <div class="q-label tl">Quick Wins<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Do now</span></div>
+          <div class="q-label tr">Big Bets<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Plan for</span></div>
+          <div class="q-label bl">Nice to Have<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">If capacity</span></div>
+          <div class="q-label br">Time Sinks<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Deprioritise</span></div>
+          <div class="q-axis-x-lo">← Low effort</div><div class="q-axis-x-hi">High effort →</div>
+          <div class="q-axis-y-hi">↑ High impact</div><div class="q-axis-y-lo">Low impact ↓</div>
+        </div>
+        <div class="matrix-axis-label"><span>1</span><span style="font-weight:600;color:var(--gray-5)">← Effort →</span><span>5</span></div>
+        <div id="matrix-unscored" class="matrix-unscored" style="display:none">
+          <div class="mu-label">Not yet scored — excluded from matrix</div>
+          <div class="mu-chips" id="matrix-unscored-chips"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -385,7 +467,7 @@ function getFiltered() {
     return true;
   });
 }
-function applyFilters() { render(); }
+function applyFilters() { render(); if (typeof currentView !== 'undefined' && currentView === 'matrix') renderMatrix(); }
 function resetFilters() {
   ['filter-search','filter-theme','filter-status','filter-type'].forEach(id => {
     const el = document.getElementById(id);
@@ -624,6 +706,70 @@ document.addEventListener('click', function(e) {
   }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// ─── MATRIX VIEW ─────────────────────────────────────────────────────────────
+let currentView = 'rice';
+
+function switchView(v) {
+  currentView = v;
+  document.getElementById('rice-view').style.display = v === 'rice' ? '' : 'none';
+  document.getElementById('matrix-view').style.display = v === 'matrix' ? '' : 'none';
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === v));
+  if (v === 'matrix') renderMatrix();
+}
+
+const themeColorMap = {
+  web:'#1a6fd4', eco:'#3a9e3f', content:'#7a5a00', infra:'#00695c', growth:'#7b1fa2'
+};
+
+function renderMatrix() {
+  const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
+  canvas.querySelectorAll('.m-dot').forEach(d => d.remove());
+  const unscoredEl = document.getElementById('matrix-unscored');
+
+  const filtered = getFiltered();
+  const scored = filtered.filter(item => item.i != null && item.e != null);
+  const unscored = filtered.filter(item => item.i == null || item.e == null);
+
+  if (unscored.length) {
+    unscoredEl.style.display = '';
+    unscoredEl.querySelector('.matrix-unscored-list').innerHTML =
+      unscored.map(u => `<span class="mu-chip">${esc(u.name)}</span>`).join('');
+  } else {
+    unscoredEl.style.display = 'none';
+  }
+
+  const groups = {};
+  scored.forEach(item => {
+    const key = `${item.i}_${item.e}`;
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(item);
+  });
+
+  Object.values(groups).forEach(group => {
+    group.forEach((item, idx) => {
+      const baseX = (item.e - 1) / 4 * 86 + 4;
+      const baseY = (5 - item.i) / 4 * 86 + 4;
+      let jx = 0, jy = 0;
+      if (group.length > 1) {
+        const angle = (idx / group.length) * 2 * Math.PI;
+        const r = 3.5 + idx * 1.5;
+        jx = Math.cos(angle) * r;
+        jy = Math.sin(angle) * r;
+      }
+      const score = rice(item);
+      const size = Math.max(26, Math.min(52, 20 + (score || 0) * 0.45));
+      const color = themeColorMap[item.theme] || '#9a9a94';
+      const dot = document.createElement('div');
+      dot.className = 'm-dot';
+      dot.style.cssText = `left:calc(${baseX + jx}% - ${size/2}px);top:calc(${baseY + jy}% - ${size/2}px);width:${size}px;height:${size}px;background:${color};`;
+      dot.innerHTML = `<div class="m-tip"><div class="m-tip-name">${esc(item.name)}</div><div class="m-tip-meta">Impact: ${item.i} · Effort: ${item.e}${score != null ? ` · RICE: ${score}` : ''}</div></div>`;
+      dot.addEventListener('click', () => openPanelById(item.id));
+      canvas.appendChild(dot);
+    });
+  });
+}
 
 render();
 </script>
