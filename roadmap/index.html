@@ -138,6 +138,58 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .dp-qblock{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
 .dp-qlabel{font-size:12px;color:var(--gray-5)}.dp-qlabel strong{color:var(--black)}
 
+/* ── VIEW TABS ───────────────────────────────────────────────────────────── */
+.view-tabs{display:flex;gap:2px;background:var(--gray-2);border-radius:var(--radius-lg);padding:3px;margin-bottom:20px;width:fit-content}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:var(--gray-5);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.view-tab:hover{color:var(--black)}
+.view-tab.active{background:#fff;color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.view-tab svg{flex-shrink:0;opacity:.6}
+.view-tab.active svg{opacity:1}
+.view-section{display:none}.view-section.active{display:block}
+
+/* ── TIMELINE VIEW ───────────────────────────────────────────────────────── */
+.tl-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--gray-2)}
+.tl-table{min-width:860px;width:100%}
+.tl-hdr{display:grid;grid-template-columns:150px repeat(4,1fr);background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
+.tl-hdr-empty{padding:12px 14px}
+.tl-hdr-q{padding:12px 14px;border-left:1px solid var(--gray-2)}
+.tl-hdr-q.tl-cur{background:var(--green-light)}
+.tl-ql{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
+.tl-qp{font-size:11px;color:var(--gray-5);margin-top:1px}
+.tl-qnow{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;background:var(--green);color:#fff;padding:1px 7px;border-radius:20px}
+.tl-body{display:flex;flex-direction:column}
+.tl-row{display:grid;grid-template-columns:150px repeat(4,1fr);border-top:1px solid var(--gray-2)}
+.tl-row:first-child{border-top:none}
+.tl-th{padding:12px 14px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.tl-th-strip{width:3px;height:100%;border-radius:2px;position:absolute;left:0;top:0}
+.tl-th-inner{position:relative;padding-left:8px}
+.tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.3}
+.tl-th-count{font-size:10px;color:var(--gray-4)}
+.tl-cell{padding:8px;background:#fff;border-left:1px solid var(--gray-2);vertical-align:top;display:flex;flex-direction:column;gap:5px;min-height:52px}
+.tl-cell.tl-cur-col{background:#fafff9}
+.tl-bar{border-radius:var(--radius);padding:6px 9px;cursor:pointer;transition:filter .12s;border:1px solid rgba(0,0,0,.07)}
+.tl-bar:hover{filter:brightness(.93)}
+.tl-bar-name{font-size:11px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:4px}
+.tl-bar-foot{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.tl-bar-type{font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;line-height:1.6}
+.tl-bar-rice{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(0,0,0,.18);color:#fff;line-height:1.6}
+.tl-bar-ai{font-size:9px;font-weight:700;padding:1px 5px;border-radius:20px;background:rgba(237,233,254,.35);color:#fff;line-height:1.6}
+
+/* ── THEME VIEW ──────────────────────────────────────────────────────────── */
+.theme-sections{display:flex;flex-direction:column;gap:14px}
+.theme-section{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.theme-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--gray-2)}
+.theme-sec-bar{width:4px;height:34px;border-radius:2px;flex-shrink:0}
+.theme-sec-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);flex:1}
+.theme-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0}
+.theme-sec-body{display:grid;grid-template-columns:repeat(4,1fr)}
+.theme-qcol{padding:10px;border-right:1px solid var(--gray-2)}
+.theme-qcol:last-child{border-right:none}
+.theme-qcol-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.theme-qcol-now{font-size:8px;font-weight:700;background:var(--green);color:#fff;padding:1px 5px;border-radius:20px;letter-spacing:.03em}
+.theme-items{display:flex;flex-direction:column;gap:5px}
+.theme-empty{font-size:11px;color:var(--gray-3);padding:2px 0;font-style:italic}
+
 /* RESPONSIVE */
 @media(max-width:1180px){.qgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){
@@ -178,13 +230,56 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 </div>
 
 <div class="main">
-  <div class="qgrid" id="qgrid"></div>
 
-  <div class="section-hdr">
-    <div class="section-title">Backlog</div>
+  <!-- VIEW TABS -->
+  <div class="view-tabs">
+    <button class="view-tab active" onclick="setView('kanban',this)">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="5.5" y="1" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="10" y="1" width="3" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+      Kanban
+    </button>
+    <button class="view-tab" onclick="setView('timeline',this)">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="1" y="6" width="8" height="2" rx="1" fill="currentColor"/><rect x="1" y="10" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+      Timeline
+    </button>
+    <button class="view-tab" onclick="setView('theme',this)">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="3" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="3" cy="11" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="7" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 3h4a2 2 0 012 2v0a2 2 0 01-2 2H5M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      By Theme
+    </button>
   </div>
-  <p class="section-sub">Initiatives not yet scheduled into this financial year — scored where possible, conceptual where not. Pull forward as capacity allows.</p>
-  <div class="backlog-grid" id="backlog-grid"></div>
+
+  <!-- KANBAN VIEW -->
+  <div class="view-section active" id="view-kanban">
+    <div class="qgrid" id="qgrid"></div>
+    <div class="section-hdr"><div class="section-title">Backlog</div></div>
+    <p class="section-sub">Initiatives not yet scheduled into this financial year — scored where possible, conceptual where not. Pull forward as capacity allows.</p>
+    <div class="backlog-grid" id="backlog-grid"></div>
+  </div>
+
+  <!-- TIMELINE VIEW -->
+  <div class="view-section" id="view-timeline">
+    <div class="tl-wrap">
+      <div class="tl-table">
+        <div class="tl-hdr" id="tl-hdr"></div>
+        <div class="tl-body" id="tl-body"></div>
+      </div>
+    </div>
+    <div style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="tl-backlog"></div>
+    </div>
+  </div>
+
+  <!-- THEME VIEW -->
+  <div class="view-section" id="view-theme">
+    <div class="theme-sections" id="theme-sections"></div>
+    <div style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="theme-backlog"></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- DETAIL PANEL -->
@@ -505,11 +600,29 @@ function buildCard(item) {
   </div>`;
 }
 
-// ─── BUILD PAGE ───────────────────────────────────────────────────────────────
-function buildPage() {
-  // Quarters
-  const grid = document.getElementById('qgrid');
-  grid.innerHTML = Q_META.map(qm => {
+// ─── THEME DEFINITIONS ────────────────────────────────────────────────────────
+const THEMES = [
+  {key:'sub',  label:'Subscription Growth & Retention', color:'var(--purple)'},
+  {key:'pers', label:'Personalisation & Intelligence',  color:'var(--blue)'},
+  {key:'cat',  label:'Catalogue & Merchandising',       color:'var(--amber-mid)'},
+  {key:'site', label:'Site Experience & Growth',        color:'var(--green)'},
+  {key:'eco',  label:'Ecosystem & Services',            color:'var(--teal)'},
+  {key:'proc', label:'Process',                         color:'var(--gray-4)'},
+  {key:'none', label:'Unassigned / Brainstorm',         color:'var(--gray-3)'},
+];
+
+// ─── VIEW SWITCHING ───────────────────────────────────────────────────────────
+function setView(name, btn) {
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  btn.classList.add('active');
+  closePanel();
+}
+
+// ─── BUILD KANBAN ─────────────────────────────────────────────────────────────
+function buildKanban() {
+  document.getElementById('qgrid').innerHTML = Q_META.map(qm => {
     const qItems = items.filter(x => x.q === qm.q);
     return `<div class="qcol${qm.current ? ' current' : ''}">
       <div class="qhdr">
@@ -524,16 +637,100 @@ function buildPage() {
       <div class="qbody">${qItems.map(buildCard).join('')}</div>
     </div>`;
   }).join('');
+  document.getElementById('backlog-grid').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+}
 
-  // Backlog
-  const bl = items.filter(x => x.q === 0);
-  document.getElementById('backlog-grid').innerHTML = bl.map(buildCard).join('');
+// ─── BUILD TIMELINE ───────────────────────────────────────────────────────────
+function buildTimeline() {
+  // Header
+  document.getElementById('tl-hdr').innerHTML =
+    `<div class="tl-hdr-empty"></div>` +
+    Q_META.map(qm => `
+      <div class="tl-hdr-q${qm.current ? ' tl-cur' : ''}">
+        <div class="tl-ql">${qm.label} · ${qm.title}</div>
+        <div class="tl-qp">${qm.period}</div>
+        ${qm.current ? '<div class="tl-qnow">Current quarter</div>' : ''}
+      </div>`).join('');
 
-  // Click handlers
-  document.querySelectorAll('.rm-item').forEach(el => {
-    el.addEventListener('click', () => {
-      openPanel(items[parseInt(el.dataset.idx)], el);
-    });
+  // Body — one row per theme (skip themes with no scheduled items)
+  const scheduled = items.filter(x => x.q > 0);
+  document.getElementById('tl-body').innerHTML = THEMES.map(th => {
+    const themeItems = scheduled.filter(x => x.theme === th.key);
+    if (!themeItems.length) return '';
+    const cells = Q_META.map(qm => {
+      const cell = themeItems.filter(x => x.q === qm.q);
+      const bars = cell.map(item => {
+        const score = rice(item);
+        const idx = items.indexOf(item);
+        return `<div class="tl-bar" data-idx="${idx}" style="background:${th.color}">
+          <div class="tl-bar-name">${esc(item.name)}</div>
+          <div class="tl-bar-foot">
+            ${item.type === 'Quick Win' ? '<span class="tl-bar-type">Quick Win</span>' : ''}
+            ${item.ai ? '<span class="tl-bar-ai">✦ AI</span>' : ''}
+            ${score != null ? `<span class="tl-bar-rice">${score}</span>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+      return `<div class="tl-cell${qm.current ? ' tl-cur-col' : ''}">${bars}</div>`;
+    }).join('');
+    return `<div class="tl-row">
+      <div class="tl-th">
+        <div class="tl-th-inner">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${th.color}"></div>
+          <div class="tl-th-name">${th.label}</div>
+          <div class="tl-th-count">${themeItems.length} item${themeItems.length > 1 ? 's' : ''}</div>
+        </div>
+      </div>
+      ${cells}
+    </div>`;
+  }).join('');
+
+  document.getElementById('tl-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+}
+
+// ─── BUILD THEME VIEW ─────────────────────────────────────────────────────────
+function buildThemeView() {
+  const scheduled = items.filter(x => x.q > 0);
+  document.getElementById('theme-sections').innerHTML = THEMES.map(th => {
+    const themeItems = scheduled.filter(x => x.theme === th.key);
+    if (!themeItems.length) return '';
+    const cols = Q_META.map(qm => {
+      const cell = themeItems.filter(x => x.q === qm.q);
+      return `<div class="theme-qcol">
+        <div class="theme-qcol-hdr">
+          ${qm.label}${qm.current ? ' <span class="theme-qcol-now">Now</span>' : ''}
+        </div>
+        <div class="theme-items">
+          ${cell.length
+            ? cell.map(buildCard).join('')
+            : '<div class="theme-empty">—</div>'}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="theme-section">
+      <div class="theme-sec-hdr">
+        <div class="theme-sec-bar" style="background:${th.color}"></div>
+        <div class="theme-sec-name">${th.label}</div>
+        <div class="theme-sec-count">${themeItems.length} initiative${themeItems.length > 1 ? 's' : ''} this FY</div>
+      </div>
+      <div class="theme-sec-body">${cols}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('theme-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+}
+
+// ─── BUILD PAGE ───────────────────────────────────────────────────────────────
+function buildPage() {
+  buildKanban();
+  buildTimeline();
+  buildThemeView();
+  bindClicks();
+}
+
+function bindClicks() {
+  document.querySelectorAll('.rm-item, .tl-bar').forEach(el => {
+    el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
   });
 }
 
