@@ -155,6 +155,37 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 /* EMPTY STATE */
 .empty-state{padding:48px 24px;text-align:center;color:var(--gray-4);font-size:13px}
 
+/* DETAIL PANEL */
+.dp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
+.dp-overlay.open{opacity:1;pointer-events:all}
+.dp-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#fff;z-index:201;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
+.dp-panel.open{transform:translateX(0)}
+.dp-hdr{padding:20px 20px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:flex-start;gap:10px}
+.dp-close{width:28px;height:28px;border:1px solid var(--gray-2);border-radius:var(--radius);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-4);flex-shrink:0;transition:background .1s,color .1s;margin-top:2px}
+.dp-close:hover{background:var(--gray-1);color:var(--black)}
+.dp-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.dp-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;color:var(--black)}
+.dp-body{padding:18px 20px;flex:1}
+.dp-desc{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:20px}
+.dp-sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
+.rice-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.rcell{background:var(--gray-1);border-radius:var(--radius);padding:10px 6px;text-align:center}
+.rcell-letter{font-family:'DM Serif Display',serif;font-size:18px;line-height:1;margin-bottom:2px}
+.rcell-val{font-size:16px;font-weight:700;color:var(--black)}
+.rcell-lbl{font-size:9px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.rice-result-box{background:var(--black);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.rice-formula-txt{font-size:11px;color:rgba(255,255,255,.45)}
+.rice-score-big{font-family:'DM Serif Display',serif;font-size:28px;color:#fff}
+.dp-bar-track{height:5px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.dp-bar-fill{height:100%;border-radius:3px}
+.no-score{font-size:12px;color:var(--gray-4);font-style:italic;background:var(--gray-1);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:20px;line-height:1.6}
+.dp-meta-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2);display:flex;flex-direction:column;gap:8px}
+.dp-meta-row{display:flex;gap:8px;font-size:12px;align-items:baseline}
+.dp-meta-key{color:var(--gray-4);min-width:100px;flex-shrink:0}
+.dp-meta-val{color:var(--black);font-weight:500}
+tbody tr{cursor:pointer}
+tbody tr.row-active td{background:var(--green-light) !important}
+
 /* RESPONSIVE */
 @media(max-width:680px){
   .site-nav,.breadcrumb,.main,.hero{padding-left:20px;padding-right:20px}
@@ -288,6 +319,21 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
   </div>
 
 </div>
+
+<!-- DETAIL PANEL -->
+<div class="dp-overlay" id="dp-overlay" onclick="closePanel()"></div>
+<aside class="dp-panel" id="dp-panel">
+  <div class="dp-hdr">
+    <div style="flex:1">
+      <div class="dp-pills" id="dp-pills"></div>
+      <div class="dp-name" id="dp-name"></div>
+    </div>
+    <button class="dp-close" onclick="closePanel()">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="dp-body" id="dp-body"></div>
+</aside>
 
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
@@ -495,7 +541,7 @@ function render() {
       return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}">${val}</span></td>`;
     }
 
-    return `<tr class="${tier}" data-id="${item.id}">
+    return `<tr class="${tier}" data-id="${item.id}" onclick="openPanelById(${item.id})">
       <td class="td-rank">${idx + 1}</td>
       <td class="td-name">
         <div class="item-name">${esc(item.name)}</div>
@@ -531,6 +577,7 @@ function esc(str) {
 
 // ─── EDIT ─────────────────────────────────────────────────────────────────────
 function startEdit(e) {
+  e.stopPropagation();
   const span = e.currentTarget;
   if (span.querySelector('input')) return;
 
@@ -597,6 +644,72 @@ function exportCSV() {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+// ─── DETAIL PANEL ─────────────────────────────────────────────────────────────
+let activeTr = null;
+
+function openPanelById(id) {
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+
+  // Highlight the active row
+  if (activeTr) activeTr.classList.remove('row-active');
+  activeTr = document.querySelector(`tr[data-id="${id}"]`);
+  if (activeTr) activeTr.classList.add('row-active');
+
+  const score = rice(item);
+  const hasScore = score != null;
+  const tClass  = themeClass(item.theme);
+  const tLabel  = themeShort(item.theme);
+  const typeCls = typeClass(item.type);
+  const barColor = !hasScore ? 'var(--gray-3)' : score >= 60 ? 'var(--green)' : score >= 30 ? 'var(--amber-mid)' : 'var(--gray-3)';
+  const barPct   = hasScore ? Math.min(100, Math.round(score / 120 * 100)) : 0;
+
+  document.getElementById('dp-pills').innerHTML =
+    `<span class="theme-pill ${tClass}">${tLabel}</span>
+     <span class="type-pill ${typeCls}">${esc(item.type)}</span>
+     ${item.ai ? '<span class="ai-badge">✦ AI</span>' : ''}`;
+
+  document.getElementById('dp-name').textContent = item.name;
+
+  const riceHtml = hasScore
+    ? `<div class="dp-sec-label">RICE Score Breakdown</div>
+       <div class="rice-cells">
+         <div class="rcell"><div class="rcell-letter" style="color:var(--blue)">R</div><div class="rcell-val">${item.r}</div><div class="rcell-lbl">Reach</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--green)">I</div><div class="rcell-val">${item.i}</div><div class="rcell-lbl">Impact</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--purple)">C</div><div class="rcell-val">${item.c}</div><div class="rcell-lbl">Confidence</div></div>
+         <div class="rcell"><div class="rcell-letter" style="color:var(--red)">E</div><div class="rcell-val">${item.e}</div><div class="rcell-lbl">Effort</div></div>
+       </div>
+       <div class="rice-result-box">
+         <span class="rice-formula-txt">(${item.r} × ${item.i} × ${item.c}) ÷ ${item.e}</span>
+         <span class="rice-score-big">${score}</span>
+       </div>
+       <div class="dp-bar-track"><div class="dp-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>`
+    : `<div class="no-score">No RICE score yet — not enough data to estimate R, I, C, and E for this initiative. Click any score cell in the table to start scoring it.</div>`;
+
+  const metaRows = [
+    item.bucket    && item.bucket    !== '—' ? `<div class="dp-meta-row"><span class="dp-meta-key">Bucket</span><span class="dp-meta-val">${esc(item.bucket)}</span></div>` : '',
+    item.notionImpact && item.notionImpact !== '—' ? `<div class="dp-meta-row"><span class="dp-meta-key">Notion Impact</span><span class="dp-meta-val">${esc(item.notionImpact)}</span></div>` : '',
+  ].filter(Boolean).join('');
+
+  document.getElementById('dp-body').innerHTML =
+    `${item.desc
+      ? `<p class="dp-desc">${esc(item.desc)}</p>`
+      : `<p class="dp-desc" style="color:var(--gray-3);font-style:italic">No description added yet.</p>`}
+     ${riceHtml}
+     ${metaRows ? `<div class="dp-meta-block">${metaRows}</div>` : ''}`;
+
+  document.getElementById('dp-overlay').classList.add('open');
+  document.getElementById('dp-panel').classList.add('open');
+}
+
+function closePanel() {
+  if (activeTr) { activeTr.classList.remove('row-active'); activeTr = null; }
+  document.getElementById('dp-overlay').classList.remove('open');
+  document.getElementById('dp-panel').classList.remove('open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
