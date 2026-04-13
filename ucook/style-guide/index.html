@@ -215,6 +215,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--gr
   <a href="#colours" class="active">Colours</a>
   <a href="#typography">Typography</a>
   <a href="#buttons">Buttons</a>
+  <a href="#logo">Logo</a>
   <a href="#components">Components</a>
   <a href="#layout">Layout</a>
   <a href="#quickref">Quick Ref</a>
@@ -332,9 +333,90 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--gr
     </div>
   </div>
 
+  <!-- LOGO -->
+  <div class="sg-section" id="logo">
+    <div class="sg-section-label">04 — Logo</div>
+    <div class="sg-section-title">Logo &amp; Usage</div>
+    <p class="sg-section-desc">The UCook wordmark is a clean, bold SVG — always used at full colour or white. Never stretch, rotate, recolour, or place it on backgrounds without sufficient contrast.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px">
+
+      <!-- On dark -->
+      <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-2)">
+        <div style="background:#1E1E1E;padding:32px 24px;display:flex;align-items:center;justify-content:center;min-height:120px">
+          <img src="https://www.ucook.co.za/logos/large.svg" alt="UCook" style="height:32px;width:auto;filter:brightness(0) invert(1)" onerror="this.outerHTML='<span style=&quot;font-size:22px;font-weight:900;color:#fff;font-family:sans-serif;letter-spacing:-0.02em&quot;>UCook</span>'">
+        </div>
+        <div style="background:#fff;padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif">Primary — on dark</div>
+          <div style="font-size:10px;color:var(--gray-4);margin-top:2px">White version on #1E1E1E · footer / hero overlays</div>
+        </div>
+      </div>
+
+      <!-- On white -->
+      <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-2)">
+        <div style="background:#FFFFFF;padding:32px 24px;display:flex;align-items:center;justify-content:center;min-height:120px;border-bottom:1px solid var(--gray-2)">
+          <img src="https://www.ucook.co.za/logos/large.svg" alt="UCook" style="height:32px;width:auto" onerror="this.outerHTML='<span style=&quot;font-size:22px;font-weight:900;color:#1E1E1E;font-family:sans-serif;letter-spacing:-0.02em&quot;>UCook</span>'">
+        </div>
+        <div style="background:#fff;padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif">On white</div>
+          <div style="font-size:10px;color:var(--gray-4);margin-top:2px">Full-colour on #FFFFFF · nav bar / cards</div>
+        </div>
+      </div>
+
+      <!-- On orange -->
+      <div style="border-radius:8px;overflow:hidden;border:1px solid var(--gray-2)">
+        <div style="background:#FF6803;padding:32px 24px;display:flex;align-items:center;justify-content:center;min-height:120px">
+          <img src="https://www.ucook.co.za/logos/large.svg" alt="UCook" style="height:32px;width:auto;filter:brightness(0) invert(1)" onerror="this.outerHTML='<span style=&quot;font-size:22px;font-weight:900;color:#fff;font-family:sans-serif;letter-spacing:-0.02em&quot;>UCook</span>'">
+        </div>
+        <div style="background:#fff;padding:10px 14px">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-5);font-family:'DM Sans',sans-serif">On brand orange</div>
+          <div style="font-size:10px;color:var(--gray-4);margin-top:2px">White version on #FF6803 · promotional banners</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Asset reference -->
+    <div style="background:#fff;border:1px solid var(--gray-2);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;font-family:'DM Sans',sans-serif">Asset</div>
+        <div style="font-size:13px;color:var(--gray-5);font-family:'DM Sans',sans-serif">Format: <strong>SVG</strong> (vector — scales to any size)</div>
+        <div style="font-size:13px;color:var(--gray-5);font-family:'DM Sans',sans-serif;margin-top:4px">Reference size: <strong>68 × 29 px</strong></div>
+        <div style="font-size:12px;color:var(--gray-4);margin-top:6px;font-family:monospace;word-break:break-all">https://www.ucook.co.za/logos/large.svg</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;font-family:'DM Sans',sans-serif">Minimum clear space</div>
+        <div style="font-size:13px;color:var(--gray-5);font-family:'DM Sans',sans-serif">Maintain clear space equal to the height of the "U" letterform on all sides. Never crowd the logo with other elements.</div>
+      </div>
+    </div>
+
+    <!-- Dos and Don'ts -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#f0faf0;border:1px solid #c6e8c6;border-radius:8px;padding:16px 20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#2d7a31;margin-bottom:10px;font-family:'DM Sans',sans-serif">✓ Do</div>
+        <ul style="font-size:13px;color:#3d5c3d;font-family:'DM Sans',sans-serif;padding-left:16px;line-height:2">
+          <li>Use white logo on dark or orange backgrounds</li>
+          <li>Use full-colour logo on white or very light surfaces</li>
+          <li>Maintain the SVG aspect ratio at all sizes</li>
+          <li>Use on-brand backgrounds only (#1E1E1E, #FFFFFF, #FF6803)</li>
+        </ul>
+      </div>
+      <div style="background:#fff5f5;border:1px solid #f5c6c6;border-radius:8px;padding:16px 20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#c0392b;margin-bottom:10px;font-family:'DM Sans',sans-serif">✗ Don't</div>
+        <ul style="font-size:13px;color:#7a3d3d;font-family:'DM Sans',sans-serif;padding-left:16px;line-height:2">
+          <li>Stretch or distort the logo</li>
+          <li>Recolour the logo in non-brand colours</li>
+          <li>Place on low-contrast or patterned backgrounds</li>
+          <li>Add drop shadows, outlines, or effects</li>
+          <li>Use as a watermark at reduced opacity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <!-- COMPONENTS -->
   <div class="sg-section" id="components">
-    <div class="sg-section-label">04 — Components</div>
+    <div class="sg-section-label">05 — Components</div>
     <div class="sg-section-title">UI Components</div>
     <p class="sg-section-desc">Key recurring patterns from ucook.co.za — rendered with real UC styles.</p>
 
@@ -434,7 +516,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--gr
 
   <!-- LAYOUT -->
   <div class="sg-section" id="layout">
-    <div class="sg-section-label">05 — Layout &amp; spacing</div>
+    <div class="sg-section-label">06 — Layout &amp; spacing</div>
     <div class="sg-section-title">Layout Rules</div>
     <p class="sg-section-desc">UCOOK uses a consistently rounded, warm, modern aesthetic. Pill buttons, soft shadows, and generous whitespace are hallmarks of the brand.</p>
 
@@ -470,7 +552,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--text-body);background:var(--gr
 
   <!-- QUICK REF -->
   <div class="sg-section" id="quickref">
-    <div class="sg-section-label">06 — Quick reference</div>
+    <div class="sg-section-label">07 — Quick reference</div>
     <div class="sg-section-title">Cheat Sheet</div>
     <p class="sg-section-desc">Everything you need in one glance.</p>
     <div class="quick-ref">
