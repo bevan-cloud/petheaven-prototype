@@ -17,7 +17,7 @@
   --radius:6px;--radius-lg:10px;--radius-xl:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--black);background:#fff;font-size:14px;line-height:1.6}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
 a{color:var(--green);text-decoration:none}
 
 /* HEADER */
@@ -127,6 +127,21 @@ a{color:var(--green);text-decoration:none}
 .project-card-footer{padding:12px 20px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .footer-tag{font-size:10px;font-weight:500;color:var(--gray-5);padding:2px 9px;border-radius:20px;background:#fff;border:1px solid var(--gray-3)}
 
+/* FILTER BAR */
+.filter-bar{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:14px 18px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filter-search{flex:1;min-width:180px;position:relative}
+.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.filter-search input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--black);outline:none;background:var(--gray-1)}
+.filter-search input:focus{border-color:var(--green);background:#fff}
+.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray-5);outline:none;background:var(--gray-1);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.filter-select:focus{border-color:var(--green)}
+.filter-reset{font-size:12px;font-weight:500;color:var(--gray-4);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:6px 0}
+.filter-reset:hover{color:var(--red)}
+.filter-count{font-size:12px;color:var(--gray-4);margin-left:auto;white-space:nowrap}
+.filter-count strong{color:var(--black)}
+.empty-state{padding:64px 24px;text-align:center;color:var(--gray-4);font-size:13px;grid-column:1/-1}
+.empty-state strong{color:var(--black);display:block;font-size:15px;margin-bottom:4px}
+
 /* BREADCRUMB */
 .breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:10px 40px;font-size:12px;display:flex;align-items:center}
 .breadcrumb a{color:var(--gray-5);text-decoration:none}
@@ -187,12 +202,30 @@ a{color:var(--green);text-decoration:none}
 
 <div class="main">
 
-  <div class="section-label">All projects — click any card to expand</div>
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-search">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="text" id="searchInput" placeholder="Search projects…" oninput="applyFilters()">
+    </div>
+    <select class="filter-select" id="platformFilter" onchange="applyFilters()">
+      <option value="">All platforms</option>
+      <option value="pdp">PDP</option>
+      <option value="clp">CLP</option>
+    </select>
+    <select class="filter-select" id="typeFilter" onchange="applyFilters()">
+      <option value="">All types</option>
+      <option value="conversion">Conversion</option>
+      <option value="subscription">Subscription</option>
+    </select>
+    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+    <span class="filter-count" id="filterCount"><strong>3</strong> of 3 shown</span>
+  </div>
 
   <div class="project-grid">
 
     <!-- PROJECT 1: REVIEWS -->
-    <div class="project-card" id="card-1">
+    <div class="project-card" id="card-1" data-platform="pdp" data-type="conversion" data-search="enhanced product reviews purchase trust conversion pdp clp email star ratings verified badges">
       <div class="project-card-toggle" onclick="toggleCard('card-1')">
         <div class="project-num green">1</div>
         <div class="project-header-content">
@@ -262,7 +295,7 @@ a{color:var(--green);text-decoration:none}
     </div>
 
     <!-- PROJECT 2: SUB-CART SPLIT -->
-    <div class="project-card" id="card-2">
+    <div class="project-card" id="card-2" data-platform="pdp" data-type="subscription" data-search="schedule save cart split subscription pdp purchase option subscribe savings">
       <div class="project-card-toggle" onclick="toggleCard('card-2')">
         <div class="project-num purple">2</div>
         <div class="project-header-content">
@@ -322,7 +355,7 @@ a{color:var(--green);text-decoration:none}
     </div>
 
     <!-- PROJECT 3: CLP -->
-    <div class="project-card" id="card-3">
+    <div class="project-card" id="card-3" data-platform="clp" data-type="conversion" data-search="category landing page clp hero seo brand spotlight subcategory tiles editorial">
       <div class="project-card-toggle" onclick="toggleCard('card-3')">
         <div class="project-num blue">3</div>
         <div class="project-header-content">
@@ -382,6 +415,11 @@ a{color:var(--green);text-decoration:none}
       </div>
     </div>
 
+    <div class="empty-state" id="emptyState" style="display:none">
+      <strong>No projects match your filters</strong>
+      Try adjusting your search or clearing the filters.
+    </div>
+
   </div><!-- /project-grid -->
 </div>
 
@@ -389,6 +427,33 @@ a{color:var(--green);text-decoration:none}
 function toggleCard(id) {
   const card = document.getElementById(id);
   card.classList.toggle('open');
+}
+function applyFilters() {
+  const search   = document.getElementById('searchInput').value.toLowerCase().trim();
+  const platform = document.getElementById('platformFilter').value;
+  const type     = document.getElementById('typeFilter').value;
+
+  const cards = document.querySelectorAll('.project-card[data-platform]');
+  let shown = 0;
+
+  cards.forEach(card => {
+    const matchSearch   = !search   || card.dataset.search.includes(search) || card.querySelector('.project-title').textContent.toLowerCase().includes(search);
+    const matchPlatform = !platform || card.dataset.platform === platform;
+    const matchType     = !type     || card.dataset.type === type;
+
+    const visible = matchSearch && matchPlatform && matchType;
+    card.style.display = visible ? '' : 'none';
+    if (visible) shown++;
+  });
+
+  document.getElementById('filterCount').innerHTML = '<strong>' + shown + '</strong> of 3 shown';
+  document.getElementById('emptyState').style.display = shown === 0 ? '' : 'none';
+}
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('platformFilter').value = '';
+  document.getElementById('typeFilter').value = '';
+  applyFilters();
 }
 </script>
 
