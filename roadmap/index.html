@@ -138,6 +138,55 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .dp-qblock{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
 .dp-qlabel{font-size:12px;color:var(--gray-5)}.dp-qlabel strong{color:var(--black)}
 
+/* ── FY PROGRESS BANNER ─────────────────────────────────────────────────── */
+.fy-banner{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 24px 16px;margin-bottom:14px}
+.fyb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.fyb-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);display:flex;align-items:center;gap:8px}
+.fyb-live-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green-dark);letter-spacing:.04em}
+.fyb-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:liveblink 1.8s ease-in-out infinite}
+@keyframes liveblink{0%,100%{opacity:1}50%{opacity:.3}}
+.fyb-meta{font-size:12px;color:var(--gray-5);text-align:right;line-height:1.6}
+.fyb-meta strong{color:var(--black)}
+
+/* Track + segments */
+.fyb-track-area{position:relative;height:56px;margin-bottom:12px}
+.fyb-segs{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);border-radius:var(--radius-lg);overflow:hidden}
+.fyb-seg{border-right:1px solid rgba(0,0,0,.05)}.fyb-seg:last-child{border-right:none}
+.fyb-seg-done{background:var(--green-light)}
+.fyb-seg-now{background:var(--green-light)}  /* overridden inline with gradient */
+.fyb-seg-next{background:var(--gray-1)}
+
+/* The actual progress rail */
+.fyb-rail{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);height:2px;background:var(--gray-2);z-index:2;border-radius:1px}
+.fyb-fill{position:absolute;left:0;top:0;height:100%;background:var(--green);border-radius:1px;transition:width .5s ease}
+/* Quarter ticks on the rail */
+.fyb-tick{position:absolute;top:-5px;width:1px;height:12px;background:var(--gray-3);transform:translateX(-50%);z-index:3}
+/* Endpoint arrow */
+.fyb-arrow{position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--gray-3)}
+
+/* Animated "now" indicator */
+.fyb-now{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:6}
+.fyb-dot{width:18px;height:18px;border-radius:50%;background:var(--amber-mid);display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;box-shadow:0 0 0 2px var(--amber-mid);animation:nowpulse 2.4s ease-in-out infinite;cursor:default}
+.fyb-dot-core{width:7px;height:7px;border-radius:50%;background:#fff}
+@keyframes nowpulse{
+  0%,100%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 2px rgba(245,200,66,0)}
+  50%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 10px rgba(245,200,66,0)}
+}
+/* "Today" callout above dot */
+.fyb-callout{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--black);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:var(--radius);white-space:nowrap;z-index:7}
+.fyb-callout::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--black)}
+/* Vertical connector line from dot to bottom of track */
+.fyb-vline{position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--amber-mid);z-index:5;opacity:.5}
+
+/* Quarter labels row */
+.fyb-qlabels{display:grid;grid-template-columns:repeat(4,1fr)}
+.fyb-qlabel{padding:4px 0 0 4px;border-right:1px dashed var(--gray-2)}.fyb-qlabel:last-child{border-right:none}
+.fyb-ql-name{font-size:11px;font-weight:700;color:var(--gray-4);display:flex;align-items:center;gap:5px}
+.fyb-ql-name.ql-active{color:var(--green-dark)}
+.fyb-ql-period{font-size:11px;color:var(--gray-4);margin-top:1px}
+.fyb-ql-pct{font-size:10px;font-weight:600;color:var(--green-dark);margin-top:2px}
+.fyb-ql-days{font-size:10px;color:var(--amber);font-weight:500;margin-top:1px}
+
 /* ── VIEW TABS ───────────────────────────────────────────────────────────── */
 .view-tabs{display:flex;gap:2px;background:var(--gray-2);border-radius:var(--radius-lg);padding:3px;margin-bottom:20px;width:fit-content}
 .view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:var(--gray-5);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
@@ -249,6 +298,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- KANBAN VIEW -->
   <div class="view-section active" id="view-kanban">
+    <div class="fy-banner" id="fy-banner"></div>
     <div class="qgrid" id="qgrid"></div>
     <div class="section-hdr"><div class="section-title">Backlog</div></div>
     <p class="section-sub">Initiatives not yet scheduled into this financial year — scored where possible, conceptual where not. Pull forward as capacity allows.</p>
@@ -600,6 +650,104 @@ function buildCard(item) {
   </div>`;
 }
 
+// ─── FY PROGRESS BANNER ───────────────────────────────────────────────────────
+function buildFYBanner() {
+  const now   = new Date();
+  const FY_START = new Date(2026, 2, 1);   // 1 Mar 2026
+  const FY_END   = new Date(2027, 2, 1);   // 1 Mar 2027 (exclusive)
+
+  const FY_QUARTERS = [
+    {q:1, label:'Q1', period:'Mar – May 2026',      start:new Date(2026,2,1),  end:new Date(2026,5,1)},
+    {q:2, label:'Q2', period:'Jun – Aug 2026',      start:new Date(2026,5,1),  end:new Date(2026,8,1)},
+    {q:3, label:'Q3', period:'Sep – Nov 2026',      start:new Date(2026,8,1),  end:new Date(2026,11,1)},
+    {q:4, label:'Q4', period:'Dec 2026 – Feb 2027', start:new Date(2026,11,1), end:new Date(2027,2,1)},
+  ];
+
+  const MS_DAY    = 86400000;
+  const fyTotal   = (FY_END - FY_START) / MS_DAY;
+  const fyElapsed = Math.max(0, Math.min(fyTotal, (now - FY_START) / MS_DAY));
+  const fyPct     = (fyElapsed / fyTotal) * 100;
+  const beforeFY  = now < FY_START;
+  const afterFY   = now >= FY_END;
+
+  // Current quarter info
+  const curQ = FY_QUARTERS.find(q => now >= q.start && now < q.end) || null;
+  let qPct = 0, qDaysLeft = 0;
+  if (curQ) {
+    const qTotal   = (curQ.end - curQ.start) / MS_DAY;
+    const qElapsed = (now - curQ.start) / MS_DAY;
+    qPct     = Math.round((qElapsed / qTotal) * 100);
+    qDaysLeft = Math.ceil((curQ.end - now) / MS_DAY);
+  }
+
+  // Formatted date
+  const dateStr = now.toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
+
+  // Segment states: done | now | next
+  const segStates = FY_QUARTERS.map(q => {
+    if (now >= q.end)   return 'done';
+    if (now >= q.start) return 'now';
+    return 'next';
+  });
+
+  // Build segment backgrounds — current quarter gets a gradient split at qPct
+  const segsHtml = FY_QUARTERS.map((q, i) => {
+    const s = segStates[i];
+    let bg = '';
+    if (s === 'done') bg = 'style="background:var(--green-light)"';
+    else if (s === 'now') bg = `style="background:linear-gradient(90deg,var(--green-light) ${qPct}%,var(--gray-1) ${qPct}%)"`;
+    else bg = 'style="background:var(--gray-1)"';
+    return `<div class="fyb-seg" ${bg}></div>`;
+  }).join('');
+
+  // Dot left% across the whole rail (matches fyPct, clamped 2–97 to stay inside)
+  const dotPct = beforeFY ? 0 : afterFY ? 100 : Math.min(97, Math.max(2, fyPct));
+
+  // Quarter label rows
+  const qLabelsHtml = FY_QUARTERS.map((q, i) => {
+    const s = segStates[i];
+    const isCur = s === 'now';
+    return `<div class="fyb-qlabel">
+      <div class="fyb-ql-name${isCur ? ' ql-active' : ''}">${q.label}${isCur ? '&nbsp;<span style="font-size:9px;font-weight:700;background:var(--green);color:#fff;padding:1px 6px;border-radius:20px">Now</span>' : ''}</div>
+      <div class="fyb-ql-period">${q.period}</div>
+      ${isCur ? `<div class="fyb-ql-pct">${qPct}% complete</div><div class="fyb-ql-days">${qDaysLeft} days remaining</div>` : ''}
+      ${s === 'done' ? '<div class="fyb-ql-pct">Complete ✓</div>' : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('fy-banner').innerHTML = `
+    <div class="fyb-top">
+      <div class="fyb-title">
+        FY 2026/27 Progress
+        <span class="fyb-live-pill"><span class="fyb-live-dot"></span>Live</span>
+      </div>
+      <div class="fyb-meta">
+        <strong>${dateStr}</strong> &nbsp;·&nbsp;
+        ${Math.round(fyPct)}% of financial year elapsed
+        ${curQ ? `&nbsp;·&nbsp; <strong>${curQ.label}</strong> in progress` : ''}
+      </div>
+    </div>
+
+    <div class="fyb-track-area">
+      <div class="fyb-segs">${segsHtml}</div>
+      <div class="fyb-rail">
+        <div class="fyb-fill" style="width:${dotPct}%"></div>
+        <div class="fyb-tick" style="left:25%"></div>
+        <div class="fyb-tick" style="left:50%"></div>
+        <div class="fyb-tick" style="left:75%"></div>
+        <div class="fyb-arrow"></div>
+      </div>
+      <div class="fyb-now" style="left:calc(${dotPct}% - 16px + 16px)">
+        <div class="fyb-callout">Today · ${dateStr}</div>
+        <div class="fyb-dot"><div class="fyb-dot-core"></div></div>
+        <div class="fyb-vline"></div>
+      </div>
+    </div>
+
+    <div class="fyb-qlabels">${qLabelsHtml}</div>
+  `;
+}
+
 // ─── THEME DEFINITIONS ────────────────────────────────────────────────────────
 const THEMES = [
   {key:'sub',  label:'Subscription Growth & Retention', color:'var(--purple)'},
@@ -722,6 +870,7 @@ function buildThemeView() {
 
 // ─── BUILD PAGE ───────────────────────────────────────────────────────────────
 function buildPage() {
+  buildFYBanner();
   buildKanban();
   buildTimeline();
   buildThemeView();
