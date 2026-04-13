@@ -27,7 +27,7 @@ a{color:var(--green);text-decoration:none}
 
 /* HERO */
 .hero{background:var(--gray-1);border-bottom:1px solid var(--gray-2);padding:48px 40px 40px}
-.hero-inner{max-width:960px;margin:0 auto}
+.hero-inner{max-width:1080px;margin:0 auto}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.05em;text-transform:uppercase}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
 .hero h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.15;color:var(--black);margin-bottom:10px}
@@ -38,68 +38,106 @@ a{color:var(--green);text-decoration:none}
 .hero-stat-label{font-size:12px;color:var(--gray-4)}
 
 /* MAIN */
-.main{max-width:960px;margin:0 auto;padding:40px 40px 80px}
+.main{max-width:1080px;margin:0 auto;padding:40px 40px 80px}
 
 /* SECTION LABEL */
 .section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
+/* PROJECT GRID — 2 columns */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
 /* PROJECT CARD */
-.project-card{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px;background:#fff;transition:box-shadow 0.15s}
+.project-card{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;background:#fff;transition:box-shadow 0.15s}
 .project-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.07)}
-.project-card-header{padding:20px 24px;border-bottom:1px solid var(--gray-2);display:flex;align-items:flex-start;gap:16px}
-.project-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* CARD TOGGLE HEADER — always visible, clickable */
+.project-card-toggle{
+  padding:18px 20px;
+  display:flex;align-items:flex-start;gap:14px;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.project-card-toggle:hover .toggle-chevron{color:var(--black)}
+
+.project-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
 .project-num.green{background:var(--green);color:#fff}
 .project-num.purple{background:var(--purple);color:#fff}
 .project-num.blue{background:var(--blue);color:#fff}
-.project-header-content{flex:1}
-.project-title{font-family:'DM Serif Display',serif;font-size:21px;color:var(--black);line-height:1.2;margin-bottom:4px}
-.project-summary{font-size:13px;color:var(--gray-5);line-height:1.6;max-width:640px}
-.project-status-wrap{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
-.status-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+
+.project-header-content{flex:1;min-width:0}
+.project-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--black);line-height:1.25;margin-bottom:5px}
+.project-summary{font-size:12px;color:var(--gray-5);line-height:1.6}
+.project-status-wrap{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.status-pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;letter-spacing:.04em}
 .sp-prototype{background:var(--green-light);color:var(--green-dark);border:1px solid var(--green-mid)}
 .sp-brief{background:var(--blue-light);color:var(--blue)}
 .sp-platform{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-3)}
 
-/* CARD BODY */
-.project-card-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.project-card-section{padding:20px 24px;border-right:1px solid var(--gray-2)}
+/* CHEVRON */
+.toggle-chevron{
+  flex-shrink:0;
+  color:var(--gray-3);
+  margin-top:4px;
+  transition:transform 0.2s ease, color 0.15s;
+}
+.project-card.open .toggle-chevron{
+  transform:rotate(180deg);
+  color:var(--gray-5);
+}
+
+/* EXPANDABLE BODY — hidden by default */
+.project-card-body{
+  display:none;
+  border-top:1px solid var(--gray-2);
+}
+.project-card.open .project-card-body{
+  display:block;
+}
+
+/* INNER BODY GRID */
+.project-card-sections{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.project-card-section{padding:18px 20px;border-right:1px solid var(--gray-2)}
 .project-card-section:last-child{border-right:none}
-.pcs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:12px}
+.pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
 
 /* FEATURE LIST */
-.feat-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.feat-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray-5);line-height:1.5}
-.feat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.feat-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-5);line-height:1.5}
+.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
 .feat-dot.green{background:var(--green)}
 .feat-dot.purple{background:var(--purple)}
 .feat-dot.blue{background:var(--blue)}
 
 /* LINK GROUP */
-.link-group{display:flex;flex-direction:column;gap:10px}
-.link-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);transition:border-color 0.15s,background 0.15s;text-decoration:none}
+.link-group{display:flex;flex-direction:column;gap:8px}
+.link-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);transition:border-color 0.15s,background 0.15s;text-decoration:none}
 .link-item:hover{border-color:var(--green);background:var(--green-light)}
 .link-item:hover .link-title{color:var(--green-dark)}
-.link-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.link-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
 .li-brief{background:var(--blue-light)}
 .li-proto{background:var(--green-light)}
 .link-content{flex:1;min-width:0}
-.link-title{font-size:13px;font-weight:600;color:var(--black);display:block;line-height:1.3}
-.link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
+.link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
+.link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .link-arrow{color:var(--gray-3);flex-shrink:0}
 
 /* CARD FOOTER */
-.project-card-footer{padding:14px 24px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.footer-tag{font-size:11px;font-weight:500;color:var(--gray-5);padding:3px 10px;border-radius:20px;background:#fff;border:1px solid var(--gray-3)}
+.project-card-footer{padding:12px 20px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.footer-tag{font-size:10px;font-weight:500;color:var(--gray-5);padding:2px 9px;border-radius:20px;background:#fff;border:1px solid var(--gray-3)}
 
 /* RESPONSIVE */
-@media(max-width:680px){
+@media(max-width:840px){
+  .project-grid{grid-template-columns:1fr}
   .hero{padding:32px 20px 28px}
   .main{padding:28px 20px 60px}
-  .project-card-body{grid-template-columns:1fr}
-  .project-card-section{border-right:none;border-bottom:1px solid var(--gray-2)}
-  .project-card-section:last-child{border-bottom:none}
   .hero h1{font-size:28px}
   .site-header{padding:0 20px}
+}
+@media(max-width:480px){
+  .project-card-sections{grid-template-columns:1fr}
+  .project-card-section{border-right:none;border-bottom:1px solid var(--gray-2)}
+  .project-card-section:last-child{border-bottom:none}
 }
 </style>
 </head>
@@ -133,184 +171,210 @@ a{color:var(--green);text-decoration:none}
 
 <div class="main">
 
-  <div class="section-label">All projects</div>
+  <div class="section-label">All projects — click any card to expand</div>
 
-  <!-- PROJECT 1: REVIEWS -->
-  <div class="project-card">
-    <div class="project-card-header">
-      <div class="project-num green">1</div>
-      <div class="project-header-content">
-        <div class="project-title">Ratings &amp; Reviews Enhancement</div>
-        <p class="project-summary">A two-phase initiative to build purchase trust, increase conversion, and differentiate Pet Heaven in the SA e-commerce market through improved review visibility, verified purchase signals, and intelligent review surfacing.</p>
-        <div class="project-status-wrap">
-          <span class="status-pill sp-brief">Brief complete</span>
-          <span class="status-pill sp-prototype">Prototype v1 live</span>
-          <span class="status-pill sp-prototype">Prototype v2 live</span>
-          <span class="status-pill sp-platform">Magento · PDP + CLP + Email</span>
-        </div>
-      </div>
-    </div>
-    <div class="project-card-body">
-      <div class="project-card-section">
-        <div class="pcs-label">Features in scope</div>
-        <ul class="feat-list">
-          <li class="feat-item"><span class="feat-dot green"></span>Star ratings on category listing &amp; search pages</li>
-          <li class="feat-item"><span class="feat-dot green"></span>Above-fold review snippet on PDP (most helpful + most recent)</li>
-          <li class="feat-item"><span class="feat-dot green"></span>Post-purchase review request email (RFM-segmented)</li>
-          <li class="feat-item"><span class="feat-dot green"></span>Verified purchase badges — full lifecycle state machine</li>
-          <li class="feat-item"><span class="feat-dot green"></span>Mark as useful — logged-in voting, feeds relevance sort</li>
-          <li class="feat-item"><span class="feat-dot green"></span>Relevance sort + 4 customer filters</li>
-        </ul>
-      </div>
-      <div class="project-card-section">
-        <div class="pcs-label">Resources</div>
-        <div class="link-group">
-          <a class="link-item" href="reviews-brief.html">
-            <div class="link-icon li-brief">📄</div>
-            <div class="link-content">
-              <span class="link-title">Project Brief</span>
-              <span class="link-sub">Full spec · 2 phases · 6 features · effort estimate</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/#customer-reviews" target="_blank">
-            <div class="link-icon li-proto">🖥️</div>
-            <div class="link-content">
-              <span class="link-title">Prototype v1</span>
-              <span class="link-sub">PDP with above-fold review snippets</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/pdp-v2/" target="_blank">
-            <div class="link-icon li-proto">🖥️</div>
-            <div class="link-content">
-              <span class="link-title">Prototype v2</span>
-              <span class="link-sub">PDP with verified badges, useful voting &amp; filters</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="project-card-footer">
-      <span class="footer-tag">Phase 1 — Surface &amp; collect</span>
-      <span class="footer-tag">Phase 2 — Trust depth</span>
-      <span class="footer-tag">6 features</span>
-      <span class="footer-tag">PDP · CLP · Email</span>
-    </div>
-  </div>
+  <div class="project-grid">
 
-  <!-- PROJECT 2: SUB-CART SPLIT -->
-  <div class="project-card">
-    <div class="project-card-header">
-      <div class="project-num purple">2</div>
-      <div class="project-header-content">
-        <div class="project-title">Differentiate Schedule &amp; Save from Add to Cart on PDP</div>
-        <p class="project-summary">Redesign the PDP purchase section to visually and functionally distinguish the Subscribe &amp; Save option from once-off purchase — surfacing subscription savings, perks, and promotions before the customer commits to a path.</p>
-        <div class="project-status-wrap">
-          <span class="status-pill sp-brief">Brief complete</span>
-          <span class="status-pill sp-prototype">Prototype live</span>
-          <span class="status-pill sp-platform">Magento · PDP</span>
+    <!-- PROJECT 1: REVIEWS -->
+    <div class="project-card" id="card-1">
+      <div class="project-card-toggle" onclick="toggleCard('card-1')">
+        <div class="project-num green">1</div>
+        <div class="project-header-content">
+          <div class="project-title">Ratings &amp; Reviews Enhancement</div>
+          <p class="project-summary">A two-phase initiative to build purchase trust and increase conversion through improved review visibility, verified purchase signals, and intelligent review surfacing.</p>
+          <div class="project-status-wrap">
+            <span class="status-pill sp-brief">Brief complete</span>
+            <span class="status-pill sp-prototype">Prototype v1 live</span>
+            <span class="status-pill sp-prototype">Prototype v2 live</span>
+            <span class="status-pill sp-platform">PDP · CLP · Email</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Features in scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot green"></span>Star ratings on category listing &amp; search pages</li>
+              <li class="feat-item"><span class="feat-dot green"></span>Above-fold review snippet on PDP (most helpful + most recent)</li>
+              <li class="feat-item"><span class="feat-dot green"></span>Post-purchase review request email (RFM-segmented)</li>
+              <li class="feat-item"><span class="feat-dot green"></span>Verified purchase badges — full lifecycle state machine</li>
+              <li class="feat-item"><span class="feat-dot green"></span>Mark as useful — logged-in voting, feeds relevance sort</li>
+              <li class="feat-item"><span class="feat-dot green"></span>Relevance sort + 4 customer filters</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Resources</div>
+            <div class="link-group">
+              <a class="link-item" href="reviews-brief.html">
+                <div class="link-icon li-brief">📄</div>
+                <div class="link-content">
+                  <span class="link-title">Project Brief</span>
+                  <span class="link-sub">Full spec · 2 phases · 6 features · effort</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/#customer-reviews" target="_blank">
+                <div class="link-icon li-proto">🖥️</div>
+                <div class="link-content">
+                  <span class="link-title">Prototype v1</span>
+                  <span class="link-sub">PDP with above-fold review snippets</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/pdp-v2/" target="_blank">
+                <div class="link-icon li-proto">🖥️</div>
+                <div class="link-content">
+                  <span class="link-title">Prototype v2</span>
+                  <span class="link-sub">Verified badges, useful voting &amp; filters</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Phase 1 — Surface &amp; collect</span>
+          <span class="footer-tag">Phase 2 — Trust depth</span>
+          <span class="footer-tag">6 features</span>
+          <span class="footer-tag">PDP · CLP · Email</span>
         </div>
       </div>
     </div>
-    <div class="project-card-body">
-      <div class="project-card-section">
-        <div class="pcs-label">Features in scope</div>
-        <ul class="feat-list">
-          <li class="feat-item"><span class="feat-dot purple"></span>Dual purchase option cards — S&amp;S (purple) vs once-off (green), with distinct visual treatments</li>
-          <li class="feat-item"><span class="feat-dot purple"></span>Dynamic CTA label — "Create Schedule" vs "Add to Cart" based on selection</li>
-          <li class="feat-item"><span class="feat-dot purple"></span>Always-visible S&amp;S perks — savings %, delivery schedule, skip/change/cancel</li>
-          <li class="feat-item"><span class="feat-dot purple"></span>S&amp;S promotional banner with copyable promo code (first order only)</li>
-          <li class="feat-item"><span class="feat-dot purple"></span>Dynamic pricing — all prices update by size selection across both options</li>
-        </ul>
-      </div>
-      <div class="project-card-section">
-        <div class="pcs-label">Resources</div>
-        <div class="link-group">
-          <a class="link-item" href="sub-cart-split-brief.html">
-            <div class="link-icon li-brief">📄</div>
-            <div class="link-content">
-              <span class="link-title">Project Brief</span>
-              <span class="link-sub">Problem statement · features · acceptance criteria · effort</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/sub-cart-split/" target="_blank">
-            <div class="link-icon li-proto">🖥️</div>
-            <div class="link-content">
-              <span class="link-title">Prototype</span>
-              <span class="link-sub">PDP with split purchase cards + S&amp;S promo banner</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="project-card-footer">
-      <span class="footer-tag">5 features</span>
-      <span class="footer-tag">PDP</span>
-      <span class="footer-tag">Schedule &amp; Save</span>
-      <span class="footer-tag">Subscription conversion</span>
-    </div>
-  </div>
 
-  <!-- PROJECT 3: CLP -->
-  <div class="project-card">
-    <div class="project-card-header">
-      <div class="project-num blue">3</div>
-      <div class="project-header-content">
-        <div class="project-title">Category Landing Page Enhancements</div>
-        <p class="project-summary">Redesign the category listing experience to surface subscription savings earlier in the funnel, improve product discoverability through visual navigation tiles and brand showcases, and add social proof signals to product cards before customers reach a PDP.</p>
-        <div class="project-status-wrap">
-          <span class="status-pill sp-brief">Brief complete</span>
-          <span class="status-pill sp-prototype">Prototype live</span>
-          <span class="status-pill sp-platform">Magento · CLP</span>
+    <!-- PROJECT 2: SUB-CART SPLIT -->
+    <div class="project-card" id="card-2">
+      <div class="project-card-toggle" onclick="toggleCard('card-2')">
+        <div class="project-num purple">2</div>
+        <div class="project-header-content">
+          <div class="project-title">Differentiate Schedule &amp; Save from Add to Cart</div>
+          <p class="project-summary">Redesign the PDP purchase section to visually and functionally distinguish the Subscribe &amp; Save option — surfacing subscription savings, perks, and promotions before the customer commits.</p>
+          <div class="project-status-wrap">
+            <span class="status-pill sp-brief">Brief complete</span>
+            <span class="status-pill sp-prototype">Prototype live</span>
+            <span class="status-pill sp-platform">PDP</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Features in scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot purple"></span>Dual purchase option cards — S&amp;S (purple) vs once-off (green)</li>
+              <li class="feat-item"><span class="feat-dot purple"></span>Dynamic CTA label — "Create Schedule" vs "Add to Cart"</li>
+              <li class="feat-item"><span class="feat-dot purple"></span>Always-visible S&amp;S perks — savings %, schedule, skip/change/cancel</li>
+              <li class="feat-item"><span class="feat-dot purple"></span>S&amp;S promo banner with copyable code (first order only)</li>
+              <li class="feat-item"><span class="feat-dot purple"></span>Dynamic pricing — updates by size across both options</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Resources</div>
+            <div class="link-group">
+              <a class="link-item" href="sub-cart-split-brief.html">
+                <div class="link-icon li-brief">📄</div>
+                <div class="link-content">
+                  <span class="link-title">Project Brief</span>
+                  <span class="link-sub">Problem · features · AC · effort</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/sub-cart-split/" target="_blank">
+                <div class="link-icon li-proto">🖥️</div>
+                <div class="link-content">
+                  <span class="link-title">Prototype</span>
+                  <span class="link-sub">Split purchase cards + S&amp;S promo banner</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">5 features</span>
+          <span class="footer-tag">PDP</span>
+          <span class="footer-tag">Schedule &amp; Save</span>
+          <span class="footer-tag">Subscription conversion</span>
         </div>
       </div>
     </div>
-    <div class="project-card-body">
-      <div class="project-card-section">
-        <div class="pcs-label">Features in scope</div>
-        <ul class="feat-list">
-          <li class="feat-item"><span class="feat-dot blue"></span>Schedule &amp; Save promotional callout above the product grid</li>
-          <li class="feat-item"><span class="feat-dot blue"></span>Star ratings on product cards (from R&amp;R initiative)</li>
-          <li class="feat-item"><span class="feat-dot blue"></span>Subscription price displayed on product cards alongside standard price</li>
-          <li class="feat-item"><span class="feat-dot blue"></span>Category navigation tiles — visual entry points for sub-categories</li>
-          <li class="feat-item"><span class="feat-dot blue"></span>Brand showcase grid with product counts</li>
-          <li class="feat-item"><span class="feat-dot blue"></span>Dietary &amp; lifestyle filter strips (grain-free, high-protein, sensitive stomach)</li>
-        </ul>
-      </div>
-      <div class="project-card-section">
-        <div class="pcs-label">Resources</div>
-        <div class="link-group">
-          <a class="link-item" href="clp-brief.html">
-            <div class="link-icon li-brief">📄</div>
-            <div class="link-content">
-              <span class="link-title">Project Brief</span>
-              <span class="link-sub">Problem statement · features · acceptance criteria · effort</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/clp/" target="_blank">
-            <div class="link-icon li-proto">🖥️</div>
-            <div class="link-content">
-              <span class="link-title">Prototype</span>
-              <span class="link-sub">Enhanced CLP with S&amp;S callout, richer product cards</span>
-            </div>
-            <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="project-card-footer">
-      <span class="footer-tag">6 features</span>
-      <span class="footer-tag">CLP</span>
-      <span class="footer-tag">Discoverability</span>
-      <span class="footer-tag">Funnel — top of PDP</span>
-    </div>
-  </div>
 
+    <!-- PROJECT 3: CLP -->
+    <div class="project-card" id="card-3">
+      <div class="project-card-toggle" onclick="toggleCard('card-3')">
+        <div class="project-num blue">3</div>
+        <div class="project-header-content">
+          <div class="project-title">Category Landing Page Enhancements</div>
+          <p class="project-summary">Transform category pages from bare product grids into high-converting, editorially curated surfaces with hero zones, subcategory navigation, brand spotlights, and SEO content.</p>
+          <div class="project-status-wrap">
+            <span class="status-pill sp-brief">Brief complete</span>
+            <span class="status-pill sp-prototype">Prototype live</span>
+            <span class="status-pill sp-platform">CLP</span>
+          </div>
+        </div>
+        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-sections">
+          <div class="project-card-section">
+            <div class="pcs-label">Features in scope</div>
+            <ul class="feat-list">
+              <li class="feat-item"><span class="feat-dot blue"></span>Category hero banner — CMS-managed image, headline, CTA</li>
+              <li class="feat-item"><span class="feat-dot blue"></span>Subcategory tile navigation strip</li>
+              <li class="feat-item"><span class="feat-dot blue"></span>Featured / promoted product row above main grid</li>
+              <li class="feat-item"><span class="feat-dot blue"></span>SEO content block (collapsed on mobile)</li>
+              <li class="feat-item"><span class="feat-dot blue"></span>Brand spotlight tiles with product counts</li>
+              <li class="feat-item"><span class="feat-dot blue"></span>Smart sort defaults + mid-grid promo slots</li>
+            </ul>
+          </div>
+          <div class="project-card-section">
+            <div class="pcs-label">Resources</div>
+            <div class="link-group">
+              <a class="link-item" href="clp-brief.html">
+                <div class="link-icon li-brief">📄</div>
+                <div class="link-content">
+                  <span class="link-title">Project Brief</span>
+                  <span class="link-sub">Problem · features · AC · effort</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="link-item" href="https://bevan-cloud.github.io/petheaven-prototype/clp/" target="_blank">
+                <div class="link-icon li-proto">🖥️</div>
+                <div class="link-content">
+                  <span class="link-title">Prototype</span>
+                  <span class="link-sub">Enhanced CLP with hero, tiles &amp; richer cards</span>
+                </div>
+                <svg class="link-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card-footer">
+          <span class="footer-tag">Phase 1 — Structure &amp; nav</span>
+          <span class="footer-tag">Phase 2 — Brand depth</span>
+          <span class="footer-tag">7 features</span>
+          <span class="footer-tag">CLP · SEO · Discoverability</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /project-grid -->
 </div>
+
+<script>
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+</script>
+
 </body>
 </html>
