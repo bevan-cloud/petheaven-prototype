@@ -207,30 +207,54 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 .view-tab:hover{color:var(--black)}
 .view-tab.active{background:var(--black);color:#fff}
 
+/* ─── MODEL DESCRIPTIONS ──────────────────────────────────────────────────── */
+.model-desc{padding:20px 0 4px}
+.model-desc-cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.model-desc-card{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px;flex:1;min-width:140px;max-width:200px}
+.mdc-letter{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;margin-bottom:4px}
+.mdc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:3px}
+.mdc-desc{font-size:11px;color:var(--gray-4);line-height:1.5}
+.model-formula{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500;margin-bottom:10px}
+.model-formula span{opacity:.5;font-size:11px}
+.model-edit-hint{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px}
+.model-quadrant-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mqg-cell{border-radius:var(--radius-lg);padding:12px 14px}
+.mqg-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.mqg-sub{font-size:11px;color:var(--gray-5);line-height:1.5}
+.mqg-rec{font-size:10px;font-weight:600;margin-top:4px;opacity:.8}
+
 /* ─── IMPACT VS EFFORT MATRIX ────────────────────────────────────────────── */
 .matrix-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
 .matrix-inner{padding:20px 24px 24px}
-.matrix-canvas{position:relative;width:100%;padding-bottom:62%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
+/* Canvas outer row: y-axis label + canvas */
+.matrix-canvas-row{display:flex;align-items:stretch;gap:0}
+.matrix-y-label{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:600;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase;padding:0 6px 0 0;flex-shrink:0;user-select:none}
+.matrix-canvas{position:relative;width:100%;padding-bottom:64%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
 .q-tl,.q-tr,.q-bl,.q-br{position:absolute;width:50%;height:50%}
-.q-tl{top:0;left:0;background:rgba(58,158,63,.08)}
-.q-tr{top:0;right:0;background:rgba(26,111,212,.08)}
-.q-bl{bottom:0;left:0;background:rgba(210,210,200,.4)}
-.q-br{bottom:0;right:0;background:rgba(160,0,0,.06)}
+.q-tl{top:0;left:0;background:rgba(58,158,63,.07)}
+.q-tr{top:0;right:0;background:rgba(26,111,212,.07)}
+.q-bl{bottom:0;left:0;background:rgba(200,200,192,.3)}
+.q-br{bottom:0;right:0;background:rgba(160,0,0,.05)}
 .q-line-h{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--gray-3)}
 .q-line-v{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--gray-3)}
-.q-label{position:absolute;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-4);padding:10px 12px;line-height:1.5;pointer-events:none}
-.q-label.tl{top:0;left:0}.q-label.tr{top:0;right:0;text-align:right}
-.q-label.bl{bottom:0;left:0}.q-label.br{bottom:0;right:0;text-align:right}
-.q-axis-x-lo,.q-axis-x-hi{position:absolute;bottom:5px;font-size:9px;font-weight:500;color:var(--gray-3);pointer-events:none}
-.q-axis-x-lo{left:8px}.q-axis-x-hi{right:8px}
-.q-axis-y-lo,.q-axis-y-hi{position:absolute;right:6px;font-size:9px;font-weight:500;color:var(--gray-3);pointer-events:none}
-.q-axis-y-lo{bottom:8px}.q-axis-y-hi{top:8px}
-.m-dot{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,.6);box-shadow:0 2px 6px rgba(0,0,0,.15);transition:box-shadow .15s;z-index:5;line-height:1}
-.m-dot:hover{box-shadow:0 4px 18px rgba(0,0,0,.25);z-index:20}
-.m-tip{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.9);color:#fff;font-size:11px;padding:6px 10px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;max-width:220px;white-space:normal;text-align:center;line-height:1.5}
+/* Quadrant corner badges */
+.q-label{position:absolute;pointer-events:none;z-index:2}
+.q-label-inner{display:inline-flex;flex-direction:column;background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.07);border-radius:var(--radius);padding:5px 9px;backdrop-filter:blur(2px)}
+.q-label-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);line-height:1.3}
+.q-label-sub{font-size:9px;font-weight:400;color:var(--gray-4);line-height:1.4;margin-top:1px}
+.q-label.tl{top:8px;left:8px}
+.q-label.tr{top:8px;right:8px;text-align:right}
+.q-label.bl{bottom:8px;left:8px}
+.q-label.br{bottom:8px;right:8px;text-align:right}
+.q-label.tr .q-label-inner,.q-label.br .q-label-inner{align-items:flex-end}
+.m-dot{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .15s,transform .15s;z-index:5;line-height:1}
+.m-dot:hover{box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:20;transform:scale(1.08)}
+.m-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.92);color:#fff;font-size:11px;padding:7px 11px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;min-width:160px;max-width:240px;white-space:normal;text-align:center;line-height:1.5}
 .m-dot:hover .m-tip{opacity:1}
-.matrix-axis-label{display:flex;justify-content:space-between;align-items:center;padding:6px 0 0;font-size:11px;color:var(--gray-4)}
-.matrix-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.m-tip-name{font-weight:600;margin-bottom:2px}
+.m-tip-meta{font-size:10px;opacity:.7}
+.matrix-axis-label{display:flex;justify-content:space-between;align-items:center;padding:5px 0 0 28px;font-size:11px;color:var(--gray-4)}
+.matrix-legend{display:flex;gap:10px;flex-wrap:wrap}
 .m-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
 .m-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .matrix-unscored{margin-top:14px;padding:12px 16px;background:var(--gray-1);border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
@@ -238,6 +262,33 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 .mu-chips{display:flex;flex-wrap:wrap;gap:5px}
 .mu-chip{font-size:11px;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:20px;padding:2px 10px;cursor:pointer;transition:border-color .1s,color .1s}
 .mu-chip:hover{border-color:var(--brand);color:var(--brand-dark)}
+
+/* ─── MATRIX TABLE ───────────────────────────────────────────────────────── */
+.matrix-tbl-wrap{margin-top:20px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;overflow-x:auto}
+.matrix-tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;border-bottom:1px solid var(--gray-2)}
+.matrix-tbl-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)}
+table.m-tbl{width:100%;border-collapse:collapse;min-width:700px}
+table.m-tbl thead tr{background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
+table.m-tbl th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);padding:10px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
+table.m-tbl th:hover{color:var(--black)}
+table.m-tbl th.m-sorted{color:var(--brand-dark)}
+table.m-tbl th.no-sort{cursor:default}
+table.m-tbl th.no-sort:hover{color:var(--gray-4)}
+table.m-tbl tbody tr{border-bottom:1px solid var(--gray-2);transition:background .1s;cursor:pointer}
+table.m-tbl tbody tr:last-child{border-bottom:none}
+table.m-tbl tbody tr:hover{background:var(--gray-1)}
+table.m-tbl tbody tr.row-active td{background:var(--brand-light) !important}
+table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
+.m-score-cell{text-align:center;width:56px}
+.m-score-val{display:inline-flex;align-items:center;justify-content:center;width:30px;height:24px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;transition:background .1s}
+.m-score-val:hover{background:var(--gray-2)}
+.m-score-val.sv-impact{color:var(--green-dark)}
+.m-score-val.sv-effort{color:var(--red)}
+.m-quadrant-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.03em}
+.qp-qw{background:var(--green-light);color:var(--green-dark)}
+.qp-bb{background:var(--blue-light);color:var(--blue)}
+.qp-nth{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.qp-ts{background:var(--red-light);color:var(--red)}
 
 @media(max-width:680px){
   .site-nav,.breadcrumb,.main,.hero{padding-left:20px;padding-right:20px}
@@ -270,35 +321,58 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>Faithful to Nature · Product Backlog · RICE Framework</div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Faithful to Nature · FY2026/27 · Product Prioritization</div>
     <h1>Product Prioritization</h1>
-    <p class="hero-sub">All Faithful to Nature natural health &amp; wellness product initiatives scored using the RICE framework. Click any R / I / C / E score to edit it — the RICE score recalculates instantly.</p>
-    <div class="rice-cards">
-      <div class="rice-card"><div class="rice-card-letter rc-r">R</div><div class="rice-card-name">Reach</div><div class="rice-card-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
-      <div class="rice-card"><div class="rice-card-letter rc-i">I</div><div class="rice-card-name">Impact</div><div class="rice-card-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
-      <div class="rice-card"><div class="rice-card-letter rc-c">C</div><div class="rice-card-name">Confidence</div><div class="rice-card-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
-      <div class="rice-card"><div class="rice-card-letter rc-e">E</div><div class="rice-card-name">Effort</div><div class="rice-card-desc">Build cost (higher = more work). <strong>Scale 1–5</strong></div></div>
-      <div class="rice-formula">RICE = (R × I × C) ÷ E <span>· higher is better · all scores editable</span></div>
+    <p class="hero-sub">Two complementary frameworks for evaluating Faithful to Nature's product backlog. Use the RICE table to score initiatives quantitatively, or switch to the Impact vs Effort matrix for a visual portfolio view. All scores are editable.</p>
+
+    <!-- VIEW TABS — live above the model definitions -->
+    <div class="view-tabs" style="margin:20px 0 0">
+      <button class="view-tab active" id="tab-rice" data-view="rice" onclick="switchView('rice',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0.5" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".4"/><rect x="0" y="4.75" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".7"/><rect x="0" y="9" width="12" height="2.5" rx="1.2" fill="currentColor"/></svg>
+        RICE Scoring
+      </button>
+      <button class="view-tab" id="tab-matrix" data-view="matrix" onclick="switchView('matrix',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="9.5" r="1.5" fill="currentColor" opacity=".4"/><circle cx="5" cy="5" r="1.5" fill="currentColor" opacity=".7"/><circle cx="9.5" cy="2" r="2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.5" fill="currentColor" opacity=".5"/></svg>
+        Impact vs Effort
+      </button>
     </div>
-    <div class="edit-hint">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Click any R / I / C / E value to edit it. Press Enter or Tab to save, Esc to cancel.
+
+    <!-- RICE MODEL DESCRIPTION -->
+    <div id="model-desc-rice" class="model-desc">
+      <div class="model-desc-cards">
+        <div class="rice-card"><div class="rice-card-letter rc-r">R</div><div class="rice-card-name">Reach</div><div class="rice-card-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
+        <div class="rice-card"><div class="rice-card-letter rc-i">I</div><div class="rice-card-name">Impact</div><div class="rice-card-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
+        <div class="rice-card"><div class="rice-card-letter rc-c">C</div><div class="rice-card-name">Confidence</div><div class="rice-card-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
+        <div class="rice-card"><div class="rice-card-letter rc-e">E</div><div class="rice-card-name">Effort</div><div class="rice-card-desc">Build cost — higher = more work. <strong>Scale 1–5</strong></div></div>
+      </div>
+      <div class="rice-formula">RICE = (R × I × C) ÷ E <span>· higher score = higher priority · all values editable</span></div>
+      <div class="edit-hint" style="margin-top:10px">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Click any R / I / C / E value in the table to edit it. Press Enter or Tab to save, Esc to cancel.
+      </div>
+    </div>
+
+    <!-- IMPACT VS EFFORT MODEL DESCRIPTION -->
+    <div id="model-desc-matrix" class="model-desc" style="display:none">
+      <div class="model-desc-cards">
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--green-dark)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX improvement, or operational gain. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--red)">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops, and change management combined. <strong>Scale 1–5</strong></div></div>
+      </div>
+      <div class="model-quadrant-grid">
+        <div class="mqg-cell" style="background:rgba(58,158,63,.07);border:1px solid rgba(58,158,63,.2)"><div class="mqg-title" style="color:var(--green-dark)">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:var(--green-dark)">→ Do now</div></div>
+        <div class="mqg-cell" style="background:rgba(26,111,212,.07);border:1px solid rgba(26,111,212,.2)"><div class="mqg-title" style="color:var(--blue)">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:var(--blue)">→ Plan &amp; resource</div></div>
+        <div class="mqg-cell" style="background:var(--gray-1);border:1px solid var(--gray-2)"><div class="mqg-title" style="color:var(--gray-5)">💭 Nice to Have</div><div class="mqg-sub">Low impact, low effort</div><div class="mqg-rec" style="color:var(--gray-4)">→ If capacity allows</div></div>
+        <div class="mqg-cell" style="background:rgba(160,0,0,.05);border:1px solid rgba(160,0,0,.15)"><div class="mqg-title" style="color:var(--red)">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:var(--red)">→ Deprioritise</div></div>
+      </div>
+      <div class="edit-hint">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Click any Impact or Effort value in the table below to edit it. The matrix updates instantly.
+      </div>
     </div>
   </div>
 </div>
 
 <div class="main">
-  <!-- VIEW TABS -->
-  <div class="view-tabs">
-    <button class="view-tab active" id="tab-rice" onclick="switchView('rice')">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0.5" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".4"/><rect x="0" y="4.75" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".7"/><rect x="0" y="9" width="12" height="2.5" rx="1.2" fill="currentColor"/></svg>
-      RICE Table
-    </button>
-    <button class="view-tab" id="tab-matrix" onclick="switchView('matrix')">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="9.5" r="1.5" fill="currentColor" opacity=".4"/><circle cx="5" cy="5" r="1.5" fill="currentColor" opacity=".7"/><circle cx="9.5" cy="2" r="2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.5" fill="currentColor" opacity=".5"/></svg>
-      Impact vs Effort
-    </button>
-  </div>
   <div id="rice-view">
   <div class="filter-bar">
     <div class="filter-search">
@@ -362,23 +436,27 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
   <div id="matrix-view" style="display:none">
     <div class="matrix-wrap">
       <div class="matrix-inner">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
           <div>
             <div style="font-size:13px;font-weight:600;color:var(--black)">Impact vs Effort Matrix</div>
             <div style="font-size:12px;color:var(--gray-4);margin-top:2px">Bubble size reflects RICE score · click any bubble to open details</div>
           </div>
           <div class="matrix-legend" id="matrix-legend"></div>
         </div>
-        <div class="matrix-canvas" id="matrix-canvas">
-          <div class="q-tl"></div><div class="q-tr"></div>
-          <div class="q-bl"></div><div class="q-br"></div>
-          <div class="q-line-h"></div><div class="q-line-v"></div>
-          <div class="q-label tl">Quick Wins<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Do now</span></div>
-          <div class="q-label tr">Big Bets<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Plan for</span></div>
-          <div class="q-label bl">Nice to Have<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">If capacity</span></div>
-          <div class="q-label br">Time Sinks<br><span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">Deprioritise</span></div>
-          <div class="q-axis-x-lo">← Low effort</div><div class="q-axis-x-hi">High effort →</div>
-          <div class="q-axis-y-hi">↑ High impact</div><div class="q-axis-y-lo">Low impact ↓</div>
+        <!-- Canvas row: rotated y-axis label + canvas -->
+        <div class="matrix-canvas-row">
+          <div class="matrix-y-label">← Impact →</div>
+          <div style="flex:1;min-width:0">
+            <div class="matrix-canvas" id="matrix-canvas">
+              <div class="q-tl"></div><div class="q-tr"></div>
+              <div class="q-bl"></div><div class="q-br"></div>
+              <div class="q-line-h"></div><div class="q-line-v"></div>
+              <div class="q-label tl"><div class="q-label-inner"><span class="q-label-title">⚡ Quick Wins</span><span class="q-label-sub">Do now</span></div></div>
+              <div class="q-label tr"><div class="q-label-inner"><span class="q-label-title">🎯 Big Bets</span><span class="q-label-sub">Plan for</span></div></div>
+              <div class="q-label bl"><div class="q-label-inner"><span class="q-label-title">💭 Nice to Have</span><span class="q-label-sub">If capacity</span></div></div>
+              <div class="q-label br"><div class="q-label-inner"><span class="q-label-title">🕳️ Time Sinks</span><span class="q-label-sub">Deprioritise</span></div></div>
+            </div>
+          </div>
         </div>
         <div class="matrix-axis-label"><span>1</span><span style="font-weight:600;color:var(--gray-5)">← Effort →</span><span>5</span></div>
         <div id="matrix-unscored" class="matrix-unscored" style="display:none">
@@ -386,6 +464,28 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
           <div class="mu-chips" id="matrix-unscored-chips"></div>
         </div>
       </div>
+    </div>
+    <!-- PROJECT TABLE BELOW MATRIX -->
+    <div class="matrix-tbl-wrap">
+      <div class="matrix-tbl-hdr">
+        <span class="matrix-tbl-title">All initiatives</span>
+        <span id="m-tbl-count" style="font-size:12px;color:var(--gray-4)"></span>
+      </div>
+      <table class="m-tbl">
+        <thead>
+          <tr>
+            <th class="no-sort" style="width:42px">#</th>
+            <th onclick="setMSort('name')">Name <span class="sort-arrow" id="msort-name"></span></th>
+            <th onclick="setMSort('theme')">Theme <span class="sort-arrow" id="msort-theme"></span></th>
+            <th class="no-sort" style="text-align:center">Status</th>
+            <th style="text-align:center" onclick="setMSort('mi')">Impact <span class="sort-arrow" id="msort-mi"></span></th>
+            <th style="text-align:center" onclick="setMSort('me')">Effort <span class="sort-arrow" id="msort-me"></span></th>
+            <th class="no-sort">Quadrant</th>
+            <th class="no-sort">Action</th>
+          </tr>
+        </thead>
+        <tbody id="m-tbl-body"></tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -401,13 +501,13 @@ tr.tier-low .rice-bar{background:var(--gray-3)}
 
 <script>
 // ─── DATA ─────────────────────────────────────────────────────────────────────
-// Add FTN initiatives here
+// mi = matrix impact (1–5), me = matrix effort (1–5) — independent of RICE i/e
 const items = [
-  {id:1, name:"Placeholder Initiative A",   theme:"Web & App",           type:"Quick Win",       status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:7, i:4, c:4, e:2},
-  {id:2, name:"Placeholder Initiative B",   theme:"Ecommerce Growth",    type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:6, i:3, c:4, e:3},
-  {id:3, name:"Placeholder Initiative C",   theme:"Content & Discovery", type:"Quick Win",       status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:5, i:4, c:3, e:2},
-  {id:4, name:"Placeholder Initiative D",   theme:"Tech Infrastructure", type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:4, i:5, c:3, e:4},
-  {id:5, name:"Placeholder Initiative E",   theme:"Growth & Loyalty",    type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:6, i:4, c:3, e:3},
+  {id:1, name:"Placeholder Initiative A",   theme:"Web & App",           type:"Quick Win",       status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:7, i:4, c:4, e:2, mi:4, me:1},
+  {id:2, name:"Placeholder Initiative B",   theme:"Ecommerce Growth",    type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:6, i:3, c:4, e:3, mi:3, me:3},
+  {id:3, name:"Placeholder Initiative C",   theme:"Content & Discovery", type:"Quick Win",       status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:5, i:4, c:3, e:2, mi:4, me:2},
+  {id:4, name:"Placeholder Initiative D",   theme:"Tech Infrastructure", type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:4, i:5, c:3, e:4, mi:2, me:4},
+  {id:5, name:"Placeholder Initiative E",   theme:"Growth & Loyalty",    type:"Existing Roadmap",status:null, desc:"Placeholder initiative for Faithful to Nature natural health & wellness product workspace. Add real FTN initiatives here.", r:6, i:4, c:3, e:3, mi:3, me:4},
 ];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -467,7 +567,13 @@ function getFiltered() {
     return true;
   });
 }
-function applyFilters() { render(); if (typeof currentView !== 'undefined' && currentView === 'matrix') renderMatrix(); }
+function applyFilters() {
+  render();
+  if (typeof currentView !== 'undefined' && currentView === 'matrix') {
+    renderMatrix();
+    renderMatrixTable();
+  }
+}
 function resetFilters() {
   ['filter-search','filter-theme','filter-status','filter-type'].forEach(id => {
     const el = document.getElementById(id);
@@ -709,13 +815,124 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
 
 // ─── MATRIX VIEW ─────────────────────────────────────────────────────────────
 let currentView = 'rice';
+let mSortCol = 'mi', mSortDir = 'desc';
 
-function switchView(v) {
+function switchView(v, btn) {
   currentView = v;
   document.getElementById('rice-view').style.display = v === 'rice' ? '' : 'none';
   document.getElementById('matrix-view').style.display = v === 'matrix' ? '' : 'none';
+  document.getElementById('model-desc-rice').style.display = v === 'rice' ? '' : 'none';
+  document.getElementById('model-desc-matrix').style.display = v === 'matrix' ? '' : 'none';
   document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === v));
-  if (v === 'matrix') renderMatrix();
+  if (v === 'matrix') { renderMatrix(); renderMatrixTable(); }
+}
+
+function getQuadrant(item) {
+  if (item.mi == null || item.me == null) return null;
+  const highImpact = item.mi >= 3;
+  const lowEffort = item.me <= 3;
+  if (highImpact && lowEffort) return 'qw';
+  if (highImpact && !lowEffort) return 'bb';
+  if (!highImpact && lowEffort) return 'nth';
+  return 'ts';
+}
+
+function quadrantHtml(item) {
+  const q = getQuadrant(item);
+  if (!q) return '<span style="color:var(--gray-3);font-size:12px">—</span>';
+  const map = {
+    qw: ['⚡ Quick Win',  'qp-qw'],
+    bb: ['🎯 Big Bet',    'qp-bb'],
+    nth:['💭 Nice to Have','qp-nth'],
+    ts: ['🕳️ Time Sink',  'qp-ts']
+  };
+  const [label, cls] = map[q];
+  return `<span class="m-quadrant-pill ${cls}">${label}</span>`;
+}
+
+function setMSort(col) {
+  if (mSortCol === col) { mSortDir = mSortDir === 'desc' ? 'asc' : 'desc'; }
+  else { mSortCol = col; mSortDir = (col === 'name' || col === 'theme') ? 'asc' : 'desc'; }
+  renderMatrixTable();
+}
+
+function getMSorted(filtered) {
+  return [...filtered].sort((a, b) => {
+    let av, bv;
+    if (mSortCol === 'mi') { av = a.mi; bv = b.mi; }
+    else if (mSortCol === 'me') { av = a.me; bv = b.me; }
+    else if (mSortCol === 'name') { av = a.name.toLowerCase(); bv = b.name.toLowerCase(); }
+    else if (mSortCol === 'theme') { av = a.theme; bv = b.theme; }
+    else { av = 0; bv = 0; }
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (typeof av === 'string') return mSortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    return mSortDir === 'asc' ? av - bv : bv - av;
+  });
+}
+
+function renderMatrixTable() {
+  const filtered = getFiltered();
+  const sorted = getMSorted(filtered);
+  const countEl = document.getElementById('m-tbl-count');
+  if (countEl) countEl.textContent = `${sorted.length} initiative${sorted.length !== 1 ? 's' : ''}`;
+
+  ['name','theme','mi','me'].forEach(col => {
+    const el = document.getElementById('msort-' + col);
+    if (!el) return;
+    el.textContent = mSortCol === col ? (mSortDir === 'desc' ? '↓' : '↑') : '↕';
+    el.closest('th').classList.toggle('m-sorted', mSortCol === col);
+  });
+
+  const tbody = document.getElementById('m-tbl-body');
+  if (!tbody) return;
+  tbody.innerHTML = sorted.map((item, idx) => {
+    const miVal = item.mi != null ? item.mi : '–';
+    const meVal = item.me != null ? item.me : '–';
+    return `<tr data-id="${item.id}" onclick="openPanelById(${item.id})">
+      <td style="font-size:11px;font-weight:700;color:var(--gray-4);width:42px;text-align:center">${idx + 1}</td>
+      <td>
+        <div style="font-weight:600;color:var(--black);line-height:1.3">${esc(item.name)}</div>
+        <div style="font-size:11px;color:var(--gray-4);margin-top:1px"><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></div>
+      </td>
+      <td><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></td>
+      <td style="text-align:center">${statusHtml(item.status) || '<span style="color:var(--gray-3);font-size:11px">—</span>'}</td>
+      <td class="m-score-cell"><span class="m-score-val sv-impact m-editable" data-field="mi" data-id="${item.id}">${miVal}</span></td>
+      <td class="m-score-cell"><span class="m-score-val sv-effort m-editable" data-field="me" data-id="${item.id}">${meVal}</span></td>
+      <td>${quadrantHtml(item)}</td>
+      <td><button style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:4px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);background:#fff;cursor:pointer;color:var(--gray-5)" onclick="event.stopPropagation();openPanelById(${item.id})">View →</button></td>
+    </tr>`;
+  }).join('');
+
+  tbody.querySelectorAll('.m-editable').forEach(el => el.addEventListener('click', startEditMatrix));
+}
+
+function startEditMatrix(e) {
+  e.stopPropagation();
+  const span = e.currentTarget;
+  if (span.querySelector('input')) return;
+  const id = parseInt(span.dataset.id);
+  const field = span.dataset.field;
+  const item = items.find(x => x.id === id);
+  const input = document.createElement('input');
+  input.type = 'number'; input.min = 1; input.max = 5;
+  input.value = item[field] ?? ''; input.className = 'score-input';
+  span.textContent = ''; span.appendChild(input);
+  input.focus(); input.select();
+  function save() {
+    const parsed = parseInt(input.value);
+    if (!isNaN(parsed)) item[field] = Math.min(5, Math.max(1, parsed));
+    renderMatrix();
+    renderMatrixTable();
+  }
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
+    if (ev.key === 'Escape') { renderMatrix(); renderMatrixTable(); }
+    if (ev.key === 'Tab') { ev.preventDefault(); input.blur(); }
+  });
+  input.addEventListener('click', ev => ev.stopPropagation());
 }
 
 const themeColorMap = {
@@ -733,8 +950,8 @@ function renderMatrix() {
   const unscoredEl = document.getElementById('matrix-unscored');
 
   const filtered = getFiltered();
-  const scored = filtered.filter(item => item.i != null && item.e != null);
-  const unscored = filtered.filter(item => item.i == null || item.e == null);
+  const scored = filtered.filter(item => item.mi != null && item.me != null);
+  const unscored = filtered.filter(item => item.mi == null || item.me == null);
 
   if (unscored.length) {
     unscoredEl.style.display = '';
@@ -744,17 +961,24 @@ function renderMatrix() {
     unscoredEl.style.display = 'none';
   }
 
+  // Build legend
+  const themes = [...new Set(scored.map(i => i.theme))];
+  document.getElementById('matrix-legend').innerHTML = themes.map(t =>
+    `<div class="m-legend-item"><div class="m-legend-dot" style="background:${themeColorMap[t]||'#9a9a94'}"></div>${themeShort(t)}</div>`
+  ).join('');
+
   const groups = {};
   scored.forEach(item => {
-    const key = `${item.i}_${item.e}`;
+    const key = `${item.mi}_${item.me}`;
     if (!groups[key]) groups[key] = [];
     groups[key].push(item);
   });
 
   Object.values(groups).forEach(group => {
     group.forEach((item, idx) => {
-      const baseX = (item.e - 1) / 4 * 86 + 4;
-      const baseY = (5 - item.i) / 4 * 86 + 4;
+      // Safe-zone: 12%–88% keeps bubbles away from corner badge labels
+      const baseX = (item.me - 1) / 4 * 76 + 12;
+      const baseY = (5 - item.mi) / 4 * 76 + 12;
       let jx = 0, jy = 0;
       if (group.length > 1) {
         const angle = (idx / group.length) * 2 * Math.PI;
@@ -763,16 +987,17 @@ function renderMatrix() {
         jy = Math.sin(angle) * r;
       }
       const score = rice(item);
-      const size = Math.max(26, Math.min(52, 20 + (score || 0) * 0.45));
+      const size = Math.max(26, Math.min(44, 20 + (score || 0) * 0.35));
       const color = themeColorMap[item.theme] || '#9a9a94';
       const dot = document.createElement('div');
       dot.className = 'm-dot';
       dot.style.cssText = `left:calc(${baseX + jx}% - ${size/2}px);top:calc(${baseY + jy}% - ${size/2}px);width:${size}px;height:${size}px;background:${color};`;
-      dot.innerHTML = `<div class="m-tip"><div class="m-tip-name">${esc(item.name)}</div><div class="m-tip-meta">Impact: ${item.i} · Effort: ${item.e}${score != null ? ` · RICE: ${score}` : ''}</div></div>`;
+      dot.innerHTML = `<div class="m-tip"><div class="m-tip-name">${esc(item.name)}</div><div class="m-tip-meta">Impact: ${item.mi} · Effort: ${item.me}${score != null ? ` · RICE: ${score}` : ''}</div></div>`;
       dot.addEventListener('click', () => openPanelById(item.id));
       canvas.appendChild(dot);
     });
   });
+  renderMatrixTable();
 }
 
 render();
