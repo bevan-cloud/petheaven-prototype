@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Heaven — Schedule &amp; Save vs Add to Cart · Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
+  --blue:#1a6fd4;--blue-light:#e8f1fc;
+  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
+  --red:#a00000;--red-light:#fff0f0;
+  --purple:#7b1fa2;--purple-light:#f3e5f5;--purple-mid:#ce93d8;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;
+  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:#fff;font-size:14px;line-height:1.6}
+a{color:var(--green);text-decoration:none}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray-2);padding:0 32px;display:flex;align-items:center;gap:0;overflow-x:auto}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:15px;color:var(--green-dark);font-weight:400;padding:14px 0;margin-right:24px;white-space:nowrap;flex-shrink:0}
+.nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:14px 14px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0}
+.nav a:hover{color:var(--black)}
+.nav a.active{color:var(--green-dark);border-bottom-color:var(--green)}
+
+/* LAYOUT */
+.page{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+
+/* HERO */
+.hero{margin-bottom:48px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--purple-light);color:var(--purple);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--purple)}
+h1{font-family:'DM Serif Display',serif;font-size:42px;line-height:1.15;color:var(--black);margin-bottom:12px}
+.hero-sub{font-size:16px;color:var(--gray-5);max-width:600px;margin-bottom:28px;line-height:1.7}
+.hero-meta{display:flex;gap:8px;flex-wrap:wrap}
+.meta-pill{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--gray-3);color:var(--gray-5)}
+
+/* SECTION */
+.section{margin-bottom:56px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--black);margin-bottom:8px}
+h3{font-size:15px;font-weight:600;color:var(--black);margin-bottom:8px}
+p{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:10px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.stat-card{background:var(--gray-1);border-radius:var(--radius-lg);padding:16px 18px}
+.stat-label{font-size:11px;color:var(--gray-4);font-weight:500;margin-bottom:4px}
+.stat-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black)}
+.stat-sub{font-size:11px;color:var(--gray-4);margin-top:2px}
+
+/* PHASE BLOCK */
+.phase-block{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px}
+.phase-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--gray-2)}
+.phase-header.p1{background:var(--purple-light)}
+.phase-header.p2{background:var(--blue-light)}
+.phase-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.phase-num.p1{background:var(--purple);color:#fff}
+.phase-num.p2{background:var(--blue);color:#fff}
+.phase-title{font-size:14px;font-weight:600;color:var(--black)}
+.phase-desc{font-size:12px;color:var(--gray-5);margin-left:auto}
+
+/* FEATURE TABLE */
+.ftable{width:100%;border-collapse:collapse}
+.ftable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 16px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.ftable td{font-size:13px;padding:12px 16px;border-bottom:1px solid var(--gray-2);vertical-align:top}
+.ftable tr:last-child td{border-bottom:none}
+.ftable tr:hover td{background:var(--gray-1)}
+.feat-name{font-weight:600;color:var(--black);display:block;margin-bottom:2px}
+.feat-sub{font-size:12px;color:var(--gray-4)}
+.surface-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin:1px 2px 1px 0}
+.sp-pdp{background:#e8f1fc;color:#1a6fd4}
+.sp-cat{background:#fef8e6;color:#7a5a00}
+.sp-sns{background:var(--purple-light);color:var(--purple)}
+
+/* SIZE BADGE */
+.sz{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;width:30px;height:22px;border-radius:4px}
+.sz-s{background:var(--green-light);color:var(--green-dark)}
+.sz-m{background:var(--amber-light);color:var(--amber)}
+.sz-l{background:var(--red-light);color:var(--red)}
+.sz-xl{background:var(--purple-light);color:var(--purple)}
+
+/* AC LIST */
+.ac-list{list-style:none;padding:0;margin:0}
+.ac-item{display:flex;gap:10px;font-size:13px;color:var(--black);padding:9px 0;border-bottom:1px solid var(--gray-2);line-height:1.5}
+.ac-item:last-child{border-bottom:none}
+.ac-check{width:16px;height:16px;border:1.5px solid var(--gray-3);border-radius:4px;flex-shrink:0;margin-top:2px}
+
+/* DECISION CARDS */
+.decision-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px}
+.decision-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.decision-title{font-size:13px;font-weight:600;color:var(--black)}
+.open-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:#fef8e6;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;border:1px solid #f5c842}
+.locked-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-light);color:var(--green-dark);text-transform:uppercase;letter-spacing:.06em}
+.decision-body{padding:12px 16px;font-size:13px;color:var(--gray-5);line-height:1.6}
+
+/* OPTION GRID */
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.option-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px}
+.option-card.recommended{border-color:var(--blue);border-width:2px}
+.option-title{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--black)}
+.option-pro{font-size:12px;color:var(--green-dark);margin-bottom:3px;padding-left:14px;position:relative}
+.option-pro::before{content:"+";position:absolute;left:0;font-weight:700;color:var(--green)}
+.option-con{font-size:12px;color:var(--red);margin-bottom:3px;padding-left:14px;position:relative}
+.option-con::before{content:"−";position:absolute;left:0;font-weight:700}
+
+/* CONSTRAINT TABLE */
+.ctable{width:100%;border-collapse:collapse}
+.ctable td{font-size:13px;padding:10px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6}
+.ctable tr:last-child td{border-bottom:none}
+.ctag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.ctag-tech{background:var(--blue-light);color:var(--blue)}
+.ctag-biz{background:var(--green-light);color:var(--green-dark)}
+.ctag-ux{background:var(--amber-light);color:var(--amber)}
+
+/* METRICS TABLE */
+.mtable{width:100%;border-collapse:collapse}
+.mtable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.mtable td{font-size:12px;padding:11px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6;color:var(--black)}
+.mtable tr:last-child td{border-bottom:none}
+.mtable tr:hover td{background:var(--gray-1)}
+.phase-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.pt1{background:var(--purple-light);color:var(--purple)}
+.pt2{background:var(--blue-light);color:var(--blue)}
+
+/* EFFORT SUMMARY */
+.effort-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.effort-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden}
+.effort-card-header{padding:12px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:center;gap:10px}
+.effort-card-header.p1{background:var(--purple-light)}
+.effort-card-header.p2{background:var(--blue-light)}
+.effort-table{width:100%;border-collapse:collapse}
+.effort-table td{font-size:12px;padding:9px 12px;border-bottom:1px solid var(--gray-2);vertical-align:middle}
+.effort-table tr:last-child td{border-bottom:none;background:var(--gray-1);font-weight:600}
+.effort-table td:first-child{color:var(--black);font-weight:500}
+
+/* KEY LEVER */
+.key-lever{background:var(--amber-light);border-left:4px solid var(--amber-mid);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:14px 18px;margin:16px 0}
+.key-lever-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:4px}
+.key-lever p{color:var(--black);font-size:13px;margin:0}
+
+/* NOTE BOX */
+.note{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--black);line-height:1.6}
+
+/* OOS */
+.oos-list{display:flex;flex-wrap:wrap;gap:8px}
+.oos-pill{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* EFFORT CELLS */
+.effort-cells{display:flex;gap:4px;align-items:center}
+.sz-na{background:var(--gray-1);color:var(--gray-4)}
+
+@media print{.nav{display:none}.page{padding:20px}}
+@media(max-width:640px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .option-grid{grid-template-columns:1fr}
+  .effort-summary{grid-template-columns:1fr}
+  h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Pet Heaven · S&amp;S PDP</div>
+  <a href="#overview" class="active">Overview</a>
+  <a href="#problem">Problem</a>
+  <a href="#features">Features</a>
+  <a href="#acceptance">Acceptance</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#constraints">Constraints</a>
+  <a href="#metrics">Metrics</a>
+  <a href="#effort">Effort</a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero" id="overview">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Product initiative · Pet Heaven · petheaven.co.za</div>
+    <h1>Differentiate Schedule &amp; Save<br>from Add to Cart on PDP</h1>
+    <p class="hero-sub">A focused PDP enhancement to surface the value of scheduled delivery subscriptions — using visual differentiation, contextual pricing, and a promo banner — to lift Subscribe &amp; Save adoption and grow recurring revenue.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">Platform: Magento</span>
+      <span class="meta-pill">Surface: Product Detail Page</span>
+      <span class="meta-pill">Delivery: Single phase</span>
+      <span class="meta-pill">Version 1.0</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section" id="problem">
+    <div class="section-label">Problem statement</div>
+    <p>Pet Heaven's Schedule &amp; Save programme offers customers meaningful savings on recurring orders — yet the PDP presents both purchase options (one-time Add to Cart and scheduled subscription) with near-identical visual weight. Customers scanning the page at speed have no clear signal that subscribing saves them money, and no friction-free path to understand the difference.</p>
+    <p>The result is that many customers who would gladly commit to a monthly bag of dog food — the highest-value, highest-retention segment — default to a one-time purchase because the value proposition of S&amp;S was never surfaced at the decision moment. Once a customer has checked out as a one-time buyer, the window to convert them to a subscriber closes.</p>
+    <p>For repeat-purchase categories like pet food (where the same 25kg bag of Montego is repurchased every 6–8 weeks), a well-communicated S&amp;S offer is a conversion lever, a retention tool, and a logistics planning asset. The PDP is the last high-intent screen before checkout — and currently it does almost no work to sell the subscription.</p>
+
+    <div class="stat-grid" style="margin-top:24px">
+      <div class="stat-card">
+        <div class="stat-label">Visual distinction between S&S and ATC</div>
+        <div class="stat-val">Low</div>
+        <div class="stat-sub">Both options have equivalent visual hierarchy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">S&S savings shown on PDP</div>
+        <div class="stat-val">None</div>
+        <div class="stat-sub">Price difference is not surfaced at the point of decision</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Promo code discoverability</div>
+        <div class="stat-val">Zero</div>
+        <div class="stat-sub">S&S promotional codes are not visible on the PDP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section" id="features">
+    <div class="section-label">Feature set</div>
+    <div class="phase-block">
+      <div class="phase-header p1">
+        <div class="phase-num p1">1</div>
+        <div>
+          <div class="phase-title">Phase 1 — PDP S&amp;S differentiation</div>
+        </div>
+        <div class="phase-desc">All features ship together · Single Magento PDP template change</div>
+      </div>
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:28%"># Feature</th>
+            <th style="width:18%">Surface</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Overall effort</th>
+            <th style="width:30%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="feat-name">1.1 — S&amp;S option visual tint</span>
+              <span class="feat-sub">Selected S&amp;S radio has distinct background colour and border</span>
+            </td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Radio button states are already present; a CSS override on the active S&amp;S option costs near zero and anchors the subscription option visually</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.2 — S&amp;S pricing callout</span>
+              <span class="feat-sub">Strikethrough RRP + highlighted S&amp;S price + savings amount inline</span>
+            </td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Price difference is the strongest reason to subscribe. Surfacing it inline (was R400 → R310, save R90) removes the need for customers to calculate value themselves</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.3 — S&amp;S promo banner</span>
+              <span class="feat-sub">Contextual promo strip in info column — code, price, 1st-order qualifier</span>
+            </td>
+            <td><span class="surface-pill sp-pdp">PDP</span><span class="surface-pill sp-sns">S&amp;S</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Inline banner surfaces active promotional codes (e.g. SSMONTEGO) with a one-click copy-to-clipboard action, reducing checkout abandonment from code lookup friction</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.4 — Clickable promo code copy</span>
+              <span class="feat-sub">Tap code → copied to clipboard with visual confirmation</span>
+            </td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Reduces the mental overhead of remembering a promo code between PDP and cart. The confirmation state (green "Copied!") builds trust that the code has been captured</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.5 — Distinct S&amp;S CTA button</span>
+              <span class="feat-sub">Separate "Subscribe &amp; Save" button state distinct from "Add to Cart"</span>
+            </td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">The CTA is the final conversion action; labelling it specifically for S&S reinforces the chosen purchase type and reduces post-checkout confusion about what was ordered</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACCEPTANCE CRITERIA -->
+  <div class="section" id="acceptance">
+    <div class="section-label">Acceptance criteria</div>
+
+    <h3 style="margin-bottom:12px">1.1 — S&amp;S option visual tint</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>When the S&amp;S option is selected, the radio container receives a distinct background colour (brand-aligned, not default grey)</li>
+      <li class="ac-item"><span class="ac-check"></span>When the one-time option is selected, the S&amp;S container returns to its unselected state with no tint</li>
+      <li class="ac-item"><span class="ac-check"></span>The tint passes WCAG AA contrast against the label text inside the container</li>
+      <li class="ac-item"><span class="ac-check"></span>Tint renders correctly on mobile viewport (&lt;768px) without overflow or clipping</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.2 — S&amp;S pricing callout</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>The regular price is shown with a strikethrough decoration when S&amp;S option is active</li>
+      <li class="ac-item"><span class="ac-check"></span>The S&amp;S price is displayed in a visually distinct treatment (larger, coloured, or bold) adjacent to the struck-through RRP</li>
+      <li class="ac-item"><span class="ac-check"></span>A savings amount or percentage is shown inline (e.g. "Save R90" or "22% off")</li>
+      <li class="ac-item"><span class="ac-check"></span>Pricing values are driven by the Magento product/rule data — not hardcoded in template</li>
+      <li class="ac-item"><span class="ac-check"></span>If no S&amp;S price differential exists for the product, the callout does not render</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.3 &amp; 1.4 — S&amp;S promo banner + copy</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>The promo banner renders in the PDP info column, below the product description</li>
+      <li class="ac-item"><span class="ac-check"></span>Banner contains: deal headline, original and S&amp;S price, promo code chip, first-order qualifier text</li>
+      <li class="ac-item"><span class="ac-check"></span>Tapping/clicking the promo code chip copies the code string to the clipboard using the Clipboard API</li>
+      <li class="ac-item"><span class="ac-check"></span>A visual confirmation state (e.g. green "Copied!" label) appears for 2 seconds then resets</li>
+      <li class="ac-item"><span class="ac-check"></span>Banner only renders when a valid promo code is configured for the product — CMS-driven flag, not hardcoded</li>
+      <li class="ac-item"><span class="ac-check"></span>Banner is responsive and does not overflow on 320px viewport</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.5 — Distinct S&amp;S CTA</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>When S&amp;S option is selected, the primary CTA reads "Subscribe &amp; Save" (not "Add to Cart")</li>
+      <li class="ac-item"><span class="ac-check"></span>When one-time purchase is selected, the CTA reads "Add to Cart"</li>
+      <li class="ac-item"><span class="ac-check"></span>The CTA label change is driven by the selected radio state — no page reload required</li>
+      <li class="ac-item"><span class="ac-check"></span>The correct cart action fires based on the selected option regardless of label state</li>
+    </ul>
+  </div>
+
+  <!-- DECISIONS -->
+  <div class="section" id="decisions">
+    <div class="section-label">Key decisions</div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">Promo code delivery method — CMS vs hardcoded</span>
+        <span class="open-badge">Open</span>
+      </div>
+      <div class="decision-body">
+        <p>Whether promotional codes shown on the PDP banner are managed via a Magento CMS block (flexible, content-team controlled) or baked into the template per product (faster to build, harder to maintain). The CMS block route requires a small block-lookup pattern in the template; the hardcoded route creates future tech debt.</p>
+        <div class="option-grid">
+          <div class="option-card recommended">
+            <div class="option-title">Option A — CMS block per SKU (recommended)</div>
+            <div class="option-pro">Content team can update codes without dev involvement</div>
+            <div class="option-pro">Banner disappears automatically when block is unpublished</div>
+            <div class="option-pro">Supports multiple products with different codes</div>
+            <div class="option-con">Requires CMS block naming convention to be established</div>
+            <div class="option-con">Small additional template logic (~10 lines)</div>
+          </div>
+          <div class="option-card">
+            <div class="option-title">Option B — Product attribute</div>
+            <div class="option-pro">All data in one place (product record)</div>
+            <div class="option-pro">Easy to query and render via standard Magento attribute pattern</div>
+            <div class="option-con">Content team must access product admin to update</div>
+            <div class="option-con">Banner logic coupled to product record rather than campaign layer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">S&S radio visual treatment — CSS only vs component rebuild</span>
+        <span class="locked-badge">Locked</span>
+      </div>
+      <div class="decision-body">
+        <p>The S&amp;S tint and border state will be implemented via CSS class-toggle on the selected radio container. No rebuild of the option selector component is required. This minimises risk to the existing add-to-cart flow and keeps the change isolated to a stylesheet addition.</p>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">Clipboard copy — Clipboard API with fallback</span>
+        <span class="locked-badge">Locked</span>
+      </div>
+      <div class="decision-body">
+        <p>The promo code copy action uses <code>navigator.clipboard.writeText()</code>. This API requires HTTPS (satisfied by petheaven.co.za) and is supported in all modern browsers. No Flash or legacy execCommand fallback is required given the SA ecommerce browser profile. A silent failure on unsupported browsers (no confirmation state appears) is acceptable given negligible exposure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSTRAINTS -->
+  <div class="section" id="constraints">
+    <div class="section-label">Constraints &amp; dependencies</div>
+    <table class="ctable">
+      <tbody>
+        <tr>
+          <td style="width:100px"><span class="ctag ctag-tech">Tech</span></td>
+          <td>Clipboard API requires <strong>HTTPS</strong>. All production Pet Heaven pages are served over HTTPS — no blocker. Local development environments may require localhost exception or manual test via staging.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-biz">Business</span></td>
+          <td>The first-order promotional code (e.g. SSMONTEGO) must be <strong>created and configured</strong> in Magento's shopping cart price rules before the banner ships. Banner without a live code creates customer expectation that cannot be fulfilled.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-biz">Business</span></td>
+          <td>The qualifier "1st scheduled order only" must be <strong>legally reviewed</strong> if used as a promotional term on-page. Marketing/legal sign-off required before copy is finalised.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-tech">Tech</span></td>
+          <td>S&amp;S pricing data (the discounted recurring price) must be <strong>exposed as a product attribute or price rule</strong> in Magento. If S&amp;S pricing is handled outside Magento (e.g. a third-party subscription platform), an API lookup or attribute sync will be needed to render the correct savings figure inline.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-ux">UX</span></td>
+          <td>The PDP info column layout must be <strong>audited for spacing</strong> before the banner is inserted. On products with long variant selectors or extensive descriptions, the banner position may need to be adjusted to remain above the fold on mobile.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- METRICS -->
+  <div class="section" id="metrics">
+    <div class="section-label">Success metrics</div>
+    <table class="mtable">
+      <thead>
+        <tr>
+          <th style="width:25%">Metric</th>
+          <th style="width:20%">Measurement</th>
+          <th style="width:20%">Baseline</th>
+          <th style="width:35%">Target / notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>S&amp;S option selection rate</strong><br><span style="font-size:11px;color:var(--gray-4)">Phase 1 primary</span></td>
+          <td>% of PDP sessions where S&amp;S radio is selected at Add-to-Cart event</td>
+          <td>Establish at launch (currently unmeasured)</td>
+          <td>+15–25% relative increase over 60 days post-launch</td>
+        </tr>
+        <tr>
+          <td><strong>S&amp;S conversion rate</strong></td>
+          <td>% of PDP sessions resulting in a scheduled order being created</td>
+          <td>Establish at launch</td>
+          <td>Directional improvement; compare cohort before/after</td>
+        </tr>
+        <tr>
+          <td><strong>Promo code copy events</strong></td>
+          <td>Click events on the SSMONTEGO code chip (GA event or Magento event)</td>
+          <td>0 (feature does not exist)</td>
+          <td>Track as engagement proxy; correlate with S&amp;S checkout completions where code is applied</td>
+        </tr>
+        <tr>
+          <td><strong>S&amp;S promo code redemption</strong></td>
+          <td>Number of orders where SSMONTEGO is applied at checkout</td>
+          <td>0 before launch</td>
+          <td>Attribution of banner lift; target meaningful adoption within first 30 days</td>
+        </tr>
+        <tr>
+          <td><strong>One-time vs subscription split</strong></td>
+          <td>Ratio of ATC vs S&amp;S orders on eligible products</td>
+          <td>Establish at launch</td>
+          <td>Shift in ratio toward S&amp;S is the north-star outcome</td>
+        </tr>
+        <tr>
+          <td><strong>Subscriber 90-day retention</strong></td>
+          <td>% of S&amp;S first orders that result in a second scheduled order</td>
+          <td>Establish baseline from current S&amp;S cohort</td>
+          <td>Not impacted directly by PDP change, but serves as health metric for subscription quality</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EFFORT -->
+  <div class="section" id="effort">
+    <div class="section-label">Development effort estimate</div>
+    <p>All features are PDP-template-scoped. No new data models, no new API endpoints, no backend service changes. Effort is concentrated in frontend (template + CSS) with a small backend task to expose S&amp;S pricing as a renderable attribute.</p>
+
+    <div class="key-lever">
+      <div class="key-lever-label">Key lever</div>
+      <p>If S&amp;S pricing is managed natively in Magento's price rule layer, backend effort drops to near-zero. If a third-party subscription engine (e.g. Recharge, Bold) manages pricing, a sync mechanism must be added — this adds 3–5 days backend effort.</p>
+    </div>
+
+    <div class="effort-summary">
+      <div class="effort-card">
+        <div class="effort-card-header p1">
+          <div class="phase-num p1" style="width:22px;height:22px;font-size:11px">1</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">Phase 1 — Full feature set</div>
+            <div style="font-size:11px;color:var(--gray-5)">All 5 features</div>
+          </div>
+        </div>
+        <table class="effort-table">
+          <tr>
+            <td>Frontend (template + CSS)</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">3–4 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Backend (attribute / CMS)</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-s">S</span>
+                <span style="font-size:12px;color:var(--gray-5)">1–2 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>QA &amp; cross-browser</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-s">S</span>
+                <span style="font-size:12px;color:var(--gray-5)">1 day</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Total estimate</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">5–7 days</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="effort-card">
+        <div class="effort-card-header p2">
+          <div class="phase-num p2" style="width:22px;height:22px;font-size:11px">2</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">Future — Third-party S&amp;S integration</div>
+            <div style="font-size:11px;color:var(--gray-5)">If pricing managed externally</div>
+          </div>
+        </div>
+        <table class="effort-table">
+          <tr>
+            <td>API / sync mechanism</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">3–5 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Frontend data binding</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">1–2 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Integration QA</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">1–2 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Additional estimate</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">+5–9 days</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px">
+      The <strong>prototype</strong> for this initiative is live at <a href="../sub-cart-split/" target="_blank">petheaven-prototype/sub-cart-split/</a> — demonstrates visual tint, pricing callout, promo banner, and clipboard copy in a functional HTML/CSS mockup against a real product layout.
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="section-label">Out of scope — this initiative</div>
+      <div class="oos-list">
+        <span class="oos-pill">Subscription management portal</span>
+        <span class="oos-pill">Cancel / pause / skip flows</span>
+        <span class="oos-pill">Email re-engagement for lapsed subscribers</span>
+        <span class="oos-pill">S&S on category listing pages</span>
+        <span class="oos-pill">Account page S&S history</span>
+        <span class="oos-pill">Bulk / trade pricing</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Heaven — Ratings & Reviews Initiative Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
+  --blue:#1a6fd4;--blue-light:#e8f1fc;
+  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
+  --red:#a00000;--red-light:#fff0f0;
+  --purple:#5b21b6;--purple-light:#f0e8fe;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;
+  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:#fff;font-size:14px;line-height:1.6}
+a{color:var(--green);text-decoration:none}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray-2);padding:0 32px;display:flex;align-items:center;gap:0;overflow-x:auto}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:15px;color:var(--green-dark);font-weight:400;padding:14px 0;margin-right:24px;white-space:nowrap;flex-shrink:0}
+.nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:14px 14px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0}
+.nav a:hover{color:var(--black)}
+.nav a.active{color:var(--green-dark);border-bottom-color:var(--green)}
+
+/* LAYOUT */
+.page{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+
+/* HERO */
+.hero{margin-bottom:48px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+h1{font-family:'DM Serif Display',serif;font-size:42px;line-height:1.15;color:var(--black);margin-bottom:12px}
+.hero-sub{font-size:16px;color:var(--gray-5);max-width:600px;margin-bottom:28px;line-height:1.7}
+.hero-meta{display:flex;gap:8px;flex-wrap:wrap}
+.meta-pill{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--gray-3);color:var(--gray-5)}
+
+/* SECTION */
+.section{margin-bottom:56px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--black);margin-bottom:8px}
+h3{font-size:15px;font-weight:600;color:var(--black);margin-bottom:8px}
+p{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:10px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.stat-card{background:var(--gray-1);border-radius:var(--radius-lg);padding:16px 18px}
+.stat-label{font-size:11px;color:var(--gray-4);font-weight:500;margin-bottom:4px}
+.stat-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black)}
+.stat-sub{font-size:11px;color:var(--gray-4);margin-top:2px}
+
+/* PHASE BLOCK */
+.phase-block{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px}
+.phase-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--gray-2)}
+.phase-header.p1{background:var(--green-light)}
+.phase-header.p2{background:var(--blue-light)}
+.phase-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.phase-num.p1{background:var(--green);color:#fff}
+.phase-num.p2{background:var(--blue);color:#fff}
+.phase-title{font-size:14px;font-weight:600;color:var(--black)}
+.phase-desc{font-size:12px;color:var(--gray-5);margin-left:auto}
+
+/* FEATURE TABLE */
+.ftable{width:100%;border-collapse:collapse}
+.ftable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 16px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.ftable td{font-size:13px;padding:12px 16px;border-bottom:1px solid var(--gray-2);vertical-align:top}
+.ftable tr:last-child td{border-bottom:none}
+.ftable tr:hover td{background:var(--gray-1)}
+.feat-name{font-weight:600;color:var(--black);display:block;margin-bottom:2px}
+.feat-sub{font-size:12px;color:var(--gray-4)}
+.surface-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin:1px 2px 1px 0}
+.sp-pdp{background:#e8f1fc;color:#1a6fd4}
+.sp-cat{background:#fef8e6;color:#7a5a00}
+.sp-email{background:var(--green-light);color:var(--green-dark)}
+
+/* SIZE BADGE */
+.sz{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;width:30px;height:22px;border-radius:4px}
+.sz-s{background:var(--green-light);color:var(--green-dark)}
+.sz-m{background:var(--amber-light);color:var(--amber)}
+.sz-l{background:var(--red-light);color:var(--red)}
+.sz-xl{background:var(--purple-light);color:var(--purple)}
+.sz-na{background:var(--gray-1);color:var(--gray-4)}
+
+/* EFFORT MATRIX */
+.effort-grid{display:flex;gap:6px;align-items:center}
+
+/* AC LIST */
+.ac-list{list-style:none;padding:0;margin:0}
+.ac-item{display:flex;gap:10px;font-size:13px;color:var(--black);padding:9px 0;border-bottom:1px solid var(--gray-2);line-height:1.5}
+.ac-item:last-child{border-bottom:none}
+.ac-check{width:16px;height:16px;border:1.5px solid var(--gray-3);border-radius:4px;flex-shrink:0;margin-top:2px}
+.ac-check.done{background:var(--green);border-color:var(--green);display:flex;align-items:center;justify-content:center}
+
+/* DECISION CARDS */
+.decision-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px}
+.decision-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.decision-title{font-size:13px;font-weight:600;color:var(--black)}
+.open-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:#fef8e6;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;border:1px solid #f5c842}
+.locked-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-light);color:var(--green-dark);text-transform:uppercase;letter-spacing:.06em}
+.decision-body{padding:12px 16px;font-size:13px;color:var(--gray-5);line-height:1.6}
+
+/* OPTION GRID */
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.option-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px}
+.option-card.recommended{border-color:var(--blue);border-width:2px}
+.option-title{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--black)}
+.option-pro{font-size:12px;color:var(--green-dark);margin-bottom:3px;padding-left:14px;position:relative}
+.option-pro::before{content:"+";position:absolute;left:0;font-weight:700;color:var(--green)}
+.option-con{font-size:12px;color:var(--red);margin-bottom:3px;padding-left:14px;position:relative}
+.option-con::before{content:"−";position:absolute;left:0;font-weight:700}
+
+/* CONSTRAINT TABLE */
+.ctable{width:100%;border-collapse:collapse}
+.ctable td{font-size:13px;padding:10px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6}
+.ctable tr:last-child td{border-bottom:none}
+.ctag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.ctag-tech{background:var(--blue-light);color:var(--blue)}
+.ctag-biz{background:var(--green-light);color:var(--green-dark)}
+.ctag-ux{background:var(--amber-light);color:var(--amber)}
+
+/* METRICS TABLE */
+.mtable{width:100%;border-collapse:collapse}
+.mtable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.mtable td{font-size:12px;padding:11px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6;color:var(--black)}
+.mtable tr:last-child td{border-bottom:none}
+.mtable tr:hover td{background:var(--gray-1)}
+.measure-item{margin-bottom:6px;padding-left:12px;position:relative;color:var(--gray-5)}
+.measure-item::before{content:"→";position:absolute;left:0;color:var(--gray-4);font-size:11px}
+.phase-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.pt1{background:var(--green-light);color:var(--green-dark)}
+.pt2{background:var(--blue-light);color:var(--blue)}
+
+/* STATE MACHINE */
+.state-grid{display:grid;gap:8px}
+.state-row{display:grid;grid-template-columns:2fr 1.5fr 1.2fr 2.5fr;gap:0;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;font-size:12px}
+.state-row.header{background:var(--black);border-color:var(--black)}
+.state-row.header div{color:#fff;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.state-row div{padding:10px 12px;border-right:1px solid var(--gray-2);line-height:1.5}
+.state-row div:last-child{border-right:none}
+.state-verified{background:var(--green-light);color:var(--green-dark);font-weight:600}
+.state-unverified{background:var(--red-light);color:var(--red);font-weight:600}
+.state-neutral{color:var(--gray-5)}
+.state-action{color:var(--gray-5);font-size:11px}
+
+/* EFFORT SUMMARY */
+.effort-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.effort-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden}
+.effort-card-header{padding:12px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:center;gap:10px}
+.effort-card-header.p1{background:var(--green-light)}
+.effort-card-header.p2{background:var(--blue-light)}
+.effort-table{width:100%;border-collapse:collapse}
+.effort-table td{font-size:12px;padding:9px 12px;border-bottom:1px solid var(--gray-2);vertical-align:middle}
+.effort-table tr:last-child td{border-bottom:none;background:var(--gray-1);font-weight:600}
+.effort-table td:first-child{color:var(--black);font-weight:500}
+.effort-cells{display:flex;gap:4px;align-items:center}
+
+/* KEY LEVER */
+.key-lever{background:var(--amber-light);border-left:4px solid var(--amber-mid);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:14px 18px;margin:16px 0}
+.key-lever-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:4px}
+.key-lever p{color:var(--black);font-size:13px;margin:0}
+
+/* LEGEND */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 20px;padding:12px 16px;background:var(--gray-1);border-radius:var(--radius-lg)}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-5)}
+
+/* NOTE BOX */
+.note{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--black);line-height:1.6}
+
+/* OUT OF SCOPE */
+.oos-list{display:flex;flex-wrap:wrap;gap:8px}
+.oos-pill{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* PRINT */
+@media print{.nav{display:none}.page{padding:20px}}
+@media(max-width:640px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .option-grid{grid-template-columns:1fr}
+  .effort-summary{grid-template-columns:1fr}
+  .state-row{grid-template-columns:1fr 1fr}
+  h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Pet Heaven R&R</div>
+  <a href="#overview" class="active">Overview</a>
+  <a href="#summary">Summary</a>
+  <a href="#phase1">Phase 1</a>
+  <a href="#phase2">Phase 2</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#constraints">Constraints</a>
+  <a href="#metrics">Metrics</a>
+  <a href="#effort">Effort</a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero" id="overview">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Product initiative · Pet Heaven · petheaven.co.za</div>
+    <h1>Ratings & Reviews Enhancement</h1>
+    <p class="hero-sub">A two-phase initiative to build purchase trust, increase conversion, and differentiate Pet Heaven in the SA ecommerce market through improved review visibility, verified purchase signals, and intelligent review surfacing.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">Platform: Magento</span>
+      <span class="meta-pill">Delivery: 2 phases</span>
+      <span class="meta-pill">Moderation: Manual pre-publish</span>
+      <span class="meta-pill">Guest reviews: Not allowed</span>
+      <span class="meta-pill">Version 2.1 — All decisions locked except verified reviews path</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-label">Problem statement</div>
+    <p>Reviews on petheaven.co.za are functional but underperforming as trust and conversion tools. The reviews tab sits third in the page navigation hierarchy — below the fold and behind two clicks — meaning the majority of customers never encounter review content during their purchase decision.</p>
+    <p>There is no mechanism to surface review quality, no purchase verification, and no review collection pipeline. The review corpus grows slowly, lacks credibility signals, and is architecturally invisible at the moments it matter most.</p>
+    <p>Pet food and pet care purchases are high-consideration, repeat-purchase categories. Customers actively seek peer validation before committing. Competitors in the SA ecommerce space have not raised the bar here — Pet Heaven has an opportunity to lead.</p>
+
+    <div class="stat-grid" style="margin-top:24px">
+      <div class="stat-card">
+        <div class="stat-label">Current reviews visible above fold</div>
+        <div class="stat-val">0</div>
+        <div class="stat-sub">All content buried behind tab click</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Review collection mechanism</div>
+        <div class="stat-val">None</div>
+        <div class="stat-sub">No post-purchase email in place</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Purchase verification</div>
+        <div class="stat-val">None</div>
+        <div class="stat-sub">All reviews treated equally regardless of purchase</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENT SUMMARY -->
+  <div class="section" id="summary">
+    <div class="section-label">What this document covers</div>
+    <h2 style="margin-bottom:16px">Document summary</h2>
+    <p style="margin-bottom:20px">This brief covers the full end-to-end product specification for the Pet Heaven Ratings & Reviews initiative — from the business case through to delivery phasing, design, development effort, and success measurement. Use the navigation bar to jump between sections.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green-dark);margin-bottom:6px">Problem statement</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Why this work exists. Current state of reviews on petheaven.co.za and the opportunity it represents.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green-dark);margin-bottom:6px">Phase 1 — Surface & collect</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Three features that work with existing data: star ratings on listings, above-fold PDP snippets, and post-purchase review email. Feature tables, acceptance criteria included.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue);margin-bottom:6px">Phase 2 — Trust depth</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Three features requiring a new data model: verified reviews (incl. full lifecycle state machine), mark as useful, and relevance sort with customer filters. Full acceptance criteria included.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:6px">Key decisions</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">All product decisions locked in one place — plus the one open decision: native Magento vs third-party platform for verified reviews, with a full option comparison.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:6px">Constraints & dependencies</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Technical, business, and UX blockers that must be resolved before each phase can begin — including CRM, ops, and dev team actions required.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:6px">Success metrics</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Seven metrics with pre and post-implementation measurement methods and suggested targets — covering submission rate, conversion uplift, engagement, and health metrics.</div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px;background:#fff;grid-column:1/-1">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:6px">Development effort estimate</div>
+        <div style="font-size:13px;color:var(--gray-5);line-height:1.6">Impact vs effort matrix plotting all six features across quadrants, individual impact and effort bars per feature, and a full layer-by-layer effort table (Frontend / Backend / Database) with T-shirt sizing for an in-house Magento team. Key lever: the native vs third-party decision drops Phase 2 verified reviews effort from XL to M.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section" id="phase1">
+    <div class="section-label">Feature set</div>
+    <div class="phase-block">
+      <div class="phase-header p1">
+        <div class="phase-num p1">1</div>
+        <div>
+          <div class="phase-title">Phase 1 — Surface & collect</div>
+        </div>
+        <div class="phase-desc">Works with existing data · No new data model required · Ships first</div>
+      </div>
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:28%">#&nbsp; Feature</th>
+            <th style="width:18%">Surface</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Overall effort</th>
+            <th style="width:30%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="feat-name">1. Star ratings on listing & search pages</span><span class="feat-sub">Display existing rating data on product cards</span></td>
+            <td><span class="surface-pill sp-cat">Category</span><span class="surface-pill sp-cat">Search</span></td>
+            <td>Low</td>
+            <td><span class="sz sz-s">S</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Highest-visibility change. Zero new data. Influences decision before customer reaches PDP.</td>
+          </tr>
+          <tr>
+            <td><span class="feat-name">2. Review snippet above the fold — PDP</span><span class="feat-sub">Most helpful + most recent · admin-toggled independently · configurable threshold</span></td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td>Low–Med</td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Removes the tab-click barrier. Both snippet types toggled independently. Minimum review count configurable in admin.</td>
+          </tr>
+          <tr>
+            <td><span class="feat-name">3. Post-purchase review request email</span><span class="feat-sub">RFM-segmented · 5–7 days post-complete · one email per order</span></td>
+            <td><span class="surface-pill sp-email">Email</span></td>
+            <td>Low–Med</td>
+            <td><span class="sz sz-l">L</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Prerequisite for Phase 2 volume. Leverages existing RFM model. Magento order hooks available natively.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- P1 AC -->
+    <h3 style="margin-top:24px;margin-bottom:12px">Phase 1 — Acceptance criteria</h3>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 1 — Star ratings on listing & search</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Star rating (1–5) and review count display on product card for all products with at least 1 approved review</li>
+        <li class="ac-item"><div class="ac-check"></div>No rating element renders for products with zero approved reviews — no empty state shown</li>
+        <li class="ac-item"><div class="ac-check"></div>Renders correctly on both category listing and search results pages</li>
+        <li class="ac-item"><div class="ac-check"></div>Rounding logic is consistent with PDP star display</li>
+        <li class="ac-item"><div class="ac-check"></div>Renders correctly on mobile and desktop viewports</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 2 — Above-fold review snippet</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Highest-rated snippet surfaces the approved review with the highest star rating; ties broken by most recent</li>
+        <li class="ac-item"><div class="ac-check"></div>Most recent snippet surfaces the most recently approved review</li>
+        <li class="ac-item"><div class="ac-check"></div>Both snippets can be enabled/disabled independently in Magento admin config</li>
+        <li class="ac-item"><div class="ac-check"></div>Minimum review count threshold is configurable in admin; section hidden below threshold</li>
+        <li class="ac-item"><div class="ac-check"></div>Snippet body truncates at 2 lines with inline "Read more" expand — no page navigation required</li>
+        <li class="ac-item"><div class="ac-check"></div>Snippets appear above the Description / Additional Info / Shipping tab bar</li>
+        <li class="ac-item"><div class="ac-check"></div>Star rating / review count anchor scrolls to the reviews section</li>
+        <li class="ac-item"><div class="ac-check"></div>Verified badge displays on snippet if review is verified</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 3 — Post-purchase review email</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Email triggers automatically on order status "Complete" with 5–7 day configured delay</li>
+        <li class="ac-item"><div class="ac-check"></div>One email sent per order regardless of item count; lists all products with individual review CTAs</li>
+        <li class="ac-item"><div class="ac-check"></div>Email suppressed if customer has already reviewed all products in the order</li>
+        <li class="ac-item"><div class="ac-check"></div>Email suppressed for opted-out customers</li>
+        <li class="ac-item"><div class="ac-check"></div>RFM segment data passed correctly to email platform for personalisation</li>
+        <li class="ac-item"><div class="ac-check"></div>All three fields required at submission: star rating, review title, review body</li>
+        <li class="ac-item"><div class="ac-check"></div>Approval notification email sends when moderator approves a submitted review</li>
+        <li class="ac-item"><div class="ac-check"></div>Email renders correctly across Gmail, Outlook, Apple Mail</li>
+        <li class="ac-item"><div class="ac-check"></div>CTA links directly to PDP with review form in view; login prompt shown if session is inactive</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="section" id="phase2">
+    <div class="phase-block">
+      <div class="phase-header p2">
+        <div class="phase-num p2">2</div>
+        <div>
+          <div class="phase-title">Phase 2 — Trust depth</div>
+        </div>
+        <div class="phase-desc">Requires new data model · Sequenced on Phase 1 review volume</div>
+      </div>
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:28%">#&nbsp; Feature</th>
+            <th style="width:18%">Surface</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Overall effort</th>
+            <th style="width:30%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="feat-name">4. Verified reviews</span><span class="feat-sub">Purchase-matched badge · full lifecycle state machine · retroactive on launch</span></td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td>Medium</td>
+            <td><span class="sz sz-xl">XL</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Closes the authenticity gap. Two implementation paths evaluated. Dominant effort driver for Phase 2.</td>
+          </tr>
+          <tr>
+            <td><span class="feat-name">5. Mark as useful</span><span class="feat-sub">Logged-in only · one vote per review · toggleable · feeds relevance sort</span></td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td>Medium</td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Surfaces quality signal within review list. Value compounds as vote data accumulates.</td>
+          </tr>
+          <tr>
+            <td><span class="feat-name">6. Relevance sort + customer filters</span><span class="feat-sub">4-signal algorithm · admin-configurable weights · 4 individual customer filters</span></td>
+            <td><span class="surface-pill sp-pdp">PDP</span></td>
+            <td>Medium</td>
+            <td><span class="sz sz-l">L</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Custom default sort. Customer filters: star rating, verified only, most recent, most useful — individually exposed and combinable.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Verified reviews state machine -->
+    <h3 style="margin-top:24px;margin-bottom:6px">Verified reviews — lifecycle state machine</h3>
+    <p style="margin-bottom:14px">The verification logic is entirely backend. The submission form is identical for all customers regardless of order status. The verified badge appears or does not appear on the published review — that is the only customer-facing distinction.</p>
+
+    <div class="state-grid">
+      <div class="state-row header">
+        <div>Trigger</div><div>Order status</div><div>Badge state</div><div>System action</div>
+      </div>
+      <div class="state-row">
+        <div>Review submitted</div><div class="state-neutral">Processing</div><div class="state-unverified">Unverified</div><div class="state-action">Published post-moderation. System watches order for status change.</div>
+      </div>
+      <div class="state-row">
+        <div>Order moves to completed</div><div class="state-neutral">Completed</div><div class="state-verified">Verified</div><div class="state-action">Badge automatically applied. No customer action required.</div>
+      </div>
+      <div class="state-row">
+        <div>Review submitted</div><div class="state-neutral">Completed</div><div class="state-verified">Verified</div><div class="state-action">Badge applied at submission (post-moderation).</div>
+      </div>
+      <div class="state-row">
+        <div>Full refund on SKU</div><div class="state-neutral">Refunded</div><div class="state-unverified">Unverified</div><div class="state-action">Badge removed silently. Review stays published. No customer notification.</div>
+      </div>
+      <div class="state-row">
+        <div>Partial refund on SKU</div><div class="state-neutral">Partial refund</div><div class="state-verified">Verified</div><div class="state-action">Badge unchanged. Full refund required to trigger removal.</div>
+      </div>
+      <div class="state-row">
+        <div>Refund reversed</div><div class="state-neutral">Completed</div><div class="state-verified">Verified</div><div class="state-action">Badge automatically reinstated.</div>
+      </div>
+      <div class="state-row">
+        <div>Retroactive launch check</div><div class="state-neutral">Historical</div><div class="state-verified">Verified where matched</div><div class="state-action">All existing reviews re-checked against order history on feature launch.</div>
+      </div>
+    </div>
+
+    <!-- P2 AC -->
+    <h3 style="margin-top:24px;margin-bottom:12px">Phase 2 — Acceptance criteria</h3>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 4 — Verified reviews</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Review submission form is identical for all customers — no variation based on order status or verification eligibility</li>
+        <li class="ac-item"><div class="ac-check"></div>No messaging, prompt, or UI element during submission references verification status</li>
+        <li class="ac-item"><div class="ac-check"></div>Reviews submitted against a completed order are badged "Verified purchase" post-moderation</li>
+        <li class="ac-item"><div class="ac-check"></div>Reviews submitted while order is in processing are published unverified; badge applied automatically when order completes</li>
+        <li class="ac-item"><div class="ac-check"></div>Full refund on the reviewed SKU removes the verified badge; review remains published</li>
+        <li class="ac-item"><div class="ac-check"></div>Partial refund on SKU does not affect verified status</li>
+        <li class="ac-item"><div class="ac-check"></div>Refund reversal reinstates the verified badge automatically</li>
+        <li class="ac-item"><div class="ac-check"></div>Retroactive pass re-checks all existing reviews against order history on launch</li>
+        <li class="ac-item"><div class="ac-check"></div>Multiple reviews per customer per product are each independently assessed for verified status</li>
+        <li class="ac-item"><div class="ac-check"></div>Unverified reviews are not hidden — badge absence is the only distinction</li>
+        <li class="ac-item"><div class="ac-check"></div>Verified status is stored, queryable, and used as a signal in relevance sort</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 5 — Mark as useful</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Logged-in customers can mark any review as useful except their own</li>
+        <li class="ac-item"><div class="ac-check"></div>One vote per customer per review; vote can be toggled off</li>
+        <li class="ac-item"><div class="ac-check"></div>Useful count updates immediately on vote (optimistic UI)</li>
+        <li class="ac-item"><div class="ac-check"></div>Useful count stored and queryable as a relevance sort signal</li>
+        <li class="ac-item"><div class="ac-check"></div>Logged-out users see vote counts but cannot interact — clicking prompts login</li>
+        <li class="ac-item"><div class="ac-check"></div>Customers cannot vote on reviews they authored</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--gray-4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Feature 6 — Relevance sort & customer filters</div>
+      <ul class="ac-list">
+        <li class="ac-item"><div class="ac-check"></div>Default relevance sort applies on page load using four signals: star rating, usefulness count, verified status, recency (3-month decay)</li>
+        <li class="ac-item"><div class="ac-check"></div>All four signal weights configurable in Magento admin without code deploy</li>
+        <li class="ac-item"><div class="ac-check"></div>Recency applies a decay function boosting reviews created within the last 3 months</li>
+        <li class="ac-item"><div class="ac-check"></div>Customer filters — star rating, verified only, most recent, most useful — individually accessible and combinable</li>
+        <li class="ac-item"><div class="ac-check"></div>Filter state persists within session; cleared on new session</li>
+        <li class="ac-item"><div class="ac-check"></div>Sort degrades gracefully when verified or usefulness data is sparse — must not produce worse order than current default</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DECISIONS -->
+  <div class="section" id="decisions">
+    <div class="section-label">Key decisions</div>
+    <h2 style="margin-bottom:20px">Open & locked decisions</h2>
+
+    <div class="decision-card" style="border-color:#f5c842;border-width:2px">
+      <div class="decision-header">
+        <div class="decision-title">Verified reviews — implementation path</div>
+        <div class="open-badge">Open — must resolve before Phase 2 scoping</div>
+      </div>
+      <div class="decision-body">
+        <p style="margin-bottom:12px">Two options meet the functional requirements. The choice significantly impacts Phase 2 development effort.</p>
+        <div class="option-grid">
+          <div class="option-card">
+            <div class="option-title">Option A — Native Magento</div>
+            <div class="option-pro">No licensing cost</div>
+            <div class="option-pro">Fully within existing stack</div>
+            <div class="option-pro">Native order data matching</div>
+            <div class="option-con" style="margin-top:8px">No recognisable third-party badge</div>
+            <div class="option-con">Trust signal is self-asserted</div>
+            <div class="option-con">Verified reviews effort: <strong>XL</strong></div>
+          </div>
+          <div class="option-card recommended">
+            <div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Recommended if budget allows</div>
+            <div class="option-title">Option B — Third-party (Yotpo / Trustpilot)</div>
+            <div class="option-pro">Recognised badge — higher credibility</div>
+            <div class="option-pro">Verified reviews effort drops to <strong>M</strong></div>
+            <div class="option-pro">Richer feature set available</div>
+            <div class="option-con" style="margin-top:8px">Licensing cost</div>
+            <div class="option-con">Integration dependency</div>
+            <div class="option-con">Existing review migration required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:24px 0 12px">All other decisions — locked</h3>
+    <table style="width:100%;border-collapse:collapse;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden">
+      <thead>
+        <tr style="background:var(--gray-1)">
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-2);width:30%">Decision area</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-2);width:35%">Decision</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-2)">Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Submission UX</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Identical form for all customers — no friction at submission</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Verification is a backend distinction only</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Guest reviews</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Not allowed — login required</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Required for verification matching and data quality</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Multiple reviews</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Allowed per product (repeat purchases) — each independently verified</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Reflects genuine repeat purchase experience</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Refund — full</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Removes verified badge silently; review stays published</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Purchase can no longer be substantiated</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Refund — partial</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Badge unchanged</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Partial refunds do not negate the purchase experience</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Refund reversal</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Badge reinstated automatically</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Maintains data accuracy throughout order lifecycle</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Retroactive check</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">All existing reviews re-checked on launch</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Maximises verified badge coverage from day one</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Review fields</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Star rating + title + body — all mandatory</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Minimum quality threshold for published reviews</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Moderation</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Manual approval before publish</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Maintains quality control</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Approval notification</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Email sent to reviewer on approval</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Closes the loop; encourages future reviews</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Post-purchase email</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">One email per order · 5–7 days post-complete · RFM-segmented</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Single touchpoint; avoids over-communication</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Above-fold snippet</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Highest-rated + most recent · each admin-toggled independently</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Admin control without hardcoding UX decisions</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;font-weight:500">Mark as useful</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:13px">Logged-in only · one vote per review · toggleable</td><td style="padding:10px 14px;border-bottom:1px solid var(--gray-2);font-size:12px;color:var(--gray-5)">Reliable signal data; prevents gaming</td></tr>
+        <tr><td style="padding:10px 14px;font-size:13px;font-weight:500">Relevance sort signals</td><td style="padding:10px 14px;font-size:13px">Star rating + usefulness + verified + recency (3-month decay)</td><td style="padding:10px 14px;font-size:12px;color:var(--gray-5)">Admin-configurable weights; no code deploy required</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONSTRAINTS -->
+  <div class="section" id="constraints">
+    <div class="section-label">Constraints & dependencies</div>
+    <h2 style="margin-bottom:20px">What needs to be in place</h2>
+    <table class="ctable" style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden">
+      <tbody>
+        <tr><td style="width:100px"><span class="ctag ctag-tech">Tech</span></td><td>All features implemented within the Magento stack. Third-party integration (Option B) requires a separate technical evaluation before Phase 2 scoping.</td></tr>
+        <tr><td><span class="ctag ctag-tech">Tech</span></td><td>Verification state machine requires three order status event hooks: completed, refunded, and refund reversed. Technical feasibility to be confirmed with dev team before Phase 2 planning.</td></tr>
+        <tr><td><span class="ctag ctag-tech">Tech</span></td><td>Post-purchase email requires confirmed integration between Magento order events and the email platform. Exact send delay timing to be confirmed with ops team.</td></tr>
+        <tr><td><span class="ctag ctag-biz">Business</span></td><td>RFM segment-to-message mapping must be supplied by the CRM team before Phase 1 email development begins. This is a Phase 1 blocker.</td></tr>
+        <tr><td><span class="ctag ctag-biz">Business</span></td><td>Verified Reviews implementation path (native vs third-party) must be decided before Phase 2 development scoping. Delay to this decision delays Phase 2 start.</td></tr>
+        <tr><td><span class="ctag ctag-ux">UX</span></td><td>Moderation queue capacity must support increased submission volume before the post-purchase email goes live. More reviews means more moderation load.</td></tr>
+        <tr><td><span class="ctag ctag-ux">UX</span></td><td>Relevance sort must degrade gracefully in low-volume scenarios — a product with few reviews must not sort worse than under the current default sort.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- METRICS -->
+  <div class="section" id="metrics">
+    <div class="section-label">Expected outcomes & success metrics</div>
+    <h2 style="margin-bottom:8px">How we know it's working</h2>
+    <p style="margin-bottom:24px">Baselines to be captured before each phase launches. Targets to be agreed once baselines are established. Pre-implementation measurements should be taken at least 2 weeks before go-live to establish a clean baseline.</p>
+
+    <table class="mtable" style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden">
+      <thead>
+        <tr>
+          <th style="width:20%">Metric</th>
+          <th style="width:8%">Phase</th>
+          <th style="width:22%">Pre-implementation measure</th>
+          <th style="width:22%">Post-implementation measure</th>
+          <th style="width:28%">How to measure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:500">Review submission rate</td>
+          <td><span class="phase-tag pt1">Phase 1</span></td>
+          <td class="state-action">Count new reviews per week before email goes live. Baseline = organic submission rate.</td>
+          <td class="state-action">Count new reviews per week post-email launch. Track email open rate, click rate, and conversion to review submitted.</td>
+          <td>
+            <div class="measure-item">Magento review count over time</div>
+            <div class="measure-item">Email platform open/click/conversion rates</div>
+            <div class="measure-item">Target: 3× organic baseline within 60 days</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">PDP conversion rate</td>
+          <td><span class="phase-tag pt1">Phase 1</span></td>
+          <td class="state-action">Record add-to-cart rate per PDP visit for products with existing reviews vs products with none.</td>
+          <td class="state-action">A/B test: PDPs with above-fold snippet enabled vs disabled. Compare add-to-cart rates.</td>
+          <td>
+            <div class="measure-item">GA4 / analytics add-to-cart event rate per session</div>
+            <div class="measure-item">A/B split on snippet toggle (admin configurable)</div>
+            <div class="measure-item">Target: 5–10% uplift on snippet-enabled PDPs</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">Reviews section engagement</td>
+          <td><span class="phase-tag pt1">Phase 1</span></td>
+          <td class="state-action">Measure % of PDP sessions that include a click on the Reviews tab. Currently requires tab click.</td>
+          <td class="state-action">Measure % of PDP sessions that scroll to or interact with the review section (now always visible).</td>
+          <td>
+            <div class="measure-item">Scroll depth tracking to review section</div>
+            <div class="measure-item">Click events on review anchor, snippet expand, helpful button</div>
+            <div class="measure-item">Target: 2× current tab engagement rate</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">Listing page click-through rate</td>
+          <td><span class="phase-tag pt1">Phase 1</span></td>
+          <td class="state-action">Measure PDP click-through rate from category and search pages before star ratings are added to cards.</td>
+          <td class="state-action">Measure PDP click-through rate after star ratings appear on product cards. Segment by products with high vs low ratings.</td>
+          <td>
+            <div class="measure-item">GA4 click events from product cards to PDP</div>
+            <div class="measure-item">Compare CTR by rating band (4–5★ vs 1–3★)</div>
+            <div class="measure-item">Target: overall CTR uplift; high-rated products to outperform</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">% reviews verified</td>
+          <td><span class="phase-tag pt2">Phase 2</span></td>
+          <td class="state-action">Run the retroactive check on launch day and record the starting verified % of the existing corpus.</td>
+          <td class="state-action">Track verified % of all reviews over time as new reviews come in via post-purchase email.</td>
+          <td>
+            <div class="measure-item">Database query: verified reviews / total reviews</div>
+            <div class="measure-item">Report monthly</div>
+            <div class="measure-item">Target: 70%+ verified within 6 months of Phase 2 launch</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">Mark as useful interaction rate</td>
+          <td><span class="phase-tag pt2">Phase 2</span></td>
+          <td class="state-action">No pre-implementation baseline possible — feature does not exist. Record 0 as baseline.</td>
+          <td class="state-action">Track % of review page sessions where at least one helpful vote is cast. Track total votes per review.</td>
+          <td>
+            <div class="measure-item">Click events on helpful button</div>
+            <div class="measure-item">Votes per review over time</div>
+            <div class="measure-item">Target: 15%+ of review section sessions include a vote within 90 days</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight:500">Filter & sort usage rate</td>
+          <td><span class="phase-tag pt2">Phase 2</span></td>
+          <td class="state-action">No pre-implementation baseline possible. Record 0.</td>
+          <td class="state-action">Track % of review section sessions where a filter or sort control is used. Track which filters are most used.</td>
+          <td>
+            <div class="measure-item">Click/change events on sort dropdown, star filter, verified toggle</div>
+            <div class="measure-item">Heatmap on review section controls</div>
+            <div class="measure-item">Target: 20%+ of review sessions use at least one filter within 90 days</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EFFORT -->
+  <div class="section" id="effort">
+    <div class="section-label">Development effort estimate</div>
+    <h2 style="margin-bottom:8px">T-shirt sizing — in-house Magento team</h2>
+    <p style="margin-bottom:16px">Indicative estimates. Confirm with dev team during sprint planning. Platform: Magento · Team: in-house.</p>
+
+    <!-- IMPACT / EFFORT MATRIX -->
+    <h3 style="margin-bottom:12px">Impact vs effort matrix</h3>
+    <div style="background:var(--gray-1);border-radius:var(--radius-lg);padding:20px;margin-bottom:24px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;color:var(--gray-5)">
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#3a9e3f;border:2px solid #2d7a31;display:inline-block"></span>Phase 1 feature</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#1a6fd4;border:2px solid #0c447c;display:inline-block"></span>Phase 2 feature</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--gray-4)">Bubble size = relative impact</span>
+      </div>
+      <div style="display:grid;grid-template-columns:36px 1fr;gap:0">
+        <div style="display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--gray-4);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.06em;text-transform:uppercase">Impact</div>
+        <div style="position:relative">
+          <div id="matrix-quad" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:2.2/1">
+            <div style="background:#fff8e6;border:1px solid #f5c842;border-radius:var(--radius-lg);padding:10px 12px;position:relative;min-height:110px">
+              <div style="font-size:10px;font-weight:700;color:#7a5a00;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px">Quick wins</div>
+              <div style="font-size:10px;color:var(--gray-4)">High impact · Low effort</div>
+            </div>
+            <div style="background:#eef7ee;border:1px solid var(--green-mid);border-radius:var(--radius-lg);padding:10px 12px;position:relative;min-height:110px">
+              <div style="font-size:10px;font-weight:700;color:var(--green-dark);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px">Strategic bets</div>
+              <div style="font-size:10px;color:var(--gray-4)">High impact · High effort</div>
+            </div>
+            <div style="background:var(--gray-2);border:1px solid var(--gray-3);border-radius:var(--radius-lg);padding:10px 12px;position:relative;min-height:110px">
+              <div style="font-size:10px;font-weight:700;color:var(--gray-4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px">Fill-ins</div>
+              <div style="font-size:10px;color:var(--gray-4)">Low impact · Low effort</div>
+            </div>
+            <div style="background:#fdf0f0;border:1px solid #f5b8b8;border-radius:var(--radius-lg);padding:10px 12px;position:relative;min-height:110px">
+              <div style="font-size:10px;font-weight:700;color:#a00000;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px">Reconsider</div>
+              <div style="font-size:10px;color:var(--gray-4)">Low impact · High effort</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:10px;font-weight:600;color:var(--gray-4);text-transform:uppercase;letter-spacing:.06em;margin-top:8px;padding-left:36px">Effort →</div>
+    </div>
+
+    <!-- FEATURE BARS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--green-light);color:var(--green-dark);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Star ratings on listing & search</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:85%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">High</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:10%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">S</span>
+        </div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--green-light);color:var(--green-dark);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Above-fold review snippet</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:80%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">High</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">M</span>
+        </div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--green-light);color:var(--green-dark);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Post-purchase review email</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:90%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">High</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:55%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">L</span>
+        </div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Verified reviews</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:88%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">High</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:95%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">XL</span>
+        </div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Mark as useful</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:60%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">Med</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">M</span>
+        </div>
+      </div>
+      <div style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;background:#fff">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">6</span>
+          <span style="font-size:12px;font-weight:600;color:var(--black)">Relevance sort + filters</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center;margin-bottom:4px">
+          <span style="font-size:11px;color:var(--gray-4)">Impact</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:65%;height:100%;background:var(--green);border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">Med</span>
+        </div>
+        <div style="display:grid;grid-template-columns:52px 1fr 32px;gap:4px;align-items:center">
+          <span style="font-size:11px;color:var(--gray-4)">Effort</span>
+          <div style="height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden"><div style="width:70%;height:100%;background:#e24b4a;border-radius:3px"></div></div>
+          <span style="font-size:11px;color:var(--gray-5);text-align:right;font-weight:500">L</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px">Effort by layer</h3>
+    <div class="legend">
+      <div class="leg-item"><span class="sz sz-s">S</span> Small — days</div>
+      <div class="leg-item"><span class="sz sz-m">M</span> Medium — 1–2 weeks</div>
+      <div class="leg-item"><span class="sz sz-l">L</span> Large — 2–4 weeks</div>
+      <div class="leg-item"><span class="sz sz-xl">XL</span> Extra large — 4+ weeks</div>
+      <div class="leg-item"><span class="sz sz-na">—</span> Not applicable</div>
+    </div>
+
+    <table class="ftable" style="border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px">
+      <thead>
+        <tr>
+          <th style="width:28%">Feature</th>
+          <th style="width:13%">Frontend</th>
+          <th style="width:13%">Backend</th>
+          <th style="width:13%">Database</th>
+          <th style="width:13%">Overall</th>
+          <th style="width:20%">Key complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--green-light)">
+          <td colspan="6" style="font-size:11px;font-weight:700;color:var(--green-dark);padding:8px 16px;text-transform:uppercase;letter-spacing:.06em">Phase 1 — Surface & collect</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Star ratings on listing & search</span><span class="feat-sub">Template change only</span></td>
+          <td><span class="sz sz-s">S</span></td><td><span class="sz sz-na">—</span></td><td><span class="sz sz-na">—</span></td><td><span class="sz sz-s">S</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">Display change on existing data. No new logic.</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Above-fold review snippet</span><span class="feat-sub">New PDP component + 2 admin toggles</span></td>
+          <td><span class="sz sz-m">M</span></td><td><span class="sz sz-s">S</span></td><td><span class="sz sz-na">—</span></td><td><span class="sz sz-m">M</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">Config toggles + threshold setting + responsive component.</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Post-purchase review email</span><span class="feat-sub">Order observer + email platform + RFM</span></td>
+          <td><span class="sz sz-s">S</span></td><td><span class="sz sz-l">L</span></td><td><span class="sz sz-s">S</span></td><td><span class="sz sz-l">L</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">Magento observer, email integration, RFM hookup, suppression logic.</td>
+        </tr>
+        <tr style="background:var(--gray-1)">
+          <td style="font-weight:600">Phase 1 total</td>
+          <td colspan="3" style="font-size:12px;color:var(--gray-5)">FE light · Backend driven by email trigger</td>
+          <td><span class="sz sz-m">M</span></td><td></td>
+        </tr>
+        <tr style="background:var(--blue-light)">
+          <td colspan="6" style="font-size:11px;font-weight:700;color:var(--blue);padding:8px 16px;text-transform:uppercase;letter-spacing:.06em">Phase 2 — Trust depth</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Verified reviews</span><span class="feat-sub">Badge display only on FE · state machine on BE</span></td>
+          <td><span class="sz sz-s">S</span></td><td><span class="sz sz-xl">XL</span></td><td><span class="sz sz-m">M</span></td><td><span class="sz sz-xl">XL</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">3 order event observers, badge state management, retroactive pass, refund/reversal logic. Drops to M with third-party.</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Mark as useful</span><span class="feat-sub">Vote UI + optimistic update</span></td>
+          <td><span class="sz sz-m">M</span></td><td><span class="sz sz-m">M</span></td><td><span class="sz sz-s">S</span></td><td><span class="sz sz-m">M</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">Vote table, deduplication, own-review guard.</td>
+        </tr>
+        <tr>
+          <td><span class="feat-name">Relevance sort + filters</span><span class="feat-sub">Algorithm + admin config + customer UI</span></td>
+          <td><span class="sz sz-m">M</span></td><td><span class="sz sz-l">L</span></td><td><span class="sz sz-m">M</span></td><td><span class="sz sz-l">L</span></td>
+          <td style="font-size:12px;color:var(--gray-5)">Algorithm, 4 admin-configurable weights, query indexing, graceful degradation.</td>
+        </tr>
+        <tr style="background:var(--gray-1)">
+          <td style="font-weight:600">Phase 2 total</td>
+          <td colspan="3" style="font-size:12px;color:var(--gray-5)">Backend-heavy. Verified reviews is the dominant driver.</td>
+          <td><span class="sz sz-xl">XL</span></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="key-lever">
+      <div class="key-lever-label">Key lever</div>
+      <p>Verified Reviews shrinks from XL to M if you choose Option B (third-party platform). You are integrating an API rather than building the state machine from scratch. This is the single biggest decision affecting total Phase 2 effort — resolve the native vs third-party call before Phase 2 scoping begins.</p>
+    </div>
+
+    <!-- OUT OF SCOPE -->
+    <div style="margin-top:40px">
+      <div class="section-label">Out of scope</div>
+      <div class="oos-list">
+        <span class="oos-pill">Photo & video review uploads</span>
+        <span class="oos-pill">Q&A functionality</span>
+        <span class="oos-pill">Seller / brand responses to reviews</span>
+        <span class="oos-pill">Review syndication across Silvertree brands</span>
+        <span class="oos-pill">Review incentivisation mechanics</span>
+        <span class="oos-pill">AI-generated review summaries</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+/* Each feature is placed at a fixed position within its quadrant.
+   Quadrant layout: TL=quick wins, TR=strategic bets, BL=fill-ins, BR=reconsider
+   Positions are expressed as % within that quadrant, with top-left reserved for the label (avoid top 30%, left 20%).
+   We define cx/cy as % across the full grid (0-100 each axis, where 0,0 = top-left). */
+const matrixFeatures=[
+  {id:1,phase:1,size:36,cx:12, cy:22}, // Quick wins — low effort, high impact
+  {id:2,phase:1,size:34,cx:33, cy:30}, // Quick wins — medium effort, high impact
+  {id:3,phase:1,size:36,cx:55, cy:18}, // Strategic bets — medium-high effort, high impact
+  {id:4,phase:2,size:34,cx:85, cy:22}, // Strategic bets — very high effort, high impact
+  {id:5,phase:2,size:28,cx:33, cy:65}, // Fill-ins — medium effort, medium-low impact
+  {id:6,phase:2,size:30,cx:68, cy:60}, // Strategic-reconsider border — high effort, medium impact
+];
+function placeBubbles(){
+  const grid=document.getElementById('matrix-quad');
+  if(!grid)return;
+  document.querySelectorAll('.matrix-bubble').forEach(e=>e.remove());
+  const W=grid.offsetWidth,H=grid.offsetHeight;
+  if(!W||!H)return;
+  matrixFeatures.forEach(f=>{
+    const dot=document.createElement('div');
+    dot.className='matrix-bubble';
+    dot.textContent=f.id;
+    const left=(f.cx/100)*W - f.size/2;
+    const top=(f.cy/100)*H - f.size/2;
+    dot.style.cssText=`position:absolute;width:${f.size}px;height:${f.size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:5;cursor:default;background:${f.phase===1?'#3a9e3f':'#1a6fd4'};color:#fff;border:2px solid ${f.phase===1?'#2d7a31':'#0c447c'};left:${left}px;top:${top}px;transition:transform .15s;box-shadow:0 1px 4px rgba(0,0,0,.15)`;
+    dot.title=`Feature ${f.id}`;
+    dot.onmouseenter=()=>{dot.style.transform='scale(1.15)';dot.style.zIndex=10};
+    dot.onmouseleave=()=>{dot.style.transform='scale(1)';dot.style.zIndex=5};
+    grid.style.position='relative';
+    grid.appendChild(dot);
+  });
+}
+window.addEventListener('load',placeBubbles);
+window.addEventListener('resize',placeBubbles);
+setTimeout(placeBubbles,300);
+setTimeout(placeBubbles,800);
+const sections = document.querySelectorAll('.section,[id]');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

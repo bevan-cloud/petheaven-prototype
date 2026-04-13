@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Heaven — Category Landing Page Enhancements · Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
+  --blue:#1a6fd4;--blue-light:#e8f1fc;
+  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
+  --red:#a00000;--red-light:#fff0f0;
+  --purple:#7b1fa2;--purple-light:#f3e5f5;--purple-mid:#ce93d8;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;
+  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:#fff;font-size:14px;line-height:1.6}
+a{color:var(--green);text-decoration:none}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--gray-2);padding:0 32px;display:flex;align-items:center;gap:0;overflow-x:auto}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:15px;color:var(--green-dark);font-weight:400;padding:14px 0;margin-right:24px;white-space:nowrap;flex-shrink:0}
+.nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:14px 14px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0}
+.nav a:hover{color:var(--black)}
+.nav a.active{color:var(--green-dark);border-bottom-color:var(--green)}
+
+/* LAYOUT */
+.page{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+
+/* HERO */
+.hero{margin-bottom:48px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+h1{font-family:'DM Serif Display',serif;font-size:42px;line-height:1.15;color:var(--black);margin-bottom:12px}
+.hero-sub{font-size:16px;color:var(--gray-5);max-width:600px;margin-bottom:28px;line-height:1.7}
+.hero-meta{display:flex;gap:8px;flex-wrap:wrap}
+.meta-pill{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--gray-3);color:var(--gray-5)}
+
+/* SECTION */
+.section{margin-bottom:56px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--black);margin-bottom:8px}
+h3{font-size:15px;font-weight:600;color:var(--black);margin-bottom:8px}
+p{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:10px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.stat-card{background:var(--gray-1);border-radius:var(--radius-lg);padding:16px 18px}
+.stat-label{font-size:11px;color:var(--gray-4);font-weight:500;margin-bottom:4px}
+.stat-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black)}
+.stat-sub{font-size:11px;color:var(--gray-4);margin-top:2px}
+
+/* PHASE BLOCK */
+.phase-block{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px}
+.phase-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--gray-2)}
+.phase-header.p1{background:var(--green-light)}
+.phase-header.p2{background:var(--blue-light)}
+.phase-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.phase-num.p1{background:var(--green);color:#fff}
+.phase-num.p2{background:var(--blue);color:#fff}
+.phase-title{font-size:14px;font-weight:600;color:var(--black)}
+.phase-desc{font-size:12px;color:var(--gray-5);margin-left:auto}
+
+/* FEATURE TABLE */
+.ftable{width:100%;border-collapse:collapse}
+.ftable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 16px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.ftable td{font-size:13px;padding:12px 16px;border-bottom:1px solid var(--gray-2);vertical-align:top}
+.ftable tr:last-child td{border-bottom:none}
+.ftable tr:hover td{background:var(--gray-1)}
+.feat-name{font-weight:600;color:var(--black);display:block;margin-bottom:2px}
+.feat-sub{font-size:12px;color:var(--gray-4)}
+.surface-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin:1px 2px 1px 0}
+.sp-clp{background:var(--blue-light);color:var(--blue)}
+.sp-seo{background:var(--green-light);color:var(--green-dark)}
+.sp-pdp{background:#e8f1fc;color:#1a6fd4}
+
+/* SIZE BADGE */
+.sz{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;width:30px;height:22px;border-radius:4px}
+.sz-s{background:var(--green-light);color:var(--green-dark)}
+.sz-m{background:var(--amber-light);color:var(--amber)}
+.sz-l{background:var(--red-light);color:var(--red)}
+.sz-xl{background:var(--purple-light);color:var(--purple)}
+.sz-na{background:var(--gray-1);color:var(--gray-4)}
+
+/* AC LIST */
+.ac-list{list-style:none;padding:0;margin:0}
+.ac-item{display:flex;gap:10px;font-size:13px;color:var(--black);padding:9px 0;border-bottom:1px solid var(--gray-2);line-height:1.5}
+.ac-item:last-child{border-bottom:none}
+.ac-check{width:16px;height:16px;border:1.5px solid var(--gray-3);border-radius:4px;flex-shrink:0;margin-top:2px}
+
+/* DECISION CARDS */
+.decision-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:12px}
+.decision-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.decision-title{font-size:13px;font-weight:600;color:var(--black)}
+.open-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:#fef8e6;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;border:1px solid #f5c842}
+.locked-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-light);color:var(--green-dark);text-transform:uppercase;letter-spacing:.06em}
+.decision-body{padding:12px 16px;font-size:13px;color:var(--gray-5);line-height:1.6}
+
+/* OPTION GRID */
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.option-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:14px 16px}
+.option-card.recommended{border-color:var(--blue);border-width:2px}
+.option-title{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--black)}
+.option-pro{font-size:12px;color:var(--green-dark);margin-bottom:3px;padding-left:14px;position:relative}
+.option-pro::before{content:"+";position:absolute;left:0;font-weight:700;color:var(--green)}
+.option-con{font-size:12px;color:var(--red);margin-bottom:3px;padding-left:14px;position:relative}
+.option-con::before{content:"−";position:absolute;left:0;font-weight:700}
+
+/* CONSTRAINT TABLE */
+.ctable{width:100%;border-collapse:collapse}
+.ctable td{font-size:13px;padding:10px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6}
+.ctable tr:last-child td{border-bottom:none}
+.ctag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.ctag-tech{background:var(--blue-light);color:var(--blue)}
+.ctag-biz{background:var(--green-light);color:var(--green-dark)}
+.ctag-ux{background:var(--amber-light);color:var(--amber)}
+.ctag-seo{background:var(--purple-light);color:var(--purple)}
+
+/* METRICS TABLE */
+.mtable{width:100%;border-collapse:collapse}
+.mtable th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.mtable td{font-size:12px;padding:11px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6;color:var(--black)}
+.mtable tr:last-child td{border-bottom:none}
+.mtable tr:hover td{background:var(--gray-1)}
+.phase-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.pt1{background:var(--green-light);color:var(--green-dark)}
+.pt2{background:var(--blue-light);color:var(--blue)}
+
+/* EFFORT SUMMARY */
+.effort-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.effort-card{border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden}
+.effort-card-header{padding:12px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:center;gap:10px}
+.effort-card-header.p1{background:var(--green-light)}
+.effort-card-header.p2{background:var(--blue-light)}
+.effort-table{width:100%;border-collapse:collapse}
+.effort-table td{font-size:12px;padding:9px 12px;border-bottom:1px solid var(--gray-2);vertical-align:middle}
+.effort-table tr:last-child td{border-bottom:none;background:var(--gray-1);font-weight:600}
+.effort-table td:first-child{color:var(--black);font-weight:500}
+
+/* KEY LEVER */
+.key-lever{background:var(--amber-light);border-left:4px solid var(--amber-mid);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:14px 18px;margin:16px 0}
+.key-lever-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:4px}
+.key-lever p{color:var(--black);font-size:13px;margin:0}
+
+/* NOTE BOX */
+.note{background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:12px 16px;margin:12px 0;font-size:13px;color:var(--black);line-height:1.6}
+
+/* OOS */
+.oos-list{display:flex;flex-wrap:wrap;gap:8px}
+.oos-pill{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* EFFORT CELLS */
+.effort-cells{display:flex;gap:4px;align-items:center}
+
+@media print{.nav{display:none}.page{padding:20px}}
+@media(max-width:640px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .option-grid{grid-template-columns:1fr}
+  .effort-summary{grid-template-columns:1fr}
+  h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Pet Heaven · CLP</div>
+  <a href="#overview" class="active">Overview</a>
+  <a href="#problem">Problem</a>
+  <a href="#phase1">Phase 1</a>
+  <a href="#phase2">Phase 2</a>
+  <a href="#acceptance">Acceptance</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#constraints">Constraints</a>
+  <a href="#metrics">Metrics</a>
+  <a href="#effort">Effort</a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero" id="overview">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Product initiative · Pet Heaven · petheaven.co.za</div>
+    <h1>Category Landing Page<br>Enhancements</h1>
+    <p class="hero-sub">A two-phase initiative to transform Pet Heaven's category pages from bare product grids into high-converting, editorially curated shopping surfaces — with hero zones, subcategory navigation, brand spotlights, and SEO content that drives organic acquisition.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">Platform: Magento</span>
+      <span class="meta-pill">Surface: Category pages</span>
+      <span class="meta-pill">Delivery: 2 phases</span>
+      <span class="meta-pill">Version 1.0</span>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section" id="problem">
+    <div class="section-label">Problem statement</div>
+    <p>Category pages on petheaven.co.za function purely as filtered product grids. A customer landing on "Dog Food" is met immediately with a paginated list of products — no editorial context, no navigation to subcategories, no brand groupings, no seasonal promotions, no guidance to help them choose. The page does no selling work.</p>
+    <p>For new or unfamiliar visitors — who may know they want dog food but not which brand, size, or life stage — the current category page creates decision paralysis rather than resolving it. There is no hierarchy to guide them (dry vs wet, puppy vs adult, premium vs value), no featured products to anchor their attention, and no trust signals to reassure them they are in the right place.</p>
+    <p>From an SEO perspective, category pages are frequently the highest-traffic organic entry points in ecommerce. A bare grid with no unique written content, no structured heading hierarchy, and no internal link signals leaves significant ranking potential on the table — particularly for high-value queries like "dog food South Africa", "cat food subscription", or brand-level queries where Pet Heaven should rank.</p>
+
+    <div class="stat-grid" style="margin-top:24px">
+      <div class="stat-card">
+        <div class="stat-label">Editorial content above product grid</div>
+        <div class="stat-val">None</div>
+        <div class="stat-sub">No hero, no subcategory nav, no featured area</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Category page bounce rate vs PDP</div>
+        <div class="stat-val">Higher</div>
+        <div class="stat-sub">Category pages lose visitors before PDP view</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">SEO content on category pages</div>
+        <div class="stat-val">Thin</div>
+        <div class="stat-sub">No unique copy, weak heading structure, low internal linking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section" id="phase1">
+    <div class="section-label">Feature set</div>
+    <div class="phase-block">
+      <div class="phase-header p1">
+        <div class="phase-num p1">1</div>
+        <div>
+          <div class="phase-title">Phase 1 — Structure &amp; navigation</div>
+        </div>
+        <div class="phase-desc">Works within existing grid · No new data model required · Ships first</div>
+      </div>
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:28%"># Feature</th>
+            <th style="width:18%">Surface</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Overall effort</th>
+            <th style="width:30%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="feat-name">1.1 — Category hero banner</span>
+              <span class="feat-sub">Full-width image + headline + optional CTA at top of category page</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Anchors the page, communicates category identity, and provides a natural slot for promotional messaging (e.g. S&S offer, seasonal campaign). CMS-managed so marketing can update independently.</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.2 — Subcategory tile navigation</span>
+              <span class="feat-sub">Horizontally scrollable tile strip linking to child categories (e.g. Dry / Wet / Puppy / Senior)</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Surfaces the category architecture that exists but is not currently visible. Reduces dependency on the filter panel for navigation and shortens the path to a relevant sub-set of products.</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.3 — Featured / promoted product row</span>
+              <span class="feat-sub">Manually curated shelf of 4–6 products above the main grid</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Allows merchandising to anchor high-margin, high-velocity, or promotional products at the top of the page — converting the category page into an active selling surface rather than a neutral grid.</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">1.4 — SEO content block</span>
+              <span class="feat-sub">Expandable editorial text section at the bottom of the category page</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span><span class="surface-pill sp-seo">SEO</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td><span class="sz sz-s">S</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">A short, keyword-rich paragraph (collapsed by default on mobile) provides search engines with unique content on the category URL. Proven to improve organic ranking for non-brand category queries.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-block" id="phase2">
+      <div class="phase-header p2">
+        <div class="phase-num p2">2</div>
+        <div>
+          <div class="phase-title">Phase 2 — Brand &amp; editorial depth</div>
+        </div>
+        <div class="phase-desc">Requires brand data model · Ships after Phase 1 is stable</div>
+      </div>
+      <table class="ftable">
+        <thead>
+          <tr>
+            <th style="width:28%"># Feature</th>
+            <th style="width:18%">Surface</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Overall effort</th>
+            <th style="width:30%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="feat-name">2.1 — Brand spotlight tiles</span>
+              <span class="feat-sub">Horizontally scrollable brand logos with click-through to filtered brand view</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Brand is a high-value signal in pet food purchases (Montego, Hill's, Royal Canin). Surfacing brand tiles gives brand-loyal shoppers a direct navigation path and opens co-op marketing opportunities.</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">2.2 — Smart sort defaults</span>
+              <span class="feat-sub">Category-level default sort (e.g. "Best sellers" or "New in") instead of Magento default position</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td><span class="sz sz-l">L</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">Default sort by position is a merchandising tool that requires manual maintenance. A data-driven default (bestseller ranking or newness) reduces ongoing ops burden and surfaces the most conversion-ready products automatically.</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="feat-name">2.3 — Promotional banner slots</span>
+              <span class="feat-sub">Mid-grid ad unit (e.g. row 2) for campaign / S&S banner injection</span>
+            </td>
+            <td><span class="surface-pill sp-clp">CLP</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td><span class="sz sz-m">M</span></td>
+            <td style="font-size:12px;color:var(--gray-5)">A reserved slot at a fixed grid position allows marketing to inject banners (e.g. S&S upsell, free delivery threshold) without modifying the grid template. Follows standard ecommerce ad-slot pattern.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACCEPTANCE CRITERIA -->
+  <div class="section" id="acceptance">
+    <div class="section-label">Acceptance criteria</div>
+
+    <h3 style="margin-bottom:12px">1.1 — Category hero banner</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>Banner renders at the top of the category page, above the filter bar and product grid</li>
+      <li class="ac-item"><span class="ac-check"></span>Image, headline, subtext, and optional CTA button are individually configurable via CMS (Magento page builder or block)</li>
+      <li class="ac-item"><span class="ac-check"></span>Banner is responsive: full-width on desktop, correct crop / reduced height on mobile</li>
+      <li class="ac-item"><span class="ac-check"></span>If no banner is configured for a category, the section does not render and the grid starts immediately</li>
+      <li class="ac-item"><span class="ac-check"></span>Banner image is served as WebP with appropriate alt text for accessibility and SEO</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.2 — Subcategory tile navigation</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>Tiles are auto-generated from the active child categories of the current category in Magento's category tree</li>
+      <li class="ac-item"><span class="ac-check"></span>Each tile links to the child category URL and displays the category name</li>
+      <li class="ac-item"><span class="ac-check"></span>On mobile, the tile strip is horizontally scrollable with no horizontal page overflow</li>
+      <li class="ac-item"><span class="ac-check"></span>If a category has no children, the tile strip does not render</li>
+      <li class="ac-item"><span class="ac-check"></span>Optional tile thumbnail image is supported but not required</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.3 — Featured product row</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>Featured products are selected via a Magento CMS widget or category attribute — not hardcoded</li>
+      <li class="ac-item"><span class="ac-check"></span>The row supports 4–6 products and uses the same product card component as the main grid (consistent styling)</li>
+      <li class="ac-item"><span class="ac-check"></span>A "Featured" or "Top picks" section heading is shown above the row</li>
+      <li class="ac-item"><span class="ac-check"></span>If no featured products are configured, the row does not render</li>
+      <li class="ac-item"><span class="ac-check"></span>On mobile, the row is horizontally scrollable</li>
+    </ul>
+
+    <h3 style="margin-bottom:12px">1.4 — SEO content block</h3>
+    <ul class="ac-list" style="margin-bottom:28px">
+      <li class="ac-item"><span class="ac-check"></span>Block renders at the bottom of the page, below the product grid and pagination</li>
+      <li class="ac-item"><span class="ac-check"></span>Content is editable per category via CMS (Magento page builder)</li>
+      <li class="ac-item"><span class="ac-check"></span>On mobile, content is collapsed to ~3 lines with a "Read more" toggle</li>
+      <li class="ac-item"><span class="ac-check"></span>Content is visible to search engine crawlers (not hidden via CSS display:none)</li>
+      <li class="ac-item"><span class="ac-check"></span>If no content is configured, the block does not render</li>
+    </ul>
+  </div>
+
+  <!-- DECISIONS -->
+  <div class="section" id="decisions">
+    <div class="section-label">Key decisions</div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">Hero banner implementation — CMS Block vs Page Builder widget</span>
+        <span class="open-badge">Open</span>
+      </div>
+      <div class="decision-body">
+        <p>Magento supports multiple mechanisms for category page content injection. The choice of CMS Block (simpler, dev-configured) vs Page Builder widget (visual editor, marketing-configurable) affects both implementation complexity and the content team's day-to-day workflow.</p>
+        <div class="option-grid">
+          <div class="option-card recommended">
+            <div class="option-title">Option A — Page Builder category attribute (recommended)</div>
+            <div class="option-pro">Marketing team can manage banner independently</div>
+            <div class="option-pro">Native to Magento — no additional modules</div>
+            <div class="option-pro">Per-category control out of the box</div>
+            <div class="option-con">Page Builder has a learning curve for non-technical editors</div>
+            <div class="option-con">Magento 2.4+ only — verify version compatibility</div>
+          </div>
+          <div class="option-card">
+            <div class="option-title">Option B — Named CMS Block per category</div>
+            <div class="option-pro">Simpler to implement and maintain in code</div>
+            <div class="option-pro">Full HTML/CSS control in the block</div>
+            <div class="option-con">Requires dev to create a new block per category</div>
+            <div class="option-con">Content team cannot self-serve on updates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">Subcategory tile data source — category tree vs manual</span>
+        <span class="locked-badge">Locked</span>
+      </div>
+      <div class="decision-body">
+        <p>Subcategory tiles will be auto-generated from the Magento category tree (child categories of the current category). Manual tile management would create a maintenance burden and fall out of sync with the actual category structure over time. Auto-generation is the correct pattern.</p>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-header">
+        <span class="decision-title">SEO block visibility — server-rendered vs JS-loaded</span>
+        <span class="locked-badge">Locked</span>
+      </div>
+      <div class="decision-body">
+        <p>The SEO content block will be server-rendered (visible in HTML source) and collapsed via CSS on mobile using a standard details/summary or max-height pattern. JavaScript-loaded content risks being missed by crawlers; server-rendered content with CSS collapse is the correct implementation for SEO intent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSTRAINTS -->
+  <div class="section" id="constraints">
+    <div class="section-label">Constraints &amp; dependencies</div>
+    <table class="ctable">
+      <tbody>
+        <tr>
+          <td style="width:100px"><span class="ctag ctag-tech">Tech</span></td>
+          <td>The <strong>Magento version</strong> must be confirmed before committing to Page Builder for the hero banner. Page Builder is available from Magento 2.3.1 Commerce and 2.4.3 Open Source. If on an older version, the CMS Block approach (Option B) must be used.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-biz">Business</span></td>
+          <td><strong>Category hero images</strong> do not currently exist. Marketing must produce category-level imagery before Phase 1 can go live. Each top-level category requires at minimum a desktop and mobile crop. Estimate: 6–10 categories × 2 crops = 12–20 image assets.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-seo">SEO</span></td>
+          <td><strong>SEO content copy</strong> must be written for each category before the block can be populated. This is a content team deliverable, not a development deliverable. A brief per category (target keyword, tone, ~150 words) should be prepared ahead of Phase 1 launch.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-ux">UX</span></td>
+          <td>The <strong>filter panel</strong> and <strong>product grid</strong> layout must be audited before adding the hero, tile strip, and featured row above the grid. On mobile, each new section pushes the product grid further below the fold — a layout budget must be agreed to avoid the grid being unreachable on first scroll.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-tech">Tech</span></td>
+          <td>Phase 2's <strong>smart sort defaults</strong> require access to sales velocity data (orders per product in a rolling window). This data must be queryable from Magento or exportable from the analytics/BI layer. Confirm data availability before scoping Phase 2.</td>
+        </tr>
+        <tr>
+          <td><span class="ctag ctag-biz">Business</span></td>
+          <td>Phase 2's <strong>brand spotlight tiles</strong> require a brand taxonomy to be established and maintained in Magento. If brands are not currently structured as filterable attributes or categories, a data migration and attribution task must be completed first.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- METRICS -->
+  <div class="section" id="metrics">
+    <div class="section-label">Success metrics</div>
+    <table class="mtable">
+      <thead>
+        <tr>
+          <th style="width:25%">Metric</th>
+          <th style="width:20%">Measurement</th>
+          <th style="width:20%">Baseline</th>
+          <th style="width:35%">Target / notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Category → PDP click-through rate</strong><br><span style="font-size:11px;color:var(--gray-4);"><span class="pt1">Phase 1</span> primary</span></td>
+          <td>% of category page sessions that result in at least one PDP view</td>
+          <td>Establish at launch (GA)</td>
+          <td>+10–20% relative increase. Featured row and subcategory tiles drive additional product clicks vs bare grid.</td>
+        </tr>
+        <tr>
+          <td><strong>Category page bounce rate</strong></td>
+          <td>% of sessions that begin and end on a category page</td>
+          <td>Establish at launch (GA)</td>
+          <td>Reduction in bounce rate as subcategory tiles and featured products provide more navigation paths</td>
+        </tr>
+        <tr>
+          <td><strong>Category page organic sessions</strong></td>
+          <td>Sessions arriving at category URLs via organic search (Google Search Console + GA)</td>
+          <td>Current GSC impression/click data per category URL</td>
+          <td>+15–30% organic click growth over 90 days post Phase 1 launch. SEO content block is the primary lever.</td>
+        </tr>
+        <tr>
+          <td><strong>Featured product conversion rate</strong></td>
+          <td>Add-to-cart or purchase rate for products appearing in the featured row vs standard grid</td>
+          <td>Not measurable until feature exists</td>
+          <td>Featured products should convert at ≥1.5× the category average — used to validate curation logic</td>
+        </tr>
+        <tr>
+          <td><strong>Subcategory tile engagement</strong></td>
+          <td>Click events on subcategory tiles (GA event)</td>
+          <td>0 (feature does not exist)</td>
+          <td>Track adoption as a navigation health metric; informs whether tile strip is being used vs filter panel</td>
+        </tr>
+        <tr>
+          <td><strong>Average session depth from category</strong></td>
+          <td>Pages per session for sessions starting on a category page</td>
+          <td>Establish at launch (GA)</td>
+          <td>Increase in pages per session indicates better content navigation — target +0.5 pages per session within 60 days</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EFFORT -->
+  <div class="section" id="effort">
+    <div class="section-label">Development effort estimate</div>
+    <p>Phase 1 is template-layer work with CMS configuration. No new database tables or backend services are required. The majority of effort is frontend (layout additions to the category template) with a content setup task for CMS block/widget configuration.</p>
+    <p>Phase 2 introduces a dependency on a brand data model and sales velocity data, which may require backend work outside the scope of the CLP template itself.</p>
+
+    <div class="key-lever">
+      <div class="key-lever-label">Key lever</div>
+      <p>Phase 1 effort is largely <strong>content setup</strong>, not engineering. Category hero images, SEO copy, and featured product curation are content team deliverables that must be ready before Phase 1 can launch — they are not on the dev critical path but can block go-live if not prepared in parallel.</p>
+    </div>
+
+    <div class="effort-summary">
+      <div class="effort-card">
+        <div class="effort-card-header p1">
+          <div class="phase-num p1" style="width:22px;height:22px;font-size:11px">1</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">Phase 1 — Structure &amp; navigation</div>
+            <div style="font-size:11px;color:var(--gray-5)">4 features · CLP template additions</div>
+          </div>
+        </div>
+        <table class="effort-table">
+          <tr>
+            <td>Frontend (template + CSS)</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">5–7 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Backend / CMS config</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">2–3 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>QA &amp; content population</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">2–3 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Total estimate</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">9–13 days</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="effort-card">
+        <div class="effort-card-header p2">
+          <div class="phase-num p2" style="width:22px;height:22px;font-size:11px">2</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">Phase 2 — Brand &amp; editorial depth</div>
+            <div style="font-size:11px;color:var(--gray-5)">3 features · requires brand data model</div>
+          </div>
+        </div>
+        <table class="effort-table">
+          <tr>
+            <td>Brand data model / migration</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">3–5 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Smart sort + promo slots</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-l">L</span>
+                <span style="font-size:12px;color:var(--gray-5)">4–6 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>QA + analytics instrumentation</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-m">M</span>
+                <span style="font-size:12px;color:var(--gray-5)">2 days</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Total estimate</td>
+            <td>
+              <div class="effort-cells">
+                <span class="sz sz-xl">XL</span>
+                <span style="font-size:12px;color:var(--gray-5)">9–13 days</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px">
+      The <strong>prototype</strong> for this initiative is live at <a href="../clp/" target="_blank">petheaven-prototype/clp/</a> — demonstrates the hero banner, subcategory tile strip, featured product row, and SEO content block in a functional HTML/CSS mockup.
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="section-label">Out of scope — this initiative</div>
+      <div class="oos-list">
+        <span class="oos-pill">Filter / facet UX redesign</span>
+        <span class="oos-pill">Personalised product recommendations</span>
+        <span class="oos-pill">A/B testing infrastructure</span>
+        <span class="oos-pill">Category page redirects / URL restructure</span>
+        <span class="oos-pill">Brand microsites</span>
+        <span class="oos-pill">Sponsored product placements</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
