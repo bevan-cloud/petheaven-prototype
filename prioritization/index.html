@@ -679,7 +679,38 @@ const PROJECT_BRIEFS = {
       {label:'Prototype v2',  sub:'Verified badges, useful voting & filters', href:'https://bevan-cloud.github.io/petheaven-prototype/pdp-v2/', icon:'🖥️', external:true},
     ],
   },
+  'Differentiate Schedule & Save from Add to Cart': {
+    summary: 'Redesign the PDP purchase section to visually and functionally distinguish the Subscribe & Save option — surfacing subscription savings, perks, and promotions before the customer commits.',
+    features: [
+      'Dual purchase option cards — S&S (purple) vs once-off (green)',
+      'Dynamic CTA label — "Create Schedule" vs "Add to Cart"',
+      'Always-visible S&S perks — savings %, schedule, skip/change/cancel',
+      'S&S promo banner with copyable code (first order only)',
+      'Dynamic pricing — updates by size across both options',
+    ],
+    links: [
+      {label:'Project Brief', sub:'Problem · features · AC · effort', href:'../projects/sub-cart-split-brief.html', icon:'📄', external:false},
+      {label:'Prototype', sub:'Split purchase cards + S&S promo banner', href:'https://bevan-cloud.github.io/petheaven-prototype/sub-cart-split/', icon:'🖥️', external:true},
+    ],
+  },
+  'Category Landing Page Enhancements': {
+    summary: 'Transform category pages from bare product grids into high-converting, editorially curated surfaces with hero zones, subcategory navigation, brand spotlights, and SEO content.',
+    features: [
+      'Category hero banner — CMS-managed image, headline, CTA',
+      'Subcategory tile navigation strip',
+      'Featured / promoted product row above main grid',
+      'SEO content block (collapsed on mobile)',
+      'Brand spotlight tiles with product counts',
+      'Smart sort defaults + mid-grid promo slots',
+    ],
+    links: [
+      {label:'Project Brief', sub:'Problem · features · AC · effort', href:'../projects/clp-brief.html', icon:'📄', external:false},
+      {label:'Prototype', sub:'Enhanced CLP with hero, tiles & richer cards', href:'https://bevan-cloud.github.io/petheaven-prototype/clp/', icon:'🖥️', external:true},
+    ],
+  },
 };
+// Aliases — roadmap/prioritization short names that map to a project brief
+PROJECT_BRIEFS['S&S PDP'] = PROJECT_BRIEFS['Differentiate Schedule & Save from Add to Cart'];
 
 function buildProjectBriefHtml(name) {
   const p = PROJECT_BRIEFS[name];
@@ -754,9 +785,9 @@ function openPanelById(id) {
     `${item.desc
       ? `<p class="dp-desc">${esc(item.desc)}</p>`
       : `<p class="dp-desc" style="color:var(--gray-3);font-style:italic">No description added yet.</p>`}
-     ${riceHtml}
+     ${buildProjectBriefHtml(item.name)}
      ${metaRows ? `<div class="dp-meta-block">${metaRows}</div>` : ''}
-     ${buildProjectBriefHtml(item.name)}`;
+     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)">${riceHtml}</div>`;
 
   document.getElementById('dp-overlay').classList.add('open');
   document.getElementById('dp-panel').classList.add('open');
