@@ -175,7 +175,14 @@ p{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:10px}
 .oos-pill{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 
 /* PRINT */
-@media print{.nav{display:none}.page{padding:20px}}
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:9px 32px;font-size:12px;display:flex;align-items:center}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}
+.breadcrumb a:hover{color:var(--green-dark)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
+.bc-cur{color:var(--gray-4)}
+
+@media print{.nav{display:none}.breadcrumb{display:none}.page{padding:20px}}
 @media(max-width:640px){
   .stat-grid{grid-template-columns:1fr 1fr}
   .option-grid{grid-template-columns:1fr}
@@ -198,6 +205,14 @@ p{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:10px}
   <a href="#metrics">Metrics</a>
   <a href="#effort">Effort</a>
 </nav>
+
+<div class="breadcrumb">
+  <a href="../home/">Home</a>
+  <span class="bc-sep">›</span>
+  <a href="../projects/">Projects</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-cur">Ratings &amp; Reviews Brief</span>
+</div>
 
 <div class="page">
 

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Heaven — Style Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PH Brand */
+  --ph-green:#50B848;
+  --ph-green-dark:#57AB4E;
+  --ph-green-mid:#4CAE4C;
+  --ph-purple:#BD08C3;
+  --ph-lime:#B3FA05;
+  --ph-orange:#FA5800;
+  --ph-amber:#FFA600;
+  --ph-footer:#3B3B3B;
+
+  /* Text */
+  --text-dark:#333333;
+  --text-med:#444444;
+  --text-heading:#111827;
+  --text-muted:#696969;
+  --text-footer:#CCCCCC;
+
+  /* Surfaces */
+  --surface-white:#FFFFFF;
+  --surface-off:#F9F9F9;
+  --surface-light:#E5E5E5;
+  --border-light:#E4E4E4;
+  --border-input:#CCCCCC;
+
+  /* UI vars */
+  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--text-dark);background:var(--gray-1);font-size:14px;line-height:1.6}
+
+/* NAV */
+.site-nav{
+  position:sticky;top:0;z-index:100;
+  background:#fff;border-bottom:1px solid var(--gray-2);
+  padding:0 48px;
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;
+  height:52px;
+}
+.nav-logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ph-green);padding:0;margin-right:24px;white-space:nowrap;flex-shrink:0}
+.site-nav a{font-size:12px;font-weight:500;color:var(--gray-4);padding:0 14px;height:52px;display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0;text-decoration:none}
+.site-nav a:hover{color:var(--text-dark)}
+.site-nav a.active{color:var(--ph-green);border-bottom-color:var(--ph-green)}
+
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:10px 48px;font-size:12px;display:flex;align-items:center;gap:0}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}
+.breadcrumb a:hover{color:var(--ph-green)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
+.bc-cur{color:var(--gray-4)}
+
+/* PAGE */
+.page{max-width:1040px;margin:0 auto;padding:48px 48px 100px}
+
+/* SECTION */
+.sg-section{margin-bottom:72px}
+.sg-section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.sg-section-title{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+.sg-section-desc{font-size:13px;color:var(--gray-5);line-height:1.7;margin-bottom:28px;max-width:600px}
+
+/* ===== HERO ===== */
+.sg-hero{background:var(--ph-green);border-radius:var(--radius-xl);padding:48px;margin-bottom:72px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:32px;overflow:hidden;position:relative}
+.sg-hero::before{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.sg-hero::after{content:'';position:absolute;right:60px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.sg-hero-text{position:relative;z-index:1}
+.sg-hero-eyebrow{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.7);margin-bottom:10px}
+.sg-hero-title{font-family:'Poppins',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:8px}
+.sg-hero-sub{font-family:'Poppins',sans-serif;font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6}
+.sg-hero-logo{position:relative;z-index:1;flex-shrink:0}
+.sg-hero-logo img{height:48px;filter:brightness(0) invert(1);opacity:0.9}
+
+/* ===== COLOUR SWATCHES ===== */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.swatch-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden}
+.swatch-block{height:100px}
+.swatch-info{padding:12px 14px}
+.swatch-hex{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text-dark);display:block;margin-bottom:2px;letter-spacing:.02em}
+.swatch-name{font-size:12px;font-weight:600;color:var(--gray-5);display:block;margin-bottom:4px}
+.swatch-role{font-size:11px;color:var(--gray-4);line-height:1.5;display:block}
+
+.swatch-group-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:12px;margin-top:24px}
+.swatch-group-label:first-child{margin-top:0}
+
+/* Special-use callout */
+.swatch-special{border:2px solid var(--ph-purple)}
+.swatch-special .swatch-role{color:var(--ph-purple);font-weight:600}
+
+/* ===== TYPOGRAPHY ===== */
+.type-showcase{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:24px}
+.type-showcase-header{padding:14px 20px;background:var(--gray-1);border-bottom:1px solid var(--gray-2);display:flex;align-items:center;justify-content:space-between}
+.type-showcase-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4)}
+.type-showcase-meta{font-size:11px;color:var(--gray-4)}
+.type-showcase-body{padding:24px 28px}
+
+.weight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.weight-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:20px 22px}
+.weight-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);margin-bottom:10px}
+.weight-specimen{font-family:'Poppins',sans-serif;font-size:22px;color:var(--text-dark);line-height:1.3}
+.weight-detail{font-size:11px;color:var(--gray-4);margin-top:6px}
+
+.heading-scale{display:flex;flex-direction:column;gap:0}
+.heading-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid var(--gray-2)}
+.heading-row:last-child{border-bottom:none}
+.heading-meta{font-size:11px;color:var(--gray-4);width:80px;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.heading-size{font-size:11px;color:var(--gray-3);width:50px;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.heading-weight{font-size:11px;color:var(--gray-3);width:40px;flex-shrink:0;font-family:'DM Sans',sans-serif}
+
+/* ===== BUTTONS ===== */
+.btn-grid{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:24px}
+.btn-group{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:20px 22px;min-width:200px}
+.btn-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);margin-bottom:14px}
+.btn-group-buttons{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+
+/* Actual PH button renders */
+.ph-btn-primary{font-family:'Poppins',sans-serif;background:#50B848;color:#fff;border:none;border-radius:4px;padding:0 15px;line-height:35px;font-size:15px;cursor:pointer;font-weight:400;display:inline-block;text-decoration:none}
+.ph-btn-primary:hover{background:#57AB4E}
+.ph-btn-subscribe{font-family:'Poppins',sans-serif;background:#57AB4E;color:#fff;border:none;border-radius:4px;padding:12px 25px;font-size:21px;cursor:pointer;display:inline-block}
+.ph-btn-footer{font-family:'Poppins',sans-serif;background:#B3FA05;color:#57AB4E;border:none;border-radius:4px;padding:10px 16px;font-size:15px;font-weight:600;cursor:pointer;display:inline-block}
+.ph-btn-secondary{font-family:'Poppins',sans-serif;background:#696969;color:#fff;border:none;border-radius:6px;padding:12px 16px;font-size:15px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;display:inline-block}
+.ph-btn-outline{font-family:'Poppins',sans-serif;background:transparent;color:#50B848;border:1.5px solid #50B848;border-radius:4px;padding:0 15px;line-height:33px;cursor:pointer;font-size:14px;display:inline-block}
+.ph-btn-sns{font-family:'Poppins',sans-serif;background:#BD08C3;color:#fff;border:none;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;display:inline-block}
+.ph-btn-disabled{font-family:'Poppins',sans-serif;background:#CCCCCC;color:#888;border:none;border-radius:4px;padding:0 15px;line-height:35px;font-size:15px;cursor:not-allowed;opacity:0.7;display:inline-block}
+
+/* ===== COMPONENTS ===== */
+.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.component-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.component-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);padding:12px 18px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.component-preview{padding:20px 18px}
+
+/* PH Header component */
+.ph-header-demo{background:#50B848;padding:0 16px;height:50px;display:flex;align-items:center;justify-content:space-between;border-radius:6px}
+.ph-header-logo{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;color:#fff;letter-spacing:.04em}
+.ph-header-icons{display:flex;gap:12px}
+.ph-header-icon{width:28px;height:28px;background:rgba(255,255,255,0.15);border-radius:4px;display:flex;align-items:center;justify-content:center}
+
+/* PH Promo bar */
+.ph-promo-bar{background:#BD08C3;color:#333;font-family:'Poppins',sans-serif;font-size:12px;text-align:center;padding:7px 16px;border-radius:6px;margin-top:6px;font-weight:500}
+
+/* S&S Block */
+.ph-sns-block{border:2px solid #BD08C3;border-radius:6px;padding:16px 20px}
+.ph-sns-badge{display:inline-block;background:#BD08C3;color:#fff;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;font-family:'Poppins',sans-serif;margin-bottom:10px}
+.ph-sns-title{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:#111827;line-height:1.15;margin-bottom:6px}
+.ph-sns-text{font-family:'Poppins',sans-serif;font-size:13px;color:rgba(17,24,39,0.7);line-height:1.5}
+
+/* Product card */
+.ph-product-card{background:#fff;border:1px solid var(--border-light);border-radius:0;overflow:hidden}
+.ph-product-img{height:100px;background:var(--surface-off);display:flex;align-items:center;justify-content:center;position:relative}
+.ph-product-badge{position:absolute;top:6px;left:6px;width:38px;height:38px;border-radius:50%;background:#50B848;color:#fff;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph-product-body{padding:10px 12px}
+.ph-product-name{font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;color:#444;margin-bottom:6px;line-height:1.3}
+.ph-product-price{font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:#50B848}
+.ph-product-sns-price{font-family:'Poppins',sans-serif;font-size:11px;color:#BD08C3;font-weight:500;display:block;margin-top:2px}
+.ph-product-old{font-size:12px;color:#999;text-decoration:line-through;margin-left:6px}
+
+/* Swatch selector */
+.ph-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.ph-swatch{font-family:'Poppins',sans-serif;font-size:12px;background:#fff;border:1px solid #CCC;border-radius:3px;padding:4px 10px;cursor:pointer}
+.ph-swatch.selected{background:#BD08C3;color:#fff;border-color:#BD08C3}
+
+/* Category banner */
+.ph-cat-banner{background:#50B848;border-radius:6px;padding:16px 20px}
+.ph-cat-eyebrow{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.ph-cat-title{font-family:'Poppins',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:4px}
+.ph-cat-sub{font-family:'Poppins',sans-serif;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5}
+
+/* Star rating */
+.ph-stars{color:#FFA600;font-size:16px;letter-spacing:1px}
+.ph-stars-count{font-family:'Poppins',sans-serif;font-size:12px;color:#696969;margin-left:4px}
+
+/* Footer strip */
+.ph-footer-demo{background:#3B3B3B;padding:16px 20px;border-radius:6px}
+.ph-footer-title{font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:#fff;margin-bottom:6px}
+.ph-footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.ph-footer-link{font-family:'Poppins',sans-serif;font-size:12px;color:#CCCCCC;text-decoration:none}
+
+/* ===== LAYOUT TABLE ===== */
+.layout-table{width:100%;border-collapse:collapse}
+.layout-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);padding:10px 14px;text-align:left;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.layout-table td{font-size:13px;padding:11px 14px;border-bottom:1px solid var(--gray-2);vertical-align:top;line-height:1.6;color:var(--text-dark)}
+.layout-table tr:last-child td{border-bottom:none}
+.layout-table tr:hover td{background:var(--gray-1)}
+.code{font-family:monospace;font-size:12px;background:var(--gray-1);padding:1px 6px;border-radius:3px;color:var(--ph-purple)}
+
+/* ===== QUICK REF ===== */
+.quick-ref{background:#1a1a1a;border-radius:var(--radius-xl);padding:32px 36px;color:#fff}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.qr-group-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.4);margin-bottom:14px}
+.qr-item{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.qr-swatch{width:18px;height:18px;border-radius:4px;flex-shrink:0}
+.qr-label{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.8)}
+.qr-hex{font-family:monospace;font-size:11px;color:rgba(255,255,255,0.45);margin-left:auto}
+.qr-divider{height:1px;background:rgba(255,255,255,0.08);margin:20px 0}
+.qr-rule{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;padding-left:12px;border-left:2px solid rgba(255,255,255,0.15);margin-bottom:10px}
+.qr-rule strong{color:rgba(255,255,255,0.85)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .site-nav{padding:0 20px}
+  .breadcrumb{padding:10px 20px}
+  .page{padding:32px 20px 60px}
+  .component-grid{grid-template-columns:1fr}
+  .swatch-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .weight-grid{grid-template-columns:1fr}
+  .qr-grid{grid-template-columns:1fr}
+  .sg-hero{flex-direction:column;padding:32px}
+  .sg-hero-logo{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <span class="nav-logo">PH Style Guide</span>
+  <a href="#colours" class="active">Colours</a>
+  <a href="#typography">Typography</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#components">Components</a>
+  <a href="#layout">Layout</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../home/">Home</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-cur">Style Guide</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="sg-hero">
+    <div class="sg-hero-text">
+      <div class="sg-hero-eyebrow">Pet Heaven · Corporate Identity</div>
+      <div class="sg-hero-title">Design System</div>
+      <div class="sg-hero-sub">Complete brand reference for petheaven.co.za — colours, typography,<br>buttons, and components sourced from the live Magento site.</div>
+    </div>
+    <div class="sg-hero-logo">
+      <img src="https://www.petheaven.co.za/skin/frontend/petheaven/default/images/logo-small.png" alt="Pet Heaven" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <!-- ===== COLOURS ===== -->
+  <div class="sg-section" id="colours">
+    <div class="sg-section-label">01 — Colour system</div>
+    <div class="sg-section-title">Colour Palette</div>
+    <p class="sg-section-desc">All colours are extracted from the live petheaven.co.za site. Each colour has a strict usage rule — do not repurpose special-use colours (purple, lime, orange) for general UI elements.</p>
+
+    <div class="swatch-group-label">Primary brand colours</div>
+    <div class="swatch-grid">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#50B848"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#50B848</span>
+          <span class="swatch-name">PH Green</span>
+          <span class="swatch-role">Header bg, primary CTAs, prices, active nav, icons</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#57AB4E"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#57AB4E</span>
+          <span class="swatch-name">PH Green Dark</span>
+          <span class="swatch-role">Button hover/active, mobile nav bar, subscribe CTA</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#4CAE4C"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#4CAE4C</span>
+          <span class="swatch-name">PH Green Mid</span>
+          <span class="swatch-role">Selected filter state, success alerts only</span>
+        </div>
+      </div>
+      <div class="swatch-card swatch-special">
+        <div class="swatch-block" style="background:#BD08C3"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#BD08C3</span>
+          <span class="swatch-name">PH Purple</span>
+          <span class="swatch-role">S&S ONLY — price, border, badge, promo bar, swatch. Never for general UI.</span>
+        </div>
+      </div>
+      <div class="swatch-card swatch-special">
+        <div class="swatch-block" style="background:#B3FA05"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#B3FA05</span>
+          <span class="swatch-name">PH Lime</span>
+          <span class="swatch-role">Footer email subscribe button ONLY</span>
+        </div>
+      </div>
+      <div class="swatch-card swatch-special">
+        <div class="swatch-block" style="background:#FA5800"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#FA5800</span>
+          <span class="swatch-name">PH Orange</span>
+          <span class="swatch-role">Font Awesome icons ONLY</span>
+        </div>
+      </div>
+      <div class="swatch-card swatch-special">
+        <div class="swatch-block" style="background:#FFA600"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#FFA600</span>
+          <span class="swatch-name">PH Amber</span>
+          <span class="swatch-role">Star rating icons ONLY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group-label">Text colours</div>
+    <div class="swatch-grid">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#333333"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#333333</span>
+          <span class="swatch-name">Text Dark</span>
+          <span class="swatch-role">Primary body text, nav links, headings on white</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#444444"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#444444</span>
+          <span class="swatch-name">Text Medium</span>
+          <span class="swatch-role">Product names, descriptions, secondary headings</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#111827"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#111827</span>
+          <span class="swatch-name">Heading Dark</span>
+          <span class="swatch-role">Section headings in content blocks (S&S, features)</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#696969;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#696969</span>
+          <span class="swatch-name">Text Muted</span>
+          <span class="swatch-role">Helper text, secondary labels, timestamps</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#CCCCCC;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#CCCCCC</span>
+          <span class="swatch-name">Footer Text</span>
+          <span class="swatch-role">All text inside the dark footer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group-label">Surfaces &amp; borders</div>
+    <div class="swatch-grid">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#FFFFFF;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#FFFFFF</span>
+          <span class="swatch-name">White</span>
+          <span class="swatch-role">Page background, cards, modals, inputs</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#F9F9F9;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#F9F9F9</span>
+          <span class="swatch-name">Off-White</span>
+          <span class="swatch-role">Alternating section backgrounds</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#E5E5E5;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#E5E5E5</span>
+          <span class="swatch-name">Light Grey</span>
+          <span class="swatch-role">Pagination, toolbar backgrounds</span>
+        </div>
+      </div>
+      <div class="swatch-card swatch-special" style="border-color:#BD08C3">
+        <div class="swatch-block" style="background:#fdf5ff;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#fdf5ff</span>
+          <span class="swatch-name">S&S Tint</span>
+          <span class="swatch-role">Very light purple wash on S&S price table rows only</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#E4E4E4;border:1px solid #eee"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#E4E4E4</span>
+          <span class="swatch-name">Border Light</span>
+          <span class="swatch-role">Card dividers, review cards</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#3B3B3B"></div>
+        <div class="swatch-info">
+          <span class="swatch-hex">#3B3B3B</span>
+          <span class="swatch-name">Footer Dark</span>
+          <span class="swatch-role">Footer background ONLY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TYPOGRAPHY ===== -->
+  <div class="sg-section" id="typography">
+    <div class="sg-section-label">02 — Typography</div>
+    <div class="sg-section-title">Font Family — Poppins</div>
+    <p class="sg-section-desc">Poppins is the sole brand typeface — used for every text element on petheaven.co.za. Never substitute Open Sans, Roboto, or any other sans-serif. Weights 400, 500, 600, 700, and 800 are in active use.</p>
+
+    <div class="type-showcase">
+      <div class="type-showcase-header">
+        <span class="type-showcase-label">Font weights</span>
+        <span class="type-showcase-meta">Google Fonts · Poppins</span>
+      </div>
+      <div class="type-showcase-body">
+        <div class="weight-grid">
+          <div class="weight-card">
+            <div class="weight-label">Regular · 400</div>
+            <div class="weight-specimen" style="font-weight:400">Pet Heaven</div>
+            <div class="weight-detail">Body copy, nav links, prices, descriptions</div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-label">Medium · 500</div>
+            <div class="weight-specimen" style="font-weight:500">Pet Heaven</div>
+            <div class="weight-detail">Product names on cards</div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-label">Semi-Bold · 600</div>
+            <div class="weight-specimen" style="font-weight:600">Pet Heaven</div>
+            <div class="weight-detail">Footer subscribe button, active/selected labels</div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-label">Bold · 700</div>
+            <div class="weight-specimen" style="font-weight:700">Pet Heaven</div>
+            <div class="weight-detail">Sub-headings, hero H4/H5, labels, tab titles</div>
+          </div>
+          <div class="weight-card">
+            <div class="weight-label">Extra-Bold · 800</div>
+            <div class="weight-specimen" style="font-weight:800">Pet Heaven</div>
+            <div class="weight-detail">Primary headings (H1, H3 section titles), S&S heading</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-showcase">
+      <div class="type-showcase-header">
+        <span class="type-showcase-label">Heading scale</span>
+        <span class="type-showcase-meta">Poppins · all on white/light backgrounds</span>
+      </div>
+      <div class="type-showcase-body">
+        <div class="heading-scale">
+          <div class="heading-row">
+            <span class="heading-meta">H1</span>
+            <span class="heading-size">28px</span>
+            <span class="heading-weight">800</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:28px;font-weight:800;color:#333333;line-height:1.1">Montego Beef, Vegetables &amp; Rice</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">H2</span>
+            <span class="heading-size">22px</span>
+            <span class="heading-weight">700</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:#333333;line-height:1.2">Product Details</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">H3</span>
+            <span class="heading-size">26px</span>
+            <span class="heading-weight">800</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:26px;font-weight:800;color:#111827;line-height:1.12">Top Sellers in Dog Food</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">H4 (hero)</span>
+            <span class="heading-size">25px</span>
+            <span class="heading-weight">700</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:25px;font-weight:700;color:#333333;line-height:1.1">Free delivery on orders over R500</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">H5</span>
+            <span class="heading-size">18px</span>
+            <span class="heading-weight">700</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:#333333;line-height:1.15">Subscribe &amp; Save up to 5%</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">H6</span>
+            <span class="heading-size">14px</span>
+            <span class="heading-weight">700</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:#333333;line-height:1.1;text-transform:uppercase;letter-spacing:.05em">FILTER BY BRAND</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">Body</span>
+            <span class="heading-size">14px</span>
+            <span class="heading-weight">400</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:400;color:#444444;line-height:1.6">Complete adult dog food formulated for large breeds with high activity levels.</span>
+          </div>
+          <div class="heading-row">
+            <span class="heading-meta">Small</span>
+            <span class="heading-size">12px</span>
+            <span class="heading-weight">400</span>
+            <span style="font-family:'Poppins',sans-serif;font-size:12px;font-weight:400;color:#696969;line-height:1.6">In stock · Estimated delivery 2–4 business days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUTTONS ===== -->
+  <div class="sg-section" id="buttons">
+    <div class="sg-section-label">03 — Buttons</div>
+    <div class="sg-section-title">Button Variants</div>
+    <p class="sg-section-desc">All buttons use Poppins and border-radius: 4px (except secondary/register at 6px, and pills at 20px). The primary green CTA always reads "Buy now" — not "Add to cart".</p>
+
+    <div class="btn-grid">
+      <div class="btn-group">
+        <div class="btn-group-label">Primary CTA</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-primary">Buy now</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:2px">#50B848 · hover #57AB4E · 15px/400</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">Subscribe Large</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-subscribe">Subscribe</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">#57AB4E · 21px · inline hero</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">Footer Subscribe</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-footer">Subscribe</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">#B3FA05 bg · #57AB4E text · footer only</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">Secondary / Register</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-secondary">Register</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">#696969 · uppercase · 6px radius</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">Ghost / Outline</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-outline">View all</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">Transparent bg · #50B848 border + text</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">S&amp;S Badge Pill</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-sns">Save 5%</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">#BD08C3 · 20px radius · S&S only</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <div class="btn-group-label">Disabled</div>
+        <div class="btn-group-buttons">
+          <button class="ph-btn-disabled" disabled>Out of stock</button>
+          <div style="font-size:11px;color:var(--gray-4);margin-top:4px">#CCCCCC bg · #888 text · opacity 0.7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COMPONENTS ===== -->
+  <div class="sg-section" id="components">
+    <div class="sg-section-label">04 — Components</div>
+    <div class="sg-section-title">UI Components</div>
+    <p class="sg-section-desc">Key recurring patterns from the live site — shown rendered with real PH styles.</p>
+
+    <div class="component-grid">
+
+      <div class="component-card">
+        <div class="component-label">Header bar</div>
+        <div class="component-preview">
+          <div class="ph-header-demo">
+            <div class="ph-header-logo">PET HEAVEN</div>
+            <div class="ph-header-icons">
+              <div class="ph-header-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="white" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2"/></svg></div>
+              <div class="ph-header-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="white" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke="white" stroke-width="2"/></svg></div>
+            </div>
+          </div>
+          <div class="ph-promo-bar">✨ Subscribe &amp; Save — up to 5% on recurring deliveries · *Free Delivery</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Schedule &amp; Save block</div>
+        <div class="component-preview">
+          <div class="ph-sns-block">
+            <span class="ph-sns-badge">Save 5%</span>
+            <div class="ph-sns-title">Schedule &amp; Save</div>
+            <div class="ph-sns-text">Get up to 5% off with recurring scheduled deliveries. Skip, change, or cancel anytime.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Product card</div>
+        <div class="component-preview" style="max-width:180px">
+          <div class="ph-product-card">
+            <div class="ph-product-img">
+              <div class="ph-product-badge">22%</div>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="4" fill="#E4E4E4"/><path d="M16 32c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#999" stroke-width="2"/><circle cx="24" cy="18" r="5" stroke="#999" stroke-width="2"/></svg>
+            </div>
+            <div class="ph-product-body">
+              <div class="ph-product-name">Montego Beef &amp; Veg 25kg</div>
+              <div>
+                <span class="ph-product-price">R310.00</span>
+                <span class="ph-product-old">R400.00</span>
+              </div>
+              <span class="ph-product-sns-price">S&S: R294.50 (save 5%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Swatch / size selector</div>
+        <div class="component-preview">
+          <div style="font-family:'Poppins',sans-serif;font-size:12px;color:#696969;margin-bottom:10px">Select size:</div>
+          <div class="ph-swatches">
+            <div class="ph-swatch">2kg</div>
+            <div class="ph-swatch">7kg</div>
+            <div class="ph-swatch selected">15kg</div>
+            <div class="ph-swatch">25kg</div>
+          </div>
+          <div style="font-family:'Poppins',sans-serif;font-size:11px;color:#BD08C3;margin-top:10px;font-weight:600">Selected state: #BD08C3 bg + white text</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Category hero banner</div>
+        <div class="component-preview">
+          <div class="ph-cat-banner">
+            <div class="ph-cat-eyebrow">Pet Heaven · Dog Food</div>
+            <div class="ph-cat-title">Premium Dog Food</div>
+            <div class="ph-cat-sub">Expert nutrition for every breed, size &amp; life stage.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-label">Star ratings &amp; footer</div>
+        <div class="component-preview">
+          <div style="margin-bottom:16px">
+            <div class="ph-stars">★★★★★<span class="ph-stars-count">4.8 (127 reviews)</span></div>
+            <div style="font-family:'Poppins',sans-serif;font-size:11px;color:#696969;margin-top:4px">Star colour: #FFA600</div>
+          </div>
+          <div class="ph-footer-demo">
+            <div class="ph-footer-title">Quick links</div>
+            <div class="ph-footer-links">
+              <span class="ph-footer-link">Dog Food</span>
+              <span class="ph-footer-link">Cat Food</span>
+              <span class="ph-footer-link">My Account</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== LAYOUT ===== -->
+  <div class="sg-section" id="layout">
+    <div class="sg-section-label">05 — Layout &amp; spacing</div>
+    <div class="sg-section-title">Layout Rules</div>
+    <p class="sg-section-desc">PH is intentionally flat — minimal shadows, zero border-radius on cards and inputs, generous max-width.</p>
+
+    <table class="layout-table" style="background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px">
+      <thead>
+        <tr>
+          <th style="width:25%">Property</th>
+          <th style="width:35%">Value</th>
+          <th>Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Max content width</strong></td><td><span class="code">1200px</span></td><td>All page layouts</td></tr>
+        <tr><td><strong>Page gutter</strong></td><td><span class="code">20px</span></td><td>Left/right page padding</td></tr>
+        <tr><td><strong>Product grid gap</strong></td><td><span class="code">14px</span></td><td>Between product cards</td></tr>
+        <tr><td><strong>Section margin</strong></td><td><span class="code">20–30px</span></td><td>Vertical spacing between sections</td></tr>
+        <tr><td><strong>Border radius — buttons</strong></td><td><span class="code">4px</span></td><td>All primary/ghost buttons</td></tr>
+        <tr><td><strong>Border radius — register</strong></td><td><span class="code">6px</span></td><td>Secondary/register buttons</td></tr>
+        <tr><td><strong>Border radius — S&S blocks</strong></td><td><span class="code">6–8px</span></td><td>Promo and S&S containers</td></tr>
+        <tr><td><strong>Border radius — pills</strong></td><td><span class="code">20px</span></td><td>Badge pills, S&S pill buttons</td></tr>
+        <tr><td><strong>Border radius — product cards</strong></td><td><span class="code">0px</span></td><td>Flat — no radius on cards</td></tr>
+        <tr><td><strong>Border radius — inputs</strong></td><td><span class="code">0px</span></td><td>Flat — no radius on form inputs</td></tr>
+        <tr><td><strong>Box shadow — default</strong></td><td><span class="code">none</span></td><td>Product cards, sections</td></tr>
+        <tr><td><strong>Box shadow — modal</strong></td><td><span class="code">0 4px 20px rgba(0,0,0,0.2)</span></td><td>Modals and overlays</td></tr>
+        <tr><td><strong>Box shadow — hover</strong></td><td><span class="code">0 2px 8px rgba(0,0,0,0.08)</span></td><td>Subtle hover lift only</td></tr>
+      </tbody>
+    </table>
+
+    <table class="layout-table" style="background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);overflow:hidden">
+      <thead><tr><th>Breakpoint</th><th>Width</th><th>Key changes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mobile</strong></td><td><span class="code">&lt; 768px</span></td><td>2-col product grid, compact S&S, bottom tab nav, hidden top nav</td></tr>
+        <tr><td><strong>Tablet</strong></td><td><span class="code">768–1024px</span></td><td>3-col product grid</td></tr>
+        <tr><td><strong>Desktop</strong></td><td><span class="code">&gt; 1024px</span></td><td>5-col product grid, full header layout</td></tr>
+        <tr><td><strong>Wide</strong></td><td><span class="code">&gt; 1280px</span></td><td>1200px max-width active, centred layout</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== QUICK REF ===== -->
+  <div class="sg-section" id="quickref">
+    <div class="sg-section-label">06 — Quick reference</div>
+    <div class="sg-section-title">Cheat Sheet</div>
+    <p class="sg-section-desc">Everything you need in one glance.</p>
+
+    <div class="quick-ref">
+      <div class="qr-grid">
+        <div>
+          <div class="qr-group-title">Primary palette</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#50B848"></div><span class="qr-label">PH Green — header, buttons, prices</span><span class="qr-hex">#50B848</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#57AB4E"></div><span class="qr-label">PH Green Dark — hover, mobile nav</span><span class="qr-hex">#57AB4E</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#4CAE4C"></div><span class="qr-label">PH Green Mid — selected filters</span><span class="qr-hex">#4CAE4C</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#BD08C3;border:1px solid rgba(255,255,255,0.2)"></div><span class="qr-label" style="color:#ce93d8">Purple — S&S ONLY</span><span class="qr-hex">#BD08C3</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#B3FA05"></div><span class="qr-label">Lime — footer CTA only</span><span class="qr-hex">#B3FA05</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FA5800"></div><span class="qr-label">Orange — icons only</span><span class="qr-hex">#FA5800</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FFA600"></div><span class="qr-label">Amber — stars only</span><span class="qr-hex">#FFA600</span></div>
+
+          <div class="qr-divider"></div>
+
+          <div class="qr-group-title">Text</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#333333"></div><span class="qr-label">Primary text</span><span class="qr-hex">#333333</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#444444"></div><span class="qr-label">Body / product names</span><span class="qr-hex">#444444</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#111827"></div><span class="qr-label">Section headings</span><span class="qr-hex">#111827</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#696969"></div><span class="qr-label">Muted / helper</span><span class="qr-hex">#696969</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#CCCCCC"></div><span class="qr-label">Footer text</span><span class="qr-hex">#CCCCCC</span></div>
+        </div>
+
+        <div>
+          <div class="qr-group-title">Typography</div>
+          <div class="qr-rule"><strong>Font family:</strong> Poppins (400/500/600/700/800) — non-negotiable</div>
+          <div class="qr-rule"><strong>400</strong> body copy, nav, descriptions<br><strong>500</strong> product names<br><strong>600</strong> subscribe button, selected labels<br><strong>700</strong> sub-headings, tabs<br><strong>800</strong> H1, H3, S&S heading</div>
+
+          <div class="qr-divider"></div>
+
+          <div class="qr-group-title">Key rules</div>
+          <div class="qr-rule"><strong>CTA copy:</strong> "Buy now" — not "Add to cart"</div>
+          <div class="qr-rule"><strong>Purple is S&S only.</strong> Never repurpose #BD08C3 for general navigation, decorative elements, or non-subscription CTAs.</div>
+          <div class="qr-rule"><strong>Product cards are flat.</strong> border-radius: 0, box-shadow: none — this is intentional brand style.</div>
+          <div class="qr-rule"><strong>Slider pattern:</strong> transform:translateX + overflow:hidden — never scroll-snap or overflow-x:auto.</div>
+          <div class="qr-rule"><strong>S&S pricing:</strong> #BD08C3 · Regular pricing: #50B848 · Old/struck price: #999</div>
+
+          <div class="qr-divider"></div>
+
+          <div class="qr-group-title">Surfaces</div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#FFFFFF;border:1px solid rgba(255,255,255,0.15)"></div><span class="qr-label">White — page, cards, modals</span><span class="qr-hex">#FFFFFF</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#F9F9F9;border:1px solid rgba(255,255,255,0.1)"></div><span class="qr-label">Off-white — section bg</span><span class="qr-hex">#F9F9F9</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#3B3B3B"></div><span class="qr-label">Footer dark</span><span class="qr-hex">#3B3B3B</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#50B848"></div><span class="qr-label">Header bar</span><span class="qr-hex">#50B848</span></div>
+          <div class="qr-item"><div class="qr-swatch" style="background:#BD08C3"></div><span class="qr-label">Promo bar (S&S bar)</span><span class="qr-hex">#BD08C3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
