@@ -38,7 +38,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
 /* NAV GRID */
-.nav-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:64px}
+.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:64px}
 
 /* NAV TILE */
 .nav-tile{
@@ -106,10 +106,16 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* FOOTER */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 
-@media(max-width:860px){
-  .nav-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:560px){
+/* Roadmap preview */
+.tp-roadmap{background:#1a1a1a;position:relative;overflow:hidden}
+.rm-preview-cols{display:flex;gap:6px;width:100%;padding:0 4px}
+.rm-preview-col{flex:1;display:flex;flex-direction:column;gap:4px}
+.rm-preview-hdr{height:8px;border-radius:3px;margin-bottom:2px}
+.rm-preview-card{height:16px;border-radius:4px;opacity:.7}
+.rm-preview-card.dim{opacity:.35}
+.ta-amber{background:var(--amber-mid)}
+
+@media(max-width:680px){
   .nav-grid{grid-template-columns:1fr}
   .page{padding:40px 20px 60px}
   .intro h1{font-size:32px}
@@ -257,6 +263,61 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
           <span class="tile-tag">Impact / effort</span>
           <span class="tile-tag">Roadmap</span>
           <span class="tile-tag">Backlog</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ROADMAP TILE -->
+    <a class="nav-tile" href="../roadmap/">
+      <div class="tile-accent ta-amber"></div>
+      <div class="tile-preview tp-roadmap">
+        <div class="rm-preview-cols">
+          <div class="rm-preview-col">
+            <div class="rm-preview-hdr" style="background:#3a9e3f;opacity:.8"></div>
+            <div class="rm-preview-card" style="background:#3a9e3f"></div>
+            <div class="rm-preview-card" style="background:#7b1fa2"></div>
+            <div class="rm-preview-card" style="background:#3a9e3f"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+          </div>
+          <div class="rm-preview-col">
+            <div class="rm-preview-hdr" style="background:#1a6fd4;opacity:.8"></div>
+            <div class="rm-preview-card" style="background:#1a6fd4"></div>
+            <div class="rm-preview-card" style="background:#1a6fd4"></div>
+            <div class="rm-preview-card" style="background:#7b1fa2"></div>
+            <div class="rm-preview-card" style="background:#7b1fa2"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+          </div>
+          <div class="rm-preview-col">
+            <div class="rm-preview-hdr" style="background:#f5c842;opacity:.8"></div>
+            <div class="rm-preview-card" style="background:#f5c842"></div>
+            <div class="rm-preview-card" style="background:#f5c842"></div>
+            <div class="rm-preview-card" style="background:#1a6fd4"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+          </div>
+          <div class="rm-preview-col">
+            <div class="rm-preview-hdr" style="background:#00695c;opacity:.8"></div>
+            <div class="rm-preview-card" style="background:#7b1fa2"></div>
+            <div class="rm-preview-card" style="background:#00695c"></div>
+            <div class="rm-preview-card" style="background:#f5c842"></div>
+            <div class="rm-preview-card" style="background:#7b1fa2"></div>
+            <div class="rm-preview-card dim" style="background:#fff"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-header">
+          <span class="tile-title">Roadmap</span>
+          <svg class="tile-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="tile-desc">FY2026/27 quarterly plan. Click any initiative to drill into the brief, RICE scores, and rationale behind the prioritisation.</p>
+        <div class="tile-meta">
+          <span class="tile-tag">FY2026/27</span>
+          <span class="tile-tag">Q1 – Q4</span>
+          <span class="tile-tag">63 initiatives</span>
         </div>
       </div>
     </a>
