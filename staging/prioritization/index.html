@@ -384,7 +384,7 @@ function renderMatrix(){
   const scored=filtered.map(it=>({...it,score:riceScore(it)}));
   const maxScore=Math.max(...scored.map(s=>s.score),1);
   scored.forEach((item,i)=>{
-    if(item.mi==null||item.me==null) return;
+    if(!item.mi || !item.me) return;
     const baseX=(item.me-1)/4*76+12;
     const baseY=(5-item.mi)/4*76+12;
     const x=(baseX/100)*cw;
