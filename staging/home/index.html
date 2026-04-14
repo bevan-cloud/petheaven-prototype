@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faithful to Nature — Product Workspace</title>
+<title>Bevan Staging — Product Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand:#5a8840;--brand-dark:#3d6029;--brand-light:#f0f6ea;--brand-mid:#b0cc96;
+  --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
   --blue:#1a6fd4;--blue-light:#e8f1fc;
   --purple:#7b1fa2;--purple-light:#f3e5f5;
   --amber:#7a5a00;--amber-light:#fef8e6;
@@ -17,6 +17,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* STAGING BANNER */
+.staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
 
 /* HEADER */
 .site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
@@ -119,11 +122,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   position:relative;
 }
 
-/* Skeleton preview */
-.skeleton-preview{display:flex;flex-direction:column;gap:8px;width:100%;align-items:center;justify-content:center}
-.skeleton-bar{border-radius:4px;background:var(--gray-2)}
-.skeleton-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4)}
-
 /* TILE BODY */
 .tile-body{padding:22px 24px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
 .tile-header{display:flex;align-items:center;justify-content:space-between}
@@ -134,9 +132,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* TILE META */
 .tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .tile-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-
-/* COMING SOON BADGE */
-.coming-soon{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--gray-4);background:var(--gray-1);border:1px solid var(--gray-2);padding:3px 10px;border-radius:20px;margin-top:10px}
 
 /* FOOTER */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
@@ -151,15 +146,17 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 </head>
 <body>
 
+<div class="staging-banner">🧪 Staging Environment — safe to experiment</div>
+
 <header class="site-header">
-  <a href="./" class="site-header-wordmark" style="text-decoration:none;color:inherit">Faithful to Nature</a>
+  <a href="./" class="site-header-wordmark" style="text-decoration:none;color:inherit">Bevan Staging</a>
   <div class="site-header-divider"></div>
   <span class="site-logo">Product Workspace</span>
 
   <div class="company-switcher" id="companySwitcher">
     <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
-      <span class="cs-dot" style="background:#5a8840"></span>
-      Faithful to Nature
+      <span class="cs-dot" style="background:#4f46e5"></span>
+      Bevan Staging
       <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
         <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -173,7 +170,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         </svg>
       </a>
       <div class="cs-divider"></div>
-      <a class="cs-option active" href="../../faithful-to-nature/home/">
+      <a class="cs-option" href="../../faithful-to-nature/home/">
         <span class="cs-option-dot" style="background:#5a8840"></span>
         <span class="cs-option-label">Faithful to Nature</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -188,7 +185,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         </svg>
       </a>
       <div class="cs-divider"></div>
-      <a class="cs-option" href="../../staging/home/">
+      <a class="cs-option active" href="../../staging/home/">
         <span class="cs-option-dot" style="background:#4f46e5"></span>
         <span class="cs-option-label">Bevan Staging</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -203,9 +200,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <div class="page">
 
   <div class="intro">
-    <div class="intro-badge"><span class="intro-badge-dot"></span>faithfultonature.co.za</div>
+    <div class="intro-badge"><span class="intro-badge-dot"></span>🧪 Staging · Safe to experiment</div>
     <h1>Product Workspace</h1>
-    <p class="intro-sub">Briefs, prototypes, and design resources for the Faithful to Nature product team.</p>
+    <p class="intro-sub">A safe sandbox to build and test new features before rolling them out to production brands.</p>
   </div>
 
   <div class="section-label">Navigate to</div>
@@ -215,12 +212,22 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <!-- PROJECTS TILE -->
     <a class="nav-tile" href="../projects/">
       <div class="tile-accent" style="background:var(--brand)"></div>
-      <div class="tile-preview" style="background:var(--gray-1)">
-        <div class="skeleton-preview">
-          <div class="skeleton-bar" style="width:80%;height:10px"></div>
-          <div class="skeleton-bar" style="width:60%;height:10px"></div>
-          <div class="skeleton-bar" style="width:70%;height:10px"></div>
-          <div class="skeleton-label" style="margin-top:4px">Coming soon</div>
+      <div class="tile-preview" style="background:var(--brand-light)">
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%">
+          <div style="background:#fff;border:1px solid var(--brand-mid);border-radius:6px;padding:7px 10px;display:flex;align-items:center;gap:8px">
+            <div style="width:6px;height:6px;border-radius:50%;background:#3a9e3f;flex-shrink:0"></div>
+            <div style="font-size:10px;font-weight:600;color:var(--black)">Test Feature Alpha</div>
+            <div style="margin-left:auto;font-size:9px;background:#e8f5e9;color:#2e7d32;padding:2px 6px;border-radius:10px;font-weight:600">Live</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--gray-2);border-radius:6px;padding:7px 10px;display:flex;align-items:center;gap:8px">
+            <div style="width:6px;height:6px;border-radius:50%;background:#f5c842;flex-shrink:0"></div>
+            <div style="font-size:10px;font-weight:600;color:var(--black)">Test Feature Beta</div>
+            <div style="margin-left:auto;font-size:9px;background:#fff8e1;color:#7a5a00;padding:2px 6px;border-radius:10px;font-weight:600">In Progress</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--gray-2);border-radius:6px;padding:7px 10px;display:flex;align-items:center;gap:8px">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></div>
+            <div style="font-size:10px;color:var(--gray-5)">Test Feature Gamma +5 more…</div>
+          </div>
         </div>
       </div>
       <div class="tile-body">
@@ -230,37 +237,34 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Active product initiatives — including project briefs, prototype links, and feature scope for each workstream.</p>
+        <p class="tile-desc">Staging project briefs — safe to experiment, break, and rebuild without affecting production brands.</p>
         <div class="tile-meta">
-          <span class="coming-soon">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Content coming soon
-          </span>
+          <span class="tile-tag">8 test projects</span>
+          <span class="tile-tag">3 live</span>
+          <span class="tile-tag">staging only</span>
         </div>
       </div>
     </a>
 
     <!-- PRIORITIZATION TILE -->
     <a class="nav-tile" href="../prioritization/">
-      <div class="tile-accent" style="background:#8bc34a"></div>
-      <div class="tile-preview" style="background:#f7fbf2">
-        <div class="skeleton-preview">
-          <div style="display:flex;gap:6px;width:100%">
-            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">High impact</div>
-              <div style="background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:var(--brand-dark)">Initiative A</div>
-              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Initiative B</div>
-            </div>
-            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">Lower impact</div>
-              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Initiative C</div>
-              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Backlog item…</div>
-            </div>
+      <div class="tile-accent" style="background:#6366f1"></div>
+      <div class="tile-preview" style="background:var(--brand-light)">
+        <div style="display:flex;gap:6px;width:100%">
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">High impact</div>
+            <div style="background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:var(--brand-dark)">Feature Alpha</div>
+            <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Feature Beta</div>
           </div>
-          <div style="display:flex;justify-content:space-between;width:100%;padding:0 2px">
-            <div style="font-size:9px;color:var(--gray-4);font-weight:600">Low effort →</div>
-            <div style="font-size:9px;color:var(--gray-4);font-weight:600">→ High effort</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">Lower impact</div>
+            <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Feature Gamma</div>
+            <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Backlog…</div>
           </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;width:100%;padding:0 2px;margin-top:6px">
+          <div style="font-size:9px;color:var(--gray-4);font-weight:600">Low effort →</div>
+          <div style="font-size:9px;color:var(--gray-4);font-weight:600">→ High effort</div>
         </div>
       </div>
       <div class="tile-body">
@@ -270,12 +274,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Impact vs effort scoring, backlog ranking, and initiative sequencing for the Faithful to Nature product roadmap.</p>
+        <p class="tile-desc">Test the RICE scoring and Impact vs Effort matrix with dummy initiatives before applying to real brands.</p>
         <div class="tile-meta">
-          <span class="coming-soon">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Content coming soon
-          </span>
+          <span class="tile-tag">8 test items</span>
+          <span class="tile-tag">RICE + Matrix</span>
+          <span class="tile-tag">staging only</span>
         </div>
       </div>
     </a>
@@ -286,29 +289,25 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       <div class="tile-preview" style="background:#1a1a1a;position:relative;overflow:hidden">
         <div style="display:flex;gap:6px;width:100%;padding:0 4px">
           <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:var(--brand);opacity:.8"></div>
-            <div style="height:16px;border-radius:4px;opacity:.7;background:var(--brand)"></div>
-            <div style="height:16px;border-radius:4px;opacity:.7;background:#8bc34a"></div>
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#4f46e5;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#4f46e5"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#6366f1"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#6366f1;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#6366f1"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#4f46e5"></div>
+            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#3730a3;opacity:.8"></div>
+            <div style="height:16px;border-radius:4px;opacity:.7;background:#3730a3"></div>
             <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
             <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
           </div>
           <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#8bc34a;opacity:.8"></div>
-            <div style="height:16px;border-radius:4px;opacity:.7;background:#8bc34a"></div>
-            <div style="height:16px;border-radius:4px;opacity:.7;background:var(--brand)"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#3d6029;opacity:.8"></div>
-            <div style="height:16px;border-radius:4px;opacity:.7;background:#3d6029"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
-          </div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:var(--brand);opacity:.4"></div>
-            <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
+            <div style="height:8px;border-radius:3px;margin-bottom:2px;background:#4f46e5;opacity:.4"></div>
             <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
             <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
             <div style="height:16px;border-radius:4px;opacity:.35;background:#fff"></div>
@@ -322,31 +321,30 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Quarterly product plan. Click any initiative to drill into the brief, RICE scores, and rationale behind the prioritisation.</p>
+        <p class="tile-desc">Quarterly staging plan. Test roadmap layouts, brief structures, and quarter logic safely.</p>
         <div class="tile-meta">
-          <span class="coming-soon">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Content coming soon
-          </span>
+          <span class="tile-tag">8 test items</span>
+          <span class="tile-tag">FY2026/27</span>
+          <span class="tile-tag">Q1–Q4</span>
         </div>
       </div>
     </a>
 
-    <!-- STYLE GUIDE TILE -->
-    <a class="nav-tile" href="../style-guide/">
+    <!-- STYLE GUIDE TILE (placeholder) -->
+    <a class="nav-tile" href="./">
       <div class="tile-accent" style="background:var(--brand)"></div>
       <div class="tile-preview" style="background:#1a1a1a">
         <div style="display:flex;flex-direction:column;gap:0;width:100%">
           <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%">
-            <div style="height:40px;border-radius:6px;background:var(--brand)"></div>
-            <div style="height:40px;border-radius:6px;background:#8bc34a"></div>
-            <div style="height:40px;border-radius:6px;background:#3d6029"></div>
-            <div style="height:40px;border-radius:6px;background:#f5f0e8"></div>
-            <div style="height:40px;border-radius:6px;background:#e8e0d0"></div>
+            <div style="height:40px;border-radius:6px;background:#4f46e5"></div>
+            <div style="height:40px;border-radius:6px;background:#6366f1"></div>
+            <div style="height:40px;border-radius:6px;background:#3730a3"></div>
+            <div style="height:40px;border-radius:6px;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1)"></div>
+            <div style="height:40px;border-radius:6px;background:#f5f5f5"></div>
           </div>
           <div style="margin-top:auto;padding-top:10px">
-            <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:-0.02em">M1 &amp; M2</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:1px;letter-spacing:.04em;text-transform:uppercase">Style guide · FTN brand</div>
+            <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:-0.02em">Design System</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:1px;letter-spacing:.04em;text-transform:uppercase">Style guide · Staging</div>
           </div>
         </div>
       </div>
@@ -357,17 +355,18 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Faithful to Nature CI and design system — colours, typography, buttons, components, and usage rules.</p>
+        <p class="tile-desc">Staging colour palette, typography tokens, and component patterns for testing brand changes.</p>
         <div class="tile-meta">
-          <span class="tile-tag">M1 — Magento 1</span>
-          <span class="tile-tag">M2 — Magento 2</span>
+          <span class="tile-tag">Indigo #4f46e5</span>
+          <span class="tile-tag">DM Sans</span>
+          <span class="tile-tag">staging only</span>
         </div>
       </div>
     </a>
 
   </div>
 
-  <p class="page-footer">faithfultonature.co.za · Product workspace</p>
+  <p class="page-footer">staging · Bevan product workspace · safe to experiment</p>
 
 </div>
 

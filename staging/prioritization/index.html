@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bevan Staging — Prioritization</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+.staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:var(--black);transition:background .1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.page{max-width:1080px;margin:0 auto;padding:48px 40px 100px}
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6;margin-bottom:20px}
+.view-tabs{display:flex;gap:8px}
+.view-tab{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.03em}
+.view-tab.active{background:#fff;color:var(--brand-dark);border-color:#fff}
+.model-desc{font-size:13px;color:rgba(255,255,255,.7);margin-top:12px;max-width:560px;line-height:1.55}
+.filters{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:16px 20px;margin-bottom:24px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.filter-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);flex-shrink:0}
+.filter-select{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:6px 10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);cursor:pointer}
+.filter-reset{margin-left:auto;font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:var(--radius)}
+.filter-reset:hover{background:var(--brand-light)}
+
+/* RICE TABLE */
+#rice-view .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.rice-table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.rice-table{width:100%;border-collapse:collapse}
+.rice-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:12px 16px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.rice-table th:hover{color:var(--brand)}
+.rice-table td{padding:14px 16px;border-bottom:1px solid var(--gray-2);vertical-align:middle;font-size:13px}
+.rice-table tr:last-child td{border-bottom:none}
+.rice-table tr:hover td{background:#fafafa}
+.item-name{font-weight:600;color:var(--black)}
+.item-theme{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-top:3px}
+.score-val{font-weight:700;font-size:15px;color:var(--brand-dark)}
+.score-sub{font-size:10px;color:var(--gray-4)}
+.rank-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;background:var(--brand)}
+
+/* MATRIX VIEW */
+#matrix-view{display:none}
+.matrix-canvas-row{display:flex;align-items:stretch;gap:0}
+.matrix-y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);text-align:center;padding:0 6px;flex-shrink:0}
+.matrix-canvas-wrap{flex:1;min-width:0;position:relative;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;height:480px}
+.matrix-canvas{width:100%;height:100%;position:relative}
+.matrix-grid-h,.matrix-grid-v{position:absolute;background:var(--gray-2);pointer-events:none}
+.matrix-grid-h{left:0;right:0;height:1px;top:50%}
+.matrix-grid-v{top:0;bottom:0;width:1px;left:50%}
+.q-label{position:absolute;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;pointer-events:none}
+.q-label-inner{background:rgba(255,255,255,.85);border-radius:6px;padding:3px 8px;backdrop-filter:blur(4px)}
+.q-label.qw{top:8px;left:8px;color:#1b5e20}
+.q-label.bb{top:8px;right:8px;color:#b84714}
+.q-label.nth{bottom:8px;left:8px;color:var(--gray-4)}
+.q-label.ts{bottom:8px;right:8px;color:var(--gray-4)}
+.m-x-label{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4)}
+.bubble{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center;line-height:1.2}
+.bubble:hover{transform:translate(-50%,-50%) scale(1.12);box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:10}
+.bubble-tooltip{position:absolute;background:#1a1a1a;color:#fff;padding:8px 12px;border-radius:8px;font-size:11px;white-space:nowrap;z-index:100;pointer-events:none;top:calc(100% + 8px);left:50%;transform:translateX(-50%)}
+
+/* MATRIX TABLE */
+.matrix-table-wrap{margin-top:16px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.matrix-table{width:100%;border-collapse:collapse}
+.matrix-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.matrix-table th.m-sorted{color:var(--brand-dark)}
+.matrix-table th:hover{color:var(--brand)}
+.matrix-table td{padding:12px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;vertical-align:middle}
+.matrix-table tr:last-child td{border-bottom:none}
+.matrix-table tr:hover td{background:#fafafa}
+.quadrant-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.03em;white-space:nowrap}
+.qw-badge{background:#e8f5e9;color:#1b5e20}
+.bb-badge{background:#fdf1ec;color:#b84714}
+.nth-badge{background:#e8f1fc;color:#1a5fa8}
+.ts-badge{background:var(--gray-1);color:var(--gray-4)}
+.m-score-val{font-weight:700;font-size:14px}
+.sv-impact{color:var(--brand-dark)}
+.sv-effort{color:#b84714}
+.m-editable{cursor:pointer;border-bottom:1px dashed var(--gray-3);transition:color .15s}
+.m-editable:hover{color:var(--brand)}
+.m-edit-input{width:40px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--brand);border-radius:4px;padding:2px 6px;text-align:center;outline:none}
+
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+
+@media(max-width:680px){.page{padding:32px 16px 60px}.site-header{padding:0 20px}}
+</style>
+</head>
+<body>
+
+<div class="staging-banner">🧪 Staging Environment — safe to experiment</div>
+
+<header class="site-header">
+  <a href="../home/" class="site-header-wordmark">Bevan Staging</a>
+  <div class="site-header-divider"></div>
+  <span class="site-logo">Product Workspace</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#4f46e5"></span>
+      Bevan Staging
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option" href="../../ucook/home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#4f46e5"></span><span class="cs-option-label">Bevan Staging</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</header>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-badge">🧪 Bevan Staging · FY2026/27 · Product Prioritization</div>
+    <h1>Prioritization</h1>
+    <p class="hero-sub">Test RICE scoring and Impact vs Effort matrix with safe dummy data.</p>
+    <div class="view-tabs">
+      <button class="view-tab active" data-view="rice" onclick="switchView('rice',this)">RICE Score</button>
+      <button class="view-tab" data-view="matrix" onclick="switchView('matrix',this)">Impact vs Effort</button>
+    </div>
+    <div class="model-desc" id="model-desc-rice">RICE scoring weighs <strong>Reach</strong>, <strong>Impact</strong>, <strong>Confidence</strong> and <strong>Effort</strong> to produce a comparable priority number across all initiatives.</div>
+    <div class="model-desc" id="model-desc-matrix" style="display:none">The Impact vs Effort matrix plots initiatives across four quadrants — <strong>Quick Wins</strong>, <strong>Big Bets</strong>, <strong>Nice to Have</strong> and <strong>Time Sinks</strong>.</div>
+  </div>
+
+  <div class="filters">
+    <span class="filter-label">Filter</span>
+    <select class="filter-select" id="filter-theme" onchange="applyFilters()">
+      <option value="">All themes</option>
+      <option>Web Enhancement</option>
+      <option>Ecommerce Growth</option>
+      <option>Tech Infrastructure</option>
+      <option>Process Ops</option>
+      <option>Data &amp; Analytics</option>
+      <option>Mobile</option>
+      <option>Platform</option>
+      <option>Content</option>
+    </select>
+    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+  </div>
+
+  <!-- RICE VIEW -->
+  <div id="rice-view">
+    <div class="section-label">All test initiatives — ranked by RICE score</div>
+    <div class="rice-table-wrap">
+      <table class="rice-table" id="riceTable">
+        <thead>
+          <tr>
+            <th onclick="setSort('rank')">#</th>
+            <th onclick="setSort('name')">Initiative</th>
+            <th onclick="setSort('theme')">Theme</th>
+            <th onclick="setSort('score')">RICE Score</th>
+            <th onclick="setSort('r')">Reach</th>
+            <th onclick="setSort('i')">Impact</th>
+            <th onclick="setSort('c')">Confidence</th>
+            <th onclick="setSort('e')">Effort</th>
+          </tr>
+        </thead>
+        <tbody id="riceTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MATRIX VIEW -->
+  <div id="matrix-view">
+    <div class="matrix-canvas-row">
+      <div class="matrix-y-label">← Low Impact &nbsp;&nbsp; High Impact →</div>
+      <div class="matrix-canvas-wrap">
+        <div class="matrix-canvas" id="matrixCanvas">
+          <div class="matrix-grid-h"></div>
+          <div class="matrix-grid-v"></div>
+          <div class="q-label qw"><span class="q-label-inner">⚡ Quick Wins</span></div>
+          <div class="q-label bb"><span class="q-label-inner">🎯 Big Bets</span></div>
+          <div class="q-label nth"><span class="q-label-inner">💤 Nice to Have</span></div>
+          <div class="q-label ts"><span class="q-label-inner">⚠ Time Sinks</span></div>
+          <div class="m-x-label">Low Effort → High Effort</div>
+        </div>
+      </div>
+    </div>
+    <div class="matrix-table-wrap">
+      <table class="matrix-table" id="matrixTable">
+        <thead>
+          <tr>
+            <th onclick="setMSort('name')">Initiative</th>
+            <th onclick="setMSort('theme')">Theme</th>
+            <th onclick="setMSort('mi')">Impact (mi)</th>
+            <th onclick="setMSort('me')">Effort (me)</th>
+            <th onclick="setMSort('quadrant')">Quadrant</th>
+          </tr>
+        </thead>
+        <tbody id="matrixTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="page-footer">Bevan Staging · Product prioritization · FY2026/27</p>
+
+</div>
+
+<script>
+const ITEMS = [
+  {id:1, name:'Test Feature Alpha',   theme:'Web Enhancement',    r:5000, i:4, c:90, e:2, mi:4, me:2},
+  {id:2, name:'Test Feature Beta',    theme:'Ecommerce Growth',   r:3000, i:5, c:80, e:3, mi:5, me:3},
+  {id:3, name:'Test Feature Gamma',   theme:'Tech Infrastructure',r:2000, i:3, c:70, e:4, mi:3, me:4},
+  {id:4, name:'Test Feature Delta',   theme:'Process Ops',        r:4000, i:4, c:85, e:2, mi:4, me:2},
+  {id:5, name:'Test Feature Epsilon', theme:'Data & Analytics',   r:1500, i:3, c:60, e:5, mi:2, me:5},
+  {id:6, name:'Test Feature Zeta',    theme:'Mobile',             r:3500, i:5, c:90, e:1, mi:5, me:1},
+  {id:7, name:'Test Feature Eta',     theme:'Platform',           r:2500, i:4, c:75, e:3, mi:4, me:3},
+  {id:8, name:'Test Feature Theta',   theme:'Content',            r:1000, i:2, c:50, e:4, mi:2, me:4},
+];
+
+const THEME_COLORS = {
+  'Web Enhancement':    {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
+  'Ecommerce Growth':   {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
+  'Tech Infrastructure':{bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
+  'Process Ops':        {bg:'#fff8e1',border:'#f5c842',text:'#7a5a00'},
+  'Data & Analytics':   {bg:'#f3e5f5',border:'#ce93d8',text:'#6a1b9a'},
+  'Mobile':             {bg:'#fdf1ec',border:'#f0b89a',text:'#b84714'},
+  'Platform':           {bg:'#e8faf0',border:'#a5d6b7',text:'#1b5e20'},
+  'Content':            {bg:'#fef3e2',border:'#f5c842',text:'#7a5a00'},
+};
+const BUBBLE_COLORS = ['#4f46e5','#3730a3','#6366f1','#818cf8','#4338ca','#4f46e5','#6366f1','#3730a3'];
+
+let sortCol = 'score', sortDir = 'desc', mSortCol = 'mi', mSortDir = 'desc';
+let currentView = 'rice';
+let filtered = [...ITEMS];
+
+function riceScore(item){ return Math.round(item.r * item.i * (item.c/100) / item.e); }
+
+function themeHtml(t){
+  const c = THEME_COLORS[t] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  return `<span class="item-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t}</span>`;
+}
+
+function getQuadrant(item){
+  if(item.mi==null||item.me==null) return null;
+  const hi=item.mi>=3, le=item.me<=3;
+  if(hi&&le) return 'qw';
+  if(hi&&!le) return 'bb';
+  if(!hi&&le) return 'nth';
+  return 'ts';
+}
+
+function quadrantHtml(q){
+  if(!q) return '<span class="quadrant-badge ts-badge">—</span>';
+  const map={qw:['qw-badge','⚡ Quick Win'],bb:['bb-badge','🎯 Big Bet'],nth:['nth-badge','💤 Nice to Have'],ts:['ts-badge','⚠ Time Sink']};
+  return `<span class="quadrant-badge ${map[q][0]}">${map[q][1]}</span>`;
+}
+
+function getSorted(arr){
+  return [...arr].sort((a,b)=>{
+    let av,bv;
+    if(sortCol==='score'){av=riceScore(a);bv=riceScore(b);}
+    else if(sortCol==='rank'){av=riceScore(a);bv=riceScore(b);return bv-av;}
+    else{av=a[sortCol];bv=b[sortCol];}
+    if(typeof av==='string') return sortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
+    return sortDir==='asc'?av-bv:bv-av;
+  });
+}
+
+function getMSorted(arr){
+  return [...arr].sort((a,b)=>{
+    let av=a[mSortCol],bv=b[mSortCol];
+    if(mSortCol==='quadrant'){av=getQuadrant(a)||'';bv=getQuadrant(b)||'';}
+    if(typeof av==='string') return mSortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
+    return mSortDir==='asc'?(av??0)-(bv??0):(bv??0)-(av??0);
+  });
+}
+
+function setSort(col){
+  if(sortCol===col) sortDir=sortDir==='asc'?'desc':'asc';
+  else{sortCol=col;sortDir='desc';}
+  render();
+}
+
+function setMSort(col){
+  if(mSortCol===col) mSortDir=mSortDir==='asc'?'desc':'asc';
+  else{mSortCol=col;mSortDir='desc';}
+  renderMatrixTable();
+}
+
+function applyFilters(){
+  const theme=document.getElementById('filter-theme').value;
+  filtered=ITEMS.filter(it=>{
+    if(theme&&it.theme!==theme) return false;
+    return true;
+  });
+  render();
+  if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
+}
+
+function resetFilters(){
+  document.getElementById('filter-theme').value='';
+  filtered=[...ITEMS];
+  render();
+  if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
+}
+
+function render(){
+  const sorted=getSorted(filtered);
+  const tbody=document.getElementById('riceTbody');
+  tbody.innerHTML=sorted.map((it,idx)=>{
+    const sc=riceScore(it);
+    return `<tr>
+      <td><div class="rank-badge">${idx+1}</div></td>
+      <td><div class="item-name">${it.name}</div>${themeHtml(it.theme)}</td>
+      <td>${themeHtml(it.theme)}</td>
+      <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
+      <td>${it.r.toLocaleString()}</td>
+      <td>${it.i}</td>
+      <td>${it.c}%</td>
+      <td>${it.e}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderMatrix(){
+  const canvas=document.getElementById('matrixCanvas');
+  canvas.querySelectorAll('.bubble').forEach(b=>b.remove());
+  const cw=canvas.offsetWidth||600, ch=canvas.offsetHeight||480;
+  const scored=filtered.map(it=>({...it,score:riceScore(it)}));
+  const maxScore=Math.max(...scored.map(s=>s.score),1);
+  scored.forEach((item,i)=>{
+    if(item.mi==null||item.me==null) return;
+    const baseX=(item.me-1)/4*76+12;
+    const baseY=(5-item.mi)/4*76+12;
+    const x=(baseX/100)*cw;
+    const y=(baseY/100)*ch;
+    const size=Math.max(26,Math.min(44,20+(item.score||0)/maxScore*24));
+    const b=document.createElement('div');
+    b.className='bubble';
+    b.style.cssText=`left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${BUBBLE_COLORS[i%BUBBLE_COLORS.length]};font-size:${size>32?10:8}px`;
+    const label=item.name.replace('Test Feature ','');
+    b.textContent=label;
+    b.title=`${item.name}\nImpact: ${item.mi} | Effort: ${item.me}\nRICE: ${item.score}`;
+    canvas.appendChild(b);
+  });
+}
+
+function renderMatrixTable(){
+  const sorted=getMSorted(filtered);
+  const tbody=document.getElementById('matrixTbody');
+  tbody.innerHTML=sorted.map(it=>{
+    const q=getQuadrant(it);
+    return `<tr>
+      <td><div class="item-name">${it.name}</div></td>
+      <td>${themeHtml(it.theme)}</td>
+      <td><span class="m-score-val sv-impact m-editable" data-id="${it.id}" data-field="mi" onclick="startEditMatrix(event)">${it.mi??'—'}</span></td>
+      <td><span class="m-score-val sv-effort m-editable" data-id="${it.id}" data-field="me" onclick="startEditMatrix(event)">${it.me??'—'}</span></td>
+      <td>${quadrantHtml(q)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function startEditMatrix(e){
+  const span=e.target;
+  const id=parseInt(span.dataset.id);
+  const field=span.dataset.field;
+  const item=ITEMS.find(x=>x.id===id);
+  if(!item) return;
+  const input=document.createElement('input');
+  input.type='number';input.min=1;input.max=5;input.step=1;
+  input.className='m-edit-input';
+  input.value=item[field]??'';
+  span.replaceWith(input);
+  input.focus();input.select();
+  function save(){
+    const v=parseInt(input.value);
+    if(v>=1&&v<=5) item[field]=v;
+    renderMatrix();renderMatrixTable();
+  }
+  input.addEventListener('blur',save);
+  input.addEventListener('keydown',ev=>{if(ev.key==='Enter')save();if(ev.key==='Escape'){renderMatrixTable();}});
+}
+
+function switchView(v,btn){
+  currentView=v;
+  document.getElementById('rice-view').style.display=v==='rice'?'':'none';
+  document.getElementById('matrix-view').style.display=v==='matrix'?'':'none';
+  document.getElementById('model-desc-rice').style.display=v==='rice'?'':'none';
+  document.getElementById('model-desc-matrix').style.display=v==='matrix'?'':'none';
+  document.querySelectorAll('.view-tab').forEach(t=>t.classList.toggle('active',t.dataset.view===v));
+  if(v==='matrix'){renderMatrix();renderMatrixTable();}
+}
+
+function toggleSwitcher(){
+  const trigger=document.getElementById('csTrigger');
+  const menu=document.getElementById('csMenu');
+  const isOpen=menu.classList.contains('open');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded',!isOpen);
+}
+document.addEventListener('click',function(e){
+  const sw=document.getElementById('companySwitcher');
+  if(!sw.contains(e.target)){
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
+  }
+});
+
+window.addEventListener('load',()=>{render();});
+window.addEventListener('resize',()=>{if(currentView==='matrix') renderMatrix();});
+</script>
+</body>
+</html>

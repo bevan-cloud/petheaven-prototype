@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bevan Staging — Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+.staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:var(--black);transition:background .1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.page{max-width:1080px;margin:0 auto;padding:48px 40px 100px}
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6}
+.hero-stats{display:flex;gap:24px;margin-top:20px}
+.hero-stat-val{font-size:28px;font-weight:700;line-height:1}
+.hero-stat-label{font-size:11px;opacity:.65;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.quarter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:40px}
+.quarter-col{display:flex;flex-direction:column;gap:0}
+.quarter-header{padding:12px 16px 10px;background:var(--brand-dark);border-radius:var(--radius-lg) var(--radius-lg) 0 0;color:#fff}
+.quarter-title{font-size:13px;font-weight:700;letter-spacing:.04em}
+.quarter-sub{font-size:11px;opacity:.65;margin-top:2px}
+.quarter-cards{background:#fff;border:1px solid var(--gray-2);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:200px}
+.rm-card{border-radius:8px;padding:10px 12px;cursor:pointer;transition:box-shadow .15s,transform .15s;border:1px solid transparent}
+.rm-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.3}
+.rm-card-theme{font-size:10px;font-weight:500;margin-top:4px;opacity:.75}
+.rm-card-meta{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.rm-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:10px;background:rgba(0,0,0,.06)}
+.rm-empty{font-size:12px;color:var(--gray-4);text-align:center;padding:20px 0;font-style:italic}
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+@media(max-width:860px){.quarter-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.quarter-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
+</style>
+</head>
+<body>
+
+<div class="staging-banner">🧪 Staging Environment — safe to experiment</div>
+
+<header class="site-header">
+  <a href="../home/" class="site-header-wordmark">Bevan Staging</a>
+  <div class="site-header-divider"></div>
+  <span class="site-logo">Product Workspace</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#4f46e5"></span>
+      Bevan Staging
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option" href="../../ucook/home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#4f46e5"></span><span class="cs-option-label">Bevan Staging</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</header>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-badge">🧪 Bevan Staging · FY2026/27 · Product Roadmap</div>
+    <h1>Roadmap</h1>
+    <p class="hero-sub">Test roadmap layout, quarterly distribution, and initiative cards with safe dummy data.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">8</div><div class="hero-stat-label">Initiatives</div></div>
+      <div><div class="hero-stat-val">4</div><div class="hero-stat-label">Quarters</div></div>
+      <div><div class="hero-stat-val">8</div><div class="hero-stat-label">Themes</div></div>
+    </div>
+  </div>
+
+  <div class="section-label">FY2026/27 — Quarterly Plan</div>
+
+  <div class="quarter-grid" id="quarterGrid"></div>
+
+  <p class="page-footer">Bevan Staging · Product roadmap · FY2026/27</p>
+
+</div>
+
+<script>
+const ITEMS = [
+  {id:1, name:'Test Feature Alpha',   theme:'Web Enhancement',     q:'Q1', r:5000,i:4,c:90,e:2},
+  {id:2, name:'Test Feature Beta',    theme:'Ecommerce Growth',    q:'Q1', r:3000,i:5,c:80,e:3},
+  {id:3, name:'Test Feature Gamma',   theme:'Tech Infrastructure', q:'Q2', r:2000,i:3,c:70,e:4},
+  {id:4, name:'Test Feature Delta',   theme:'Process Ops',         q:'Q2', r:4000,i:4,c:85,e:2},
+  {id:5, name:'Test Feature Epsilon', theme:'Data & Analytics',    q:'Q3', r:1500,i:3,c:60,e:5},
+  {id:6, name:'Test Feature Zeta',    theme:'Mobile',              q:'Q3', r:3500,i:5,c:90,e:1},
+  {id:7, name:'Test Feature Eta',     theme:'Platform',            q:'Q4', r:2500,i:4,c:75,e:3},
+  {id:8, name:'Test Feature Theta',   theme:'Content',             q:'Q4', r:1000,i:2,c:50,e:4},
+];
+
+const THEME_COLORS = {
+  'Web Enhancement':    {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
+  'Ecommerce Growth':   {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
+  'Tech Infrastructure':{bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
+  'Process Ops':        {bg:'#fff8e1',border:'#f5c842',text:'#7a5a00'},
+  'Data & Analytics':   {bg:'#f3e5f5',border:'#ce93d8',text:'#6a1b9a'},
+  'Mobile':             {bg:'#fdf1ec',border:'#f0b89a',text:'#b84714'},
+  'Platform':           {bg:'#e8faf0',border:'#a5d6b7',text:'#1b5e20'},
+  'Content':            {bg:'#fef3e2',border:'#f5c842',text:'#7a5a00'},
+};
+
+const QUARTERS = [
+  {id:'Q1',label:'Q1 2026',sub:'Jul – Sep 2026'},
+  {id:'Q2',label:'Q2 2026',sub:'Oct – Dec 2026'},
+  {id:'Q3',label:'Q3 2027',sub:'Jan – Mar 2027'},
+  {id:'Q4',label:'Q4 2027',sub:'Apr – Jun 2027'},
+];
+
+function riceScore(it){ return Math.round(it.r*it.i*(it.c/100)/it.e); }
+
+function renderRoadmap(){
+  const grid=document.getElementById('quarterGrid');
+  grid.innerHTML=QUARTERS.map(q=>{
+    const items=ITEMS.filter(it=>it.q===q.id);
+    const cards=items.length===0
+      ? '<div class="rm-empty">No items planned</div>'
+      : items.map(it=>{
+          const c=THEME_COLORS[it.theme]||{bg:'#f5f5f5',border:'#ddd',text:'#555'};
+          return `<div class="rm-card" style="background:${c.bg};border-color:${c.border}">
+            <div class="rm-card-name">${it.name}</div>
+            <div class="rm-card-theme" style="color:${c.text}">${it.theme}</div>
+            <div class="rm-card-meta">
+              <span class="rm-pill">RICE ${riceScore(it)}</span>
+              <span class="rm-pill">Impact ${it.i}</span>
+            </div>
+          </div>`;
+        }).join('');
+    return `<div class="quarter-col">
+      <div class="quarter-header">
+        <div class="quarter-title">${q.label}</div>
+        <div class="quarter-sub">${q.sub} · ${items.length} initiative${items.length!==1?'s':''}</div>
+      </div>
+      <div class="quarter-cards">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSwitcher(){
+  const trigger=document.getElementById('csTrigger');
+  const menu=document.getElementById('csMenu');
+  const isOpen=menu.classList.contains('open');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded',!isOpen);
+}
+document.addEventListener('click',function(e){
+  const sw=document.getElementById('companySwitcher');
+  if(!sw.contains(e.target)){
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
+  }
+});
+
+window.addEventListener('load',renderRoadmap);
+</script>
+</body>
+</html>
