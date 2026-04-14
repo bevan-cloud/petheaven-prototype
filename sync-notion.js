@@ -90,7 +90,8 @@ function mapItem(page, idx) {
   const priority = p.Priority?.select?.name || '';
   const pillar   = p['Strategic Pillar']?.select?.name || '';
   const archive  = p.Archive?.checkbox ?? false;
-  const lead     = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
+  const lead      = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
+  const stagingUrl = p['Refernce']?.url || '';
 
   return {
     id:        idx + 1,
@@ -108,6 +109,7 @@ function mapItem(page, idx) {
     notionUrl: page.url,
     priority,
     lead,
+    stagingUrl,
     archive,
   };
 }

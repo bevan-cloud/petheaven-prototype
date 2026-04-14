@@ -153,7 +153,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 </div>
 
-<script src="../notion-data.js?v=1776193040147"></script>
+<script src="../notion-data.js?v=1776194833954"></script>
 <script>
 const ITEMS = NOTION_ITEMS;
 
@@ -267,9 +267,13 @@ function openFlyout(itemId){
   const qdHtml=qd
     ?`<span class="f-quadrant" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
     :`<span class="flyout-prop-val-muted">No matrix data</span>`;
+  const _meta=(typeof getBriefMeta==='function')?getBriefMeta(p.name):{type:'',ai:false};
+  const _tCls=_meta.type==='Quick Win'?'f-type-qw':_meta.type==='Existing Roadmap'?'f-type-er':_meta.type==='Medium-term'?'f-type-mt':'f-type-unk';
+  const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
   document.getElementById('flyoutBody').innerHTML=`
     <div style="height:4px;border-radius:2px;background:${accent};margin-bottom:20px"></div>
     ${tagHtml?`<div class="flyout-tags">${tagHtml}</div>`:''}
+    ${(_meta.type||_meta.ai)?`<div class="f-pill-row">${_meta.type?`<span class="f-type-pill ${_tCls}">${fEsc(_meta.type)}</span>`:''} ${_meta.ai?'<span class="f-ai-badge">✦ AI</span>':''}</div>`:''}
     <div class="flyout-title">${fEsc(p.name)}</div>
     ${p.desc?`<p class="flyout-subtitle">${fEsc(p.desc)}</p>`:''}
     <div class="flyout-props">
@@ -280,13 +284,13 @@ function openFlyout(itemId){
       <div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
     </div>
-    <div class="flyout-section">
+    ${_brief ? _brief : `<div class="flyout-section">
       <div class="flyout-section-hdr">
         <span class="flyout-section-title">Project Brief</span>
         <span class="${sm.cls}" style="font-size:11px">${sm.label}</span>
       </div>
       ${p.desc?`<p class="flyout-desc">${fEsc(p.desc)}</p>`:'<p class="flyout-desc-empty">No description added in Notion yet.</p>'}
-    </div>
+    </div>`}
     <div class="flyout-section">
       <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score Breakdown</span></div>
       ${hasRice?`
@@ -320,5 +324,6 @@ function closeFlyout(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
 </script>
+<script src="../project-briefs.js"></script>
 </body>
 </html>

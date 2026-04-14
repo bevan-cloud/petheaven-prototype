@@ -333,7 +333,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <div class="flyout-body" id="flyoutBody"></div>
 </div>
 
-<script src="../notion-data.js?v=1776193040147"></script>
+<script src="../notion-data.js?v=1776194833954"></script>
 <script>
 
 // ─── Data + lookups ───────────────────────────────────────────────────────────
@@ -745,6 +745,9 @@ function openFlyout(idx) {
   const sm  = STATUS_META[p.status] || STATUS_META.planned;
   const qd  = getQuadrant(p.mi, p.me);
   const hasRice = p.r || p.i || p.c || p.e > 1;
+  const _meta=(typeof getBriefMeta==='function')?getBriefMeta(p.name):{type:'',ai:false};
+  const _tCls=_meta.type==='Quick Win'?'f-type-qw':_meta.type==='Existing Roadmap'?'f-type-er':_meta.type==='Medium-term'?'f-type-mt':'f-type-unk';
+  const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
 
   // Company tags at top
   const tagHtml = (p.company||[]).map(c =>
@@ -788,12 +791,13 @@ function openFlyout(idx) {
     <div style="height:4px;border-radius:2px;background:${p.accent};margin-bottom:20px"></div>
 
     ${tagHtml ? `<div class="flyout-tags">${tagHtml}</div>` : ''}
+    ${(_meta.type||_meta.ai)?`<div class="f-pill-row">${_meta.type?`<span class="f-type-pill ${_tCls}">${esc(_meta.type)}</span>`:''} ${_meta.ai?'<span class="f-ai-badge">✦ AI</span>':''}</div>`:''}
     <div class="flyout-title">${esc(p.name)}</div>
     ${p.desc ? `<p class="flyout-subtitle">${esc(p.desc)}</p>` : ''}
 
     ${propsHtml}
 
-    <div class="flyout-section">
+    ${_brief ? _brief : `<div class="flyout-section">
       <div class="flyout-section-hdr">
         <span class="flyout-section-title">Project Brief</span>
         <span class="pc-status ${sm.cls}" style="font-size:11px">${sm.label}</span>
@@ -801,7 +805,7 @@ function openFlyout(idx) {
       ${p.desc
         ? `<p class="flyout-desc">${esc(p.desc)}</p>`
         : `<p class="flyout-desc-empty">No description added in Notion yet.</p>`}
-    </div>
+    </div>`}
 
     <div class="flyout-section">
       <div class="flyout-section-hdr">
@@ -865,5 +869,6 @@ window.addEventListener('load', () => {
   updateSortHeaders();
 });
 </script>
+<script src="../project-briefs.js"></script>
 </body>
 </html>
