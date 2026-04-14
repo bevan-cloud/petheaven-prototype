@@ -8,16 +8,10 @@ const OUTPUT = 'staging/notion-data.js';
 
 // Load token from .env file or NOTION_TOKEN environment variable
 function loadToken() {
-  const envVar = process.env.NOTION_TOKEN;
-  if (envVar) return envVar;
-  try {
-    const { readFileSync } = await import('fs'); // can't await here, use sync below
-  } catch {}
-  // Inline .env reader (no dotenv dep needed)
+  if (process.env.NOTION_TOKEN) return process.env.NOTION_TOKEN;
   try {
     const fs = require('fs');
-    const env = fs.readFileSync('.env', 'utf8');
-    const match = env.match(/^NOTION_TOKEN\s*=\s*(.+)$/m);
+    const match = fs.readFileSync('.env', 'utf8').match(/^NOTION_TOKEN\s*=\s*(.+)$/m);
     if (match) return match[1].trim();
   } catch {}
   throw new Error('NOTION_TOKEN not set. Add it to a .env file:\n  NOTION_TOKEN=ntn_...');
@@ -96,6 +90,7 @@ function mapItem(page, idx) {
   const priority = p.Priority?.select?.name || '';
   const pillar   = p['Strategic Pillar']?.select?.name || '';
   const archive  = p.Archive?.checkbox ?? false;
+  const lead     = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
 
   return {
     id:        idx + 1,
@@ -112,6 +107,7 @@ function mapItem(page, idx) {
     desc,
     notionUrl: page.url,
     priority,
+    lead,
     archive,
   };
 }
