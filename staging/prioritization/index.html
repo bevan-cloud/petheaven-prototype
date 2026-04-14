@@ -44,11 +44,37 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .view-tab{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.03em}
 .view-tab.active{background:#fff;color:var(--brand-dark);border-color:#fff}
 .model-desc{font-size:13px;color:rgba(255,255,255,.7);margin-top:12px;max-width:560px;line-height:1.55}
-.filters{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:16px 20px;margin-bottom:24px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.filter-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);flex-shrink:0}
-.filter-select{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:6px 10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);cursor:pointer}
-.filter-reset{margin-left:auto;font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:var(--radius)}
-.filter-reset:hover{background:var(--brand-light)}
+/* ── Controls bar ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;background:#fff;flex-shrink:0;height:32px}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 8px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{border:none;outline:none;background:transparent;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);padding:0 6px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 9px;cursor:pointer;color:var(--gray-3);font-size:15px;line-height:1;display:flex;align-items:center;transition:background .1s}
+.chip-remove:hover{background:var(--gray-2);color:var(--gray-5)}
+.sort-chip .chip-label{color:var(--brand-dark);background:var(--brand-light)}
+.sort-chip{border-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:var(--brand-light)}
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid var(--gray-2);border-radius:var(--radius);background:var(--gray-1);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:32px;transition:all .15s}
+.ctrl-btn:hover{background:var(--gray-2);color:var(--black)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap;height:32px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 
 /* RICE TABLE */
 #rice-view .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
@@ -195,12 +221,43 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <div class="model-desc" id="model-desc-matrix" style="display:none">The Impact vs Effort matrix plots initiatives across four quadrants — <strong>Quick Wins</strong>, <strong>Big Bets</strong>, <strong>Nice to Have</strong> and <strong>Time Sinks</strong>.</div>
   </div>
 
-  <div class="filters">
-    <span class="filter-label">Filter</span>
-    <select class="filter-select" id="filter-theme" onchange="applyFilters()">
-      <option value="">All themes</option>
-    </select>
-    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+  <!-- Controls bar -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search initiatives…" oninput="applyFilters()">
+    </div>
+    <div class="chips-area" id="chipsArea"></div>
+    <div class="ctrl-right">
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Filter
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status"   onclick="toggleFilterField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter"  onclick="toggleFilterField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar"   onclick="toggleFilterField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quadrant" onclick="toggleFilterField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h8M1 7h5M1 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2v10M8.5 9.5L11 12l2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sort
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status"   onclick="setSortField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter"  onclick="setSortField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar"   onclick="setSortField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quadrant" onclick="setSortField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
   </div>
 
   <!-- RICE VIEW -->
@@ -281,12 +338,105 @@ let sortCol = 'score', sortDir = 'desc', mSortCol = 'mi', mSortDir = 'desc';
 let currentView = 'rice';
 let filtered = [...ITEMS];
 
-// Populate theme filter from live data
-(function(){
-  const sel = document.getElementById('filter-theme');
-  const themes = [...new Set(ITEMS.map(it => it.theme).filter(Boolean))].sort();
-  themes.forEach(t => { const o = document.createElement('option'); o.value = o.textContent = t; sel.appendChild(o); });
-})();
+// ─── Dynamic filter/sort state ────────────────────────────────────────────────
+const filterState = {};
+let chipSortState = null;
+
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: () => [
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
+  },
+  quarter: {
+    label: 'Quarter',
+    options: () => [...new Set(ITEMS.map(it => it.qLabel).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+  pillar: {
+    label: 'Pillars',
+    options: () => [...new Set(ITEMS.map(it => it.theme).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+  quadrant: {
+    label: 'Matrix Quadrant',
+    options: () => [
+      {value:'qw', label:'⚡ Quick Win'},
+      {value:'bb', label:'🎯 Big Bet'},
+      {value:'fi', label:'💧 Fill In'},
+      {value:'ts', label:'⚠ Time Sink'},
+    ]
+  },
+};
+
+const SORT_DEFS = {
+  status:   {label:'Status'},
+  quarter:  {label:'Quarter'},
+  pillar:   {label:'Pillars'},
+  quadrant: {label:'Matrix Quadrant'},
+};
+
+function getQuadrantKey(it){
+  if(!it.mi||!it.me) return null;
+  const hi=it.mi>=3,he=it.me>=3;
+  if(hi&&!he) return 'qw';
+  if(hi&&he)  return 'bb';
+  if(!hi&&!he) return 'fi';
+  return 'ts';
+}
+
+function renderChips(){
+  const area=document.getElementById('chipsArea');
+  let html='';
+  for(const field of Object.keys(filterState)){
+    const def=FILTER_DEFS[field];
+    const val=filterState[field];
+    const optsHtml=def.options().map(o=>`<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`).join('');
+    html+=`<div class="filter-chip"><span class="chip-label">${def.label}</span><select class="chip-select" onchange="setFilterValue('${field}',this.value)"><option value="">All</option>${optsHtml}</select><button class="chip-remove" onclick="removeFilterField('${field}')">×</button></div>`;
+  }
+  if(chipSortState){
+    const def=SORT_DEFS[chipSortState.field];
+    const dir=chipSortState.dir==='asc'?'↑':'↓';
+    html+=`<div class="filter-chip sort-chip"><span class="chip-label">Sort · ${def.label}</span><button class="chip-dir" onclick="toggleChipSortDir()">${dir}</button><button class="chip-remove" onclick="removeChipSort()">×</button></div>`;
+  }
+  area.innerHTML=html;
+  document.getElementById('filterBtn').classList.toggle('active',Object.keys(filterState).length>0);
+  document.getElementById('sortBtn').classList.toggle('active',!!chipSortState);
+  ['status','quarter','pillar','quadrant'].forEach(f=>{
+    const fi=document.getElementById('fmi-'+f); if(fi) fi.classList.toggle('on',f in filterState);
+    const si=document.getElementById('smi-'+f); if(si) si.classList.toggle('on',chipSortState?.field===f);
+  });
+  const anyActive=Object.keys(filterState).length>0||!!chipSortState||(document.getElementById('searchInput').value||'').trim();
+  document.getElementById('resetBtn').style.display=anyActive?'':'none';
+}
+
+function toggleFilterField(field){
+  if(field in filterState) delete filterState[field]; else filterState[field]='';
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeFilterField(field){ delete filterState[field]; renderChips(); applyFilters(); }
+function setFilterValue(field,value){ filterState[field]=value; renderChips(); applyFilters(); }
+function setSortField(field){
+  if(chipSortState?.field===field) chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc';
+  else chipSortState={field,dir:'asc'};
+  closeAllMenus(); renderChips(); renderAll();
+}
+function removeChipSort(){ chipSortState=null; renderChips(); renderAll(); }
+function toggleChipSortDir(){ if(chipSortState){chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc'; renderChips(); renderAll();} }
+
+function toggleMenu(menuId,e){
+  if(e) e.stopPropagation();
+  const menu=document.getElementById(menuId);
+  const isOpen=menu.classList.contains('open');
+  closeAllMenus();
+  if(!isOpen) menu.classList.add('open');
+}
+function closeAllMenus(){
+  document.querySelectorAll('.ctrl-menu').forEach(m=>m.classList.remove('open'));
+}
 
 function riceScore(item){ return Math.round(item.r * item.i * (item.c/100) / item.e); }
 
@@ -310,7 +460,22 @@ function quadrantHtml(q){
   return `<span class="quadrant-badge ${map[q][0]}">${map[q][1]}</span>`;
 }
 
+function chipSortFn(a,b){
+  if(!chipSortState) return 0;
+  const dir=chipSortState.dir==='asc'?1:-1;
+  let av,bv;
+  switch(chipSortState.field){
+    case 'status':   av=a.status||'';  bv=b.status||'';  break;
+    case 'quarter':  av=a.qLabel||'';  bv=b.qLabel||'';  break;
+    case 'pillar':   av=a.theme||'';   bv=b.theme||'';   break;
+    case 'quadrant': av=getQuadrantKey(a)||'zzz'; bv=getQuadrantKey(b)||'zzz'; break;
+    default: return 0;
+  }
+  if(av<bv) return -dir; if(av>bv) return dir; return 0;
+}
+
 function getSorted(arr){
+  if(chipSortState) return [...arr].sort(chipSortFn);
   return [...arr].sort((a,b)=>{
     let av,bv;
     if(sortCol==='score'){av=riceScore(a);bv=riceScore(b);}
@@ -322,6 +487,7 @@ function getSorted(arr){
 }
 
 function getMSorted(arr){
+  if(chipSortState) return [...arr].sort(chipSortFn);
   return [...arr].sort((a,b)=>{
     let av=a[mSortCol],bv=b[mSortCol];
     if(mSortCol==='quadrant'){av=getQuadrant(a)||'';bv=getQuadrant(b)||'';}
@@ -343,18 +509,34 @@ function setMSort(col){
 }
 
 function applyFilters(){
-  const theme=document.getElementById('filter-theme').value;
+  const search=(document.getElementById('searchInput').value||'').toLowerCase().trim();
   filtered=ITEMS.filter(it=>{
-    if(theme&&it.theme!==theme) return false;
+    if(search&&!it.name.toLowerCase().includes(search)&&!(it.desc||'').toLowerCase().includes(search)) return false;
+    for(const [field,val] of Object.entries(filterState)){
+      if(!val) continue;
+      if(field==='status'   && it.status!==val) return false;
+      if(field==='quarter'  && it.qLabel!==val) return false;
+      if(field==='pillar'   && it.theme!==val)  return false;
+      if(field==='quadrant' && getQuadrantKey(it)!==val) return false;
+    }
     return true;
   });
-  render();
-  if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
+  renderChips();
+  renderAll();
 }
 
-function resetFilters(){
-  document.getElementById('filter-theme').value='';
+function resetAll(){
+  document.getElementById('searchInput').value='';
+  for(const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState=null;
   filtered=[...ITEMS];
+  renderChips();
+  renderAll();
+}
+
+function renderAll(){
+  const cnt=document.getElementById('resultsCount');
+  if(cnt) cnt.textContent=filtered.length+' of '+ITEMS.length;
   render();
   if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
 }
@@ -455,15 +637,16 @@ function toggleSwitcher(){
   menu.classList.toggle('open');
   trigger.setAttribute('aria-expanded',!isOpen);
 }
+
 document.addEventListener('click',function(e){
-  const sw=document.getElementById('companySwitcher');
-  if(!sw.contains(e.target)){
+  if(!e.target.closest('.ctrl-dropdown')&&!e.target.closest('.company-switcher')){
+    closeAllMenus();
     document.getElementById('csMenu').classList.remove('open');
     document.getElementById('csTrigger').setAttribute('aria-expanded','false');
   }
 });
 
-window.addEventListener('load',()=>{render();});
+window.addEventListener('load',()=>{ renderChips(); renderAll(); });
 window.addEventListener('resize',()=>{if(currentView==='matrix') renderMatrix();});
 </script>
 
