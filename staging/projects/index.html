@@ -14,6 +14,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* ── Header ── */
 .staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
 .site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
 .site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
@@ -35,34 +37,120 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
-.page{max-width:1080px;margin:0 auto;padding:48px 40px 100px}
-.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden}
+
+/* ── Page layout ── */
+.page{max-width:1140px;margin:0 auto;padding:48px 40px 100px}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
 .hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:8px}
 .hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6}
-.hero-stats{display:flex;gap:24px;margin-top:20px}
+.hero-stats{display:flex;gap:32px;margin-top:20px}
 .hero-stat-val{font-size:28px;font-weight:700;line-height:1}
 .hero-stat-label{font-size:11px;opacity:.65;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── Controls bar ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:14px 18px;margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
+.filter-select{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:7px 10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);cursor:pointer;outline:none;transition:border .15s}
+.filter-select:focus{border-color:var(--brand-mid)}
+.filter-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap}
+.filter-reset:hover{background:var(--brand-light)}
+.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;flex-shrink:0;margin-left:4px}
+.vt-btn{padding:6px 14px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px}
+.vt-btn.active{background:#fff;color:var(--brand-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
+
+/* ── Section label ── */
 .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+
+/* ── Table view ── */
+.proj-table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.proj-table{width:100%;border-collapse:collapse}
+.proj-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:12px 16px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.proj-table th:hover{color:var(--brand)}
+.proj-table th .sort-icon{display:inline-block;margin-left:4px;opacity:.4;font-style:normal}
+.proj-table th.sort-asc .sort-icon::after{content:'↑';opacity:1;color:var(--brand)}
+.proj-table th.sort-desc .sort-icon::after{content:'↓';opacity:1;color:var(--brand)}
+.proj-table th:not(.sort-asc):not(.sort-desc) .sort-icon::after{content:'↕'}
+.proj-table td{padding:13px 16px;border-bottom:1px solid var(--gray-2);vertical-align:middle;font-size:13px}
+.proj-table tr:last-child td{border-bottom:none}
+.proj-table tr:hover td{background:#fafaf8;cursor:pointer}
+.pt-name{font-weight:600;color:var(--black);max-width:320px}
+.pt-name-sub{font-size:11px;color:var(--gray-4);font-weight:400;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px}
+.pt-company{display:flex;gap:4px;flex-wrap:wrap}
+.pt-company-pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.pt-rice{font-weight:700;color:var(--brand-dark)}
+.pt-rice-none{color:var(--gray-3)}
+
+/* ── Card view ── */
 .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.project-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;transition:box-shadow .15s,transform .15s}
+.project-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;transition:box-shadow .15s,transform .15s;cursor:pointer}
 .project-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.09);transform:translateY(-2px)}
 .pc-accent{height:5px}
-.pc-body{padding:24px}
-.pc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-.pc-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.2;color:var(--black)}
+.pc-body{padding:22px 24px 20px}
+.pc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.pc-name{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.25;color:var(--black)}
 .pc-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-left:12px;margin-top:3px}
-.status-live{background:#e8f5e9;color:#1b5e20}
-.status-progress{background:#fff8e1;color:#7a5a00}
-.status-planned{background:var(--brand-light);color:var(--brand-dark)}
-.status-review{background:#f3e5f5;color:#6a1b9a}
 .pc-theme{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-bottom:10px}
-.pc-desc{font-size:13px;color:var(--gray-5);line-height:1.6;margin-bottom:14px}
-.pc-meta{display:flex;gap:8px;flex-wrap:wrap}
+.pc-desc{font-size:13px;color:var(--gray-5);line-height:1.6;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-meta{display:flex;gap:6px;flex-wrap:wrap}
 .pc-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* ── Status badges (shared) ── */
+.status-live    {background:#e8f5e9;color:#1b5e20}
+.status-progress{background:#fff8e1;color:#7a5a00}
+.status-planned {background:var(--brand-light);color:var(--brand-dark)}
+.status-review  {background:#f3e5f5;color:#6a1b9a}
+.status-done    {background:var(--gray-2);color:var(--gray-5)}
+
+/* ── Flyout overlay ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+
+/* ── Flyout panel ── */
+.flyout{position:fixed;top:0;right:0;bottom:0;width:440px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.flyout.open{transform:translateX(0)}
+.flyout-header{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 24px 16px;border-bottom:1px solid var(--gray-2);gap:12px;flex-shrink:0}
+.flyout-title{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;color:var(--black)}
+.flyout-close{width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;cursor:pointer;font-size:18px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.flyout-close:hover{background:var(--gray-1)}
+.flyout-body{overflow-y:auto;padding:20px 24px 32px;flex:1}
+.flyout-accent-bar{height:4px;border-radius:2px;margin-bottom:20px}
+.flyout-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.flyout-meta-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);width:90px;flex-shrink:0}
+.flyout-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2)}
+.flyout-section-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-4);margin-bottom:12px}
+.flyout-desc{font-size:13px;color:var(--gray-5);line-height:1.7}
+.flyout-desc-empty{font-size:13px;color:var(--gray-3);font-style:italic}
+.rice-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.rice-cell{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:10px 8px;text-align:center}
+.rice-cell-val{font-size:18px;font-weight:700;color:var(--brand-dark)}
+.rice-cell-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.rice-score-total{background:linear-gradient(135deg,var(--brand-dark),var(--brand));border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.rice-score-num{font-size:24px;font-weight:700}
+.rice-score-lbl{font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.06em}
+.flyout-notion-link{display:flex;align-items:center;gap:8px;margin-top:20px;padding:12px 16px;background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:var(--radius-lg);text-decoration:none;color:var(--brand-dark);font-size:13px;font-weight:600;transition:background .15s}
+.flyout-notion-link:hover{background:var(--brand-mid)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--gray-4)}
+.empty-state-icon{font-size:36px;margin-bottom:12px}
+.empty-state p{font-size:14px}
+
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
-@media(max-width:680px){.projects-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
+
+@media(max-width:760px){
+  .projects-grid{grid-template-columns:1fr}
+  .flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:90vh;transform:translateY(100%)}
+  .flyout.open{transform:translateY(0)}
+  .site-header{padding:0 20px}
+  .page{padding:32px 16px 60px}
+  .controls{gap:8px}
+}
 </style>
 </head>
 <body>
@@ -93,29 +181,105 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 <div class="page">
 
+  <!-- Hero with dynamic stats -->
   <div class="hero">
     <div class="hero-badge">🧪 Bevan Staging · FY2026/27 · Projects</div>
     <h1>Projects</h1>
-    <p class="hero-sub">Test project card layout, status badges, and brief structure safely before rolling out to production brands.</p>
+    <p class="hero-sub">All Road Map initiatives — search, filter by status, pillar, company or quarter, and switch between table and card views.</p>
     <div class="hero-stats">
-      <div><div class="hero-stat-val">8</div><div class="hero-stat-label">Projects</div></div>
-      <div><div class="hero-stat-val">3</div><div class="hero-stat-label">Live</div></div>
-      <div><div class="hero-stat-val">2</div><div class="hero-stat-label">In Progress</div></div>
+      <div><div class="hero-stat-val" id="statTotal">—</div><div class="hero-stat-label">Showing</div></div>
+      <div><div class="hero-stat-val" id="statLive">—</div><div class="hero-stat-label">Live</div></div>
+      <div><div class="hero-stat-val" id="statProgress">—</div><div class="hero-stat-label">In Progress</div></div>
+      <div><div class="hero-stat-val" id="statReview">—</div><div class="hero-stat-label">In Review</div></div>
     </div>
   </div>
 
-  <div class="section-label">All staging projects</div>
+  <!-- Controls bar -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search projects…" oninput="applyFilters()">
+    </div>
+    <select class="filter-select" id="filterStatus" onchange="applyFilters()">
+      <option value="">All statuses</option>
+      <option value="live">Live</option>
+      <option value="progress">In Progress</option>
+      <option value="review">In Review</option>
+      <option value="planned">Planned</option>
+      <option value="done">Done</option>
+    </select>
+    <select class="filter-select" id="filterPillar" onchange="applyFilters()">
+      <option value="">All pillars</option>
+    </select>
+    <select class="filter-select" id="filterCompany" onchange="applyFilters()">
+      <option value="">All companies</option>
+    </select>
+    <select class="filter-select" id="filterQuarter" onchange="applyFilters()">
+      <option value="">All quarters</option>
+    </select>
+    <button class="filter-reset" onclick="resetFilters()">Reset</button>
+    <span class="results-count" id="resultsCount"></span>
+    <div class="view-toggle">
+      <button class="vt-btn" id="btnTable" onclick="setView('table')">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="6" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="11" width="12" height="2" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+        Table
+      </button>
+      <button class="vt-btn" id="btnCard" onclick="setView('card')">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+        Cards
+      </button>
+    </div>
+  </div>
 
-  <div class="projects-grid" id="projectsGrid"></div>
+  <div class="section-label" id="sectionLabel">All projects</div>
+
+  <!-- Table view (default) -->
+  <div id="tableView">
+    <div class="proj-table-wrap">
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th onclick="setSort('name')">Project <i class="sort-icon"></i></th>
+            <th onclick="setSort('status')" style="width:130px">Status <i class="sort-icon"></i></th>
+            <th onclick="setSort('theme')" style="width:200px">Pillar <i class="sort-icon"></i></th>
+            <th onclick="setSort('company')" style="width:120px">Company <i class="sort-icon"></i></th>
+            <th onclick="setSort('qLabel')" style="width:130px">Quarter <i class="sort-icon"></i></th>
+            <th onclick="setSort('priority')" style="width:80px">Priority <i class="sort-icon"></i></th>
+            <th onclick="setSort('rice')" style="width:90px;text-align:right">RICE <i class="sort-icon"></i></th>
+          </tr>
+        </thead>
+        <tbody id="projTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Card view -->
+  <div id="cardView" style="display:none">
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
 
   <p class="page-footer">Bevan Staging · Projects · FY2026/27</p>
 
 </div>
 
+<!-- Flyout overlay -->
+<div class="overlay" id="overlay" onclick="closeFlyout()"></div>
+
+<!-- Flyout panel -->
+<div class="flyout" id="flyout">
+  <div class="flyout-header">
+    <div class="flyout-title" id="flyoutTitle">Project</div>
+    <button class="flyout-close" onclick="closeFlyout()">×</button>
+  </div>
+  <div class="flyout-body" id="flyoutBody"></div>
+</div>
+
 <script src="../notion-data.js"></script>
 <script>
+
+// ─── Data + lookups ───────────────────────────────────────────────────────────
 const THEME_COLORS = {
-  // Notion Strategic Pillars
   'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
   'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f'},
   'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0'},
@@ -124,74 +288,324 @@ const THEME_COLORS = {
   'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
   'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
 };
-
 const PILLAR_ACCENT = {
-  'Top Line Growth':              '#2e7d32',
-  'Margin Improvements':          '#c62828',
-  'Cost Control & Cash Flow':     '#4527a0',
-  'People':                       '#b71c1c',
-  'Internal Working Improvement': '#1a5fa8',
-  'UX/UI':                        '#3730a3',
+  'Top Line Growth':'#2e7d32','Margin Improvements':'#c62828',
+  'Cost Control & Cash Flow':'#4527a0','People':'#b71c1c',
+  'Internal Working Improvement':'#1a5fa8','UX/UI':'#3730a3',
 };
-
-function rice(it){ return it.e > 0 ? Math.round(it.r * it.i * (it.c / 100) / it.e) : 0; }
-
-const PROJECTS = NOTION_ITEMS.map(it => {
-  const pills = [];
-  if (it.qLabel) pills.push(it.qLabel);
-  if (it.r || it.i || it.c) pills.push('RICE ' + rice(it));
-  if (it.i) pills.push('Impact ' + it.i);
-  if (it.company && it.company.length) pills.push(...it.company);
-  return {
-    ...it,
-    accent: PILLAR_ACCENT[it.theme] || '#4f46e5',
-    pills,
-  };
-});
-
-const STATUS_MAP = {
-  live:     {cls:'status-live',     label:'Live'},
-  progress: {cls:'status-progress', label:'In Progress'},
-  planned:  {cls:'status-planned',  label:'Planned'},
-  review:   {cls:'status-review',   label:'In Review'},
+const STATUS_META = {
+  live:    {cls:'status-live',    label:'Live'},
+  progress:{cls:'status-progress',label:'In Progress'},
+  planned: {cls:'status-planned', label:'Planned'},
+  review:  {cls:'status-review',  label:'In Review'},
+  done:    {cls:'status-done',    label:'Done'},
 };
+const PRIORITY_ORDER = {'P1 🔥 Critical':1,'P2':2,'P3':3,'P4':4,'P5':5,'':9};
 
-function renderProjects(){
-  const grid=document.getElementById('projectsGrid');
-  grid.innerHTML=PROJECTS.map(p=>{
-    const tc=THEME_COLORS[p.theme]||{bg:'#f5f5f5',border:'#ddd',text:'#555'};
-    const st=STATUS_MAP[p.status]||{cls:'status-planned',label:'Planned'};
-    return `<div class="project-card">
+function riceScore(it){ return (it.r && it.i && it.c && it.e) ? Math.round(it.r * it.i * (it.c/100) / it.e) : 0; }
+
+const PROJECTS = NOTION_ITEMS.map(it => ({
+  ...it,
+  accent: PILLAR_ACCENT[it.theme] || '#4f46e5',
+  rice: riceScore(it),
+}));
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let filtered = [...PROJECTS];
+let currentView = 'table';
+let sortCol = 'name', sortDir = 'asc';
+
+// ─── Populate dynamic filters ─────────────────────────────────────────────────
+function populateFilters() {
+  const pillars  = [...new Set(PROJECTS.map(p => p.theme).filter(Boolean))].sort();
+  const companies= [...new Set(PROJECTS.flatMap(p => p.company))].sort();
+  const quarters = [...new Set(PROJECTS.map(p => p.qLabel).filter(Boolean))].sort();
+
+  const pillarSel = document.getElementById('filterPillar');
+  pillars.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; pillarSel.appendChild(o); });
+
+  const companySel = document.getElementById('filterCompany');
+  companies.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; companySel.appendChild(o); });
+
+  const quarterSel = document.getElementById('filterQuarter');
+  quarters.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; quarterSel.appendChild(o); });
+}
+
+// ─── Filter + sort ────────────────────────────────────────────────────────────
+function applyFilters() {
+  const search  = document.getElementById('searchInput').value.toLowerCase().trim();
+  const status  = document.getElementById('filterStatus').value;
+  const pillar  = document.getElementById('filterPillar').value;
+  const company = document.getElementById('filterCompany').value;
+  const quarter = document.getElementById('filterQuarter').value;
+
+  filtered = PROJECTS.filter(p => {
+    if (search  && !p.name.toLowerCase().includes(search) && !p.desc.toLowerCase().includes(search)) return false;
+    if (status  && p.status !== status) return false;
+    if (pillar  && p.theme !== pillar) return false;
+    if (company && !p.company.includes(company)) return false;
+    if (quarter && p.qLabel !== quarter) return false;
+    return true;
+  });
+
+  updateStats();
+  render();
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('filterStatus').value = '';
+  document.getElementById('filterPillar').value = '';
+  document.getElementById('filterCompany').value = '';
+  document.getElementById('filterQuarter').value = '';
+  filtered = [...PROJECTS];
+  updateStats();
+  render();
+}
+
+// ─── Sort ─────────────────────────────────────────────────────────────────────
+function setSort(col) {
+  if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+  else { sortCol = col; sortDir = 'asc'; }
+  updateSortHeaders();
+  render();
+}
+
+function getSorted(arr) {
+  return [...arr].sort((a, b) => {
+    let av, bv;
+    if (sortCol === 'rice')     { av = a.rice; bv = b.rice; }
+    else if (sortCol === 'priority') { av = PRIORITY_ORDER[a.priority]||9; bv = PRIORITY_ORDER[b.priority]||9; }
+    else if (sortCol === 'company')  { av = (a.company||[]).join(','); bv = (b.company||[]).join(','); }
+    else { av = (a[sortCol]||'').toString().toLowerCase(); bv = (b[sortCol]||'').toString().toLowerCase(); }
+    if (av < bv) return sortDir === 'asc' ? -1 : 1;
+    if (av > bv) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function updateSortHeaders() {
+  document.querySelectorAll('.proj-table th').forEach(th => {
+    th.classList.remove('sort-asc','sort-desc');
+  });
+  // find th by its onclick
+  document.querySelectorAll('.proj-table th[onclick]').forEach(th => {
+    const col = th.getAttribute('onclick').match(/setSort\('(\w+)'\)/)?.[1];
+    if (col === sortCol) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+  });
+}
+
+// ─── Dynamic stats ────────────────────────────────────────────────────────────
+function updateStats() {
+  const set = filtered;
+  document.getElementById('statTotal').textContent    = set.length;
+  document.getElementById('statLive').textContent     = set.filter(p => p.status === 'live').length;
+  document.getElementById('statProgress').textContent = set.filter(p => p.status === 'progress').length;
+  document.getElementById('statReview').textContent   = set.filter(p => p.status === 'review').length;
+  document.getElementById('resultsCount').textContent = set.length + ' of ' + PROJECTS.length;
+  document.getElementById('sectionLabel').textContent =
+    filtered.length === PROJECTS.length ? 'All projects' : filtered.length + ' projects matching filters';
+}
+
+// ─── View toggle ──────────────────────────────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  document.getElementById('tableView').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('cardView').style.display  = v === 'card'  ? '' : 'none';
+  document.getElementById('btnTable').classList.toggle('active', v === 'table');
+  document.getElementById('btnCard').classList.toggle('active', v === 'card');
+  render();
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  if (currentView === 'table') renderTable();
+  else renderCards();
+}
+
+function themeTag(theme) {
+  const tc = THEME_COLORS[theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  return `<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${theme||'—'}</span>`;
+}
+
+function statusBadge(status) {
+  const sm = STATUS_META[status] || STATUS_META.planned;
+  return `<span class="pc-status ${sm.cls}">${sm.label}</span>`;
+}
+
+// Table
+function renderTable() {
+  const sorted = getSorted(filtered);
+  const tbody = document.getElementById('projTbody');
+  if (sorted.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon">🔍</div><p>No projects match the current filters</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = sorted.map((p, idx) => {
+    const sm = STATUS_META[p.status] || STATUS_META.planned;
+    const tc = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+    const riceVal = p.rice ? `<span class="pt-rice">${p.rice.toLocaleString()}</span>` : `<span class="pt-rice-none">—</span>`;
+    const companyPills = (p.company||[]).map(c => `<span class="pt-company-pill">${c}</span>`).join('');
+    const prioHtml = p.priority ? `<span style="font-size:12px;font-weight:600;color:var(--gray-5)">${p.priority.replace(' 🔥 Critical','🔥')}</span>` : `<span style="color:var(--gray-3)">—</span>`;
+    return `<tr onclick="openFlyout(${p.id - 1})">
+      <td style="color:var(--gray-3);font-size:12px">${idx+1}</td>
+      <td><div class="pt-name">${esc(p.name)}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>${themeTag(p.theme)}</td>
+      <td><div class="pt-company">${companyPills}</div></td>
+      <td style="font-size:12px;color:var(--gray-5)">${p.qLabel||'—'}</td>
+      <td>${prioHtml}</td>
+      <td style="text-align:right">${riceVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+// Cards
+function renderCards() {
+  const sorted = getSorted(filtered);
+  const grid = document.getElementById('projectsGrid');
+  if (sorted.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><div class="empty-state-icon">🔍</div><p>No projects match the current filters</p></div></div>`;
+    return;
+  }
+  grid.innerHTML = sorted.map((p) => {
+    const tc = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+    const sm = STATUS_META[p.status] || STATUS_META.planned;
+    const pills = [];
+    if (p.qLabel) pills.push(p.qLabel);
+    if (p.rice)   pills.push('RICE ' + p.rice.toLocaleString());
+    if (p.i)      pills.push('Impact ' + p.i);
+    if (p.company?.length) pills.push(...p.company);
+    return `<div class="project-card" onclick="openFlyout(${p.id - 1})">
       <div class="pc-accent" style="background:${p.accent}"></div>
       <div class="pc-body">
         <div class="pc-header">
-          <div class="pc-name">${p.name}</div>
-          <span class="pc-status ${st.cls}">${st.label}</span>
+          <div class="pc-name">${esc(p.name)}</div>
+          <span class="pc-status ${sm.cls}">${sm.label}</span>
         </div>
         <span class="pc-theme" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${p.theme}</span>
-        <p class="pc-desc">${p.desc}</p>
-        <div class="pc-meta">${p.pills.map(pill=>`<span class="pc-pill">${pill}</span>`).join('')}</div>
+        <p class="pc-desc">${p.desc ? esc(p.desc) : '<span style="color:var(--gray-3);font-style:italic">No description</span>'}</p>
+        <div class="pc-meta">${pills.map(pill=>`<span class="pc-pill">${esc(pill)}</span>`).join('')}</div>
       </div>
     </div>`;
   }).join('');
 }
 
+// ─── Flyout ───────────────────────────────────────────────────────────────────
+function openFlyout(idx) {
+  const p = getSorted(filtered)[idx];
+  if (!p) return;
+  const tc = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  const sm = STATUS_META[p.status] || STATUS_META.planned;
+  const hasRice = p.r || p.i || p.c || p.e > 1;
+
+  document.getElementById('flyoutTitle').textContent = p.name;
+
+  document.getElementById('flyoutBody').innerHTML = `
+    <div class="flyout-accent-bar" style="background:${p.accent}"></div>
+
+    <div class="flyout-meta-row">
+      <span class="flyout-meta-label">Status</span>
+      ${statusBadge(p.status)}
+    </div>
+    <div class="flyout-meta-row">
+      <span class="flyout-meta-label">Pillar</span>
+      ${themeTag(p.theme)}
+    </div>
+    <div class="flyout-meta-row">
+      <span class="flyout-meta-label">Company</span>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
+        ${(p.company||[]).map(c=>`<span class="pt-company-pill">${c}</span>`).join('') || '<span style="color:var(--gray-3)">—</span>'}
+      </div>
+    </div>
+    <div class="flyout-meta-row">
+      <span class="flyout-meta-label">Quarter</span>
+      <span style="font-size:13px">${p.qLabel || '—'}</span>
+    </div>
+    <div class="flyout-meta-row">
+      <span class="flyout-meta-label">Priority</span>
+      <span style="font-size:13px;font-weight:600">${p.priority || '—'}</span>
+    </div>
+
+    <div class="flyout-section">
+      <div class="flyout-section-title">Description</div>
+      ${p.desc
+        ? `<p class="flyout-desc">${esc(p.desc)}</p>`
+        : `<p class="flyout-desc-empty">No description in Notion</p>`}
+    </div>
+
+    <div class="flyout-section">
+      <div class="flyout-section-title">RICE Score</div>
+      ${hasRice ? `
+        <div class="rice-row">
+          <div class="rice-cell"><div class="rice-cell-val">${p.r||0}</div><div class="rice-cell-lbl">Reach</div></div>
+          <div class="rice-cell"><div class="rice-cell-val">${p.i||0}</div><div class="rice-cell-lbl">Impact</div></div>
+          <div class="rice-cell"><div class="rice-cell-val">${p.c||0}%</div><div class="rice-cell-lbl">Confidence</div></div>
+          <div class="rice-cell"><div class="rice-cell-val">${p.e||1}</div><div class="rice-cell-lbl">Effort</div></div>
+        </div>
+        <div class="rice-score-total">
+          <div><div class="rice-score-lbl">RICE Score</div><div class="rice-score-num">${p.rice.toLocaleString()}</div></div>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>` :
+        `<p class="flyout-desc-empty">RICE fields not yet filled in Notion — add Reach, Impact, Confidence and Effort values to enable scoring.</p>`}
+    </div>
+
+    ${(p.mi || p.me > 1) ? `
+    <div class="flyout-section">
+      <div class="flyout-section-title">Impact / Effort Matrix</div>
+      <div class="rice-row" style="grid-template-columns:1fr 1fr">
+        <div class="rice-cell"><div class="rice-cell-val">${p.mi||0}</div><div class="rice-cell-lbl">Impact (1–5)</div></div>
+        <div class="rice-cell"><div class="rice-cell-val">${p.me||0}</div><div class="rice-cell-lbl">Effort (1–5)</div></div>
+      </div>
+    </div>` : ''}
+
+    ${p.notionUrl ? `
+    <a class="flyout-notion-link" href="${p.notionUrl}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M5 5.5h6M5 10.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Open in Notion
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:auto"><path d="M2.5 9.5l7-7M9.5 9.5V2.5H2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>` : ''}
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('flyout').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFlyout() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('flyout').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close flyout on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlyout(); });
+
+// ─── Company switcher ─────────────────────────────────────────────────────────
 function toggleSwitcher(){
   const trigger=document.getElementById('csTrigger');
   const menu=document.getElementById('csMenu');
-  const isOpen=menu.classList.contains('open');
   menu.classList.toggle('open');
-  trigger.setAttribute('aria-expanded',!isOpen);
+  trigger.setAttribute('aria-expanded', menu.classList.contains('open'));
 }
-document.addEventListener('click',function(e){
-  const sw=document.getElementById('companySwitcher');
-  if(!sw.contains(e.target)){
+document.addEventListener('click', e => {
+  const sw = document.getElementById('companySwitcher');
+  if (!sw.contains(e.target)) {
     document.getElementById('csMenu').classList.remove('open');
     document.getElementById('csTrigger').setAttribute('aria-expanded','false');
   }
 });
 
-window.addEventListener('load',renderProjects);
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  populateFilters();
+  updateStats();
+  setView('table');
+  updateSortHeaders();
+});
 </script>
 </body>
 </html>
