@@ -63,8 +63,15 @@ const src = readFileSync('staging/notion-data.js', 'utf8');
 let NOTION_ITEMS;
 eval(src.replace('const NOTION_ITEMS', 'NOTION_ITEMS'));
 
-const fy27 = NOTION_ITEMS.filter(it => it.qLabel && it.qLabel.includes('FY27'));
-console.log(`Found ${fy27.length} FY27 items to update.`);
+// Only process items that don't already have a stagingUrl set — safe to re-run
+const fy27 = NOTION_ITEMS.filter(it =>
+  it.qLabel && it.qLabel.includes('FY27') && !it.stagingUrl
+);
+if (fy27.length === 0) {
+  console.log('All FY27 items already have staging URLs set — nothing to do.');
+  process.exit(0);
+}
+console.log(`Found ${fy27.length} FY27 items without staging URL — patching…`);
 
 // ─── Patch a single Notion page ───────────────────────────────────────────────
 async function patchPage(notionId, desc, url) {
