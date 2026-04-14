@@ -52,17 +52,40 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .hero-stat-label{font-size:11px;opacity:.65;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
 
 /* ── Controls bar ── */
-.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:14px 18px;margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.search-wrap{position:relative;flex:1;min-width:180px}
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
 .search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
 .search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
 .search-input:focus{border-color:var(--brand-mid);background:#fff}
-.filter-select{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:7px 10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);cursor:pointer;outline:none;transition:border .15s}
-.filter-select:focus{border-color:var(--brand-mid)}
-.filter-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap}
-.filter-reset:hover{background:var(--brand-light)}
-.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;flex-shrink:0;margin-left:4px}
-.vt-btn{padding:6px 14px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px}
+/* ── Dynamic chips ── */
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;background:#fff;flex-shrink:0;height:32px}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 8px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{border:none;outline:none;background:transparent;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);padding:0 6px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 9px;cursor:pointer;color:var(--gray-3);font-size:15px;line-height:1;display:flex;align-items:center;transition:background .1s}
+.chip-remove:hover{background:var(--gray-2);color:var(--gray-5)}
+.sort-chip .chip-label{color:var(--brand-dark);background:var(--brand-light)}
+.sort-chip{border-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:var(--brand-light)}
+/* ── Right-side controls ── */
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid var(--gray-2);border-radius:var(--radius);background:var(--gray-1);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:32px;transition:all .15s}
+.ctrl-btn:hover{background:var(--gray-2);color:var(--black)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap;height:32px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;flex-shrink:0;height:32px}
+.vt-btn{padding:0 13px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px;height:100%}
 .vt-btn.active{background:#fff;color:var(--brand-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 
@@ -209,38 +232,61 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- Controls bar -->
   <div class="controls">
+    <!-- Search -->
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <input class="search-input" id="searchInput" type="text" placeholder="Search projects…" oninput="applyFilters()">
     </div>
-    <select class="filter-select" id="filterStatus" onchange="applyFilters()">
-      <option value="">All statuses</option>
-      <option value="live">Live</option>
-      <option value="progress">In Progress</option>
-      <option value="review">In Review</option>
-      <option value="planned">Planned</option>
-      <option value="done">Done</option>
-    </select>
-    <select class="filter-select" id="filterPillar" onchange="applyFilters()">
-      <option value="">All pillars</option>
-    </select>
-    <select class="filter-select" id="filterCompany" onchange="applyFilters()">
-      <option value="">All companies</option>
-    </select>
-    <select class="filter-select" id="filterQuarter" onchange="applyFilters()">
-      <option value="">All quarters</option>
-    </select>
-    <button class="filter-reset" onclick="resetFilters()">Reset</button>
-    <span class="results-count" id="resultsCount"></span>
-    <div class="view-toggle">
-      <button class="vt-btn" id="btnTable" onclick="setView('table')">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="6" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="11" width="12" height="2" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
-        Table
-      </button>
-      <button class="vt-btn" id="btnCard" onclick="setView('card')">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
-        Cards
-      </button>
+
+    <!-- Active filter / sort chips (rendered by JS) -->
+    <div class="chips-area" id="chipsArea"></div>
+
+    <!-- Right-side controls -->
+    <div class="ctrl-right">
+
+      <!-- Filter dropdown -->
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Filter
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status"   onclick="toggleFilterField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter"  onclick="toggleFilterField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar"   onclick="toggleFilterField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quadrant" onclick="toggleFilterField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Sort dropdown -->
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h8M1 7h5M1 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2v10M8.5 9.5L11 12l2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sort
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status"   onclick="setSortField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter"  onclick="setSortField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar"   onclick="setSortField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quadrant" onclick="setSortField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+
+      <div class="view-toggle">
+        <button class="vt-btn" id="btnTable" onclick="setView('table')">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="6" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="11" width="12" height="2" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+          Table
+        </button>
+        <button class="vt-btn" id="btnCard" onclick="setView('card')">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+          Cards
+        </button>
+      </div>
     </div>
   </div>
 
@@ -327,55 +373,214 @@ let filtered = [...PROJECTS];
 let currentView = 'table';
 let sortCol = 'name', sortDir = 'asc';
 
-// ─── Populate dynamic filters ─────────────────────────────────────────────────
-function populateFilters() {
-  const pillars  = [...new Set(PROJECTS.map(p => p.theme).filter(Boolean))].sort();
-  const companies= [...new Set(PROJECTS.flatMap(p => p.company))].sort();
-  const quarters = [...new Set(PROJECTS.map(p => p.qLabel).filter(Boolean))].sort();
+// Dynamic filter/sort state
+const filterState = {};    // { field: selectedValue }  '' = All
+let chipSortState = null;  // { field, dir } or null
 
-  const pillarSel = document.getElementById('filterPillar');
-  pillars.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; pillarSel.appendChild(o); });
+// ─── Field definitions ────────────────────────────────────────────────────────
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: () => [
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
+  },
+  quarter: {
+    label: 'Quarter',
+    options: () => [...new Set(PROJECTS.map(p => p.qLabel).filter(Boolean))].sort()
+                    .map(v => ({value:v, label:v}))
+  },
+  pillar: {
+    label: 'Pillars',
+    options: () => [...new Set(PROJECTS.map(p => p.theme).filter(Boolean))].sort()
+                    .map(v => ({value:v, label:v}))
+  },
+  quadrant: {
+    label: 'Matrix Quadrant',
+    options: () => [
+      {value:'qw',  label:'⚡ Quick Win'},
+      {value:'bb',  label:'🎯 Big Bet'},
+      {value:'fi',  label:'💧 Fill In'},
+      {value:'ts',  label:'⚠ Time Sink'},
+    ]
+  },
+};
 
-  const companySel = document.getElementById('filterCompany');
-  companies.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; companySel.appendChild(o); });
+const SORT_DEFS = {
+  status:   { label: 'Status' },
+  quarter:  { label: 'Quarter' },
+  pillar:   { label: 'Pillars' },
+  quadrant: { label: 'Matrix Quadrant' },
+};
 
-  const quarterSel = document.getElementById('filterQuarter');
-  quarters.forEach(v => { const o=document.createElement('option'); o.value=o.textContent=v; quarterSel.appendChild(o); });
+function getQuadrantKey(p) {
+  if (!p.mi || !p.me) return null;
+  const hi = p.mi >= 3, he = p.me >= 3;
+  if (hi && !he) return 'qw';
+  if (hi && he)  return 'bb';
+  if (!hi && !he) return 'fi';
+  return 'ts';
 }
+
+// ─── Chip rendering ───────────────────────────────────────────────────────────
+function renderChips() {
+  const area = document.getElementById('chipsArea');
+  let html = '';
+
+  // Filter chips
+  for (const field of Object.keys(filterState)) {
+    const def = FILTER_DEFS[field];
+    const val = filterState[field];
+    const opts = def.options();
+    const optsHtml = opts.map(o =>
+      `<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`
+    ).join('');
+    html += `<div class="filter-chip">
+      <span class="chip-label">${def.label}</span>
+      <select class="chip-select" onchange="setFilterValue('${field}',this.value)">
+        <option value="">All</option>${optsHtml}
+      </select>
+      <button class="chip-remove" onclick="removeFilterField('${field}')" title="Remove">×</button>
+    </div>`;
+  }
+
+  // Sort chip
+  if (chipSortState) {
+    const def = SORT_DEFS[chipSortState.field];
+    const dir = chipSortState.dir === 'asc' ? '↑' : '↓';
+    html += `<div class="filter-chip sort-chip">
+      <span class="chip-label">Sort · ${def.label}</span>
+      <button class="chip-dir" onclick="toggleChipSortDir()" title="Toggle direction">${dir}</button>
+      <button class="chip-remove" onclick="removeChipSort()" title="Remove">×</button>
+    </div>`;
+  }
+
+  area.innerHTML = html;
+
+  // Button active states
+  const hasFilters = Object.keys(filterState).length > 0;
+  document.getElementById('filterBtn').classList.toggle('active', hasFilters);
+  document.getElementById('sortBtn').classList.toggle('active', !!chipSortState);
+
+  // Menu item checkmarks
+  ['status','quarter','pillar','quadrant'].forEach(f => {
+    const fi = document.getElementById('fmi-'+f);
+    if (fi) fi.classList.toggle('on', f in filterState);
+    const si = document.getElementById('smi-'+f);
+    if (si) si.classList.toggle('on', chipSortState?.field === f);
+  });
+
+  // Reset button visibility
+  const anyActive = hasFilters || !!chipSortState || document.getElementById('searchInput').value;
+  document.getElementById('resetBtn').style.display = anyActive ? '' : 'none';
+}
+
+// ─── Filter field actions ─────────────────────────────────────────────────────
+function toggleFilterField(field) {
+  if (field in filterState) {
+    delete filterState[field];
+  } else {
+    filterState[field] = '';
+  }
+  closeAllMenus();
+  renderChips();
+  applyFilters();
+}
+
+function removeFilterField(field) {
+  delete filterState[field];
+  renderChips();
+  applyFilters();
+}
+
+function setFilterValue(field, value) {
+  filterState[field] = value;
+  renderChips();
+  applyFilters();
+}
+
+// ─── Sort chip actions ────────────────────────────────────────────────────────
+function setSortField(field) {
+  if (chipSortState?.field === field) {
+    chipSortState.dir = chipSortState.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    chipSortState = { field, dir: 'asc' };
+  }
+  closeAllMenus();
+  renderChips();
+  render();
+}
+
+function removeChipSort() {
+  chipSortState = null;
+  renderChips();
+  render();
+}
+
+function toggleChipSortDir() {
+  if (!chipSortState) return;
+  chipSortState.dir = chipSortState.dir === 'asc' ? 'desc' : 'asc';
+  renderChips();
+  render();
+}
+
+// ─── Menu toggle ──────────────────────────────────────────────────────────────
+function toggleMenu(menuId, e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById(menuId);
+  const isOpen = menu.classList.contains('open');
+  closeAllMenus();
+  if (!isOpen) menu.classList.add('open');
+}
+
+function closeAllMenus() {
+  document.querySelectorAll('.ctrl-menu').forEach(m => m.classList.remove('open'));
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.ctrl-dropdown') && !e.target.closest('.company-switcher')) {
+    closeAllMenus();
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
+  }
+});
 
 // ─── Filter + sort ────────────────────────────────────────────────────────────
 function applyFilters() {
-  const search  = document.getElementById('searchInput').value.toLowerCase().trim();
-  const status  = document.getElementById('filterStatus').value;
-  const pillar  = document.getElementById('filterPillar').value;
-  const company = document.getElementById('filterCompany').value;
-  const quarter = document.getElementById('filterQuarter').value;
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
 
   filtered = PROJECTS.filter(p => {
-    if (search  && !p.name.toLowerCase().includes(search) && !p.desc.toLowerCase().includes(search)) return false;
-    if (status  && p.status !== status) return false;
-    if (pillar  && p.theme !== pillar) return false;
-    if (company && !p.company.includes(company)) return false;
-    if (quarter && p.qLabel !== quarter) return false;
+    if (search && !p.name.toLowerCase().includes(search) && !(p.desc||'').toLowerCase().includes(search)) return false;
+    for (const [field, val] of Object.entries(filterState)) {
+      if (!val) continue;
+      if (field === 'status'   && p.status !== val) return false;
+      if (field === 'quarter'  && p.qLabel !== val) return false;
+      if (field === 'pillar'   && p.theme  !== val) return false;
+      if (field === 'quadrant' && getQuadrantKey(p) !== val) return false;
+    }
     return true;
   });
 
+  renderChips();
   updateStats();
   render();
 }
 
-function resetFilters() {
+function resetAll() {
   document.getElementById('searchInput').value = '';
-  document.getElementById('filterStatus').value = '';
-  document.getElementById('filterPillar').value = '';
-  document.getElementById('filterCompany').value = '';
-  document.getElementById('filterQuarter').value = '';
+  for (const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState = null;
   filtered = [...PROJECTS];
+  renderChips();
   updateStats();
   render();
 }
 
-// ─── Sort ─────────────────────────────────────────────────────────────────────
+// ─── Column sort (table headers) ──────────────────────────────────────────────
 function setSort(col) {
   if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
   else { sortCol = col; sortDir = 'asc'; }
@@ -384,9 +589,27 @@ function setSort(col) {
 }
 
 function getSorted(arr) {
+  // Chip sort takes precedence over column sort
+  if (chipSortState) {
+    const dir = chipSortState.dir === 'asc' ? 1 : -1;
+    return [...arr].sort((a, b) => {
+      let av, bv;
+      switch (chipSortState.field) {
+        case 'status':   av = a.status||'';   bv = b.status||'';   break;
+        case 'quarter':  av = a.qLabel||'';   bv = b.qLabel||'';   break;
+        case 'pillar':   av = a.theme||'';    bv = b.theme||'';    break;
+        case 'quadrant': av = getQuadrantKey(a)||'zzz'; bv = getQuadrantKey(b)||'zzz'; break;
+        default:         av = a.name||'';     bv = b.name||'';
+      }
+      if (av < bv) return -dir;
+      if (av > bv) return dir;
+      return 0;
+    });
+  }
+  // Fallback to column sort
   return [...arr].sort((a, b) => {
     let av, bv;
-    if (sortCol === 'rice')     { av = a.rice; bv = b.rice; }
+    if (sortCol === 'rice')          { av = a.rice; bv = b.rice; }
     else if (sortCol === 'priority') { av = PRIORITY_ORDER[a.priority]||9; bv = PRIORITY_ORDER[b.priority]||9; }
     else if (sortCol === 'company')  { av = (a.company||[]).join(','); bv = (b.company||[]).join(','); }
     else { av = (a[sortCol]||'').toString().toLowerCase(); bv = (b[sortCol]||'').toString().toLowerCase(); }
@@ -630,20 +853,13 @@ function toggleSwitcher(){
   menu.classList.toggle('open');
   trigger.setAttribute('aria-expanded', menu.classList.contains('open'));
 }
-document.addEventListener('click', e => {
-  const sw = document.getElementById('companySwitcher');
-  if (!sw.contains(e.target)) {
-    document.getElementById('csMenu').classList.remove('open');
-    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
-  }
-});
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
-  populateFilters();
+  renderChips();
   updateStats();
   setView('table');
   updateSortHeaders();
