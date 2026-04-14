@@ -136,10 +136,30 @@ async function main() {
 const NOTION_ITEMS = ${JSON.stringify(items, null, 2)};
 `;
 
-  const { writeFileSync } = await import('fs');
+  const { writeFileSync, readFileSync } = await import('fs');
   writeFileSync(OUTPUT, js, 'utf8');
   console.log(`Written → ${OUTPUT}`);
-  console.log('Done. Run git add staging/notion-data.js && git push to publish.');
+
+  // Bust the browser cache in all staging pages by updating the ?v= query string
+  const v = Date.now();
+  const PAGES = [
+    'staging/projects/index.html',
+    'staging/prioritization/index.html',
+    'staging/roadmap/index.html',
+  ];
+  for (const page of PAGES) {
+    const html = readFileSync(page, 'utf8');
+    const updated = html.replace(
+      /src="\.\.\/notion-data\.js(\?v=\d+)?"/,
+      `src="../notion-data.js?v=${v}"`
+    );
+    if (updated !== html) {
+      writeFileSync(page, updated, 'utf8');
+      console.log(`  Cache-busted: ${page}`);
+    }
+  }
+
+  console.log('Done. Run git add staging/ && git push to publish.');
 }
 
 main().catch(err => { console.error(err.message); process.exit(1); });
