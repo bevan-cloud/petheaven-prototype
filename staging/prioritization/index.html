@@ -155,14 +155,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <span class="filter-label">Filter</span>
     <select class="filter-select" id="filter-theme" onchange="applyFilters()">
       <option value="">All themes</option>
-      <option>Web Enhancement</option>
-      <option>Ecommerce Growth</option>
-      <option>Tech Infrastructure</option>
-      <option>Process Ops</option>
-      <option>Data &amp; Analytics</option>
-      <option>Mobile</option>
-      <option>Platform</option>
-      <option>Content</option>
     </select>
     <button class="filter-reset" onclick="resetFilters()">Reset</button>
   </div>
@@ -225,33 +217,32 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 </div>
 
+<script src="../notion-data.js"></script>
 <script>
-const ITEMS = [
-  {id:1, name:'Test Feature Alpha',   theme:'Web Enhancement',    r:5000, i:4, c:90, e:2, mi:4, me:2},
-  {id:2, name:'Test Feature Beta',    theme:'Ecommerce Growth',   r:3000, i:5, c:80, e:3, mi:5, me:3},
-  {id:3, name:'Test Feature Gamma',   theme:'Tech Infrastructure',r:2000, i:3, c:70, e:4, mi:3, me:4},
-  {id:4, name:'Test Feature Delta',   theme:'Process Ops',        r:4000, i:4, c:85, e:2, mi:4, me:2},
-  {id:5, name:'Test Feature Epsilon', theme:'Data & Analytics',   r:1500, i:3, c:60, e:5, mi:2, me:5},
-  {id:6, name:'Test Feature Zeta',    theme:'Mobile',             r:3500, i:5, c:90, e:1, mi:5, me:1},
-  {id:7, name:'Test Feature Eta',     theme:'Platform',           r:2500, i:4, c:75, e:3, mi:4, me:3},
-  {id:8, name:'Test Feature Theta',   theme:'Content',            r:1000, i:2, c:50, e:4, mi:2, me:4},
-];
+const ITEMS = NOTION_ITEMS;
 
 const THEME_COLORS = {
-  'Web Enhancement':    {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
-  'Ecommerce Growth':   {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
-  'Tech Infrastructure':{bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
-  'Process Ops':        {bg:'#fff8e1',border:'#f5c842',text:'#7a5a00'},
-  'Data & Analytics':   {bg:'#f3e5f5',border:'#ce93d8',text:'#6a1b9a'},
-  'Mobile':             {bg:'#fdf1ec',border:'#f0b89a',text:'#b84714'},
-  'Platform':           {bg:'#e8faf0',border:'#a5d6b7',text:'#1b5e20'},
-  'Content':            {bg:'#fef3e2',border:'#f5c842',text:'#7a5a00'},
+  // Notion Strategic Pillars
+  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
+  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f'},
+  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0'},
+  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c'},
+  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
+  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
+  'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
 };
 const BUBBLE_COLORS = ['#4f46e5','#3730a3','#6366f1','#818cf8','#4338ca','#4f46e5','#6366f1','#3730a3'];
 
 let sortCol = 'score', sortDir = 'desc', mSortCol = 'mi', mSortDir = 'desc';
 let currentView = 'rice';
 let filtered = [...ITEMS];
+
+// Populate theme filter from live data
+(function(){
+  const sel = document.getElementById('filter-theme');
+  const themes = [...new Set(ITEMS.map(it => it.theme).filter(Boolean))].sort();
+  themes.forEach(t => { const o = document.createElement('option'); o.value = o.textContent = t; sel.appendChild(o); });
+})();
 
 function riceScore(item){ return Math.round(item.r * item.i * (item.c/100) / item.e); }
 
