@@ -143,6 +143,7 @@ const NOTION_ITEMS = ${JSON.stringify(items, null, 2)};
   console.log(`Written → ${OUTPUT}`);
 
   // Bust the browser cache in all staging pages by updating the ?v= query string
+  // This covers notion-data.js (data) AND the shared JS files (logic/styling).
   const v = Date.now();
   const PAGES = [
     'staging/projects/index.html',
@@ -150,13 +151,15 @@ const NOTION_ITEMS = ${JSON.stringify(items, null, 2)};
     'staging/roadmap/index.html',
   ];
   for (const page of PAGES) {
-    const html = readFileSync(page, 'utf8');
-    const updated = html.replace(
-      /src="\.\.\/notion-data\.js(\?v=\d+)?"/,
-      `src="../notion-data.js?v=${v}"`
-    );
-    if (updated !== html) {
-      writeFileSync(page, updated, 'utf8');
+    const original = readFileSync(page, 'utf8');
+    let html = original;
+    // Cache-bust notion-data.js (data file)
+    html = html.replace(/src="\.\.\/notion-data\.js(\?v=\d+)?"/, `src="../notion-data.js?v=${v}"`);
+    // Cache-bust shared JS files (notion-write.js, project-briefs.js, sync.js)
+    html = html.replace(/src="(\.\.\/(?:notion-write|project-briefs|sync)\.js)(\?v=\d+)?"/g,
+      (_, file) => `src="${file}?v=${v}"`);
+    if (html !== original) {
+      writeFileSync(page, html, 'utf8');
       console.log(`  Cache-busted: ${page}`);
     }
   }
