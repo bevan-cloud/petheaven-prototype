@@ -92,7 +92,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rank-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;background:var(--brand)}
 
 /* MATRIX VIEW */
-#matrix-view{display:none}
 .matrix-canvas-row{display:flex;align-items:stretch;gap:0}
 .matrix-y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);text-align:center;padding:0 6px;flex-shrink:0}
 .matrix-canvas-wrap{flex:1;min-width:0;position:relative;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;height:480px}
@@ -284,7 +283,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   </div>
 
   <!-- MATRIX VIEW -->
-  <div id="matrix-view">
+  <div id="matrix-view" style="display:none">
     <div class="matrix-canvas-row">
       <div class="matrix-y-label">← Low Impact &nbsp;&nbsp; High Impact →</div>
       <div class="matrix-canvas-wrap">
@@ -299,14 +298,19 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         </div>
       </div>
     </div>
-    <div class="matrix-table-wrap">
-      <table class="matrix-table" id="matrixTable">
+    <div class="rice-table-wrap" style="margin-top:16px">
+      <table class="rice-table" id="matrixTable">
         <thead>
           <tr>
+            <th onclick="setMSort('rank')">#</th>
             <th onclick="setMSort('name')">Initiative</th>
             <th onclick="setMSort('theme')">Theme</th>
-            <th onclick="setMSort('mi')">Impact (mi)</th>
-            <th onclick="setMSort('me')">Effort (me)</th>
+            <th onclick="setMSort('status')">Status</th>
+            <th onclick="setMSort('r')" title="Reach">R</th>
+            <th onclick="setMSort('i')" title="Impact">I</th>
+            <th onclick="setMSort('c')" title="Confidence">C%</th>
+            <th onclick="setMSort('e')" title="Effort">E</th>
+            <th onclick="setMSort('score')">RICE</th>
             <th onclick="setMSort('quadrant')">Quadrant</th>
           </tr>
         </thead>
@@ -504,8 +508,10 @@ function getSorted(arr){
 function getMSorted(arr){
   if(chipSortState) return [...arr].sort(chipSortFn);
   return [...arr].sort((a,b)=>{
-    let av=a[mSortCol],bv=b[mSortCol];
-    if(mSortCol==='quadrant'){av=getQuadrant(a)||'';bv=getQuadrant(b)||'';}
+    let av,bv;
+    if(mSortCol==='score'||mSortCol==='rank'){av=riceScore(a);bv=riceScore(b);}
+    else if(mSortCol==='quadrant'){av=getQuadrant(a)||'zzz';bv=getQuadrant(b)||'zzz';}
+    else{av=a[mSortCol];bv=b[mSortCol];}
     if(typeof av==='string') return mSortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
     return mSortDir==='asc'?(av??0)-(bv??0):(bv??0)-(av??0);
   });
@@ -605,14 +611,22 @@ function renderMatrixTable(){
   const sorted=getMSorted(filtered);
   const tbody=document.getElementById('matrixTbody');
   const _nw=window._nw;
-  tbody.innerHTML=sorted.map(it=>{
+  tbody.innerHTML=sorted.map((it,idx)=>{
+    const sc=riceScore(it);
     const q=getQuadrant(it);
     const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
+    const sm=F_STATUS[it.status]||F_STATUS.planned;
+    const statusBadge=`<span class="${sm.cls}">${sm.label}</span>`;
     return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
+      <td><div class="rank-badge">${idx+1}</div></td>
       <td><div class="item-name">${it.name}</div></td>
       <td onclick="event.stopPropagation()">${themeCell}</td>
-      <td><span class="m-score-val sv-impact m-editable" data-id="${it.id}" data-field="mi" data-nid="${it.notionId}" onclick="event.stopPropagation();startEditMatrix(event)">${it.mi??'—'}</span></td>
-      <td><span class="m-score-val sv-effort m-editable" data-id="${it.id}" data-field="me" data-nid="${it.notionId}" onclick="event.stopPropagation();startEditMatrix(event)">${it.me??'—'}</span></td>
+      <td>${statusBadge}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('r',it.r,it.notionId) : it.r.toLocaleString()}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('i',it.i,it.notionId) : it.i}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('c',it.c,it.notionId) : it.c+'%'}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('e',it.e,it.notionId) : it.e}</td>
+      <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
       <td>${quadrantHtml(q)}</td>
     </tr>`;
   }).join('');
@@ -651,8 +665,8 @@ function startEditMatrix(e){
 
 function switchView(v,btn){
   currentView=v;
-  document.getElementById('rice-view').style.display=v==='rice'?'':'none';
-  document.getElementById('matrix-view').style.display=v==='matrix'?'':'none';
+  document.getElementById('rice-view').style.display=v==='rice'?'block':'none';
+  document.getElementById('matrix-view').style.display=v==='matrix'?'block':'none';
   document.getElementById('model-desc-rice').style.display=v==='rice'?'':'none';
   document.getElementById('model-desc-matrix').style.display=v==='matrix'?'':'none';
   document.querySelectorAll('.view-tab').forEach(t=>t.classList.toggle('active',t.dataset.view===v));
