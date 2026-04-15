@@ -10,6 +10,7 @@
   --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
   --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
   --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --amber-mid:#f5c842;--amber:#7a5a00;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
@@ -34,37 +35,148 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
-.page{max-width:1080px;margin:0 auto;padding:48px 40px 100px}
-.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:8px}
-.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6}
-.hero-stats{display:flex;gap:24px;margin-top:20px}
-.hero-stat-val{font-size:28px;font-weight:700;line-height:1}
-.hero-stat-label{font-size:11px;opacity:.65;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
-.section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
-.quarter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:40px}
-.quarter-col{display:flex;flex-direction:column;gap:0}
-.quarter-header{padding:12px 16px 10px;background:var(--brand-dark);border-radius:var(--radius-lg) var(--radius-lg) 0 0;color:#fff}
-.quarter-title{font-size:13px;font-weight:700;letter-spacing:.04em}
-.quarter-sub{font-size:11px;opacity:.65;margin-top:2px}
-.quarter-cards{background:#fff;border:1px solid var(--gray-2);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:200px}
-.rm-card{border-radius:8px;padding:10px 12px;cursor:pointer;transition:box-shadow .15s,transform .15s;border:1px solid transparent}
-.rm-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
-.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.3}
-.rm-card-theme{font-size:10px;font-weight:500;margin-top:4px;opacity:.75}
-.rm-card-meta{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.rm-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:10px;background:rgba(0,0,0,.06)}
-.rm-empty{font-size:12px;color:var(--gray-4);text-align:center;padding:20px 0;font-style:italic}
-.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
-@media(max-width:860px){.quarter-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.quarter-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
+.nav-sync-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s;margin-left:4px}
+.nav-sync-btn:hover{background:rgba(255,255,255,.22)}
+.page{max-width:1200px;margin:0 auto;padding:40px 40px 100px}
 
-/* ── Flyout overlay ── */
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:36px 48px 32px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px}
+.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6;margin-bottom:20px}
+.hero-stats{display:flex;gap:24px;margin-bottom:22px}
+.hero-stat-val{font-size:26px;font-weight:700;line-height:1}
+.hero-stat-label{font-size:11px;opacity:.6;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── VIEW TABS ── */
+.view-tabs{display:flex;gap:2px;background:rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:3px;width:fit-content}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.view-tab:hover{color:#fff}
+.view-tab.active{background:#fff;color:var(--brand-dark)}
+.view-section{display:none}
+.view-section.active{display:block}
+
+/* ── FY PROGRESS BANNER ── */
+.fy-banner{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 24px 16px;margin-bottom:20px}
+.fyb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+.fyb-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);display:flex;align-items:center;gap:8px}
+.fyb-live-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--brand-light);color:var(--brand-dark);letter-spacing:.04em}
+.fyb-live-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:liveblink 1.8s ease-in-out infinite}
+@keyframes liveblink{0%,100%{opacity:1}50%{opacity:.3}}
+.fyb-meta{font-size:12px;color:var(--gray-5);text-align:right;line-height:1.6}
+.fyb-meta strong{color:var(--black)}
+.fyb-track-area{position:relative;height:56px;margin-bottom:12px}
+.fyb-segs{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);border-radius:var(--radius-lg);overflow:hidden}
+.fyb-seg{border-right:1px solid rgba(0,0,0,.05)}.fyb-seg:last-child{border-right:none}
+.fyb-rail{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);height:2px;background:var(--gray-2);z-index:2;border-radius:1px}
+.fyb-fill{position:absolute;left:0;top:0;height:100%;background:var(--brand);border-radius:1px;transition:width .5s ease}
+.fyb-tick{position:absolute;top:-5px;width:1px;height:12px;background:var(--gray-3);transform:translateX(-50%);z-index:3}
+.fyb-arrow{position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--gray-3)}
+.fyb-now{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:6}
+.fyb-dot{width:18px;height:18px;border-radius:50%;background:var(--amber-mid);display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;box-shadow:0 0 0 2px var(--amber-mid);animation:nowpulse 2.4s ease-in-out infinite;cursor:default}
+.fyb-dot-core{width:7px;height:7px;border-radius:50%;background:#fff}
+@keyframes nowpulse{0%,100%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 2px rgba(245,200,66,0)}50%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 10px rgba(245,200,66,0)}}
+.fyb-callout{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--black);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:var(--radius);white-space:nowrap;z-index:7}
+.fyb-callout::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--black)}
+.fyb-vline{position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--amber-mid);z-index:5;opacity:.5}
+.fyb-qlabels{display:grid;grid-template-columns:repeat(4,1fr)}
+.fyb-qlabel{padding:4px 0 0 4px;border-right:1px dashed var(--gray-2)}.fyb-qlabel:last-child{border-right:none}
+.fyb-ql-name{font-size:11px;font-weight:700;color:var(--gray-4);display:flex;align-items:center;gap:5px}
+.fyb-ql-name.ql-active{color:var(--brand-dark)}
+.fyb-ql-period{font-size:11px;color:var(--gray-4);margin-top:1px}
+.fyb-ql-pct{font-size:10px;font-weight:600;color:var(--brand-dark);margin-top:2px}
+.fyb-ql-days{font-size:10px;color:var(--amber);font-weight:500;margin-top:1px}
+
+/* ── KANBAN ── */
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;align-items:start}
+.qcol{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.qcol.current{border-color:var(--brand-mid);box-shadow:0 0 0 1px var(--brand-mid)}
+.qhdr{padding:14px 16px 12px;border-bottom:1px solid var(--gray-2)}
+.qhdr-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.q-qlabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
+.q-now-badge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--brand);color:#fff;padding:2px 8px;border-radius:20px}
+.q-period{font-size:11px;color:var(--gray-4);margin-bottom:5px}
+.q-count{font-size:11px;color:var(--gray-4)}.q-count strong{color:var(--black)}
+.qbody{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:100px}
+.q-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:20px 0;font-style:italic}
+
+/* ── CARDS ── */
+.rm-card{background:#fff;border:1px solid var(--gray-2);border-left-width:3px;border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:border-color .12s,background .1s}
+.rm-card:hover{background:var(--gray-1)}
+.rm-card.active{background:var(--brand-light) !important;border-color:var(--brand-mid) !important}
+.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;margin-bottom:7px}
+.rm-card-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.rm-card-pills{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.rm-pill-theme{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;line-height:1.7}
+.rm-pill-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.rm-rice{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;flex-shrink:0}
+.rice-high{background:#e8f5e9;color:#1b5e20}
+.rice-mid{background:#fff8e1;color:#7a5a00}
+.rice-low{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* ── BACKLOG ── */
+.section-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--black)}
+.section-sub{font-size:13px;color:var(--gray-5);margin-bottom:14px;max-width:600px;line-height:1.7}
+.backlog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:32px}
+
+/* ── TIMELINE FILTER BAR ── */
+.tl-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tl-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-right:2px;flex-shrink:0}
+.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
+.tl-filter-btn:hover{border-color:var(--gray-3);color:var(--black)}
+.tl-filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+
+/* ── TIMELINE VIEW ── */
+.tl-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--gray-2)}
+.tl-table{min-width:860px;width:100%}
+.tl-hdr{display:grid;background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
+.tl-hdr-empty{padding:12px 14px}
+.tl-hdr-q{padding:12px 14px;border-left:1px solid var(--gray-2)}
+.tl-hdr-q.tl-cur{background:var(--brand-light)}
+.tl-ql{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
+.tl-qp{font-size:11px;color:var(--gray-5);margin-top:1px}
+.tl-qnow{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;background:var(--brand);color:#fff;padding:1px 7px;border-radius:20px}
+.tl-body{display:flex;flex-direction:column}
+.tl-row{display:grid;border-top:1px solid var(--gray-2)}
+.tl-row:first-child{border-top:none}
+.tl-th{padding:12px 14px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.tl-th-inner{position:relative;padding-left:10px}
+.tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.3}
+.tl-th-count{font-size:10px;color:var(--gray-4)}
+.tl-cell{padding:8px;background:#fff;border-left:1px solid var(--gray-2);vertical-align:top;display:flex;flex-direction:column;gap:5px;min-height:52px}
+.tl-cell.tl-cur-col{background:#fafaff}
+.tl-bar{border-radius:var(--radius);padding:6px 9px;cursor:pointer;transition:filter .12s;border:1px solid rgba(0,0,0,.08)}
+.tl-bar:hover{filter:brightness(.9)}
+.tl-bar-name{font-size:11px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:4px}
+.tl-bar-foot{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.tl-bar-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;line-height:1.6}
+.tl-bar-rice{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(0,0,0,.18);color:#fff;line-height:1.6}
+
+/* ── BY PILLAR VIEW ── */
+.pillar-sections{display:flex;flex-direction:column;gap:10px}
+.pillar-sec{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.pillar-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .12s}
+.pillar-sec-hdr:hover{background:var(--gray-1)}
+.pillar-sec.open .pillar-sec-hdr{border-bottom:1px solid var(--gray-2)}
+.pillar-sec-bar{width:4px;height:34px;border-radius:2px;flex-shrink:0}
+.pillar-sec-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);flex:1}
+.pillar-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0;margin-right:8px}
+.pillar-sec-chevron{color:var(--gray-4);flex-shrink:0;transition:transform .22s ease}
+.pillar-sec.open .pillar-sec-chevron{transform:rotate(180deg)}
+.pillar-sec-body{display:none;grid-template-columns:repeat(4,1fr)}
+.pillar-sec.open .pillar-sec-body{display:grid}
+.pillar-qcol{padding:10px;border-right:1px solid var(--gray-2)}
+.pillar-qcol:last-child{border-right:none}
+.pillar-qcol-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.pillar-qcol-now{font-size:8px;font-weight:700;background:var(--brand);color:#fff;padding:1px 5px;border-radius:20px;letter-spacing:.03em}
+.pillar-items{display:flex;flex-direction:column;gap:5px}
+.pillar-empty{font-size:11px;color:var(--gray-3);padding:2px 0;font-style:italic}
+
+/* ── FLYOUT ── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.open{opacity:1;pointer-events:all}
-/* ── Flyout panel ── */
 .flyout{position:fixed;top:0;right:0;bottom:0;width:480px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
 .flyout.open{transform:translateX(0)}
 .flyout-close-row{display:flex;justify-content:flex-end;padding:16px 20px 0;flex-shrink:0}
@@ -100,10 +212,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .fs-planned{background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
 .fs-review{background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
 .fs-done{background:var(--gray-2);color:var(--gray-5);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
-@media(max-width:760px){
-  .flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}
-  .flyout.open{transform:translateY(0)}
-}
+.f-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.f-type-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.f-ai-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#5b21b6}
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+@media(max-width:1000px){.qgrid{grid-template-columns:1fr 1fr}.pillar-sec-body{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.qgrid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
+@media(max-width:760px){.flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}.flyout.open{transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -136,21 +251,64 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <div class="page">
 
   <div class="hero">
-    <div class="hero-badge">🧪 Bevan Staging · FY2026/27 · Product Roadmap</div>
+    <div class="hero-badge" id="heroBadge">🧪 Bevan Staging · FY2026/27 · Product Roadmap</div>
     <h1>Roadmap</h1>
-    <p class="hero-sub">Test roadmap layout, quarterly distribution, and initiative cards with safe dummy data.</p>
-    <div class="hero-stats">
-      <div><div class="hero-stat-val">8</div><div class="hero-stat-label">Initiatives</div></div>
-      <div><div class="hero-stat-val">4</div><div class="hero-stat-label">Quarters</div></div>
-      <div><div class="hero-stat-val">8</div><div class="hero-stat-label">Themes</div></div>
+    <p class="hero-sub">Quarterly view of initiatives pulled from Notion. Financial year runs March–February. Click any card to see details.</p>
+    <div class="hero-stats" id="heroStats"></div>
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="setView('kanban',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Kanban
+      </button>
+      <button class="view-tab" onclick="setView('timeline',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Timeline
+      </button>
+      <button class="view-tab" onclick="setView('pillar',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="2.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="2.5" cy="9.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="9.5" cy="6" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 2.5h3a2 2 0 012 2v0a2 2 0 01-2 2H4.5M4.5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        By Pillar
+      </button>
     </div>
   </div>
 
-  <div class="section-label">FY2026/27 — Quarterly Plan</div>
+  <!-- KANBAN VIEW -->
+  <div class="view-section active" id="view-kanban">
+    <div class="fy-banner" id="fyBanner"></div>
+    <div class="qgrid" id="qgrid"></div>
+    <div class="section-hdr"><div class="section-title">Backlog</div></div>
+    <p class="section-sub">Initiatives not yet scheduled into this financial year.</p>
+    <div class="backlog-grid" id="backlogGrid"></div>
+  </div>
 
-  <div class="quarter-grid" id="quarterGrid"></div>
+  <!-- TIMELINE VIEW -->
+  <div class="view-section" id="view-timeline">
+    <div class="fy-banner" id="fyBannerTl"></div>
+    <div class="tl-filter-bar" id="tlFilterBar"></div>
+    <div class="tl-wrap">
+      <div class="tl-table">
+        <div class="tl-hdr" id="tlHdr"></div>
+        <div class="tl-body" id="tlBody"></div>
+      </div>
+    </div>
+    <div id="tlBacklogWrap" style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="tlBacklog"></div>
+    </div>
+  </div>
 
-  <p class="page-footer">Bevan Staging · Product roadmap · FY2026/27</p>
+  <!-- BY PILLAR VIEW -->
+  <div class="view-section" id="view-pillar">
+    <div class="fy-banner" id="fyBannerPillar"></div>
+    <div class="pillar-sections" id="pillarSections"></div>
+    <div style="margin-top:24px">
+      <div class="section-hdr"><div class="section-title">Backlog</div></div>
+      <p class="section-sub">Not yet scheduled into this FY.</p>
+      <div class="backlog-grid" id="pillarBacklog"></div>
+    </div>
+  </div>
+
+  <p class="page-footer">Bevan Staging · Product roadmap · <span id="fyFooter">FY2026/27</span></p>
 
 </div>
 
@@ -158,53 +316,345 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 <script>
 const ITEMS = NOTION_ITEMS;
 
-const THEME_COLORS = {
-  // Notion Strategic Pillars
-  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
-  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f'},
-  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0'},
-  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c'},
-  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
-  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
-  'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
-};
+// ─── FY CALCULATION (March–February fiscal year) ──────────────────────────────
+const _now  = new Date();
+const _m    = _now.getMonth() + 1;   // 1–12
+const _y    = _now.getFullYear();
+const CUR_FY      = _m >= 3 ? _y + 1 : _y;          // e.g. 2027 = FY27
+const CUR_FY2     = String(CUR_FY).slice(2);          // "27"
+const FY_SY       = CUR_FY - 1;                       // start year, e.g. 2026
+const FY_LABEL    = `FY${String(FY_SY).slice(2)}${CUR_FY2}`; // "FY2627"
 
-const QUARTERS = [
-  {id:'Q1',label:'Q1 2026',sub:'Jul – Sep 2026'},
-  {id:'Q2',label:'Q2 2026',sub:'Oct – Dec 2026'},
-  {id:'Q3',label:'Q3 2027',sub:'Jan – Mar 2027'},
-  {id:'Q4',label:'Q4 2027',sub:'Apr – Jun 2027'},
+const FY_QUARTERS = [
+  {n:1, qLabel:`Q1 FY${CUR_FY2}`, short:'Q1', period:`Mar – May ${FY_SY}`,        start:new Date(FY_SY,2,1),  end:new Date(FY_SY,5,1)},
+  {n:2, qLabel:`Q2 FY${CUR_FY2}`, short:'Q2', period:`Jun – Aug ${FY_SY}`,        start:new Date(FY_SY,5,1),  end:new Date(FY_SY,8,1)},
+  {n:3, qLabel:`Q3 FY${CUR_FY2}`, short:'Q3', period:`Sep – Nov ${FY_SY}`,        start:new Date(FY_SY,8,1),  end:new Date(FY_SY,11,1)},
+  {n:4, qLabel:`Q4 FY${CUR_FY2}`, short:'Q4', period:`Dec ${FY_SY} – Feb ${CUR_FY}`, start:new Date(FY_SY,11,1), end:new Date(CUR_FY,2,1)},
 ];
+const FY_START = FY_QUARTERS[0].start;
+const FY_END   = FY_QUARTERS[3].end;
 
-function riceScore(it){ return Math.round(it.r*it.i*(it.c/100)/it.e); }
+// Determine which quarter each item belongs to, or null = backlog
+const FY_Q_LABELS = new Set(FY_QUARTERS.map(q => q.qLabel));
+function itemQ(it){ return FY_Q_LABELS.has(it.qLabel) ? it.qLabel : null; }
+function itemQn(it){ const q=FY_QUARTERS.find(q=>q.qLabel===it.qLabel); return q?q.n:0; }
 
-function renderRoadmap(){
-  const grid=document.getElementById('quarterGrid');
-  grid.innerHTML=QUARTERS.map(q=>{
-    const items=ITEMS.filter(it=>it.q===q.id);
-    const cards=items.length===0
-      ? '<div class="rm-empty">No items planned</div>'
-      : items.map(it=>{
-          const c=THEME_COLORS[it.theme]||{bg:'#f5f5f5',border:'#ddd',text:'#555'};
-          return `<div class="rm-card" style="background:${c.bg};border-color:${c.border};cursor:pointer" onclick="openFlyout(${it.id})">
-            <div class="rm-card-name">${it.name}</div>
-            <div class="rm-card-theme" style="color:${c.text}">${it.theme}</div>
-            <div class="rm-card-meta">
-              <span class="rm-pill">RICE ${riceScore(it)}</span>
-              <span class="rm-pill">Impact ${it.i}</span>
-            </div>
-          </div>`;
-        }).join('');
-    return `<div class="quarter-col">
-      <div class="quarter-header">
-        <div class="quarter-title">${q.label}</div>
-        <div class="quarter-sub">${q.sub} · ${items.length} initiative${items.length!==1?'s':''}</div>
-      </div>
-      <div class="quarter-cards">${cards}</div>
-    </div>`;
-  }).join('');
+// Current quarter
+const CUR_Q = FY_QUARTERS.find(q => _now >= q.start && _now < q.end) || null;
+
+// ─── THEME / PILLAR CONFIG ────────────────────────────────────────────────────
+const THEME_COLORS = {
+  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20', bar:'#2e7d32'},
+  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f', bar:'#c62828'},
+  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0', bar:'#4527a0'},
+  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c', bar:'#b71c1c'},
+  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8', bar:'#1a5fa8'},
+  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3', bar:'#3730a3'},
+  'Other':                        {bg:'#f5f5f5',border:'#ddd',   text:'#555',    bar:'#9a9a94'},
+};
+function tc(theme){ return THEME_COLORS[theme] || THEME_COLORS['Other']; }
+
+const PILLARS = Object.keys(THEME_COLORS);
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function riceScore(it){ return (it.r&&it.i&&it.c&&it.e) ? Math.round(it.r*it.i*(it.c/100)/it.e) : null; }
+function riceTier(s){ if(s==null) return 'none'; if(s>=60) return 'high'; if(s>=20) return 'mid'; return 'low'; }
+function riceBadge(it){
+  const s=riceScore(it);
+  if(s==null) return '';
+  const cls={high:'rice-high',mid:'rice-mid',low:'rice-low',none:''}[riceTier(s)];
+  return `<span class="rm-rice ${cls}">${s}</span>`;
 }
 
+// ─── CARD ─────────────────────────────────────────────────────────────────────
+function buildCard(it){
+  const c = tc(it.theme);
+  const F_STATUS = {live:'fs-live',progress:'fs-progress',planned:'fs-planned',review:'fs-review',done:'fs-done'};
+  const stCls = F_STATUS[it.status] || 'fs-planned';
+  const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
+  return `<div class="rm-card" data-id="${it.id}" style="border-left-color:${c.bar}">
+    <div class="rm-card-name">${esc(it.name)}</div>
+    <div class="rm-card-footer">
+      <div class="rm-card-pills">
+        <span class="rm-pill-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${esc(it.theme||'Other')}</span>
+        <span class="rm-pill-status ${stCls}">${stLbl}</span>
+      </div>
+      ${riceBadge(it)}
+    </div>
+  </div>`;
+}
+
+// ─── FY PROGRESS BANNER ───────────────────────────────────────────────────────
+function buildFYBanner(targetId){
+  const MS_DAY   = 86400000;
+  const fyTotal  = (FY_END - FY_START) / MS_DAY;
+  const fyElapsed= Math.max(0, Math.min(fyTotal, (_now - FY_START) / MS_DAY));
+  const fyPct    = (fyElapsed / fyTotal) * 100;
+  const beforeFY = _now < FY_START;
+  const afterFY  = _now >= FY_END;
+
+  const segStates = FY_QUARTERS.map(q => {
+    if(_now >= q.end)   return 'done';
+    if(_now >= q.start) return 'now';
+    return 'next';
+  });
+
+  const segsHtml = FY_QUARTERS.map((q,i) => {
+    const s = segStates[i];
+    const qTotal  = (q.end - q.start) / MS_DAY;
+    const qElapsed= (_now - q.start) / MS_DAY;
+    const qPct    = Math.min(100, Math.max(0, (qElapsed/qTotal)*100));
+    let bg='';
+    if(s==='done') bg='style="background:var(--brand-light)"';
+    else if(s==='now') bg=`style="background:linear-gradient(90deg,var(--brand-light) ${qPct}%,var(--gray-1) ${qPct}%)"`;
+    else bg='style="background:var(--gray-1)"';
+    return `<div class="fyb-seg" ${bg}></div>`;
+  }).join('');
+
+  let qPct=0, qDaysLeft=0;
+  if(CUR_Q){
+    const qT=(CUR_Q.end-CUR_Q.start)/MS_DAY;
+    const qE=(_now-CUR_Q.start)/MS_DAY;
+    qPct=Math.round((qE/qT)*100);
+    qDaysLeft=Math.ceil((CUR_Q.end-_now)/MS_DAY);
+  }
+
+  const dotPct = beforeFY?0:afterFY?100:Math.min(97,Math.max(2,fyPct));
+  const dateStr = _now.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  const qLabelsHtml = FY_QUARTERS.map((q,i)=>{
+    const s=segStates[i];
+    const isCur=s==='now';
+    return `<div class="fyb-qlabel">
+      <div class="fyb-ql-name${isCur?' ql-active':''}">${q.short}${isCur?'&nbsp;<span style="font-size:9px;font-weight:700;background:var(--brand);color:#fff;padding:1px 6px;border-radius:20px">Now</span>':''}</div>
+      <div class="fyb-ql-period">${q.period}</div>
+      ${isCur?`<div class="fyb-ql-pct">${qPct}% complete</div><div class="fyb-ql-days">${qDaysLeft} days remaining</div>`:''}
+      ${s==='done'?'<div class="fyb-ql-pct">Complete ✓</div>':''}
+    </div>`;
+  }).join('');
+
+  const el=document.getElementById(targetId);
+  if(!el) return;
+  el.innerHTML=`
+    <div class="fyb-top">
+      <div class="fyb-title">FY ${FY_SY}/${String(CUR_FY).slice(2)} Progress <span class="fyb-live-pill"><span class="fyb-live-dot"></span>Live</span></div>
+      <div class="fyb-meta"><strong>${dateStr}</strong> &nbsp;·&nbsp; ${Math.round(fyPct)}% of financial year elapsed${CUR_Q?` &nbsp;·&nbsp; <strong>${CUR_Q.short}</strong> in progress`:''}</div>
+    </div>
+    <div class="fyb-track-area">
+      <div class="fyb-segs">${segsHtml}</div>
+      <div class="fyb-rail">
+        <div class="fyb-fill" style="width:${dotPct}%"></div>
+        <div class="fyb-tick" style="left:25%"></div>
+        <div class="fyb-tick" style="left:50%"></div>
+        <div class="fyb-tick" style="left:75%"></div>
+        <div class="fyb-arrow"></div>
+      </div>
+      <div class="fyb-now" style="left:calc(${dotPct}% - 16px + 16px)">
+        <div class="fyb-callout">Today · ${dateStr}</div>
+        <div class="fyb-dot"><div class="fyb-dot-core"></div></div>
+        <div class="fyb-vline"></div>
+      </div>
+    </div>
+    <div class="fyb-qlabels">${qLabelsHtml}</div>
+  `;
+}
+
+// ─── VIEW SWITCHING ───────────────────────────────────────────────────────────
+function setView(name, btn){
+  document.querySelectorAll('.view-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.view-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── KANBAN ───────────────────────────────────────────────────────────────────
+function buildKanban(){
+  const qgrid = document.getElementById('qgrid');
+  qgrid.innerHTML = FY_QUARTERS.map(q=>{
+    const qItems = ITEMS.filter(it=>it.qLabel===q.qLabel);
+    const isCur  = CUR_Q && CUR_Q.qLabel===q.qLabel;
+    return `<div class="qcol${isCur?' current':''}">
+      <div class="qhdr">
+        <div class="qhdr-row1">
+          <span class="q-qlabel">${q.qLabel}</span>
+          ${isCur?'<span class="q-now-badge">Current</span>':''}
+        </div>
+        <div class="q-period">${q.period}</div>
+        <div class="q-count"><strong>${qItems.length}</strong> initiative${qItems.length!==1?'s':''}</div>
+      </div>
+      <div class="qbody">
+        ${qItems.length ? qItems.map(buildCard).join('') : '<div class="q-empty">Nothing scheduled yet</div>'}
+      </div>
+    </div>`;
+  }).join('');
+
+  const backlog = ITEMS.filter(it=>!itemQ(it));
+  document.getElementById('backlogGrid').innerHTML = backlog.map(buildCard).join('');
+}
+
+// ─── TIMELINE ─────────────────────────────────────────────────────────────────
+let tlFilter = 'all';
+
+function buildTlFilterBar(){
+  const bar = document.getElementById('tlFilterBar');
+  bar.innerHTML = `<span class="tl-filter-label">Show:</span>
+    <button class="tl-filter-btn active" data-q="all" onclick="setTlFilter('all',this)">All quarters</button>
+    ${FY_QUARTERS.map(q=>`<button class="tl-filter-btn" data-q="${q.n}" onclick="setTlFilter(${q.n},this)">${q.short} · ${q.period}</button>`).join('')}`;
+}
+
+function setTlFilter(q, btn){
+  tlFilter=q;
+  document.querySelectorAll('.tl-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildTimeline();
+}
+
+function buildTimeline(){
+  const activeQs = tlFilter==='all' ? FY_QUARTERS : FY_QUARTERS.filter(q=>q.n===tlFilter);
+  const gridCols = `160px repeat(${activeQs.length},1fr)`;
+
+  const hdr = document.getElementById('tlHdr');
+  hdr.style.gridTemplateColumns = gridCols;
+  hdr.innerHTML = `<div class="tl-hdr-empty"></div>` +
+    activeQs.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      return `<div class="tl-hdr-q${isCur?' tl-cur':''}">
+        <div class="tl-ql">${q.short}</div>
+        <div class="tl-qp">${q.period}</div>
+        ${isCur?'<div class="tl-qnow">Current quarter</div>':''}
+      </div>`;
+    }).join('');
+
+  const scheduled = tlFilter==='all'
+    ? ITEMS.filter(it=>itemQ(it))
+    : ITEMS.filter(it=>it.qLabel===FY_QUARTERS.find(q=>q.n===tlFilter)?.qLabel);
+
+  const body = document.getElementById('tlBody');
+  body.innerHTML = PILLARS.map(pillar=>{
+    const pillarItems = scheduled.filter(it=>it.theme===pillar);
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const cells = activeQs.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      const cell = pillarItems.filter(it=>it.qLabel===q.qLabel);
+      const bars = cell.map(it=>{
+        const s=riceScore(it);
+        return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
+          <div class="tl-bar-name">${esc(it.name)}</div>
+          <div class="tl-bar-foot">
+            <span class="tl-bar-tag">${esc(it.status||'planned')}</span>
+            ${s!=null?`<span class="tl-bar-rice">${s}</span>`:''}
+          </div>
+        </div>`;
+      }).join('');
+      return `<div class="tl-cell${isCur?' tl-cur-col':''}">${bars}</div>`;
+    }).join('');
+    return `<div class="tl-row" style="grid-template-columns:${gridCols}">
+      <div class="tl-th">
+        <div class="tl-th-inner">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${c.bar}"></div>
+          <div class="tl-th-name">${esc(pillar)}</div>
+          <div class="tl-th-count">${pillarItems.length} item${pillarItems.length>1?'s':''}</div>
+        </div>
+      </div>
+      ${cells}
+    </div>`;
+  }).filter(Boolean).join('');
+
+  const backlogWrap = document.getElementById('tlBacklogWrap');
+  if(backlogWrap) backlogWrap.style.display = tlFilter==='all'?'':'none';
+  document.getElementById('tlBacklog').innerHTML = ITEMS.filter(it=>!itemQ(it)).map(buildCard).join('');
+
+  // Bind timeline bar clicks
+  document.querySelectorAll('#tlBody .tl-bar').forEach(el=>{
+    el.addEventListener('click',()=>openFlyout(parseInt(el.dataset.id)));
+  });
+}
+
+// ─── BY PILLAR VIEW ───────────────────────────────────────────────────────────
+function buildPillarView(){
+  const scheduled = ITEMS.filter(it=>itemQ(it));
+  document.getElementById('pillarSections').innerHTML = PILLARS.map(pillar=>{
+    const pillarItems = scheduled.filter(it=>it.theme===pillar);
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const cols = FY_QUARTERS.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      const cell  = pillarItems.filter(it=>it.qLabel===q.qLabel);
+      return `<div class="pillar-qcol">
+        <div class="pillar-qcol-hdr">${q.short}${isCur?'<span class="pillar-qcol-now">Now</span>':''}</div>
+        <div class="pillar-items">
+          ${cell.length ? cell.map(buildCard).join('') : '<div class="pillar-empty">—</div>'}
+        </div>
+      </div>`;
+    }).join('');
+    const pid = 'ps-'+pillar.replace(/[^a-z]/gi,'');
+    return `<div class="pillar-sec" id="${pid}">
+      <div class="pillar-sec-hdr" onclick="togglePillar('${pid}')">
+        <div class="pillar-sec-bar" style="background:${c.bar}"></div>
+        <div class="pillar-sec-name">${esc(pillar)}</div>
+        <div class="pillar-sec-count">${pillarItems.length} initiative${pillarItems.length>1?'s':''} this FY</div>
+        <svg class="pillar-sec-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="pillar-sec-body">${cols}</div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  document.getElementById('pillarBacklog').innerHTML = ITEMS.filter(it=>!itemQ(it)).map(buildCard).join('');
+
+  // Open first pillar by default
+  const first = document.querySelector('.pillar-sec');
+  if(first) first.classList.add('open');
+}
+
+function togglePillar(id){
+  const target = document.getElementById(id);
+  const isOpen = target.classList.contains('open');
+  document.querySelectorAll('.pillar-sec').forEach(s=>s.classList.remove('open'));
+  if(!isOpen) target.classList.add('open');
+}
+
+// ─── HERO STATS ───────────────────────────────────────────────────────────────
+function buildHeroStats(){
+  const scheduled = ITEMS.filter(it=>itemQ(it));
+  const pillarsUsed = new Set(scheduled.map(it=>it.theme)).size;
+  document.getElementById('heroStats').innerHTML =
+    `<div><div class="hero-stat-val">${scheduled.length}</div><div class="hero-stat-label">Scheduled</div></div>
+     <div><div class="hero-stat-val">${FY_QUARTERS.length}</div><div class="hero-stat-label">Quarters</div></div>
+     <div><div class="hero-stat-val">${pillarsUsed}</div><div class="hero-stat-label">Pillars</div></div>
+     <div><div class="hero-stat-val">${ITEMS.filter(it=>!itemQ(it)).length}</div><div class="hero-stat-label">Backlog</div></div>`;
+  document.getElementById('heroBadge').textContent =
+    `🧪 Bevan Staging · FY${FY_SY}/${String(CUR_FY).slice(2)} · Product Roadmap`;
+  document.getElementById('fyFooter').textContent =
+    `FY${FY_SY}/${String(CUR_FY).slice(2)}`;
+}
+
+// ─── BIND CARD CLICKS ─────────────────────────────────────────────────────────
+function bindCardClicks(){
+  document.querySelectorAll('.rm-card').forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      openFlyout(parseInt(el.dataset.id));
+    });
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function buildPage(){
+  buildHeroStats();
+  buildFYBanner('fyBanner');
+  buildFYBanner('fyBannerTl');
+  buildFYBanner('fyBannerPillar');
+  buildKanban();
+  buildTlFilterBar();
+  buildTimeline();
+  buildPillarView();
+  bindCardClicks();
+}
+
+// ─── Company Switcher ─────────────────────────────────────────────────────────
 function toggleSwitcher(){
   const trigger=document.getElementById('csTrigger');
   const menu=document.getElementById('csMenu');
@@ -214,13 +664,13 @@ function toggleSwitcher(){
 }
 document.addEventListener('click',function(e){
   const sw=document.getElementById('companySwitcher');
-  if(!sw.contains(e.target)){
+  if(sw&&!sw.contains(e.target)){
     document.getElementById('csMenu').classList.remove('open');
     document.getElementById('csTrigger').setAttribute('aria-expanded','false');
   }
 });
 
-window.addEventListener('load',renderRoadmap);
+window.addEventListener('load', buildPage);
 </script>
 
 <div class="overlay" id="overlay" onclick="closeFlyout()"></div>
@@ -231,7 +681,7 @@ window.addEventListener('load',renderRoadmap);
   <div class="flyout-body" id="flyoutBody"></div>
 </div>
 <script>
-// ─── Shared flyout ────────────────────────────────────────────────────────────
+// ─── Flyout ───────────────────────────────────────────────────────────────────
 const F_STATUS = {
   live:    {cls:'fs-live',    label:'Live'},
   progress:{cls:'fs-progress',label:'In Progress'},
@@ -244,10 +694,10 @@ const F_ACCENT = {
   'Cost Control & Cash Flow':'#4527a0','People':'#b71c1c',
   'Internal Working Improvement':'#1a5fa8','UX/UI':'#3730a3',
 };
-function fEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fEsc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function fRice(it){return(it.r&&it.i&&it.c&&it.e)?Math.round(it.r*it.i*(it.c/100)/it.e):0;}
 function fStatus(s){const m=F_STATUS[s]||F_STATUS.planned;return`<span class="${m.cls}">${m.label}</span>`;}
-function fTheme(t){const c=THEME_COLORS[t]||{bg:'#f5f5f5',border:'#ddd',text:'#555'};return`<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t||'—'}</span>`;}
+function fTheme(t){const c=THEME_COLORS[t]||THEME_COLORS['Other'];return`<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t||'—'}</span>`;}
 function fQuadrant(mi,me){
   if(!mi||!me) return null;
   const hi=mi>=3,he=me>=3;
@@ -260,7 +710,7 @@ function openFlyout(itemId){
   const p=ITEMS.find(it=>it.id===itemId);
   if(!p) return;
   const qd=fQuadrant(p.mi,p.me);
-  const hasRice=p.r||p.i||p.c||p.e>1;
+  const hasRice=p.r||p.i||p.c||(p.e&&p.e>1);
   const rice=fRice(p);
   const accent=F_ACCENT[p.theme]||'#4f46e5';
   const sm=F_STATUS[p.status]||F_STATUS.planned;
@@ -268,42 +718,39 @@ function openFlyout(itemId){
   const qdHtml=qd
     ?`<span class="f-quadrant" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
     :`<span class="flyout-prop-val-muted">No matrix data</span>`;
-  const _meta=(typeof getBriefMeta==='function')?getBriefMeta(p.name):{type:'',ai:false};
-  const _tCls=_meta.type==='Quick Win'?'f-type-qw':_meta.type==='Existing Roadmap'?'f-type-er':_meta.type==='Medium-term'?'f-type-mt':'f-type-unk';
   const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
   document.getElementById('flyoutBody').innerHTML=`
     <div style="height:4px;border-radius:2px;background:${accent};margin-bottom:20px"></div>
     ${tagHtml?`<div class="flyout-tags">${tagHtml}</div>`:''}
-    ${(_meta.type||_meta.ai)?`<div class="f-pill-row">${_meta.type?`<span class="f-type-pill ${_tCls}">${fEsc(_meta.type)}</span>`:''} ${_meta.ai?'<span class="f-ai-badge">✦ AI</span>':''}</div>`:''}
     <div class="flyout-title">${fEsc(p.name)}</div>
     ${p.desc?`<p class="flyout-subtitle">${fEsc(p.desc)}</p>`:''}
     <div class="flyout-props">
       ${window._nw
-        ? window._nw.buildFlyoutSelect('status', p.status, p.notionId, 'Status')
+        ? window._nw.buildFlyoutProp('status', p.status, p.notionId, 'Status')
         : `<div><div class="flyout-prop-lbl">Status</div><div>${fStatus(p.status)}</div></div>`}
       ${window._nw
-        ? window._nw.buildFlyoutSelect('theme', p.theme, p.notionId, 'Pillar')
+        ? window._nw.buildFlyoutProp('theme', p.theme, p.notionId, 'Pillar')
         : `<div><div class="flyout-prop-lbl">Pillar</div><div>${fTheme(p.theme)}</div></div>`}
       ${window._nw
-        ? window._nw.buildFlyoutSelect('qLabel', p.qLabel, p.notionId, 'Quarter')
+        ? window._nw.buildFlyoutProp('qLabel', p.qLabel, p.notionId, 'Quarter')
         : `<div><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${fEsc(p.qLabel||'—')}</div></div>`}
       ${window._nw
-        ? window._nw.buildFlyoutSelect('priority', p.priority, p.notionId, 'Priority')
+        ? window._nw.buildFlyoutProp('priority', p.priority, p.notionId, 'Priority')
         : `<div><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${fEsc(p.priority||'—')}</div></div>`}
       ${window._nw
-        ? window._nw.buildLeadInput(p.lead||'', p.notionId)
-        : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>`}
+        ? window._nw.buildFlyoutProp('lead', p.lead||'', p.notionId, 'Project Lead')
+        : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
     </div>
     ${_brief ? _brief : `<div class="flyout-section">
       <div class="flyout-section-hdr">
         <span class="flyout-section-title">Project Brief</span>
-        <span class="${sm.cls}" style="font-size:11px">${sm.label}</span>
+        <span class="${sm.cls}">${sm.label}</span>
       </div>
       ${p.desc?`<p class="flyout-desc">${fEsc(p.desc)}</p>`:'<p class="flyout-desc-empty">No description added in Notion yet.</p>'}
     </div>`}
     <div class="flyout-section">
-      <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score Breakdown</span></div>
+      <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score</span></div>
       ${hasRice?`
         <div class="f-rice-row">
           <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${window._nw?window._nw.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="f-rice-lbl">R</div></div>
@@ -329,6 +776,7 @@ function openFlyout(itemId){
   document.body.style.overflow='hidden';
 }
 function closeFlyout(){
+  document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
   document.getElementById('overlay').classList.remove('open');
   document.getElementById('flyout').classList.remove('open');
   document.body.style.overflow='';
