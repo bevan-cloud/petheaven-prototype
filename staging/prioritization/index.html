@@ -94,21 +94,28 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* MATRIX VIEW */
 .matrix-canvas-row{display:flex;align-items:stretch;gap:0}
 .matrix-y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);text-align:center;padding:0 6px;flex-shrink:0}
-.matrix-canvas-wrap{flex:1;min-width:0;position:relative;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;height:480px}
-.matrix-canvas{width:100%;height:100%;position:relative}
+.matrix-canvas-wrap{flex:1;min-width:0}
+.matrix-canvas{position:relative;width:100%;padding-bottom:60%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2);background:#fff}
 .matrix-grid-h,.matrix-grid-v{position:absolute;background:var(--gray-2);pointer-events:none}
 .matrix-grid-h{left:0;right:0;height:1px;top:50%}
 .matrix-grid-v{top:0;bottom:0;width:1px;left:50%}
-.q-label{position:absolute;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;pointer-events:none}
-.q-label-inner{background:rgba(255,255,255,.85);border-radius:6px;padding:3px 8px;backdrop-filter:blur(4px)}
+.q-tl,.q-tr,.q-bl,.q-br{position:absolute;width:50%;height:50%}
+.q-tl{top:0;left:0;background:rgba(27,94,32,.07)}
+.q-tr{top:0;right:0;background:rgba(184,71,20,.06)}
+.q-bl{bottom:0;left:0;background:rgba(200,200,192,.2)}
+.q-br{bottom:0;right:0;background:rgba(160,0,0,.04)}
+.q-label{position:absolute;pointer-events:none;z-index:2}
+.q-label-inner{display:inline-flex;flex-direction:column;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.07);border-radius:var(--radius);padding:4px 8px;backdrop-filter:blur(2px)}
+.q-label-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.3}
+.q-label-sub{font-size:9px;font-weight:400;color:var(--gray-4);line-height:1.4;margin-top:1px}
 .q-label.qw{top:8px;left:8px;color:#1b5e20}
-.q-label.bb{top:8px;right:8px;color:#b84714}
-.q-label.nth{bottom:8px;left:8px;color:var(--gray-4)}
-.q-label.ts{bottom:8px;right:8px;color:var(--gray-4)}
-.m-x-label{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4)}
-.bubble{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center;line-height:1.2}
-.bubble:hover{transform:translate(-50%,-50%) scale(1.12);box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:10}
-.bubble-tooltip{position:absolute;background:#1a1a1a;color:#fff;padding:8px 12px;border-radius:8px;font-size:11px;white-space:nowrap;z-index:100;pointer-events:none;top:calc(100% + 8px);left:50%;transform:translateX(-50%)}
+.q-label.bb{top:8px;right:8px;color:#b84714;text-align:right}
+.q-label.bb .q-label-inner{align-items:flex-end}
+.q-label.nth{bottom:8px;left:8px;color:var(--gray-5)}
+.q-label.ts{bottom:8px;right:8px;color:var(--gray-4);text-align:right}
+.q-label.ts .q-label-inner{align-items:flex-end}
+.bubble{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .15s,transform .15s;z-index:5}
+.bubble:hover{box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:20;transform:scale(1.08)}
 
 /* MATRIX TABLE */
 .matrix-table-wrap{margin-top:16px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
@@ -130,6 +137,33 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .m-editable{cursor:pointer;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
 .m-editable:hover{color:var(--brand);border-bottom-color:var(--gray-3)}
 .m-edit-input{width:40px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--brand);border-radius:4px;padding:2px 6px;text-align:center;outline:none}
+
+/* Matrix legend + tooltip */
+.matrix-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.m-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.m-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.m-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.92);color:#fff;font-size:11px;padding:7px 11px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;min-width:160px;max-width:240px;white-space:normal;text-align:center;line-height:1.5}
+.bubble:hover .m-tip{opacity:1}
+.m-tip-name{font-weight:600;margin-bottom:2px}
+.m-tip-meta{font-size:10px;opacity:.7}
+/* Quadrant definition cards in model-desc */
+.model-desc-cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.model-desc-card{flex:1;min-width:140px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:12px 14px}
+.mdc-letter{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;margin-bottom:4px}
+.mdc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.6);margin-bottom:3px}
+.mdc-desc{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+.model-quadrant-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mqg-cell{border-radius:var(--radius);padding:8px 12px}
+.mqg-title{font-size:11px;font-weight:700;margin-bottom:2px}
+.mqg-sub{font-size:11px;color:rgba(255,255,255,.6)}
+.mqg-rec{font-size:11px;font-weight:600;margin-top:2px}
+.matrix-unscored{margin-top:14px;padding:12px 16px;background:rgba(255,255,255,.08);border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.15)}
+.mu-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-bottom:8px}
+.mu-chips{display:flex;flex-wrap:wrap;gap:5px}
+.mu-chip{font-size:11px;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:20px;padding:2px 10px}
+.matrix-inner-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;padding:20px 24px 24px;margin-bottom:16px}
+.matrix-tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 0 10px;border-bottom:1px solid var(--gray-2);margin-bottom:0}
+.matrix-tbl-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)}
 
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 
@@ -218,7 +252,22 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       <button class="view-tab" data-view="matrix" onclick="switchView('matrix',this)">Impact vs Effort</button>
     </div>
     <div class="model-desc" id="model-desc-rice">RICE scoring weighs <strong>Reach</strong>, <strong>Impact</strong>, <strong>Confidence</strong> and <strong>Effort</strong> to produce a comparable priority number across all initiatives.</div>
-    <div class="model-desc" id="model-desc-matrix" style="display:none">The Impact vs Effort matrix plots initiatives across four quadrants — <strong>Quick Wins</strong>, <strong>Big Bets</strong>, <strong>Nice to Have</strong> and <strong>Time Sinks</strong>.</div>
+    <div id="model-desc-matrix" style="display:none;margin-top:12px">
+      <div class="model-desc-cards">
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#a5b4fc">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX or operational gain. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#fca5a5">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops and change management. <strong>Scale 1–5</strong></div></div>
+      </div>
+      <div class="model-quadrant-grid">
+        <div class="mqg-cell" style="background:rgba(27,94,32,.25);border:1px solid rgba(27,94,32,.4)"><div class="mqg-title" style="color:#86efac">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:#86efac">→ Do now</div></div>
+        <div class="mqg-cell" style="background:rgba(184,71,20,.25);border:1px solid rgba(184,71,20,.4)"><div class="mqg-title" style="color:#fca5a5">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:#fca5a5">→ Plan &amp; resource</div></div>
+        <div class="mqg-cell" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15)"><div class="mqg-title" style="color:rgba(255,255,255,.6)">💭 Nice to Have</div><div class="mqg-sub">Low impact, low effort</div><div class="mqg-rec" style="color:rgba(255,255,255,.45)">→ If capacity allows</div></div>
+        <div class="mqg-cell" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)"><div class="mqg-title" style="color:rgba(255,255,255,.45)">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:rgba(255,255,255,.35)">→ Deprioritise</div></div>
+      </div>
+      <div class="model-desc" style="margin-top:0">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="vertical-align:middle;opacity:.6"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Click any Impact or Effort value in the table below to edit it. The matrix updates instantly.
+      </div>
+    </div>
   </div>
 
   <!-- Controls bar -->
@@ -284,21 +333,42 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- MATRIX VIEW -->
   <div id="matrix-view" style="display:none">
-    <div class="matrix-canvas-row">
-      <div class="matrix-y-label">← Low Impact &nbsp;&nbsp; High Impact →</div>
-      <div class="matrix-canvas-wrap">
-        <div class="matrix-canvas" id="matrixCanvas">
-          <div class="matrix-grid-h"></div>
-          <div class="matrix-grid-v"></div>
-          <div class="q-label qw"><span class="q-label-inner">⚡ Quick Wins</span></div>
-          <div class="q-label bb"><span class="q-label-inner">🎯 Big Bets</span></div>
-          <div class="q-label nth"><span class="q-label-inner">💤 Nice to Have</span></div>
-          <div class="q-label ts"><span class="q-label-inner">⚠ Time Sinks</span></div>
-          <div class="m-x-label">Low Effort → High Effort</div>
+    <div class="matrix-inner-wrap">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--black)">Impact vs Effort Matrix</div>
+          <div style="font-size:12px;color:var(--gray-4);margin-top:2px">Bubble size reflects RICE score · click any bubble to open details</div>
+        </div>
+        <div class="matrix-legend" id="matrix-legend"></div>
+      </div>
+      <div class="matrix-canvas-row">
+        <div class="matrix-y-label">← Impact →</div>
+        <div style="flex:1;min-width:0">
+          <div class="matrix-canvas-wrap">
+            <div class="matrix-canvas" id="matrixCanvas">
+              <div class="q-tl"></div><div class="q-tr"></div>
+              <div class="q-bl"></div><div class="q-br"></div>
+              <div class="matrix-grid-h"></div>
+              <div class="matrix-grid-v"></div>
+              <div class="q-label qw"><div class="q-label-inner"><span class="q-label-title">⚡ Quick Wins</span><span class="q-label-sub">Do now</span></div></div>
+              <div class="q-label bb"><div class="q-label-inner"><span class="q-label-title">🎯 Big Bets</span><span class="q-label-sub">Plan for</span></div></div>
+              <div class="q-label nth"><div class="q-label-inner"><span class="q-label-title">💭 Nice to Have</span><span class="q-label-sub">If capacity</span></div></div>
+              <div class="q-label ts"><div class="q-label-inner"><span class="q-label-title">🕳️ Time Sinks</span><span class="q-label-sub">Deprioritise</span></div></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0 0;font-size:11px;color:var(--gray-4)"><span>1</span><span style="font-weight:600;color:var(--gray-5)">← Effort →</span><span>5</span></div>
         </div>
       </div>
+      <div id="matrix-unscored" class="matrix-unscored" style="display:none">
+        <div class="mu-label">Not yet scored — excluded from matrix</div>
+        <div class="mu-chips" id="matrix-unscored-chips"></div>
+      </div>
     </div>
-    <div class="rice-table-wrap" style="margin-top:16px">
+    <div class="rice-table-wrap">
+      <div class="matrix-tbl-hdr" style="padding:14px 20px 10px">
+        <span class="matrix-tbl-title">All initiatives</span>
+        <span id="m-tbl-count" style="font-size:12px;color:var(--gray-4)"></span>
+      </div>
       <table class="rice-table" id="matrixTable">
         <thead>
           <tr>
@@ -337,7 +407,15 @@ const THEME_COLORS = {
   'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
   'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
 };
-const BUBBLE_COLORS = ['#4f46e5','#3730a3','#6366f1','#818cf8','#4338ca','#4f46e5','#6366f1','#3730a3'];
+const MATRIX_THEME_COLORS = {
+  'Top Line Growth':              '#1b5e20',
+  'Margin Improvements':          '#880e4f',
+  'Cost Control & Cash Flow':     '#4527a0',
+  'People':                       '#b71c1c',
+  'Internal Working Improvement': '#1a5fa8',
+  'UX/UI':                        '#3730a3',
+  'Other':                        '#9a9a94',
+};
 
 let sortCol = 'score', sortDir = 'desc', mSortCol = 'mi', mSortDir = 'desc';
 let currentView = 'rice';
@@ -584,27 +662,59 @@ function render(){
 
 function renderMatrix(){
   const canvas=document.getElementById('matrixCanvas');
+  if(!canvas) return;
   canvas.querySelectorAll('.bubble').forEach(b=>b.remove());
-  const cw=canvas.offsetWidth||600, ch=canvas.offsetHeight||480;
-  const scored=filtered.map(it=>({...it,score:riceScore(it)}));
-  const maxScore=Math.max(...scored.map(s=>s.score),1);
-  scored.forEach((item,i)=>{
-    if(!item.mi || !item.me) return;
-    const baseX=(item.me-1)/4*76+12;
-    const baseY=(5-item.mi)/4*76+12;
-    const x=(baseX/100)*cw;
-    const y=(baseY/100)*ch;
-    const size=Math.max(26,Math.min(44,20+(item.score||0)/maxScore*24));
-    const b=document.createElement('div');
-    b.className='bubble';
-    b.style.cssText=`left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${BUBBLE_COLORS[i%BUBBLE_COLORS.length]};font-size:${size>32?10:8}px`;
-    const label=item.name.replace('Test Feature ','');
-    b.textContent=label;
-    b.title=`${item.name}\nImpact: ${item.mi} | Effort: ${item.me}\nRICE: ${item.score}`;
-    b.onclick=()=>openFlyout(item.id);
-    b.style.cursor='pointer';
-    canvas.appendChild(b);
+  const unscoredEl=document.getElementById('matrix-unscored');
+
+  const scored=filtered.filter(it=>it.mi!=null&&it.me!=null);
+  const unscored=filtered.filter(it=>it.mi==null||it.me==null);
+
+  if(unscored.length){
+    unscoredEl.style.display='';
+    document.getElementById('matrix-unscored-chips').innerHTML=unscored.map(u=>`<span class="mu-chip">${u.name}</span>`).join('');
+  } else { unscoredEl.style.display='none'; }
+
+  // Build legend
+  const themes=[...new Set(scored.map(i=>i.theme))];
+  const legendEl=document.getElementById('matrix-legend');
+  if(legendEl) legendEl.innerHTML=themes.map(t=>
+    `<div class="m-legend-item"><div class="m-legend-dot" style="background:${MATRIX_THEME_COLORS[t]||'#9a9a94'}"></div>${t}</div>`
+  ).join('');
+
+  // Update table count
+  const cntEl=document.getElementById('m-tbl-count');
+  if(cntEl) cntEl.textContent=scored.length+' initiatives';
+
+  // Group by cell to jitter overlapping bubbles
+  const groups={};
+  scored.forEach(item=>{
+    const key=`${item.mi}_${item.me}`;
+    if(!groups[key]) groups[key]=[];
+    groups[key].push(item);
   });
+
+  Object.values(groups).forEach(group=>{
+    group.forEach((item,idx)=>{
+      const baseX=(item.me-1)/4*76+12;
+      const baseY=(5-item.mi)/4*76+12;
+      let jx=0,jy=0;
+      if(group.length>1){
+        const angle=(idx/group.length)*2*Math.PI;
+        const r=3.5+idx*1.5;
+        jx=Math.cos(angle)*r; jy=Math.sin(angle)*r;
+      }
+      const sc=riceScore(item);
+      const size=Math.max(26,Math.min(44,20+(sc||0)*0.35));
+      const color=MATRIX_THEME_COLORS[item.theme]||'#9a9a94';
+      const b=document.createElement('div');
+      b.className='bubble';
+      b.style.cssText=`left:calc(${baseX+jx}% - ${size/2}px);top:calc(${baseY+jy}% - ${size/2}px);width:${size}px;height:${size}px;background:${color};font-size:0`;
+      b.innerHTML=`<div class="m-tip"><div class="m-tip-name">${item.name}</div><div class="m-tip-meta">Impact: ${item.mi} · Effort: ${item.me} · RICE: ${sc}</div></div>`;
+      b.onclick=()=>openFlyout(item.id);
+      canvas.appendChild(b);
+    });
+  });
+  renderMatrixTable();
 }
 
 function renderMatrixTable(){
