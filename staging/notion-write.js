@@ -1,46 +1,67 @@
 // staging/notion-write.js
 // Browser-side Notion write utility — shared across all staging pages.
-// Exposes window._nw with helpers for editable selects / inputs that PATCH Notion.
-// Loaded after the inline scripts so PROJECTS / ITEMS globals are available.
+// Click-to-edit pattern: fields display as styled pills/text;
+// clicking swaps them for an appropriate input, saves on change/blur, then restores.
+// Exposes window._nw
 
 (function () {
   'use strict';
 
   // ─── CSS ────────────────────────────────────────────────────────────────────
   const css = `
-    .nw-sel {
-      font-size: 12px; padding: 3px 7px; border-radius: 6px;
-      border: 1px solid #d1d5db; background: #fff;
-      cursor: pointer; color: #374151; max-width: 100%;
-      transition: border-color .15s, box-shadow .15s;
+    /* Click-to-edit hint */
+    .nw-editable {
+      cursor: pointer;
+      border-bottom: 1px dashed #d0d0c8;
+      transition: opacity .15s;
+      display: inline-block;
     }
-    .nw-sel:hover  { border-color: #6366f1; }
-    .nw-sel:focus  { outline: none; border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,.15); }
-    .nw-sel.saving { opacity: .55; pointer-events: none; }
-    .nw-sel.saved  { border-color: #22c55e !important; }
-    .nw-sel.error  { border-color: #ef4444 !important; }
-    .nw-sel-wide   { width: 100%; box-sizing: border-box; }
+    .nw-editable:hover { opacity: .72; border-bottom-color: #6366f1; }
 
-    .nw-input {
-      font-size: 12px; padding: 4px 8px; border-radius: 6px;
-      border: 1px solid #d1d5db; background: #fff;
-      color: #374151; width: 100%; box-sizing: border-box;
-      transition: border-color .15s, box-shadow .15s;
+    /* Status pills — own CSS so they work on every page */
+    .nw-status {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; white-space: nowrap; display: inline-block;
     }
-    .nw-input:hover  { border-color: #6366f1; }
-    .nw-input:focus  { outline: none; border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,.15); }
-    .nw-input.saving { opacity: .55; pointer-events: none; }
-    .nw-input.saved  { border-color: #22c55e !important; }
-    .nw-input.error  { border-color: #ef4444 !important; }
+    .nw-st-live     { background:#e8f5e9; color:#1b5e20; }
+    .nw-st-progress { background:#fff8e1; color:#7a5a00; }
+    .nw-st-planned  { background:#eef2ff; color:#3730a3; }
+    .nw-st-review   { background:#f3e5f5; color:#6a1b9a; }
+    .nw-st-done     { background:#f0f0ee; color:#5a5a54; }
 
+    /* Pillar tag */
+    .nw-pillar {
+      font-size: 11px; font-weight: 500; padding: 2px 8px;
+      border-radius: 10px; display: inline-block;
+    }
+
+    /* Plain text values (quarter, priority, lead) */
+    .nw-text       { font-size: 12px; font-weight: 500; color: #5a5a54; }
+    .nw-text-muted { font-size: 12px; color: #d0d0c8; font-style: italic; }
+    .nw-prio-p1    { color: #b84714; font-weight: 700; }
+
+    /* Inline edit controls (appear on click) */
+    .nw-edit-sel, .nw-edit-inp {
+      font-size: 12px; padding: 2px 7px; border-radius: 6px;
+      border: 1.5px solid #6366f1; background: #fff;
+      color: #374151; outline: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nw-edit-sel { cursor: pointer; }
+    .nw-edit-inp { min-width: 130px; }
+
+    /* Lead hint text */
     .nw-lead-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
 
+    /* Flyout prop — consistent on all pages */
+    .flyout-prop { display: flex; flex-direction: column; gap: 4px; }
+
+    /* Toast */
     #nwToast {
       position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%);
       background: #1f2937; color: #f9fafb; padding: 8px 20px;
       border-radius: 20px; font-size: 13px; z-index: 99999;
-      opacity: 0; transition: opacity .25s; pointer-events: none;
-      white-space: nowrap;
+      opacity: 0; transition: opacity .25s; pointer-events: none; white-space: nowrap;
     }
     #nwToast.show { opacity: 1; }
   `;
@@ -62,7 +83,7 @@
 
   // ─── Token ───────────────────────────────────────────────────────────────────
   const TOKEN_KEY = 'notion_write_token';
-  function getToken() { return localStorage.getItem(TOKEN_KEY); }
+  function getToken()   { return localStorage.getItem(TOKEN_KEY); }
   function clearToken() { localStorage.removeItem(TOKEN_KEY); }
   function ensureToken() {
     let t = getToken();
@@ -73,16 +94,35 @@
     return null;
   }
 
-  // ─── Notion API headers ──────────────────────────────────────────────────────
-  function headers(token) {
-    return {
-      'Authorization': `Bearer ${token}`,
-      'Notion-Version': '2022-06-28',
-      'Content-Type': 'application/json',
-    };
+  // ─── Notion API ──────────────────────────────────────────────────────────────
+  async function notionPatch(notionId, properties) {
+    const token = ensureToken();
+    if (!token) return false;
+    try {
+      const res = await fetch(`https://api.notion.com/v1/pages/${notionId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ properties }),
+      });
+      if (!res.ok) {
+        const txt = await res.text();
+        if (res.status === 401) { clearToken(); showToast('⚠ Token invalid — cleared, try again'); }
+        else showToast(`⚠ Notion ${res.status}`);
+        return false;
+      }
+      showToast('✓ Saved to Notion');
+      return true;
+    } catch (err) {
+      showToast(err.name === 'TypeError' ? '⚠ Network error — check CORS / token' : '⚠ ' + err.message);
+      return false;
+    }
   }
 
-  // ─── Reverse status map (display key → Notion status name) ──────────────────
+  // ─── Reverse status map ───────────────────────────────────────────────────────
   const STATUS_TO_NOTION = {
     planned:  '3. Scheduled for Development',
     progress: '4. In progress',
@@ -91,56 +131,18 @@
     done:     '10. Done',
   };
 
-  // ─── Build Notion property patch body ───────────────────────────────────────
   function buildProps(field, value) {
     switch (field) {
-      case 'status':
-        return { Status: { status: { name: STATUS_TO_NOTION[value] || value } } };
-      case 'theme':
-        return { 'Strategic Pillar': value ? { select: { name: value } } : { select: null } };
-      case 'qLabel':
-        return { Quarter: value ? { select: { name: value } } : { select: null } };
-      case 'priority':
-        return { Priority: value ? { select: { name: value } } : { select: null } };
-      default:
-        return null;
+      case 'status':   return { Status: { status: { name: STATUS_TO_NOTION[value] || value } } };
+      case 'theme':    return { 'Strategic Pillar': value ? { select: { name: value } } : { select: null } };
+      case 'qLabel':   return { Quarter: value ? { select: { name: value } } : { select: null } };
+      case 'priority': return { Priority: value ? { select: { name: value } } : { select: null } };
+      default: return null;
     }
   }
 
-  // ─── Core PATCH ─────────────────────────────────────────────────────────────
-  async function notionPatch(notionId, properties, el) {
-    const token = ensureToken();
-    if (!token) return false;
-    if (el) el.classList.add('saving');
-    try {
-      const res = await fetch(`https://api.notion.com/v1/pages/${notionId}`, {
-        method: 'PATCH',
-        headers: headers(token),
-        body: JSON.stringify({ properties }),
-      });
-      if (!res.ok) {
-        const txt = await res.text();
-        if (res.status === 401) { clearToken(); showToast('⚠ Token invalid — cleared, try again'); }
-        else showToast(`⚠ Notion ${res.status}`);
-        if (el) { el.classList.remove('saving'); el.classList.add('error'); setTimeout(() => el.classList.remove('error'), 2000); }
-        return false;
-      }
-      if (el) { el.classList.remove('saving'); el.classList.add('saved'); setTimeout(() => el.classList.remove('saved'), 1500); }
-      showToast('✓ Saved to Notion');
-      return true;
-    } catch (err) {
-      const msg = (err.name === 'TypeError' || err.message?.includes('fetch'))
-        ? '⚠ Network error — check CORS / token'
-        : '⚠ ' + err.message;
-      showToast(msg);
-      if (el) { el.classList.remove('saving'); el.classList.add('error'); setTimeout(() => el.classList.remove('error'), 2000); }
-      return false;
-    }
-  }
-
-  // ─── Update local data array in place ───────────────────────────────────────
+  // ─── Local data update ────────────────────────────────────────────────────────
   function updateLocal(notionId, field, value) {
-    // Support both PROJECTS (projects page) and ITEMS (prioritization page)
     const arr = (typeof PROJECTS !== 'undefined' ? PROJECTS : null)
              || (typeof ITEMS    !== 'undefined' ? ITEMS    : null);
     if (!arr) return;
@@ -148,71 +150,7 @@
     if (item) item[field] = value;
   }
 
-  // ─── saveField — called by table <select> onchange ───────────────────────────
-  async function saveField(el, notionId, field) {
-    const value = el.value;
-    updateLocal(notionId, field, value);
-    const props = buildProps(field, value);
-    if (!props) { showToast('⚠ Unknown field: ' + field); return; }
-    const ok = await notionPatch(notionId, props, el);
-    // Refresh stats (banner counts) — render() / updateStats() are globals
-    if (ok) {
-      if (typeof updateStats === 'function') updateStats();
-      if (typeof applyFilters === 'function') applyFilters();
-    }
-  }
-
-  // ─── Users cache (for Lead picker) ──────────────────────────────────────────
-  let _notionUsers = null;
-  async function fetchUsers(token) {
-    if (_notionUsers) return _notionUsers;
-    try {
-      const res = await fetch('https://api.notion.com/v1/users', {
-        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28' },
-      });
-      if (!res.ok) return [];
-      const data = await res.json();
-      _notionUsers = (data.results || []).filter(u => u.type === 'person');
-    } catch { _notionUsers = []; }
-    return _notionUsers;
-  }
-
-  // ─── saveLead — called by lead <input> onblur / Enter ───────────────────────
-  async function saveLead(el, notionId) {
-    const newName = el.value.trim();
-    const token = ensureToken();
-    if (!token) return;
-
-    el.classList.add('saving');
-    const users = await fetchUsers(token);
-
-    let people = [];
-    if (newName) {
-      const match = users.find(u =>
-        u.name?.toLowerCase() === newName.toLowerCase() ||
-        u.name?.toLowerCase().includes(newName.toLowerCase())
-      );
-      if (!match) {
-        showToast(`⚠ No Notion user matching "${newName}"`);
-        el.classList.remove('saving');
-        el.classList.add('error');
-        setTimeout(() => el.classList.remove('error'), 2500);
-        return;
-      }
-      people = [{ object: 'user', id: match.id }];
-      el.value = match.name; // normalise to exact name
-    }
-
-    const ok = await notionPatch(notionId, { Lead: { people } }, el);
-    if (ok) updateLocal(notionId, 'lead', el.value);
-  }
-
-  // ─── HTML escape ────────────────────────────────────────────────────────────
-  function esc(s) {
-    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  // ─── Option sets ────────────────────────────────────────────────────────────
+  // ─── Option lists ─────────────────────────────────────────────────────────────
   const STATUS_OPTIONS = [
     { value: 'planned',  label: 'Planned' },
     { value: 'progress', label: 'In Progress' },
@@ -222,28 +160,22 @@
   ];
 
   const PILLAR_OPTIONS = [
-    'Top Line Growth',
-    'Margin Improvements',
-    'Cost Control & Cash Flow',
-    'People',
-    'Internal Working Improvement',
-    'UX/UI',
-    'Other',
+    'Top Line Growth', 'Margin Improvements', 'Cost Control & Cash Flow',
+    'People', 'Internal Working Improvement', 'UX/UI', 'Other',
   ].map(v => ({ value: v, label: v }));
 
   const PRIORITY_OPTIONS = [
     { value: 'P1 🔥 Critical', label: 'P1 🔥 Critical' },
-    { value: 'P2', label: 'P2' },
-    { value: 'P3', label: 'P3' },
-    { value: 'P4', label: 'P4' },
-    { value: 'P5', label: 'P5' },
-    { value: '',   label: '— None —' },
+    { value: 'P2',             label: 'P2' },
+    { value: 'P3',             label: 'P3' },
+    { value: 'P4',             label: 'P4' },
+    { value: 'P5',             label: 'P5' },
+    { value: '',               label: '— None —' },
   ];
 
   function quarterOptions() {
     const arr = (typeof PROJECTS !== 'undefined' ? PROJECTS : null)
-             || (typeof ITEMS    !== 'undefined' ? ITEMS    : null)
-             || [];
+             || (typeof ITEMS    !== 'undefined' ? ITEMS    : null) || [];
     return [...new Set(arr.map(p => p.qLabel).filter(Boolean))].sort()
       .map(v => ({ value: v, label: v }));
   }
@@ -258,50 +190,220 @@
     }
   }
 
-  // ─── Build inline table cell <select> ────────────────────────────────────────
-  // Stops click propagation so the row's onclick (openFlyout) is not triggered.
-  function buildSelect(field, currentVal, notionId) {
-    const opts = optionsFor(field).map(o =>
-      `<option value="${esc(o.value)}"${o.value === currentVal ? ' selected' : ''}>${esc(o.label)}</option>`
-    ).join('');
-    return `<select class="nw-sel" onclick="event.stopPropagation()" onchange="window._nw.saveField(this,'${esc(notionId)}','${field}')">${opts}</select>`;
+  // ─── Pillar colour map (matches THEME_COLORS in all pages) ───────────────────
+  const PILLAR_STYLES = {
+    'Top Line Growth':              'background:#e8f5e9;border:1px solid #a8d4aa;color:#1b5e20',
+    'Margin Improvements':          'background:#fce4ec;border:1px solid #f48fb1;color:#880e4f',
+    'Cost Control & Cash Flow':     'background:#ede7f6;border:1px solid #b39ddb;color:#4527a0',
+    'People':                       'background:#fce4ec;border:1px solid #ef9a9a;color:#b71c1c',
+    'Internal Working Improvement': 'background:#e8f1fc;border:1px solid #90bef5;color:#1a5fa8',
+    'UX/UI':                        'background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3',
+    'Other':                        'background:#f5f5f5;border:1px solid #ddd;color:#555',
+  };
+
+  // ─── Display HTML for a field value (shown inside the editable span) ──────────
+  function displayHtml(field, val) {
+    const v = val || '';
+    switch (field) {
+      case 'status': {
+        const cls = { live:'nw-st-live', progress:'nw-st-progress', planned:'nw-st-planned',
+                      review:'nw-st-review', done:'nw-st-done' }[v] || 'nw-st-planned';
+        const lbl = STATUS_OPTIONS.find(o => o.value === v)?.label || 'Planned';
+        return `<span class="nw-status ${cls}">${esc(lbl)}</span>`;
+      }
+      case 'theme': {
+        if (!v) return `<span class="nw-text-muted">—</span>`;
+        const style = PILLAR_STYLES[v] || PILLAR_STYLES['Other'];
+        return `<span class="nw-pillar" style="${style}">${esc(v)}</span>`;
+      }
+      case 'qLabel':
+        return v
+          ? `<span class="nw-text">${esc(v)}</span>`
+          : `<span class="nw-text-muted">—</span>`;
+      case 'priority': {
+        if (!v) return `<span class="nw-text-muted">—</span>`;
+        // Abbreviate "P1 🔥 Critical" → "P1 🔥" to prevent column overflow
+        const short = v === 'P1 🔥 Critical' ? 'P1 🔥' : v;
+        const cls = v === 'P1 🔥 Critical' ? 'nw-text nw-prio-p1' : 'nw-text';
+        return `<span class="${cls}">${short}</span>`;
+      }
+      case 'lead':
+        return v
+          ? `<span class="nw-text">${esc(v)}</span>`
+          : `<span class="nw-text-muted">—</span>`;
+      default:
+        return v ? esc(v) : '<span class="nw-text-muted">—</span>';
+    }
   }
 
-  // ─── Build flyout property row with <select> ─────────────────────────────────
-  function buildFlyoutSelect(field, currentVal, notionId, label) {
-    const opts = optionsFor(field).map(o =>
-      `<option value="${esc(o.value)}"${o.value === currentVal ? ' selected' : ''}>${esc(o.label)}</option>`
-    ).join('');
+  // ─── Build editable span string (for table cells & flyout values) ─────────────
+  // stopProp=true adds event.stopPropagation() — use for table cells
+  function buildEditSpanHtml(field, val, notionId, stopProp) {
+    const click = stopProp
+      ? `event.stopPropagation();window._nw.startEdit(this)`
+      : `window._nw.startEdit(this)`;
+    return `<span class="nw-editable" data-field="${field}" data-nid="${esc(notionId)}" data-val="${esc(val||'')}" onclick="${click}">${displayHtml(field, val)}</span>`;
+  }
+
+  // For table cells (stopProp = true)
+  function buildEditSpan(field, val, notionId) {
+    return buildEditSpanHtml(field, val, notionId, true);
+  }
+
+  // For flyout property rows
+  function buildFlyoutProp(field, val, notionId, label) {
+    const hint = field === 'lead' ? '<div class="nw-lead-hint">Must match a Notion workspace member</div>' : '';
     return `<div class="flyout-prop">
       <div class="flyout-prop-lbl">${label}</div>
-      <select class="nw-sel nw-sel-wide" onchange="window._nw.saveField(this,'${esc(notionId)}','${field}')">${opts}</select>
+      <div>${buildEditSpanHtml(field, val, notionId, false)}${hint}</div>
     </div>`;
   }
 
-  // ─── Build flyout Project Lead input ─────────────────────────────────────────
-  function buildLeadInput(currentVal, notionId) {
-    return `<div class="flyout-prop">
-      <div class="flyout-prop-lbl">Project Lead</div>
-      <input type="text" class="nw-input" value="${esc(currentVal)}" placeholder="Name…"
-             onblur="window._nw.saveLead(this,'${esc(notionId)}')"
-             onkeydown="if(event.key==='Enter')this.blur()">
-      <div class="nw-lead-hint">Must match a Notion workspace member name</div>
-    </div>`;
+  // ─── Users cache (for Lead) ───────────────────────────────────────────────────
+  let _notionUsers = null;
+  async function fetchUsers(token) {
+    if (_notionUsers) return _notionUsers;
+    try {
+      const res = await fetch('https://api.notion.com/v1/users', {
+        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28' },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        _notionUsers = (data.results || []).filter(u => u.type === 'person');
+      } else {
+        _notionUsers = [];
+      }
+    } catch { _notionUsers = []; }
+    return _notionUsers;
   }
 
-  // ─── Public API ──────────────────────────────────────────────────────────────
+  async function saveLeadInternal(notionId, newName) {
+    const token = ensureToken();
+    if (!token) return;
+    const users = await fetchUsers(token);
+
+    let people = [];
+    if (newName) {
+      const match = users.find(u =>
+        u.name?.toLowerCase() === newName.toLowerCase() ||
+        u.name?.toLowerCase().includes(newName.toLowerCase())
+      );
+      if (!match) { showToast(`⚠ No Notion user matching "${newName}"`); return; }
+      people = [{ object: 'user', id: match.id }];
+      newName = match.name; // normalise to exact name
+    }
+
+    const ok = await notionPatch(notionId, { Lead: { people } });
+    if (ok) {
+      updateLocal(notionId, 'lead', newName);
+      // Update all lead spans on the page (flyout may have one, table may have one)
+      document.querySelectorAll(`.nw-editable[data-field="lead"][data-nid="${CSS.escape(notionId)}"]`)
+        .forEach(s => { s.dataset.val = newName; s.innerHTML = displayHtml('lead', newName); });
+    }
+  }
+
+  // ─── Core click-to-edit handler ───────────────────────────────────────────────
+  function startEdit(span) {
+    const field     = span.dataset.field;
+    const notionId  = span.dataset.nid;
+    const currentVal = span.dataset.val || '';
+    const stopPropAttr = span.getAttribute('onclick') || '';
+    const isLead = field === 'lead';
+
+    // Build appropriate input element
+    let el;
+    if (isLead) {
+      el = document.createElement('input');
+      el.type = 'text';
+      el.className = 'nw-edit-inp';
+      el.value = currentVal;
+      el.placeholder = 'Name…';
+    } else {
+      el = document.createElement('select');
+      el.className = 'nw-edit-sel';
+      optionsFor(field).forEach(o => {
+        const opt = document.createElement('option');
+        opt.value = o.value;
+        opt.textContent = o.label;
+        if (o.value === currentVal) opt.selected = true;
+        el.appendChild(opt);
+      });
+    }
+
+    span.replaceWith(el);
+    el.focus();
+    if (isLead) el.select();
+
+    // Restore the span (with a given value) and remove the input from DOM
+    function restore(val) {
+      if (!el.parentNode) return; // already replaced
+      const newSpan = document.createElement('span');
+      newSpan.className = 'nw-editable';
+      newSpan.dataset.field = field;
+      newSpan.dataset.nid = notionId;
+      newSpan.dataset.val = val;
+      newSpan.innerHTML = displayHtml(field, val);
+      newSpan.setAttribute('onclick', stopPropAttr);
+      el.replaceWith(newSpan);
+    }
+
+    let committed = false;
+
+    async function commit() {
+      if (committed) return;
+      committed = true;
+      const newVal = isLead ? el.value.trim() : el.value;
+
+      if (isLead) {
+        // For lead: restore old value while async lookup runs, then update
+        restore(currentVal);
+        await saveLeadInternal(notionId, newVal);
+      } else {
+        // For all other fields: restore new value immediately (optimistic)
+        restore(newVal);
+        updateLocal(notionId, field, newVal);
+        // Re-render immediately so table reflects the change
+        if (typeof updateStats === 'function') updateStats();
+        if (typeof applyFilters === 'function') applyFilters();
+        // Patch Notion in the background
+        const props = buildProps(field, newVal);
+        if (props) notionPatch(notionId, props);
+      }
+    }
+
+    function cancel() {
+      if (committed) return;
+      committed = true;
+      restore(currentVal);
+    }
+
+    if (isLead) {
+      el.addEventListener('blur', commit);
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+        if (e.key === 'Escape') { committed = true; restore(currentVal); }
+      });
+    } else {
+      el.addEventListener('change', commit);
+      el.addEventListener('blur', () => setTimeout(() => { if (!committed) cancel(); }, 120));
+      el.addEventListener('keydown', e => { if (e.key === 'Escape') cancel(); });
+    }
+  }
+
+  // ─── HTML escape ─────────────────────────────────────────────────────────────
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ─── Public API ───────────────────────────────────────────────────────────────
   window._nw = {
-    saveField,
-    saveLead,
-    notionPatch,
-    updateLocal,
-    buildSelect,
-    buildFlyoutSelect,
-    buildLeadInput,
+    startEdit,
+    buildEditSpan,
+    buildFlyoutProp,
     showToast,
-    STATUS_OPTIONS,
-    PILLAR_OPTIONS,
-    PRIORITY_OPTIONS,
-    quarterOptions,
+    // Legacy wrappers kept for back-compat (pages that still call old names)
+    buildSelect:        buildEditSpan,
+    buildFlyoutSelect:  (field, val, nid, label) => buildFlyoutProp(field, val, nid, label),
+    buildLeadInput:     (val, nid) => buildFlyoutProp('lead', val, nid, 'Project Lead'),
   };
 })();
