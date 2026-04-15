@@ -393,8 +393,7 @@ function sortByStatus(arr){
   return [...arr].sort((a,b)=>{
     const oa = STATUS_ORDER[a.status] ?? 99;
     const ob = STATUS_ORDER[b.status] ?? 99;
-    if(oa !== ob) return oa - ob;
-    return (riceScore(b)||0) - (riceScore(a)||0); // secondary: RICE desc
+    return oa - ob;
   });
 }
 
