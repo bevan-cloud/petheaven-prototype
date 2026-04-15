@@ -59,20 +59,20 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .search-input:focus{border-color:var(--brand-mid);background:#fff}
 /* ── Dynamic chips ── */
 .chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
-.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;background:#fff;flex-shrink:0;height:32px}
-.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 8px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
-.chip-select{border:none;outline:none;background:transparent;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);padding:0 6px;cursor:pointer;min-width:90px;height:100%}
-.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 9px;cursor:pointer;color:var(--gray-3);font-size:15px;line-height:1;display:flex;align-items:center;transition:background .1s}
-.chip-remove:hover{background:var(--gray-2);color:var(--gray-5)}
-.sort-chip .chip-label{color:var(--brand-dark);background:var(--brand-light)}
-.sort-chip{border-color:var(--brand-mid)}
-.chip-dir{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
-.chip-dir:hover{background:var(--brand-light)}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{border:none;outline:none;background:transparent;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 8px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
 /* ── Right-side controls ── */
 .ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
 .ctrl-dropdown{position:relative;flex-shrink:0}
-.ctrl-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid var(--gray-2);border-radius:var(--radius);background:var(--gray-1);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:32px;transition:all .15s}
-.ctrl-btn:hover{background:var(--gray-2);color:var(--black)}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
 .ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
 .ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
 .ctrl-menu.open{display:block}
@@ -82,11 +82,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
 .ctrl-menu-item.on .ctrl-menu-check{opacity:1}
 .ctrl-divider{height:1px;background:var(--gray-2);margin:4px 0}
-.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap;height:32px}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
 .ctrl-reset:hover{background:var(--brand-light)}
-.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;flex-shrink:0;height:32px}
-.vt-btn{padding:0 13px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px;height:100%}
-.vt-btn.active{background:#fff;color:var(--brand-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.vt-btn{padding:0 14px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px;height:100%}
+.vt-btn.active{background:#fff;color:var(--brand-dark);box-shadow:0 1px 4px rgba(0,0,0,.08);border-radius:20px}
 .results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 
 /* ── Section label ── */
@@ -334,7 +334,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <div class="flyout-body" id="flyoutBody"></div>
 </div>
 
-<script src="../notion-data.js?v=1776234109195"></script>
+<script src="../notion-data.js?v=1776241077000"></script>
 <script>
 
 // ─── Data + lookups ───────────────────────────────────────────────────────────
@@ -884,8 +884,8 @@ window.addEventListener('load', () => {
   updateSortHeaders();
 });
 </script>
-<script src="../project-briefs.js?v=1776239948000"></script>
-<script src="../sync.js?v=1776239948000"></script>
-<script src="../notion-write.js?v=1776240476000"></script>
+<script src="../project-briefs.js?v=1776241077000"></script>
+<script src="../sync.js?v=1776241077000"></script>
+<script src="../notion-write.js?v=1776241077000"></script>
 </body>
 </html>
