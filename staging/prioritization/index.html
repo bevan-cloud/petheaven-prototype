@@ -720,11 +720,21 @@ function openFlyout(itemId){
     <div class="flyout-title">${fEsc(p.name)}</div>
     ${p.desc?`<p class="flyout-subtitle">${fEsc(p.desc)}</p>`:''}
     <div class="flyout-props">
-      <div><div class="flyout-prop-lbl">Status</div><div>${fStatus(p.status)}</div></div>
-      <div><div class="flyout-prop-lbl">Pillar</div><div>${fTheme(p.theme)}</div></div>
-      <div><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${fEsc(p.qLabel||'—')}</div></div>
-      <div><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${fEsc(p.priority||'—')}</div></div>
-      <div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('status', p.status, p.notionId, 'Status')
+        : `<div><div class="flyout-prop-lbl">Status</div><div>${fStatus(p.status)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('theme', p.theme, p.notionId, 'Pillar')
+        : `<div><div class="flyout-prop-lbl">Pillar</div><div>${fTheme(p.theme)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('qLabel', p.qLabel, p.notionId, 'Quarter')
+        : `<div><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${fEsc(p.qLabel||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('priority', p.priority, p.notionId, 'Priority')
+        : `<div><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${fEsc(p.priority||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildLeadInput(p.lead||'', p.notionId)
+        : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>`}
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
     </div>
     ${_brief ? _brief : `<div class="flyout-section">
@@ -769,5 +779,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
 </script>
 <script src="../project-briefs.js"></script>
 <script src="../sync.js"></script>
+<script src="../notion-write.js"></script>
 </body>
 </html>
