@@ -9,14 +9,14 @@
 
   // ─── CSS ────────────────────────────────────────────────────────────────────
   const css = `
-    /* Click-to-edit hint */
+    /* Click-to-edit — no visible hint until hover */
     .nw-editable {
       cursor: pointer;
-      border-bottom: 1px dashed #d0d0c8;
-      transition: opacity .15s;
       display: inline-block;
+      border-bottom: 1px solid transparent;
+      transition: opacity .15s, border-color .15s;
     }
-    .nw-editable:hover { opacity: .72; border-bottom-color: #6366f1; }
+    .nw-editable:hover { opacity: .75; border-bottom-color: #d0d0c8; }
 
     /* Status pills — own CSS so they work on every page */
     .nw-status {
