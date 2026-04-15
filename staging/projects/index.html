@@ -647,12 +647,14 @@ function updateSortHeaders() {
 
 // ─── Dynamic stats ────────────────────────────────────────────────────────────
 function updateStats() {
-  const set = filtered;
-  document.getElementById('statTotal').textContent    = set.length;
-  document.getElementById('statLive').textContent     = set.filter(p => p.status === 'live').length;
-  document.getElementById('statProgress').textContent = set.filter(p => p.status === 'progress').length;
-  document.getElementById('statReview').textContent   = set.filter(p => p.status === 'review').length;
-  document.getElementById('resultsCount').textContent = set.length + ' of ' + PROJECTS.length;
+  // Banner counts always reflect the FULL dataset, never the active filter.
+  const all = PROJECTS;
+  document.getElementById('statTotal').textContent    = all.length;
+  document.getElementById('statLive').textContent     = all.filter(p => p.status === 'live').length;
+  document.getElementById('statProgress').textContent = all.filter(p => p.status === 'progress').length;
+  document.getElementById('statReview').textContent   = all.filter(p => p.status === 'review').length;
+  // Results count still shows filtered vs total
+  document.getElementById('resultsCount').textContent = filtered.length + ' of ' + PROJECTS.length;
   document.getElementById('sectionLabel').textContent =
     filtered.length === PROJECTS.length ? 'All projects' : filtered.length + ' projects matching filters';
 }
@@ -691,20 +693,23 @@ function renderTable() {
     tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon">🔍</div><p>No projects match the current filters</p></div></td></tr>`;
     return;
   }
+  const _nw = window._nw;
   tbody.innerHTML = sorted.map((p, idx) => {
-    const sm = STATUS_META[p.status] || STATUS_META.planned;
-    const tc = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
     const riceVal = p.rice ? `<span class="pt-rice">${p.rice.toLocaleString()}</span>` : `<span class="pt-rice-none">—</span>`;
     const companyPills = (p.company||[]).map(c => `<span class="pt-company-pill">${c}</span>`).join('');
-    const prioHtml = p.priority ? `<span style="font-size:12px;font-weight:600;color:var(--gray-5)">${p.priority.replace(' 🔥 Critical','🔥')}</span>` : `<span style="color:var(--gray-3)">—</span>`;
-    return `<tr onclick="openFlyout(${idx})">
+    // Editable cells use inline selects; clicking the select stops row's openFlyout from firing.
+    const statusCell   = _nw ? _nw.buildSelect('status',   p.status,   p.notionId) : statusBadge(p.status);
+    const pillarCell   = _nw ? _nw.buildSelect('theme',    p.theme,    p.notionId) : themeTag(p.theme);
+    const quarterCell  = _nw ? _nw.buildSelect('qLabel',   p.qLabel,   p.notionId) : (p.qLabel||'—');
+    const priorityCell = _nw ? _nw.buildSelect('priority', p.priority, p.notionId) : (p.priority||'—');
+    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}">
       <td style="color:var(--gray-3);font-size:12px">${idx+1}</td>
       <td><div class="pt-name">${esc(p.name)}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
-      <td>${statusBadge(p.status)}</td>
-      <td>${themeTag(p.theme)}</td>
+      <td onclick="event.stopPropagation()">${statusCell}</td>
+      <td onclick="event.stopPropagation()">${pillarCell}</td>
       <td><div class="pt-company">${companyPills}</div></td>
-      <td style="font-size:12px;color:var(--gray-5)">${p.qLabel||'—'}</td>
-      <td>${prioHtml}</td>
+      <td onclick="event.stopPropagation()">${quarterCell}</td>
+      <td onclick="event.stopPropagation()">${priorityCell}</td>
       <td style="text-align:right">${riceVal}</td>
     </tr>`;
   }).join('');
@@ -774,28 +779,24 @@ function openFlyout(idx) {
     ? `<span class="quadrant-badge" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
     : `<span class="flyout-prop-val-muted">No matrix data</span>`;
 
+  const _nwF = window._nw;
   const propsHtml = `
     <div class="flyout-props">
-      <div class="flyout-prop">
-        <div class="flyout-prop-lbl">Status</div>
-        <div>${statusBadge(p.status)}</div>
-      </div>
-      <div class="flyout-prop">
-        <div class="flyout-prop-lbl">Pillar</div>
-        <div>${themeTag(p.theme)}</div>
-      </div>
-      <div class="flyout-prop">
-        <div class="flyout-prop-lbl">Quarter</div>
-        <div class="flyout-prop-val">${esc(p.qLabel||'—')}</div>
-      </div>
-      <div class="flyout-prop">
-        <div class="flyout-prop-lbl">Priority</div>
-        <div class="flyout-prop-val">${esc(p.priority||'—')}</div>
-      </div>
-      <div class="flyout-prop">
-        <div class="flyout-prop-lbl">Project Lead</div>
-        <div class="flyout-prop-val">${p.lead ? esc(p.lead) : '<span class="flyout-prop-val-muted">—</span>'}</div>
-      </div>
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('status', p.status, p.notionId, 'Status')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Status</div><div>${statusBadge(p.status)}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('theme', p.theme, p.notionId, 'Pillar')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Pillar</div><div>${themeTag(p.theme)}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('qLabel', p.qLabel, p.notionId, 'Quarter')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${esc(p.qLabel||'—')}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('priority', p.priority, p.notionId, 'Priority')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${esc(p.priority||'—')}</div></div>`}
+      ${_nwF
+        ? _nwF.buildLeadInput(p.lead || '', p.notionId)
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead ? esc(p.lead) : '<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
       <div class="flyout-prop">
         <div class="flyout-prop-lbl">Matrix Quadrant</div>
         <div>${quadrantHtml}</div>
@@ -885,5 +886,6 @@ window.addEventListener('load', () => {
 </script>
 <script src="../project-briefs.js"></script>
 <script src="../sync.js"></script>
+<script src="../notion-write.js"></script>
 </body>
 </html>
