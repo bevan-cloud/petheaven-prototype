@@ -2,771 +2,662 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pet Heaven — FY2026/27 Product Roadmap</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bevan Staging — Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
-  --blue:#1a6fd4;--blue-light:#e8f1fc;
-  --purple:#7b1fa2;--purple-light:#f3e5f5;
-  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
-  --teal:#00695c;--teal-light:#e0f2f1;
-  --red:#a00000;--red-light:#fff0f0;
+  --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
   --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
-  --white:#fff;
-  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --amber-mid:#f5c842;--amber:#7a5a00;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+.staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:var(--black);transition:background .1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.nav-sync-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s;margin-left:4px}
+.nav-sync-btn:hover{background:rgba(255,255,255,.22)}
+.page{max-width:1200px;margin:0 auto;padding:40px 40px 100px}
 
-/* HEADER */
-.site-header{background:var(--green-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:16px}
-.site-header-logo{height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.95}
-.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
-.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.65)}
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:36px 48px 32px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px}
+.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6;margin-bottom:20px}
+.hero-stats{display:flex;gap:24px;margin-bottom:22px}
+.hero-stat-val{font-size:26px;font-weight:700;line-height:1}
+.hero-stat-label{font-size:11px;opacity:.6;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
 
-/* BREADCRUMB */
-.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:9px 40px;font-size:12px;display:flex;align-items:center}
-.breadcrumb a{color:var(--gray-5);text-decoration:none}
-.breadcrumb a:hover{color:var(--green-dark)}
-.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
-.bc-cur{color:var(--gray-4)}
+/* ── VIEW TABS ── */
+.view-tabs{display:flex;gap:2px;background:rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:3px;width:fit-content}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.view-tab:hover{color:#fff}
+.view-tab.active{background:#fff;color:var(--brand-dark)}
+.view-section{display:none}
+.view-section.active{display:block}
 
-/* HERO */
-.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:32px 40px 28px}
-.hero-inner{max-width:1400px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase}
-.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
-.hero h1{font-family:'DM Serif Display',serif;font-size:30px;line-height:1.2;color:var(--black);margin-bottom:6px}
-.hero-sub{font-size:13px;color:var(--gray-5);max-width:600px;line-height:1.7;margin-bottom:18px}
-.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
-.legend-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
-
-/* MAIN */
-.main{max-width:1400px;margin:0 auto;padding:24px 40px 80px}
-
-/* QUARTER GRID */
-.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:52px;align-items:start}
-
-/* QUARTER COLUMN */
-.qcol{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
-.qcol.current{border-color:var(--green-mid);box-shadow:0 0 0 1px var(--green-mid)}
-
-/* QUARTER HEADER */
-.qhdr{padding:14px 16px 12px;border-bottom:1px solid var(--gray-2)}
-.qhdr-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.q-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
-.q-now{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--green);color:#fff;padding:2px 8px;border-radius:20px}
-.q-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--black);line-height:1.2;margin-bottom:1px}
-.q-period{font-size:11px;color:var(--gray-4);margin-bottom:5px}
-.q-count{font-size:10px;color:var(--gray-4)}.q-count strong{color:var(--black)}
-
-/* COLUMN BODY */
-.qbody{padding:8px;display:flex;flex-direction:column;gap:5px}
-
-/* ITEM CARD */
-.rm-item{border:1px solid var(--gray-2);border-left:3px solid var(--gray-3);border-radius:var(--radius-lg);padding:9px 10px;cursor:pointer;transition:border-color .12s,background .1s}
-.rm-item:hover{background:var(--gray-1);border-color:var(--gray-3)}
-.rm-item.active{background:var(--green-light);border-color:var(--green-mid);border-left-color:var(--green)}
-.rm-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;margin-bottom:6px}
-.rm-footer{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.rm-pills{display:flex;gap:4px;flex-wrap:wrap;flex:1}
-
-/* THEME PILLS */
-.th-pill{font-size:9px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8}
-.tp-sub{background:var(--purple-light);color:var(--purple)}
-.tp-pers{background:var(--blue-light);color:var(--blue)}
-.tp-cat{background:var(--amber-light);color:var(--amber)}
-.tp-site{background:var(--green-light);color:var(--green-dark)}
-.tp-eco{background:var(--teal-light);color:var(--teal)}
-.tp-proc,.tp-none{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-
-/* TYPE PILL */
-.ty-pill{font-size:9px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-.ty-qw{background:var(--green-light);color:var(--green-dark);border-color:transparent}
-
-/* AI DOT */
-.ai-dot{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#ede9fe;color:#5b21b6;white-space:nowrap;line-height:1.8}
-
-/* RICE BADGE */
-.rice-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.rb-high{background:var(--green-light);color:var(--green-dark)}
-.rb-mid{background:var(--amber-light);color:var(--amber)}
-.rb-low{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-.rb-none{background:var(--gray-2);color:var(--gray-4)}
-
-/* LEFT BORDER BY THEME */
-.rm-item[data-theme="sub"]{border-left-color:var(--purple)}
-.rm-item[data-theme="pers"]{border-left-color:var(--blue)}
-.rm-item[data-theme="cat"]{border-left-color:var(--amber-mid)}
-.rm-item[data-theme="site"]{border-left-color:var(--green)}
-.rm-item[data-theme="eco"]{border-left-color:var(--teal)}
-
-/* BACKLOG */
-.section-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
-.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--black)}
-.section-sub{font-size:13px;color:var(--gray-5);margin-bottom:16px;max-width:600px;line-height:1.7}
-.backlog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-
-/* DETAIL PANEL */
-.dp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
-.dp-overlay.open{opacity:1;pointer-events:all}
-.dp-panel{position:fixed;top:0;right:0;bottom:0;width:400px;background:#fff;z-index:201;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
-.dp-panel.open{transform:translateX(0)}
-.dp-hdr{padding:20px 20px 16px;border-bottom:1px solid var(--gray-2);flex-shrink:0}
-.dp-hdr-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.dp-close{width:28px;height:28px;border:1px solid var(--gray-2);border-radius:var(--radius);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-4);flex-shrink:0;transition:background .1s,color .1s}
-.dp-close:hover{background:var(--gray-1);color:var(--black)}
-.dp-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.dp-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;color:var(--black)}
-.dp-body{padding:18px 20px;flex:1}
-.dp-desc{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:20px}
-.dp-sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
-.rice-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.rcell{background:var(--gray-1);border-radius:var(--radius);padding:10px 6px;text-align:center}
-.rcell-letter{font-family:'DM Serif Display',serif;font-size:18px;line-height:1;margin-bottom:2px}
-.rcell-val{font-size:16px;font-weight:700;color:var(--black)}
-.rcell-lbl{font-size:9px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-.rice-result-box{background:var(--black);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.rice-formula-txt{font-size:11px;color:rgba(255,255,255,.45)}
-.rice-score-big{font-family:'DM Serif Display',serif;font-size:28px;color:#fff}
-.rice-bar-track{height:5px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-bottom:20px}
-.rice-bar-fill{height:100%;border-radius:3px}
-.no-score{font-size:12px;color:var(--gray-4);font-style:italic;background:var(--gray-1);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:20px;line-height:1.6}
-.dp-qblock{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
-.dp-qlabel{font-size:12px;color:var(--gray-5)}.dp-qlabel strong{color:var(--black)}
-
-/* ── FY PROGRESS BANNER ─────────────────────────────────────────────────── */
-.fy-banner{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 24px 16px;margin-bottom:14px}
-.fyb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+/* ── FY PROGRESS BANNER ── */
+.fy-banner{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 24px 16px;margin-bottom:20px}
+.fyb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px}
 .fyb-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4);display:flex;align-items:center;gap:8px}
-.fyb-live-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--green-light);color:var(--green-dark);letter-spacing:.04em}
-.fyb-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:liveblink 1.8s ease-in-out infinite}
+.fyb-live-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--brand-light);color:var(--brand-dark);letter-spacing:.04em}
+.fyb-live-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:liveblink 1.8s ease-in-out infinite}
 @keyframes liveblink{0%,100%{opacity:1}50%{opacity:.3}}
 .fyb-meta{font-size:12px;color:var(--gray-5);text-align:right;line-height:1.6}
 .fyb-meta strong{color:var(--black)}
-
-/* Track + segments */
 .fyb-track-area{position:relative;height:56px;margin-bottom:12px}
 .fyb-segs{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);border-radius:var(--radius-lg);overflow:hidden}
 .fyb-seg{border-right:1px solid rgba(0,0,0,.05)}.fyb-seg:last-child{border-right:none}
-.fyb-seg-done{background:var(--green-light)}
-.fyb-seg-now{background:var(--green-light)}  /* overridden inline with gradient */
-.fyb-seg-next{background:var(--gray-1)}
-
-/* The actual progress rail */
 .fyb-rail{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);height:2px;background:var(--gray-2);z-index:2;border-radius:1px}
-.fyb-fill{position:absolute;left:0;top:0;height:100%;background:var(--green);border-radius:1px;transition:width .5s ease}
-/* Quarter ticks on the rail */
+.fyb-fill{position:absolute;left:0;top:0;height:100%;background:var(--brand);border-radius:1px;transition:width .5s ease}
 .fyb-tick{position:absolute;top:-5px;width:1px;height:12px;background:var(--gray-3);transform:translateX(-50%);z-index:3}
-/* Endpoint arrow */
 .fyb-arrow{position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--gray-3)}
-
-/* Animated "now" indicator */
 .fyb-now{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:6}
 .fyb-dot{width:18px;height:18px;border-radius:50%;background:var(--amber-mid);display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;box-shadow:0 0 0 2px var(--amber-mid);animation:nowpulse 2.4s ease-in-out infinite;cursor:default}
 .fyb-dot-core{width:7px;height:7px;border-radius:50%;background:#fff}
-@keyframes nowpulse{
-  0%,100%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 2px rgba(245,200,66,0)}
-  50%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 10px rgba(245,200,66,0)}
-}
-/* "Today" callout above dot */
+@keyframes nowpulse{0%,100%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 2px rgba(245,200,66,0)}50%{box-shadow:0 0 0 2px var(--amber-mid),0 0 0 10px rgba(245,200,66,0)}}
 .fyb-callout{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--black);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:var(--radius);white-space:nowrap;z-index:7}
 .fyb-callout::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--black)}
-/* Vertical connector line from dot to bottom of track */
 .fyb-vline{position:absolute;left:50%;top:100%;width:1px;height:10px;background:var(--amber-mid);z-index:5;opacity:.5}
-
-/* Quarter labels row */
 .fyb-qlabels{display:grid;grid-template-columns:repeat(4,1fr)}
 .fyb-qlabel{padding:4px 0 0 4px;border-right:1px dashed var(--gray-2)}.fyb-qlabel:last-child{border-right:none}
 .fyb-ql-name{font-size:11px;font-weight:700;color:var(--gray-4);display:flex;align-items:center;gap:5px}
-.fyb-ql-name.ql-active{color:var(--green-dark)}
+.fyb-ql-name.ql-active{color:var(--brand-dark)}
 .fyb-ql-period{font-size:11px;color:var(--gray-4);margin-top:1px}
-.fyb-ql-pct{font-size:10px;font-weight:600;color:var(--green-dark);margin-top:2px}
+.fyb-ql-pct{font-size:10px;font-weight:600;color:var(--brand-dark);margin-top:2px}
 .fyb-ql-days{font-size:10px;color:var(--amber);font-weight:500;margin-top:1px}
 
-/* ── VIEW TABS ───────────────────────────────────────────────────────────── */
-.view-tabs{display:flex;gap:2px;background:var(--gray-2);border-radius:var(--radius-lg);padding:3px;margin-bottom:20px;width:fit-content}
-.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:var(--gray-5);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.view-tab:hover{color:var(--black)}
-.view-tab.active{background:#fff;color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-.view-tab svg{flex-shrink:0;opacity:.6}
-.view-tab.active svg{opacity:1}
-.view-section{display:none}.view-section.active{display:block}
+/* ── KANBAN ── */
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;align-items:start}
+.qcol{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.qcol.current{border-color:var(--brand-mid);box-shadow:0 0 0 1px var(--brand-mid)}
+.qhdr{padding:14px 16px 12px;border-bottom:1px solid var(--gray-2)}
+.qhdr-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.q-qlabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
+.q-now-badge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--brand);color:#fff;padding:2px 8px;border-radius:20px}
+.q-period{font-size:11px;color:var(--gray-4);margin-bottom:5px}
+.q-count{font-size:11px;color:var(--gray-4)}.q-count strong{color:var(--black)}
+.qbody{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:100px}
+.q-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:20px 0;font-style:italic}
 
-/* ── TIMELINE FILTER BAR ─────────────────────────────────────────────────── */
+/* ── CARDS ── */
+.rm-card{background:#fff;border:1px solid var(--gray-2);border-left-width:3px;border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:border-color .12s,background .1s}
+.rm-card:hover{background:var(--gray-1)}
+.rm-card.active{background:var(--brand-light) !important;border-color:var(--brand-mid) !important}
+.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;margin-bottom:7px}
+.rm-card-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.rm-card-pills{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.rm-pill-theme{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;line-height:1.7}
+.rm-pill-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.rm-rice{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;flex-shrink:0}
+.rice-high{background:#e8f5e9;color:#1b5e20}
+.rice-mid{background:#fff8e1;color:#7a5a00}
+.rice-low{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* ── BACKLOG ── */
+.section-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--black)}
+.section-sub{font-size:13px;color:var(--gray-5);margin-bottom:14px;max-width:600px;line-height:1.7}
+.backlog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:32px}
+
+/* ── TIMELINE FILTER BAR ── */
 .tl-filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .tl-filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-right:2px;flex-shrink:0}
-.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 16px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
+.tl-filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:background .12s,color .12s,border-color .12s;white-space:nowrap}
 .tl-filter-btn:hover{border-color:var(--gray-3);color:var(--black)}
-.tl-filter-btn.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}
+.tl-filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
 
-/* ── TIMELINE VIEW ───────────────────────────────────────────────────────── */
+/* ── TIMELINE VIEW ── */
 .tl-wrap{overflow-x:auto;border-radius:var(--radius-xl);border:1px solid var(--gray-2)}
 .tl-table{min-width:860px;width:100%}
-.tl-hdr{display:grid;grid-template-columns:150px repeat(4,1fr);background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
+.tl-hdr{display:grid;background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
 .tl-hdr-empty{padding:12px 14px}
 .tl-hdr-q{padding:12px 14px;border-left:1px solid var(--gray-2)}
-.tl-hdr-q.tl-cur{background:var(--green-light)}
+.tl-hdr-q.tl-cur{background:var(--brand-light)}
 .tl-ql{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-4)}
 .tl-qp{font-size:11px;color:var(--gray-5);margin-top:1px}
-.tl-qnow{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;background:var(--green);color:#fff;padding:1px 7px;border-radius:20px}
+.tl-qnow{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;background:var(--brand);color:#fff;padding:1px 7px;border-radius:20px}
 .tl-body{display:flex;flex-direction:column}
-.tl-row{display:grid;grid-template-columns:150px repeat(4,1fr);border-top:1px solid var(--gray-2)}
+.tl-row{display:grid;border-top:1px solid var(--gray-2)}
 .tl-row:first-child{border-top:none}
 .tl-th{padding:12px 14px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3px}
-.tl-th-strip{width:3px;height:100%;border-radius:2px;position:absolute;left:0;top:0}
-.tl-th-inner{position:relative;padding-left:8px}
+.tl-th-inner{position:relative;padding-left:10px}
 .tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.3}
 .tl-th-count{font-size:10px;color:var(--gray-4)}
 .tl-cell{padding:8px;background:#fff;border-left:1px solid var(--gray-2);vertical-align:top;display:flex;flex-direction:column;gap:5px;min-height:52px}
-.tl-cell.tl-cur-col{background:#fafff9}
-.tl-bar{border-radius:var(--radius);padding:6px 9px;cursor:pointer;transition:filter .12s;border:1px solid rgba(0,0,0,.07)}
-.tl-bar:hover{filter:brightness(.93)}
+.tl-cell.tl-cur-col{background:#fafaff}
+.tl-bar{border-radius:var(--radius);padding:6px 9px;cursor:pointer;transition:filter .12s;border:1px solid rgba(0,0,0,.08)}
+.tl-bar:hover{filter:brightness(.9)}
 .tl-bar-name{font-size:11px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:4px}
 .tl-bar-foot{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
-.tl-bar-type{font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;line-height:1.6}
+.tl-bar-tag{font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;line-height:1.6}
 .tl-bar-rice{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:rgba(0,0,0,.18);color:#fff;line-height:1.6}
-.tl-bar-ai{font-size:9px;font-weight:700;padding:1px 5px;border-radius:20px;background:rgba(237,233,254,.35);color:#fff;line-height:1.6}
 
-/* ── THEME VIEW ──────────────────────────────────────────────────────────── */
-.theme-sections{display:flex;flex-direction:column;gap:10px}
-.theme-section{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
-.theme-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .12s}
-.theme-sec-hdr:hover{background:var(--gray-1)}
-.theme-section.open .theme-sec-hdr{border-bottom:1px solid var(--gray-2)}
-.theme-sec-bar{width:4px;height:34px;border-radius:2px;flex-shrink:0}
-.theme-sec-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);flex:1}
-.theme-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0;margin-right:8px}
-.theme-sec-chevron{color:var(--gray-4);flex-shrink:0;transition:transform .22s ease}
-.theme-section.open .theme-sec-chevron{transform:rotate(180deg)}
-.theme-sec-body{display:none;grid-template-columns:repeat(4,1fr)}
-.theme-section.open .theme-sec-body{display:grid}
-.theme-qcol{padding:10px;border-right:1px solid var(--gray-2)}
-.theme-qcol:last-child{border-right:none}
-.theme-qcol-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
-.theme-qcol-now{font-size:8px;font-weight:700;background:var(--green);color:#fff;padding:1px 5px;border-radius:20px;letter-spacing:.03em}
-.theme-items{display:flex;flex-direction:column;gap:5px}
-.theme-empty{font-size:11px;color:var(--gray-3);padding:2px 0;font-style:italic}
+/* ── BY PILLAR VIEW ── */
+.pillar-sections{display:flex;flex-direction:column;gap:10px}
+.pillar-sec{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.pillar-sec-hdr{padding:13px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .12s}
+.pillar-sec-hdr:hover{background:var(--gray-1)}
+.pillar-sec.open .pillar-sec-hdr{border-bottom:1px solid var(--gray-2)}
+.pillar-sec-bar{width:4px;height:34px;border-radius:2px;flex-shrink:0}
+.pillar-sec-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);flex:1}
+.pillar-sec-count{font-size:11px;color:var(--gray-4);flex-shrink:0;margin-right:8px}
+.pillar-sec-chevron{color:var(--gray-4);flex-shrink:0;transition:transform .22s ease}
+.pillar-sec.open .pillar-sec-chevron{transform:rotate(180deg)}
+.pillar-sec-body{display:none;grid-template-columns:repeat(4,1fr)}
+.pillar-sec.open .pillar-sec-body{display:grid}
+.pillar-qcol{padding:10px;border-right:1px solid var(--gray-2)}
+.pillar-qcol:last-child{border-right:none}
+.pillar-qcol-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.pillar-qcol-now{font-size:8px;font-weight:700;background:var(--brand);color:#fff;padding:1px 5px;border-radius:20px;letter-spacing:.03em}
+.pillar-items{display:flex;flex-direction:column;gap:5px}
+.pillar-empty{font-size:11px;color:var(--gray-3);padding:2px 0;font-style:italic}
 
-/* PROJECT BRIEF IN PANEL */
-.dp-proj{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
-.dp-proj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
-.dp-proj-badge{font-size:9px;font-weight:700;background:var(--green-light);color:var(--green-dark);padding:1px 7px;border-radius:20px;text-transform:none;letter-spacing:.02em}
-.dp-proj-summary{font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px}
-.dp-proj-feats{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.dp-proj-feat{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--gray-5);line-height:1.5}
-.dp-proj-feat-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
-.dp-proj-links{display:flex;flex-direction:column;gap:6px}
-.dp-proj-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);text-decoration:none;transition:border-color .15s,background .15s}
-.dp-proj-link:hover{border-color:var(--green);background:var(--green-light)}
-.dp-proj-link-icon{font-size:13px;flex-shrink:0;width:24px;text-align:center}
-.dp-proj-link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
-.dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
-.dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
-
-/* RESPONSIVE */
-@media(max-width:1180px){.qgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:680px){
-  .qgrid{grid-template-columns:1fr}
-  .site-header,.breadcrumb,.hero,.main{padding-left:20px;padding-right:20px}
-  .dp-panel{width:100%}
-}
+/* ── FLYOUT ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.flyout{position:fixed;top:0;right:0;bottom:0;width:480px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.flyout.open{transform:translateX(0)}
+.flyout-close-row{display:flex;justify-content:flex-end;padding:16px 20px 0;flex-shrink:0}
+.flyout-close{width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;cursor:pointer;font-size:18px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.flyout-close:hover{background:var(--gray-1)}
+.flyout-body{overflow-y:auto;padding:4px 24px 40px;flex:1}
+.flyout-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.flyout-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid var(--gray-2);color:var(--gray-5);background:var(--gray-1)}
+.flyout-title{font-family:'DM Serif Display',serif;font-size:26px;line-height:1.2;color:var(--black);margin-bottom:8px}
+.flyout-subtitle{font-size:14px;color:var(--gray-4);line-height:1.6;margin-bottom:0}
+.flyout-props{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2);display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}
+.flyout-prop-lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-4);margin-bottom:5px}
+.flyout-prop-val{font-size:13px;color:var(--black);font-weight:500;line-height:1.4}
+.flyout-prop-val-muted{font-size:13px;color:var(--gray-3);font-style:italic}
+.f-quadrant{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px}
+.flyout-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2)}
+.flyout-section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.flyout-section-title{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4)}
+.flyout-desc{font-size:13px;color:var(--gray-5);line-height:1.75}
+.flyout-desc-empty{font-size:13px;color:var(--gray-3);font-style:italic}
+.f-rice-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.f-rice-cell{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:12px 8px;text-align:center}
+.f-rice-val{font-size:20px;font-weight:700}
+.f-rice-r{color:#4527a0}.f-rice-i{color:#1b5e20}.f-rice-c{color:#b84714}.f-rice-e{color:#1a5fa8}
+.f-rice-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.f-rice-total{background:linear-gradient(135deg,var(--brand-dark),var(--brand));border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.f-rice-score{font-size:24px;font-weight:700}
+.f-rice-score-lbl{font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.06em}
+.flyout-notion-link{display:flex;align-items:center;gap:8px;margin-top:20px;padding:12px 16px;background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:var(--radius-lg);text-decoration:none;color:var(--brand-dark);font-size:13px;font-weight:600;transition:background .15s}
+.flyout-notion-link:hover{background:var(--brand-mid)}
+.fs-live{background:#e8f5e9;color:#1b5e20;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-progress{background:#fff8e1;color:#7a5a00;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-planned{background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-review{background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-done{background:var(--gray-2);color:var(--gray-5);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.f-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.f-type-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.f-ai-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#5b21b6}
+/* ── CONTROLS BAR ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{-webkit-appearance:none;appearance:none;border:none;outline:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 26px 0 10px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+@media(max-width:1000px){.qgrid{grid-template-columns:1fr 1fr}.pillar-sec-body{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.qgrid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
+@media(max-width:760px){.flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}.flyout.open{transform:translateY(0)}}
 </style>
 </head>
 <body>
 
+<div class="staging-banner">🧪 Staging Environment — safe to experiment</div>
+
 <header class="site-header">
-  <a href="../home/"><img class="site-header-logo" src="https://www.petheaven.co.za/skin/frontend/petheaven/default/images/logo-small.png" alt="Pet Heaven"></a>
+  <a href="../home/" class="site-header-wordmark">Bevan Staging</a>
   <div class="site-header-divider"></div>
-  <span class="site-header-label">FY2026/27 Roadmap</span>
-  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:auto;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-</header>
-
-<div class="breadcrumb">
-  <a href="../home/">Home</a>
-  <span class="bc-sep">›</span>
-  <span class="bc-cur">Roadmap</span>
-</div>
-
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>FY 2026/27 · March 2026 – February 2027</div>
-    <h1>Product Roadmap</h1>
-    <p class="hero-sub">Quarterly view of initiatives derived from RICE scoring. Click any card to see the description, scores, and rationale. Financial year runs March–February.</p>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>Subscription</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Personalisation</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--amber-mid)"></span>Catalogue</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Site Experience</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--teal)"></span>Ecosystem</span>
-      <span class="legend-item"><span class="legend-dot" style="background:var(--gray-3)"></span>Process / Unassigned</span>
+  <span class="site-logo">Product Workspace</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#4f46e5"></span>
+      Bevan Staging
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option" href="../../ucook/home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#4f46e5"></span><span class="cs-option-label">Bevan Staging</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
-</div>
+  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</header>
 
-<div class="main">
+<div class="page">
 
-  <!-- VIEW TABS -->
-  <div class="view-tabs">
-    <button class="view-tab active" onclick="setView('kanban',this)">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="5.5" y="1" width="3.5" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="10" y="1" width="3" height="12" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
-      Kanban
-    </button>
-    <button class="view-tab" onclick="setView('timeline',this)">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="1" y="6" width="8" height="2" rx="1" fill="currentColor"/><rect x="1" y="10" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
-      Timeline
-    </button>
-    <button class="view-tab" onclick="setView('theme',this)">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="3" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="3" cy="11" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="7" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 3h4a2 2 0 012 2v0a2 2 0 01-2 2H5M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      By Theme
-    </button>
+  <div class="hero">
+    <div class="hero-badge" id="heroBadge">🧪 Bevan Staging · FY2026/27 · Product Roadmap</div>
+    <h1>Roadmap</h1>
+    <p class="hero-sub">Quarterly view of initiatives pulled from Notion. Financial year runs March–February. Click any card to see details.</p>
+    <div class="hero-stats" id="heroStats"></div>
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="setView('kanban',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Kanban
+      </button>
+      <button class="view-tab" onclick="setView('timeline',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Timeline
+      </button>
+      <button class="view-tab" onclick="setView('pillar',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="2.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="2.5" cy="9.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="9.5" cy="6" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 2.5h3a2 2 0 012 2v0a2 2 0 01-2 2H4.5M4.5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        By Pillar
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTROLS BAR -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 9.5l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search initiatives…" oninput="applyFilters()">
+    </div>
+    <div class="chips-area" id="chipsArea"></div>
+    <div class="ctrl-right">
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 3h10M3 6h6M5 9h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Filter
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status" onclick="toggleFilterField('status')">Status<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter" onclick="toggleFilterField('quarter')">Quarter<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar" onclick="toggleFilterField('pillar')">Pillars<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 2.5h10M2.5 5.5h7M4 8.5h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Sort
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status" onclick="setSortField('status')">Status<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter" onclick="setSortField('quarter')">Quarter<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar" onclick="setSortField('pillar')">Pillars<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
   </div>
 
   <!-- KANBAN VIEW -->
   <div class="view-section active" id="view-kanban">
-    <div class="fy-banner" id="fy-banner"></div>
+    <div class="fy-banner" id="fyBanner"></div>
     <div class="qgrid" id="qgrid"></div>
     <div class="section-hdr"><div class="section-title">Backlog</div></div>
-    <p class="section-sub">Initiatives not yet scheduled into this financial year — scored where possible, conceptual where not. Pull forward as capacity allows.</p>
-    <div class="backlog-grid" id="backlog-grid"></div>
+    <p class="section-sub">Initiatives not yet scheduled into this financial year.</p>
+    <div class="backlog-grid" id="backlogGrid"></div>
   </div>
 
   <!-- TIMELINE VIEW -->
   <div class="view-section" id="view-timeline">
-    <div class="fy-banner" id="fy-banner-tl"></div>
-    <div class="tl-filter-bar">
-      <span class="tl-filter-label">Show:</span>
-      <button class="tl-filter-btn active" data-q="all" onclick="setTlFilter('all',this)">All quarters</button>
-      <button class="tl-filter-btn" data-q="1" onclick="setTlFilter(1,this)">Q1 · Mar–May</button>
-      <button class="tl-filter-btn" data-q="2" onclick="setTlFilter(2,this)">Q2 · Jun–Aug</button>
-      <button class="tl-filter-btn" data-q="3" onclick="setTlFilter(3,this)">Q3 · Sep–Nov</button>
-      <button class="tl-filter-btn" data-q="4" onclick="setTlFilter(4,this)">Q4 · Dec–Feb</button>
-    </div>
+    <div class="fy-banner" id="fyBannerTl"></div>
+    <div class="tl-filter-bar" id="tlFilterBar"></div>
     <div class="tl-wrap">
       <div class="tl-table">
-        <div class="tl-hdr" id="tl-hdr"></div>
-        <div class="tl-body" id="tl-body"></div>
+        <div class="tl-hdr" id="tlHdr"></div>
+        <div class="tl-body" id="tlBody"></div>
       </div>
     </div>
-    <div id="tl-backlog-wrap" style="margin-top:24px">
+    <div id="tlBacklogWrap" style="margin-top:24px">
       <div class="section-hdr"><div class="section-title">Backlog</div></div>
       <p class="section-sub">Not yet scheduled into this FY.</p>
-      <div class="backlog-grid" id="tl-backlog"></div>
+      <div class="backlog-grid" id="tlBacklog"></div>
     </div>
   </div>
 
-  <!-- THEME VIEW -->
-  <div class="view-section" id="view-theme">
-    <div class="fy-banner" id="fy-banner-theme"></div>
-    <div class="theme-sections" id="theme-sections"></div>
+  <!-- BY PILLAR VIEW -->
+  <div class="view-section" id="view-pillar">
+    <div class="fy-banner" id="fyBannerPillar"></div>
+    <div class="pillar-sections" id="pillarSections"></div>
     <div style="margin-top:24px">
       <div class="section-hdr"><div class="section-title">Backlog</div></div>
       <p class="section-sub">Not yet scheduled into this FY.</p>
-      <div class="backlog-grid" id="theme-backlog"></div>
+      <div class="backlog-grid" id="pillarBacklog"></div>
     </div>
   </div>
+
+  <p class="page-footer">Bevan Staging · Product roadmap · <span id="fyFooter">FY2026/27</span></p>
 
 </div>
 
-<!-- DETAIL PANEL -->
-<div class="dp-overlay" id="dp-overlay" onclick="closePanel()"></div>
-<aside class="dp-panel" id="dp-panel">
-  <div class="dp-hdr">
-    <div style="flex:1">
-      <div class="dp-pills" id="dp-pills"></div>
-      <div class="dp-name" id="dp-name"></div>
-    </div>
-    <button class="dp-close" onclick="closePanel()">
-      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="dp-body" id="dp-body"></div>
-</aside>
-
+<script src="../notion-data.js?v=1776242675000"></script>
 <script>
-// ─── DATA ──────────────────────────────────────────────────────────────────────
-// q: 1–4 = FY quarters, 0 = backlog
-// theme: sub | pers | cat | site | eco | proc | none
-const items = [
+const ITEMS = NOTION_ITEMS;
 
-  // ── Q1: Foundation & Quick Wins (Mar–May 2026) ────────────────────────────
-  {q:1, name:"Health & Wellness Top Nav", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:8, i:3, c:5, e:1,
-   desc:"Add Health & Wellness as a permanent top-level nav item. Currently missing from homepage navigation — a high-traffic category with no direct entry point."},
+// ─── FY CALCULATION (March–February fiscal year) ──────────────────────────────
+const _now  = new Date();
+const _m    = _now.getMonth() + 1;   // 1–12
+const _y    = _now.getFullYear();
+const CUR_FY      = _m >= 3 ? _y + 1 : _y;          // e.g. 2027 = FY27
+const CUR_FY2     = String(CUR_FY).slice(2);          // "27"
+const FY_SY       = CUR_FY - 1;                       // start year, e.g. 2026
+const FY_LABEL    = `FY${String(FY_SY).slice(2)}${CUR_FY2}`; // "FY2627"
 
-  {q:1, name:"Health & Wellness — Discoverability", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:8, i:3, c:5, e:1,
-   desc:"Surface H&W content more broadly — category SEO, internal linking, and homepage feature zones. Complements the nav fix with on-site discovery improvements."},
-
-  {q:1, name:"PostHog App Analytics", theme:"proc", themeLabel:"Process", type:"Quick Win", ai:false,
-   r:6, i:4, c:5, e:1,
-   desc:"Implement PostHog for in-app behaviour tracking. Currently zero visibility on in-app events — table stakes before any personalisation or A/B testing work."},
-
-  {q:1, name:"PostHog Web Analytics", theme:"proc", themeLabel:"Process", type:"Existing Roadmap", ai:false,
-   r:6, i:4, c:5, e:2,
-   desc:"Implement PostHog for web analytics to complement app coverage. Full funnel visibility from first visit through to checkout and subscription setup."},
-
-  {q:1, name:"Mobile Audit & Quick Fixes", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:9, i:4, c:5, e:2,
-   desc:"Fix critical mobile UX issues on the top 10 traffic pages: tap targets, font sizes, sticky headers, and checkout flow. Majority of PH traffic is mobile."},
-
-  {q:1, name:"Google CPC Brand Term Review", theme:"proc", themeLabel:"Process", type:"Quick Win", ai:false,
-   r:5, i:4, c:4, e:1,
-   desc:"If PH ranks #1 organically for 'Pet Heaven', reduce or pause brand keyword bids and measure the organic revenue impact. Quick commercial win."},
-
-  {q:1, name:"WhatsApp UTM Tracking", theme:"proc", themeLabel:"Process", type:"Quick Win", ai:false,
-   r:4, i:3, c:5, e:1,
-   desc:"Add UTM parameters to all WhatsApp links and set up webhook tracking for analytics attribution. Currently no visibility on WhatsApp-driven traffic."},
-
-  {q:1, name:"3DSv2 Payment Security", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:6, i:5, c:4, e:2,
-   desc:"Upgrade to 3D Secure 2 for payment authentication. Reduces fraud exposure and improves checkout success rates on compliant cards."},
-
-  {q:1, name:"S&S PDP", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:false,
-   r:7, i:4, c:4, e:2,
-   desc:"Schedule & Save product detail page improvements — clearer value prop, savings visualisation, and reduced friction in subscription setup."},
-
-  // ── Q2: Personalisation & Conversion (Jun–Aug 2026) ──────────────────────
-  {q:2, name:"Pet Profile tied to Sign-up", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:6, i:4, c:4, e:2,
-   desc:"Move pet profile creation to step 2 of account registration — currently buried in the account menu. Profiles are the foundation for all personalisation work downstream."},
-
-  {q:2, name:"New Pet Parents Page Redesign", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:6, i:4, c:4, e:2,
-   desc:"Replace the 9-coupon wall with a guided journey: Welcome → Meet your pet → What you need → Set up S&S delivery. High-intent audience, poor experience today."},
-
-  {q:2, name:"Preemptive Sub Failures", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:true,
-   r:6, i:5, c:3, e:2,
-   desc:"Proactively identify at-risk subscriptions and trigger interventions before payment fails. Winback after failure is expensive — prevention is cheaper."},
-
-  {q:2, name:"Deals Page Structure", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:false,
-   r:7, i:3, c:4, e:2,
-   desc:"Add species filtering, countdown timers on flash sales, urgency mechanics, and a clear deal hierarchy. Current deals page has no structure or editorialisation."},
-
-  {q:2, name:"Personalised Deals Page", theme:"site", themeLabel:"Site Experience", type:"Quick Win", ai:true,
-   r:7, i:4, c:3, e:2,
-   desc:"Filter deals by pet profile for logged-in users — 'Deals for Harvey' not generic 'Pet Heaven Deals'. Depends on pet profile (Q2 dependency earlier this quarter)."},
-
-  {q:2, name:"AI Pet Advisor Widget", theme:"none", themeLabel:"Unassigned", type:"Quick Win", ai:true,
-   r:7, i:4, c:3, e:2,
-   desc:"'Ask a pet question' widget surfaced on PDPs and the New Pet Parents page. Positions PH as the knowledgeable pet brand — advice-led commerce."},
-
-  {q:2, name:"AI Cross-sell Strip (Breed-based)", theme:"none", themeLabel:"Unassigned", type:"Quick Win", ai:true,
-   r:7, i:4, c:3, e:2,
-   desc:"Breed-specific cross-sell strip on PDP and cart — not generic 'you may also like'. Uses pet profile data from earlier in Q2."},
-
-  {q:2, name:"OOS Subscription Swap Email", theme:"sub", themeLabel:"Subscription", type:"Quick Win", ai:true,
-   r:5, i:4, c:4, e:2,
-   desc:"Auto-trigger an email when a subscribed product goes out of stock with AI-matched alternatives from the customer's pet profile. Prevents passive churn."},
-
-  {q:2, name:"Subscribe & Save Savings Ticker", theme:"sub", themeLabel:"Subscription", type:"Quick Win", ai:false,
-   r:6, i:4, c:3, e:2,
-   desc:"Show real-time annual savings on the S&S toggle based on the pet's consumption rate. Makes the value of subscribing tangible at the exact decision moment."},
-
-  {q:2, name:"Homepage Refresh", theme:"site", themeLabel:"Site Experience", type:"Existing Roadmap", ai:false,
-   r:9, i:4, c:4, e:4,
-   desc:"Full homepage redesign. Current homepage doesn't reflect the PH brand, leverage pet profile data, or convert with intent. Higher effort but widest reach."},
-
-  {q:2, name:"Maze User Research", theme:"proc", themeLabel:"Process", type:"Existing Roadmap", ai:false,
-   r:3, i:3, c:4, e:1,
-   desc:"Set up Maze for ongoing user research and usability testing. Feeds insight into Q3 catalogue and personalisation decisions."},
-
-  {q:2, name:"Competitive Price Scraper", theme:"proc", themeLabel:"Process", type:"Quick Win", ai:false,
-   r:3, i:4, c:4, e:2,
-   desc:"Monitor top 50 SKUs vs Takealot and Absolute Pets weekly. Flag where PH is more than 10% above market price. Commercial intelligence, not a product feature."},
-
-  // ── Q3: Catalogue & Platform (Sep–Nov 2026) ───────────────────────────────
-  {q:3, name:"Product Cards Revamp", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:8, i:4, c:4, e:3,
-   desc:"Full redesign of product cards across listing pages, search results, and recommendations. Visual hierarchy, quick-add, S&S badges, and savings display."},
-
-  {q:3, name:"Mobile First Design", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:9, i:4, c:4, e:5,
-   desc:"Rebuild key catalogue and PDP templates to be mobile-first. Follows the Q1 audit — this is the structural fix the audit will have prescribed."},
-
-  {q:3, name:"Enhanced Product Reviews", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:7, i:3, c:4, e:3,
-   desc:"Star ratings on CLPs and search, above-fold review snippet on PDP, post-purchase review request email, verified badges, and relevance sort."},
-
-  {q:3, name:"Merchandising Real Estate", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:7, i:3, c:4, e:3,
-   desc:"Better use of homepage and category page real estate for featured brands, promotions, and seasonal editorial. Supplier co-funded placement opportunity."},
-
-  {q:3, name:"M2 Migration", theme:"site", themeLabel:"Site Experience", type:"Existing Roadmap", ai:false,
-   r:7, i:5, c:4, e:5,
-   desc:"Magento 2 platform migration. The major technical milestone of the year — unlocks platform capabilities across the roadmap and reduces technical debt."},
-
-  {q:3, name:"Cross Sell Recommendation", theme:"pers", themeLabel:"Personalisation", type:"Existing Roadmap", ai:true,
-   r:7, i:4, c:3, e:3,
-   desc:"AI-powered cross-sell recommendations across PDP, cart, and post-purchase. Moves beyond manual upsells to model-driven suggestions at scale."},
-
-  {q:3, name:"Personalised Recommendations", theme:"pers", themeLabel:"Personalisation", type:"Existing Roadmap", ai:true,
-   r:8, i:4, c:3, e:4,
-   desc:"Full personalised recommendation engine across homepage, category pages, and email. Powered by pet profile and purchase history built in Q2."},
-
-  {q:3, name:"Food Calculator", theme:"pers", themeLabel:"Personalisation", type:"Existing Roadmap", ai:true,
-   r:6, i:4, c:3, e:3,
-   desc:"Diet and portion calculator: enter pet weight and breed, get recommended bag size and auto-set delivery frequency. Links directly to S&S setup."},
-
-  {q:3, name:"AI Personalised Email Subject Lines", theme:"none", themeLabel:"Unassigned", type:"Quick Win", ai:true,
-   r:6, i:3, c:3, e:2,
-   desc:"Pet name and trigger-based subject lines with personalised send time per customer. Small lift in isolation, but high confidence win for CRM."},
-
-  {q:3, name:"Personalised Upsells on Subs", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:true,
-   r:6, i:4, c:3, e:3,
-   desc:"Personalised upsell recommendations within the subscription management page — based on pet profile and gaps in the customer's current purchases."},
-
-  {q:3, name:"Subs Failure Report by SKU", theme:"proc", themeLabel:"Process", type:"Quick Win", ai:true,
-   r:3, i:5, c:4, e:2,
-   desc:"Live report of subscription failures per SKU, grouped by supplier and sorted by revenue lost. Operational tool to help the subs team action the biggest problems."},
-
-  {q:3, name:"AI Diet Calculator + Frequency Wizard", theme:"sub", themeLabel:"Subscription", type:"Quick Win", ai:true,
-   r:5, i:4, c:3, e:2,
-   desc:"Pet weight and breed → recommended bag size and auto-set delivery frequency on subscription PDP. Reduces setup friction and churn from under- or over-delivery."},
-
-  {q:3, name:"M1 Category Restructure", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:7, i:4, c:3, e:5,
-   desc:"Restructure Magento 1 category taxonomy to improve SEO, navigation, and filter logic before M2 migration. Required pre-migration dependency."},
-
-  // ── Q4: Platform Depth & Ecosystem (Dec 2026–Feb 2027) ───────────────────
-  {q:4, name:"Subscriptions 2.0", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:false,
-   r:7, i:5, c:3, e:5,
-   desc:"Full subscription platform overhaul — flexible schedules, bundling, pause and skip, and a proper subscription management UI. The long-term evolution of S&S PDP (Q1)."},
-
-  {q:4, name:"Puppy Life Stage Journey", theme:"pers", themeLabel:"Personalisation", type:"Medium-term", ai:true,
-   r:5, i:5, c:3, e:4,
-   desc:"Automated puppy-to-adult journey from registration: food, treats, training, and vet reminders triggered at each life stage. High emotional engagement and LTV potential."},
-
-  {q:4, name:"Subscription Swops", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:true,
-   r:6, i:3, c:3, e:3,
-   desc:"Allow easy product swaps within subscriptions without cancelling. AI suggests alternatives based on pet profile when the customer initiates a swap."},
-
-  {q:4, name:"Enhance Subscription Experience", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:false,
-   r:6, i:4, c:3, e:4,
-   desc:"Broader subscription UX improvements outside of the Subscriptions 2.0 scope — onboarding messaging, management page clarity, and skip-a-delivery flows."},
-
-  {q:4, name:"Rewarding Subs", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:false,
-   r:6, i:3, c:3, e:3,
-   desc:"Subscriber-specific rewards: loyalty points, exclusive deals, and early access to new products. Drives retention through value, not just convenience."},
-
-  {q:4, name:"AI Personalised Homepage (Logged-in)", theme:"pers", themeLabel:"Personalisation", type:"Medium-term", ai:true,
-   r:7, i:4, c:2, e:4,
-   desc:"Breed-specific homepage for logged-in users powered by pet profile and purchase history. Depends on pet profile (Q2) and recommendations engine (Q3)."},
-
-  {q:4, name:"Pet Life Cycle Journey", theme:"pers", themeLabel:"Personalisation", type:"Existing Roadmap", ai:true,
-   r:6, i:4, c:3, e:5,
-   desc:"Full life-cycle personalisation — senior care, dietary transitions, health milestones. Long-term retention driver and lifetime value play beyond the puppy journey."},
-
-  {q:4, name:"Loyalty Driven through Suppliers", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:6, i:4, c:3, e:5,
-   desc:"Supplier co-funded loyalty programme — brands contribute to points and rewards in exchange for prominent placement. Reduces PH's direct loyalty cost."},
-
-  {q:4, name:"Calculate Likely Pets", theme:"pers", themeLabel:"Personalisation", type:"Existing Roadmap", ai:true,
-   r:5, i:3, c:3, e:3,
-   desc:"Predict pet type and breed from purchase behaviour for accounts without a completed profile. Unlocks personalisation for the majority who don't self-declare."},
-
-  {q:4, name:"RC Full Brand Coupon Integration", theme:"sub", themeLabel:"Subscription", type:"Existing Roadmap", ai:false,
-   r:5, i:2, c:3, e:2,
-   desc:"Full Royal Canin coupon integration across subscription and once-off purchase flows. Supplier-funded feature — Royal Canin co-invests in the integration."},
-
-  {q:4, name:"Aptivate Add to Cart Videos", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:6, i:2, c:3, e:2,
-   desc:"Short video thumbnails on product cards that play on hover. Supplier-funded creative — low technical effort with an incremental conversion lift."},
-
-  {q:4, name:"M1 Attribute Restructure", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:5, i:3, c:3, e:4,
-   desc:"Restructure Magento 1 product attributes for better filter logic, SEO meta generation, and data quality. Pre-M2 migration dependency alongside category restructure (Q3)."},
-
-  {q:4, name:"Zumvet Integration", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:4, i:3, c:3, e:3,
-   desc:"Vet consultation integration via Zumvet — surfaced on PDP and in the customer account. Builds the 'expert pet care' brand positioning beyond just product retail."},
-
-  // ── BACKLOG — Future FY ───────────────────────────────────────────────────
-  {q:0, name:"Pet Birthday / Life Stage Discounts", theme:"none", themeLabel:"Unassigned", type:"Medium-term", ai:true,
-   r:6, i:4, c:2, e:3,
-   desc:"AI-triggered discounts based on pet age, birthday, and life stage transitions. Requires mature pet profile data — best sequenced after Q2 profile work matures."},
-
-  {q:0, name:"Rescue & Adoption Charity Partnerships", theme:"none", themeLabel:"Unassigned", type:"Medium-term", ai:false,
-   r:4, i:4, c:3, e:3,
-   desc:"SPCA/Dogtown SA starter subscription pack at the adoption moment — highest emotional engagement point. Partnership and logistics complexity makes this a future FY project."},
-
-  {q:0, name:"Agentic Commerce", theme:"site", themeLabel:"Site Experience", type:"Existing Roadmap", ai:true,
-   r:6, i:4, c:2, e:5,
-   desc:"AI-powered conversational commerce experiences — autonomous cart building and guided browsing. High potential, early-stage confidence. Future FY once foundations are proven."},
-
-  {q:0, name:"Pet Services", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:5, i:4, c:2, e:5,
-   desc:"Grooming, training, and wellness service bookings — a major extension into services beyond product retail. High effort and complexity; deferred to future FY."},
-
-  {q:0, name:"Brand Page Revamp", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:5, i:2, c:3, e:3,
-   desc:"Redesign brand landing pages with editorial content, brand story sections, and featured product collections. Supplier co-funded placement opportunity."},
-
-  {q:0, name:"Gift Cards", theme:"site", themeLabel:"Site Experience", type:"Existing Roadmap", ai:false,
-   r:5, i:2, c:3, e:3,
-   desc:"Digital gift card product — opens a new gifting use case and a customer acquisition channel outside the core repeat-buyer segment."},
-
-  {q:0, name:"Bundle Product Styling", theme:"cat", themeLabel:"Catalogue", type:"Existing Roadmap", ai:false,
-   r:4, i:1, c:3, e:2,
-   desc:"Improve the visual and UX treatment for bundle products. Currently rendered identically to simple products — missed opportunity to communicate value."},
-
-  {q:0, name:"Insurance Integration", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:4, i:2, c:2, e:4,
-   desc:"Pet insurance partner integration surfaced at checkout and in the customer account. Long-term ecosystem revenue stream — deferred until platform is stable."},
-
-  {q:0, name:"Edgars Integration", theme:"site", themeLabel:"Site Experience", type:"Existing Roadmap", ai:false,
-   r:4, i:3, c:2, e:4,
-   desc:"Integration with Edgars for cross-sell and loyalty programme alignment. Partnership complexity and technical effort are the current blockers."},
-
-  {q:0, name:"Vet Acquisition / Partnership", theme:"eco", themeLabel:"Ecosystem", type:"Existing Roadmap", ai:false,
-   r:4, i:3, c:2, e:4,
-   desc:"Strategic vet clinic acquisition or partnership programme. Business development play with long lead times — future FY once the Zumvet integration (Q4) proves the model."},
-
-  {q:0, name:"FTN M2 Analytics", theme:"proc", themeLabel:"Process", type:"—", ai:false,
-   r:null, i:null, c:null, e:null,
-   desc:"Analytics setup and reporting framework for the M2 migration. To be scoped once M2 timeline and data layer requirements are confirmed (Q3)."},
-
-  {q:0, name:"My Shop for PH", theme:"site", themeLabel:"Site Experience", type:"—", ai:false,
-   r:null, i:null, c:null, e:null,
-   desc:"A personalised 'My Shop' storefront experience for returning customers. Concept to be defined — likely builds on recommendations engine (Q3) and pet profile (Q2)."},
-
-  {q:0, name:"Solution Based Categories", theme:"cat", themeLabel:"Catalogue", type:"—", ai:false,
-   r:null, i:null, c:null, e:null,
-   desc:"Reorganise part of the catalogue around shopper problems (e.g. 'Dogs with allergies') rather than product types. Discovery-led navigation — needs user research (Q2 Maze) to validate."},
-
-  {q:0, name:"Start Using PostHog Features", theme:"proc", themeLabel:"Process", type:"—", ai:false,
-   r:null, i:null, c:null, e:null,
-   desc:"Broader PostHog adoption beyond core analytics — feature flags, A/B testing, and session replay. Dependent on Q1 implementation maturity."},
-
-  {q:0, name:"Pet Profile Data Strategy", theme:"pers", themeLabel:"Personalisation", type:"—", ai:false,
-   r:null, i:null, c:null, e:null,
-   desc:"Formal strategy for pet profile data — what we collect, how we enrich it, and what we build on top of it. Underpins the long-term personalisation roadmap."},
+const FY_QUARTERS = [
+  {n:1, qLabel:`Q1 FY${CUR_FY2}`, short:'Q1', period:`Mar – May ${FY_SY}`,        start:new Date(FY_SY,2,1),  end:new Date(FY_SY,5,1)},
+  {n:2, qLabel:`Q2 FY${CUR_FY2}`, short:'Q2', period:`Jun – Aug ${FY_SY}`,        start:new Date(FY_SY,5,1),  end:new Date(FY_SY,8,1)},
+  {n:3, qLabel:`Q3 FY${CUR_FY2}`, short:'Q3', period:`Sep – Nov ${FY_SY}`,        start:new Date(FY_SY,8,1),  end:new Date(FY_SY,11,1)},
+  {n:4, qLabel:`Q4 FY${CUR_FY2}`, short:'Q4', period:`Dec ${FY_SY} – Feb ${CUR_FY}`, start:new Date(FY_SY,11,1), end:new Date(CUR_FY,2,1)},
 ];
+const FY_START = FY_QUARTERS[0].start;
+const FY_END   = FY_QUARTERS[3].end;
+
+// Determine which quarter each item belongs to, or null = backlog
+const FY_Q_LABELS = new Set(FY_QUARTERS.map(q => q.qLabel));
+function itemQ(it){ return FY_Q_LABELS.has(it.qLabel) ? it.qLabel : null; }
+function itemQn(it){ const q=FY_QUARTERS.find(q=>q.qLabel===it.qLabel); return q?q.n:0; }
+
+// Current quarter
+const CUR_Q = FY_QUARTERS.find(q => _now >= q.start && _now < q.end) || null;
+
+// ─── THEME / PILLAR CONFIG ────────────────────────────────────────────────────
+const THEME_COLORS = {
+  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20', bar:'#2e7d32'},
+  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f', bar:'#c62828'},
+  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0', bar:'#4527a0'},
+  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c', bar:'#b71c1c'},
+  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8', bar:'#1a5fa8'},
+  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3', bar:'#3730a3'},
+  'Other':                        {bg:'#f5f5f5',border:'#ddd',   text:'#555',    bar:'#9a9a94'},
+};
+function tc(theme){ return THEME_COLORS[theme] || THEME_COLORS['Other']; }
+
+const PILLARS = Object.keys(THEME_COLORS);
+
+// ─── STATUS SORT ORDER ────────────────────────────────────────────────────────
+// Done → Live → In Review → In Progress → Planned
+const STATUS_ORDER = {done:0, live:1, review:2, progress:3, planned:4};
+function sortByStatus(arr){
+  // If a chip sort is active, use that; otherwise default to status order
+  if(typeof chipSortState !== 'undefined' && chipSortState){
+    return [...arr].sort(chipSortFn);
+  }
+  return [...arr].sort((a,b)=>{
+    const oa = STATUS_ORDER[a.status] ?? 99;
+    const ob = STATUS_ORDER[b.status] ?? 99;
+    return oa - ob;
+  });
+}
+
+// ─── CHIP FILTER/SORT STATE ───────────────────────────────────────────────────
+// Default to the current FY quarter (or first upcoming quarter that has items)
+const filterState = (function(){
+  const d=new Date(), m=d.getMonth()+1, y=d.getFullYear();
+  const fy = m>=3 ? y+1 : y;
+  const q  = m>=3&&m<=5 ? 1 : m>=6&&m<=8 ? 2 : m>=9&&m<=11 ? 3 : 4;
+  for(let i=0;i<8;i++){
+    let tq=q+i, tfy=fy; while(tq>4){tq-=4;tfy++;}
+    const l=`Q${tq} FY${String(tfy).slice(2)}`;
+    if(ITEMS.some(it=>it.qLabel===l)) return {quarter:l};
+  }
+  return {};
+})();
+let chipSortState = null;
+let filtered = [];
+
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: ()=>[
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
+  },
+  quarter: {
+    label: 'Quarter',
+    options: ()=>[...new Set(ITEMS.map(it=>it.qLabel).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+  pillar: {
+    label: 'Pillars',
+    options: ()=>[...new Set(ITEMS.map(it=>it.theme).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+};
+
+const SORT_DEFS = {
+  status:  {label:'Status'},
+  quarter: {label:'Quarter'},
+  pillar:  {label:'Pillars'},
+};
+
+function renderChips(){
+  const area = document.getElementById('chipsArea');
+  let html = '';
+  for(const field of Object.keys(filterState)){
+    const def = FILTER_DEFS[field];
+    const val = filterState[field];
+    const optsHtml = def.options().map(o=>`<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`).join('');
+    html += `<div class="filter-chip"><span class="chip-label">${def.label}</span><select class="chip-select" onchange="setFilterValue('${field}',this.value)"><option value="">All</option>${optsHtml}</select><button class="chip-remove" onclick="removeFilterField('${field}')">×</button></div>`;
+  }
+  if(chipSortState){
+    const def = SORT_DEFS[chipSortState.field];
+    const dir = chipSortState.dir==='asc'?'↑':'↓';
+    html += `<div class="filter-chip sort-chip"><span class="chip-label">Sort · ${def.label}</span><button class="chip-dir" onclick="toggleChipSortDir()">${dir}</button><button class="chip-remove" onclick="removeChipSort()">×</button></div>`;
+  }
+  area.innerHTML = html;
+  document.getElementById('filterBtn').classList.toggle('active', Object.keys(filterState).length>0);
+  document.getElementById('sortBtn').classList.toggle('active', !!chipSortState);
+  ['status','quarter','pillar'].forEach(f=>{
+    const fi=document.getElementById('fmi-'+f); if(fi) fi.classList.toggle('on', f in filterState);
+    const si=document.getElementById('smi-'+f); if(si) si.classList.toggle('on', chipSortState?.field===f);
+  });
+  const anyActive = Object.keys(filterState).length>0 || !!chipSortState || (document.getElementById('searchInput').value||'').trim();
+  document.getElementById('resetBtn').style.display = anyActive ? '' : 'none';
+}
+
+function toggleFilterField(field){
+  if(field in filterState) delete filterState[field]; else filterState[field]='';
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeFilterField(field){ delete filterState[field]; renderChips(); applyFilters(); }
+function setFilterValue(field,value){ filterState[field]=value; renderChips(); applyFilters(); }
+
+function setSortField(field){
+  if(chipSortState?.field===field) chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc';
+  else chipSortState={field,dir:'asc'};
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeChipSort(){ chipSortState=null; renderChips(); applyFilters(); }
+function toggleChipSortDir(){ if(chipSortState){chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc'; renderChips(); applyFilters();} }
+
+function toggleMenu(menuId,e){
+  if(e) e.stopPropagation();
+  const menu=document.getElementById(menuId);
+  const isOpen=menu.classList.contains('open');
+  closeAllMenus();
+  if(!isOpen) menu.classList.add('open');
+}
+function closeAllMenus(){
+  document.querySelectorAll('.ctrl-menu').forEach(m=>m.classList.remove('open'));
+}
+
+function chipSortFn(a,b){
+  if(!chipSortState) return 0;
+  const dir = chipSortState.dir==='asc' ? 1 : -1;
+  let av, bv;
+  switch(chipSortState.field){
+    case 'status':  av=STATUS_ORDER[a.status]??99; bv=STATUS_ORDER[b.status]??99; return (av-bv)*dir;
+    case 'quarter': av=a.qLabel||'zzz'; bv=b.qLabel||'zzz'; break;
+    case 'pillar':  av=a.theme||'';     bv=b.theme||'';      break;
+    default: return 0;
+  }
+  if(av<bv) return -dir; if(av>bv) return dir; return 0;
+}
+
+function applyFilters(){
+  const search = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
+  filtered = ITEMS.filter(it=>{
+    if(search && !it.name.toLowerCase().includes(search) && !(it.desc||'').toLowerCase().includes(search)) return false;
+    for(const [field,val] of Object.entries(filterState)){
+      if(!val) continue;
+      if(field==='status'  && it.status!==val) return false;
+      if(field==='quarter' && it.qLabel!==val)  return false;
+      if(field==='pillar'  && it.theme!==val)   return false;
+    }
+    return true;
+  });
+  const cnt = document.getElementById('resultsCount');
+  if(cnt) cnt.textContent = filtered.length + ' of ' + ITEMS.length;
+  renderChips();
+  buildKanban();
+  buildTimeline();
+  buildPillarView();
+  bindCardClicks();
+}
+
+function resetAll(){
+  document.getElementById('searchInput').value='';
+  for(const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState=null;
+  renderChips();
+  applyFilters();
+}
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
-function rice(item) {
-  if (item.r == null) return null;
-  return Math.round((item.r * item.i * item.c) / item.e * 10) / 10;
-}
-function tier(score) {
-  if (score == null) return 'none';
-  if (score >= 60) return 'high';
-  if (score >= 30) return 'mid';
-  return 'low';
-}
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function riceScore(it){ return (it.r&&it.i&&it.c&&it.e) ? Math.round(it.r*it.i*(it.c/100)/it.e) : null; }
+function riceTier(s){ if(s==null) return 'none'; if(s>=60) return 'high'; if(s>=20) return 'mid'; return 'low'; }
+function riceBadge(it){
+  const s=riceScore(it);
+  if(s==null) return '';
+  const cls={high:'rice-high',mid:'rice-mid',low:'rice-low',none:''}[riceTier(s)];
+  return `<span class="rm-rice ${cls}">${s}</span>`;
 }
 
-const Q_META = [
-  {q:1, label:'Q1', title:'Foundation & Quick Wins',    period:'Mar – May 2026',        current:true},
-  {q:2, label:'Q2', title:'Personalisation & Conversion', period:'Jun – Aug 2026',        current:false},
-  {q:3, label:'Q3', title:'Catalogue & Platform',       period:'Sep – Nov 2026',        current:false},
-  {q:4, label:'Q4', title:'Ecosystem & Depth',          period:'Dec 2026 – Feb 2027',   current:false},
-];
-const Q_NAMES = {0:'Backlog', 1:'Q1 — Mar–May 2026', 2:'Q2 — Jun–Aug 2026', 3:'Q3 — Sep–Nov 2026', 4:'Q4 — Dec 2026–Feb 2027'};
-
-// ─── BUILD CARD ───────────────────────────────────────────────────────────────
-function buildCard(item) {
-  const score = rice(item);
-  const t = tier(score);
-  const idx = items.indexOf(item);
-  const badgeClass = {high:'rb-high',mid:'rb-mid',low:'rb-low',none:'rb-none'}[t];
-  const typeClass = item.type === 'Quick Win' ? 'ty-qw' : '';
-  return `<div class="rm-item" data-idx="${idx}" data-theme="${item.theme}">
-    <div class="rm-name">${esc(item.name)}</div>
-    <div class="rm-footer">
-      <div class="rm-pills">
-        <span class="th-pill tp-${item.theme}">${item.themeLabel}</span>
-        <span class="ty-pill ${typeClass}">${esc(item.type)}</span>
-        ${item.ai ? '<span class="ai-dot">✦ AI</span>' : ''}
+// ─── CARD ─────────────────────────────────────────────────────────────────────
+function buildCard(it){
+  const c = tc(it.theme);
+  const F_STATUS = {live:'fs-live',progress:'fs-progress',planned:'fs-planned',review:'fs-review',done:'fs-done'};
+  const stCls = F_STATUS[it.status] || 'fs-planned';
+  const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
+  return `<div class="rm-card" data-id="${it.id}" style="border-left-color:${c.bar}">
+    <div class="rm-card-name">${esc(it.name)}</div>
+    <div class="rm-card-footer">
+      <div class="rm-card-pills">
+        <span class="rm-pill-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${esc(it.theme||'Other')}</span>
+        <span class="rm-pill-status ${stCls}">${stLbl}</span>
       </div>
-      <span class="rice-badge ${badgeClass}">${score != null ? score : '—'}</span>
+      ${riceBadge(it)}
     </div>
   </div>`;
 }
 
 // ─── FY PROGRESS BANNER ───────────────────────────────────────────────────────
-function buildFYBanner(targetId = 'fy-banner') {
-  const now   = new Date();
-  const FY_START = new Date(2026, 2, 1);   // 1 Mar 2026
-  const FY_END   = new Date(2027, 2, 1);   // 1 Mar 2027 (exclusive)
+function buildFYBanner(targetId){
+  const MS_DAY   = 86400000;
+  const fyTotal  = (FY_END - FY_START) / MS_DAY;
+  const fyElapsed= Math.max(0, Math.min(fyTotal, (_now - FY_START) / MS_DAY));
+  const fyPct    = (fyElapsed / fyTotal) * 100;
+  const beforeFY = _now < FY_START;
+  const afterFY  = _now >= FY_END;
 
-  const FY_QUARTERS = [
-    {q:1, label:'Q1', period:'Mar – May 2026',      start:new Date(2026,2,1),  end:new Date(2026,5,1)},
-    {q:2, label:'Q2', period:'Jun – Aug 2026',      start:new Date(2026,5,1),  end:new Date(2026,8,1)},
-    {q:3, label:'Q3', period:'Sep – Nov 2026',      start:new Date(2026,8,1),  end:new Date(2026,11,1)},
-    {q:4, label:'Q4', period:'Dec 2026 – Feb 2027', start:new Date(2026,11,1), end:new Date(2027,2,1)},
-  ];
-
-  const MS_DAY    = 86400000;
-  const fyTotal   = (FY_END - FY_START) / MS_DAY;
-  const fyElapsed = Math.max(0, Math.min(fyTotal, (now - FY_START) / MS_DAY));
-  const fyPct     = (fyElapsed / fyTotal) * 100;
-  const beforeFY  = now < FY_START;
-  const afterFY   = now >= FY_END;
-
-  // Current quarter info
-  const curQ = FY_QUARTERS.find(q => now >= q.start && now < q.end) || null;
-  let qPct = 0, qDaysLeft = 0;
-  if (curQ) {
-    const qTotal   = (curQ.end - curQ.start) / MS_DAY;
-    const qElapsed = (now - curQ.start) / MS_DAY;
-    qPct     = Math.round((qElapsed / qTotal) * 100);
-    qDaysLeft = Math.ceil((curQ.end - now) / MS_DAY);
-  }
-
-  // Formatted date
-  const dateStr = now.toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
-
-  // Segment states: done | now | next
   const segStates = FY_QUARTERS.map(q => {
-    if (now >= q.end)   return 'done';
-    if (now >= q.start) return 'now';
+    if(_now >= q.end)   return 'done';
+    if(_now >= q.start) return 'now';
     return 'next';
   });
 
-  // Build segment backgrounds — current quarter gets a gradient split at qPct
-  const segsHtml = FY_QUARTERS.map((q, i) => {
+  const segsHtml = FY_QUARTERS.map((q,i) => {
     const s = segStates[i];
-    let bg = '';
-    if (s === 'done') bg = 'style="background:var(--green-light)"';
-    else if (s === 'now') bg = `style="background:linear-gradient(90deg,var(--green-light) ${qPct}%,var(--gray-1) ${qPct}%)"`;
-    else bg = 'style="background:var(--gray-1)"';
+    const qTotal  = (q.end - q.start) / MS_DAY;
+    const qElapsed= (_now - q.start) / MS_DAY;
+    const qPct    = Math.min(100, Math.max(0, (qElapsed/qTotal)*100));
+    let bg='';
+    if(s==='done') bg='style="background:var(--brand-light)"';
+    else if(s==='now') bg=`style="background:linear-gradient(90deg,var(--brand-light) ${qPct}%,var(--gray-1) ${qPct}%)"`;
+    else bg='style="background:var(--gray-1)"';
     return `<div class="fyb-seg" ${bg}></div>`;
   }).join('');
 
-  // Dot left% across the whole rail (matches fyPct, clamped 2–97 to stay inside)
-  const dotPct = beforeFY ? 0 : afterFY ? 100 : Math.min(97, Math.max(2, fyPct));
+  let qPct=0, qDaysLeft=0;
+  if(CUR_Q){
+    const qT=(CUR_Q.end-CUR_Q.start)/MS_DAY;
+    const qE=(_now-CUR_Q.start)/MS_DAY;
+    qPct=Math.round((qE/qT)*100);
+    qDaysLeft=Math.ceil((CUR_Q.end-_now)/MS_DAY);
+  }
 
-  // Quarter label rows
-  const qLabelsHtml = FY_QUARTERS.map((q, i) => {
-    const s = segStates[i];
-    const isCur = s === 'now';
+  const dotPct = beforeFY?0:afterFY?100:Math.min(97,Math.max(2,fyPct));
+  const dateStr = _now.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  const qLabelsHtml = FY_QUARTERS.map((q,i)=>{
+    const s=segStates[i];
+    const isCur=s==='now';
     return `<div class="fyb-qlabel">
-      <div class="fyb-ql-name${isCur ? ' ql-active' : ''}">${q.label}${isCur ? '&nbsp;<span style="font-size:9px;font-weight:700;background:var(--green);color:#fff;padding:1px 6px;border-radius:20px">Now</span>' : ''}</div>
+      <div class="fyb-ql-name${isCur?' ql-active':''}">${q.short}${isCur?'&nbsp;<span style="font-size:9px;font-weight:700;background:var(--brand);color:#fff;padding:1px 6px;border-radius:20px">Now</span>':''}</div>
       <div class="fyb-ql-period">${q.period}</div>
-      ${isCur ? `<div class="fyb-ql-pct">${qPct}% complete</div><div class="fyb-ql-days">${qDaysLeft} days remaining</div>` : ''}
-      ${s === 'done' ? '<div class="fyb-ql-pct">Complete ✓</div>' : ''}
+      ${isCur?`<div class="fyb-ql-pct">${qPct}% complete</div><div class="fyb-ql-days">${qDaysLeft} days remaining</div>`:''}
+      ${s==='done'?'<div class="fyb-ql-pct">Complete ✓</div>':''}
     </div>`;
   }).join('');
 
-  document.getElementById(targetId).innerHTML = `
+  const el=document.getElementById(targetId);
+  if(!el) return;
+  el.innerHTML=`
     <div class="fyb-top">
-      <div class="fyb-title">
-        FY 2026/27 Progress
-        <span class="fyb-live-pill"><span class="fyb-live-dot"></span>Live</span>
-      </div>
-      <div class="fyb-meta">
-        <strong>${dateStr}</strong> &nbsp;·&nbsp;
-        ${Math.round(fyPct)}% of financial year elapsed
-        ${curQ ? `&nbsp;·&nbsp; <strong>${curQ.label}</strong> in progress` : ''}
-      </div>
+      <div class="fyb-title">FY ${FY_SY}/${String(CUR_FY).slice(2)} Progress <span class="fyb-live-pill"><span class="fyb-live-dot"></span>Live</span></div>
+      <div class="fyb-meta"><strong>${dateStr}</strong> &nbsp;·&nbsp; ${Math.round(fyPct)}% of financial year elapsed${CUR_Q?` &nbsp;·&nbsp; <strong>${CUR_Q.short}</strong> in progress`:''}</div>
     </div>
-
     <div class="fyb-track-area">
       <div class="fyb-segs">${segsHtml}</div>
       <div class="fyb-rail">
@@ -782,319 +673,338 @@ function buildFYBanner(targetId = 'fy-banner') {
         <div class="fyb-vline"></div>
       </div>
     </div>
-
     <div class="fyb-qlabels">${qLabelsHtml}</div>
   `;
 }
 
-// ─── THEME DEFINITIONS ────────────────────────────────────────────────────────
-const THEMES = [
-  {key:'sub',  label:'Subscription Growth & Retention', color:'var(--purple)'},
-  {key:'pers', label:'Personalisation & Intelligence',  color:'var(--blue)'},
-  {key:'cat',  label:'Catalogue & Merchandising',       color:'var(--amber-mid)'},
-  {key:'site', label:'Site Experience & Growth',        color:'var(--green)'},
-  {key:'eco',  label:'Ecosystem & Services',            color:'var(--teal)'},
-  {key:'proc', label:'Process',                         color:'var(--gray-4)'},
-  {key:'none', label:'Unassigned / Brainstorm',         color:'var(--gray-3)'},
-];
-
-// ─── PROJECT BRIEFS ──────────────────────────────────────────────────────────
-const PROJECT_BRIEFS = {
-  'Enhanced Product Reviews': {
-    summary: 'A two-phase initiative to build purchase trust and increase conversion through improved review visibility, verified purchase signals, and intelligent review surfacing.',
-    features: [
-      'Star ratings on category listing & search pages',
-      'Above-fold review snippet on PDP (most helpful + most recent)',
-      'Post-purchase review request email (RFM-segmented)',
-      'Verified purchase badges — full lifecycle state machine',
-      'Mark as useful — logged-in voting, feeds relevance sort',
-      'Relevance sort + 4 customer filters',
-    ],
-    links: [
-      {label:'Project Brief', sub:'Full spec · 2 phases · 6 features', href:'../projects/reviews-brief.html', icon:'📄', external:false},
-      {label:'Prototype v1',  sub:'PDP with above-fold review snippets', href:'https://bevan-cloud.github.io/petheaven-prototype/#customer-reviews', icon:'🖥️', external:true},
-      {label:'Prototype v2',  sub:'Verified badges, useful voting & filters', href:'https://bevan-cloud.github.io/petheaven-prototype/pdp-v2/', icon:'🖥️', external:true},
-    ],
-  },
-  'Differentiate Schedule & Save from Add to Cart': {
-    summary: 'Redesign the PDP purchase section to visually and functionally distinguish the Subscribe & Save option — surfacing subscription savings, perks, and promotions before the customer commits.',
-    features: [
-      'Dual purchase option cards — S&S (purple) vs once-off (green)',
-      'Dynamic CTA label — "Create Schedule" vs "Add to Cart"',
-      'Always-visible S&S perks — savings %, schedule, skip/change/cancel',
-      'S&S promo banner with copyable code (first order only)',
-      'Dynamic pricing — updates by size across both options',
-    ],
-    links: [
-      {label:'Project Brief', sub:'Problem · features · AC · effort', href:'../projects/sub-cart-split-brief.html', icon:'📄', external:false},
-      {label:'Prototype', sub:'Split purchase cards + S&S promo banner', href:'https://bevan-cloud.github.io/petheaven-prototype/sub-cart-split/', icon:'🖥️', external:true},
-    ],
-  },
-  'Category Landing Page Enhancements': {
-    summary: 'Transform category pages from bare product grids into high-converting, editorially curated surfaces with hero zones, subcategory navigation, brand spotlights, and SEO content.',
-    features: [
-      'Category hero banner — CMS-managed image, headline, CTA',
-      'Subcategory tile navigation strip',
-      'Featured / promoted product row above main grid',
-      'SEO content block (collapsed on mobile)',
-      'Brand spotlight tiles with product counts',
-      'Smart sort defaults + mid-grid promo slots',
-    ],
-    links: [
-      {label:'Project Brief', sub:'Problem · features · AC · effort', href:'../projects/clp-brief.html', icon:'📄', external:false},
-      {label:'Prototype', sub:'Enhanced CLP with hero, tiles & richer cards', href:'https://bevan-cloud.github.io/petheaven-prototype/clp/', icon:'🖥️', external:true},
-    ],
-  },
-};
-// Aliases — roadmap/prioritization short names that map to a project brief
-PROJECT_BRIEFS['S&S PDP'] = PROJECT_BRIEFS['Differentiate Schedule & Save from Add to Cart'];
-
-function buildProjectBriefHtml(name) {
-  const p = PROJECT_BRIEFS[name];
-  if (!p) return '';
-  return `<div class="dp-proj">
-    <div class="dp-proj-label">Project Brief <span class="dp-proj-badge">Active project</span></div>
-    <p class="dp-proj-summary">${esc(p.summary)}</p>
-    <ul class="dp-proj-feats">
-      ${p.features.map(f => `<li class="dp-proj-feat"><span class="dp-proj-feat-dot"></span>${esc(f)}</li>`).join('')}
-    </ul>
-    <div class="dp-proj-links">
-      ${p.links.map(l => `<a class="dp-proj-link" href="${l.href}"${l.external ? ' target="_blank"' : ''}>
-        <span class="dp-proj-link-icon">${l.icon}</span>
-        <span style="flex:1">
-          <span class="dp-proj-link-title">${esc(l.label)}</span>
-          <span class="dp-proj-link-sub">${esc(l.sub)}</span>
-        </span>
-        <svg class="dp-proj-link-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>`).join('')}
-    </div>
-  </div>`;
-}
-
 // ─── VIEW SWITCHING ───────────────────────────────────────────────────────────
-function setView(name, btn) {
-  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
+function setView(name, btn){
+  document.querySelectorAll('.view-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.view-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
   btn.classList.add('active');
-  closePanel();
 }
 
-// ─── BUILD KANBAN ─────────────────────────────────────────────────────────────
-function buildKanban() {
-  document.getElementById('qgrid').innerHTML = Q_META.map(qm => {
-    const qItems = items.filter(x => x.q === qm.q);
-    return `<div class="qcol${qm.current ? ' current' : ''}">
+// ─── KANBAN ───────────────────────────────────────────────────────────────────
+function buildKanban(){
+  const qgrid = document.getElementById('qgrid');
+  qgrid.innerHTML = FY_QUARTERS.map(q=>{
+    const qItems = sortByStatus(filtered.filter(it=>it.qLabel===q.qLabel));
+    const isCur  = CUR_Q && CUR_Q.qLabel===q.qLabel;
+    return `<div class="qcol${isCur?' current':''}">
       <div class="qhdr">
         <div class="qhdr-row1">
-          <span class="q-label">${qm.label}</span>
-          ${qm.current ? '<span class="q-now">Current</span>' : ''}
+          <span class="q-qlabel">${q.qLabel}</span>
+          ${isCur?'<span class="q-now-badge">Current</span>':''}
         </div>
-        <div class="q-title">${qm.title}</div>
-        <div class="q-period">${qm.period}</div>
-        <div class="q-count"><strong>${qItems.length}</strong> initiatives</div>
+        <div class="q-period">${q.period}</div>
+        <div class="q-count"><strong>${qItems.length}</strong> initiative${qItems.length!==1?'s':''}</div>
       </div>
-      <div class="qbody">${qItems.map(buildCard).join('')}</div>
+      <div class="qbody">
+        ${qItems.length ? qItems.map(buildCard).join('') : '<div class="q-empty">Nothing scheduled yet</div>'}
+      </div>
     </div>`;
   }).join('');
-  document.getElementById('backlog-grid').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+
+  const backlog = sortByStatus(filtered.filter(it=>!itemQ(it)));
+  document.getElementById('backlogGrid').innerHTML = backlog.map(buildCard).join('');
 }
 
-// ─── TIMELINE FILTER STATE ────────────────────────────────────────────────────
+// ─── TIMELINE ─────────────────────────────────────────────────────────────────
 let tlFilter = 'all';
 
-function setTlFilter(q, btn) {
-  tlFilter = q;
-  document.querySelectorAll('.tl-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  buildTimeline();
-  closePanel();
+function buildTlFilterBar(){
+  const bar = document.getElementById('tlFilterBar');
+  bar.innerHTML = `<span class="tl-filter-label">Show:</span>
+    <button class="tl-filter-btn active" data-q="all" onclick="setTlFilter('all',this)">All quarters</button>
+    ${FY_QUARTERS.map(q=>`<button class="tl-filter-btn" data-q="${q.n}" onclick="setTlFilter(${q.n},this)">${q.short} · ${q.period}</button>`).join('')}`;
 }
 
-// ─── BUILD TIMELINE ───────────────────────────────────────────────────────────
-function buildTimeline() {
-  // Which quarters to display
-  const activeQs = tlFilter === 'all' ? Q_META : Q_META.filter(qm => qm.q === tlFilter);
-  const gridCols = `150px repeat(${activeQs.length},1fr)`;
+function setTlFilter(q, btn){
+  tlFilter=q;
+  document.querySelectorAll('.tl-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildTimeline();
+}
 
-  // Header
-  const hdrEl = document.getElementById('tl-hdr');
-  hdrEl.style.gridTemplateColumns = gridCols;
-  hdrEl.innerHTML =
-    `<div class="tl-hdr-empty"></div>` +
-    activeQs.map(qm => `
-      <div class="tl-hdr-q${qm.current ? ' tl-cur' : ''}">
-        <div class="tl-ql">${qm.label} · ${qm.title}</div>
-        <div class="tl-qp">${qm.period}</div>
-        ${qm.current ? '<div class="tl-qnow">Current quarter</div>' : ''}
-      </div>`).join('');
+function buildTimeline(){
+  const activeQs = tlFilter==='all' ? FY_QUARTERS : FY_QUARTERS.filter(q=>q.n===tlFilter);
+  const gridCols = `160px repeat(${activeQs.length},1fr)`;
 
-  // Body — one row per theme, only items in the active quarter(s)
-  const scheduled = tlFilter === 'all'
-    ? items.filter(x => x.q > 0)
-    : items.filter(x => x.q === tlFilter);
+  const hdr = document.getElementById('tlHdr');
+  hdr.style.gridTemplateColumns = gridCols;
+  hdr.innerHTML = `<div class="tl-hdr-empty"></div>` +
+    activeQs.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      return `<div class="tl-hdr-q${isCur?' tl-cur':''}">
+        <div class="tl-ql">${q.short}</div>
+        <div class="tl-qp">${q.period}</div>
+        ${isCur?'<div class="tl-qnow">Current quarter</div>':''}
+      </div>`;
+    }).join('');
 
-  document.getElementById('tl-body').innerHTML = THEMES.map(th => {
-    const themeItems = scheduled.filter(x => x.theme === th.key);
-    if (!themeItems.length) return '';
-    const cells = activeQs.map(qm => {
-      const cell = themeItems.filter(x => x.q === qm.q);
-      const bars = cell.map(item => {
-        const score = rice(item);
-        const idx = items.indexOf(item);
-        return `<div class="tl-bar" data-idx="${idx}" style="background:${th.color}">
-          <div class="tl-bar-name">${esc(item.name)}</div>
+  const scheduled = tlFilter==='all'
+    ? filtered.filter(it=>itemQ(it))
+    : filtered.filter(it=>it.qLabel===FY_QUARTERS.find(q=>q.n===tlFilter)?.qLabel);
+
+  const body = document.getElementById('tlBody');
+  body.innerHTML = PILLARS.map(pillar=>{
+    const pillarItems = scheduled.filter(it=>it.theme===pillar);
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const cells = activeQs.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      const cell = sortByStatus(pillarItems.filter(it=>it.qLabel===q.qLabel));
+      const bars = cell.map(it=>{
+        const s=riceScore(it);
+        const stLabel={done:'Done',live:'Live',review:'In Review',progress:'In Progress',planned:'Planned'}[it.status]||'Planned';
+        return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
+          <div class="tl-bar-name">${esc(it.name)}</div>
           <div class="tl-bar-foot">
-            ${item.type === 'Quick Win' ? '<span class="tl-bar-type">Quick Win</span>' : ''}
-            ${item.ai ? '<span class="tl-bar-ai">✦ AI</span>' : ''}
-            ${score != null ? `<span class="tl-bar-rice">${score}</span>` : ''}
+            <span class="tl-bar-tag">${stLabel}</span>
+            ${s!=null?`<span class="tl-bar-rice">${s}</span>`:''}
           </div>
         </div>`;
       }).join('');
-      return `<div class="tl-cell${qm.current ? ' tl-cur-col' : ''}">${bars}</div>`;
+      return `<div class="tl-cell${isCur?' tl-cur-col':''}">${bars}</div>`;
     }).join('');
     return `<div class="tl-row" style="grid-template-columns:${gridCols}">
       <div class="tl-th">
         <div class="tl-th-inner">
-          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${th.color}"></div>
-          <div class="tl-th-name">${th.label}</div>
-          <div class="tl-th-count">${themeItems.length} item${themeItems.length > 1 ? 's' : ''}</div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:${c.bar}"></div>
+          <div class="tl-th-name">${esc(pillar)}</div>
+          <div class="tl-th-count">${pillarItems.length} item${pillarItems.length>1?'s':''}</div>
         </div>
       </div>
       ${cells}
     </div>`;
-  }).join('');
+  }).filter(Boolean).join('');
 
-  // Backlog — only show on "All quarters" view
-  const backlogWrap = document.getElementById('tl-backlog-wrap');
-  if (backlogWrap) backlogWrap.style.display = tlFilter === 'all' ? '' : 'none';
-  document.getElementById('tl-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+  const backlogWrap = document.getElementById('tlBacklogWrap');
+  if(backlogWrap) backlogWrap.style.display = tlFilter==='all'?'':'none';
+  document.getElementById('tlBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
 
-  // Re-bind click handlers for newly rendered bars
-  document.querySelectorAll('#tl-body .tl-bar').forEach(el => {
-    el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
+  // Bind timeline bar clicks
+  document.querySelectorAll('#tlBody .tl-bar').forEach(el=>{
+    el.addEventListener('click',()=>openFlyout(parseInt(el.dataset.id)));
   });
 }
 
-// ─── BUILD THEME VIEW ─────────────────────────────────────────────────────────
-function buildThemeView() {
-  const scheduled = items.filter(x => x.q > 0);
-  document.getElementById('theme-sections').innerHTML = THEMES.map(th => {
-    const themeItems = scheduled.filter(x => x.theme === th.key);
-    if (!themeItems.length) return '';
-    const cols = Q_META.map(qm => {
-      const cell = themeItems.filter(x => x.q === qm.q);
-      return `<div class="theme-qcol">
-        <div class="theme-qcol-hdr">
-          ${qm.label}${qm.current ? ' <span class="theme-qcol-now">Now</span>' : ''}
-        </div>
-        <div class="theme-items">
-          ${cell.length
-            ? cell.map(buildCard).join('')
-            : '<div class="theme-empty">—</div>'}
+// ─── BY PILLAR VIEW ───────────────────────────────────────────────────────────
+function buildPillarView(){
+  const scheduled = filtered.filter(it=>itemQ(it));
+  document.getElementById('pillarSections').innerHTML = PILLARS.map(pillar=>{
+    const pillarItems = scheduled.filter(it=>it.theme===pillar);
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const cols = FY_QUARTERS.map(q=>{
+      const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
+      const cell  = sortByStatus(pillarItems.filter(it=>it.qLabel===q.qLabel));
+      return `<div class="pillar-qcol">
+        <div class="pillar-qcol-hdr">${q.short}${isCur?'<span class="pillar-qcol-now">Now</span>':''}</div>
+        <div class="pillar-items">
+          ${cell.length ? cell.map(buildCard).join('') : '<div class="pillar-empty">—</div>'}
         </div>
       </div>`;
     }).join('');
-    return `<div class="theme-section" id="theme-sec-${th.key}">
-      <div class="theme-sec-hdr" onclick="toggleTheme('${th.key}')">
-        <div class="theme-sec-bar" style="background:${th.color}"></div>
-        <div class="theme-sec-name">${th.label}</div>
-        <div class="theme-sec-count">${themeItems.length} initiative${themeItems.length > 1 ? 's' : ''} this FY</div>
-        <svg class="theme-sec-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    const pid = 'ps-'+pillar.replace(/[^a-z]/gi,'');
+    return `<div class="pillar-sec" id="${pid}">
+      <div class="pillar-sec-hdr" onclick="togglePillar('${pid}')">
+        <div class="pillar-sec-bar" style="background:${c.bar}"></div>
+        <div class="pillar-sec-name">${esc(pillar)}</div>
+        <div class="pillar-sec-count">${pillarItems.length} initiative${pillarItems.length>1?'s':''} this FY</div>
+        <svg class="pillar-sec-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="theme-sec-body">${cols}</div>
+      <div class="pillar-sec-body">${cols}</div>
     </div>`;
-  }).join('');
+  }).filter(Boolean).join('');
 
-  document.getElementById('theme-backlog').innerHTML = items.filter(x => x.q === 0).map(buildCard).join('');
+  document.getElementById('pillarBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
 }
 
-// ─── ACCORDION (theme view) ───────────────────────────────────────────────────
-function toggleTheme(key) {
-  const all = document.querySelectorAll('.theme-section');
-  const target = document.getElementById('theme-sec-' + key);
+function togglePillar(id){
+  const target = document.getElementById(id);
   const isOpen = target.classList.contains('open');
-  all.forEach(s => s.classList.remove('open'));
-  if (!isOpen) target.classList.add('open');
-  closePanel();
+  document.querySelectorAll('.pillar-sec').forEach(s=>s.classList.remove('open'));
+  if(!isOpen) target.classList.add('open');
 }
 
-// ─── BUILD PAGE ───────────────────────────────────────────────────────────────
-function buildPage() {
-  buildFYBanner('fy-banner');
-  buildFYBanner('fy-banner-tl');
-  buildFYBanner('fy-banner-theme');
-  buildKanban();
-  buildTimeline();
-  buildThemeView();
-  // Open first theme section by default
-  const first = document.querySelector('.theme-section');
-  if (first) first.classList.add('open');
-  bindClicks();
+// ─── HERO STATS ───────────────────────────────────────────────────────────────
+function buildHeroStats(){
+  const scheduled = ITEMS.filter(it=>itemQ(it));
+  const pillarsUsed = new Set(scheduled.map(it=>it.theme)).size;
+  document.getElementById('heroStats').innerHTML =
+    `<div><div class="hero-stat-val">${scheduled.length}</div><div class="hero-stat-label">Scheduled</div></div>
+     <div><div class="hero-stat-val">${FY_QUARTERS.length}</div><div class="hero-stat-label">Quarters</div></div>
+     <div><div class="hero-stat-val">${pillarsUsed}</div><div class="hero-stat-label">Pillars</div></div>
+     <div><div class="hero-stat-val">${ITEMS.filter(it=>!itemQ(it)).length}</div><div class="hero-stat-label">Backlog</div></div>`;
+  document.getElementById('heroBadge').textContent =
+    `🧪 Bevan Staging · FY${FY_SY}/${String(CUR_FY).slice(2)} · Product Roadmap`;
+  document.getElementById('fyFooter').textContent =
+    `FY${FY_SY}/${String(CUR_FY).slice(2)}`;
 }
 
-function bindClicks() {
-  // Kanban + theme cards only — timeline bars are bound inside buildTimeline()
-  document.querySelectorAll('.rm-item').forEach(el => {
-    el.addEventListener('click', () => openPanel(items[parseInt(el.dataset.idx)], el));
+// ─── BIND CARD CLICKS ─────────────────────────────────────────────────────────
+function bindCardClicks(){
+  document.querySelectorAll('.rm-card').forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      openFlyout(parseInt(el.dataset.id));
+    });
   });
 }
 
-// ─── DETAIL PANEL ─────────────────────────────────────────────────────────────
-let activeEl = null;
-
-function openPanel(item, el) {
-  if (activeEl) activeEl.classList.remove('active');
-  activeEl = el;
-  el.classList.add('active');
-
-  const score = rice(item);
-  const t = tier(score);
-  const barColor = {high:'var(--green)',mid:'var(--amber-mid)',low:'var(--gray-3)',none:'var(--gray-3)'}[t];
-  const barPct = score != null ? Math.min(100, Math.round(score / 120 * 100)) : 0;
-  const typeClass = item.type === 'Quick Win' ? 'ty-qw' : '';
-
-  document.getElementById('dp-pills').innerHTML =
-    `<span class="th-pill tp-${item.theme}" style="font-size:10px">${item.themeLabel}</span>
-     <span class="ty-pill ${typeClass}" style="font-size:10px">${esc(item.type)}</span>
-     ${item.ai ? '<span class="ai-dot">✦ AI</span>' : ''}`;
-
-  document.getElementById('dp-name').textContent = item.name;
-
-  const riceHtml = score != null
-    ? `<div class="dp-sec-label">RICE Score Breakdown</div>
-       <div class="rice-cells">
-         <div class="rcell"><div class="rcell-letter" style="color:var(--blue)">R</div><div class="rcell-val">${item.r}</div><div class="rcell-lbl">Reach</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--green)">I</div><div class="rcell-val">${item.i}</div><div class="rcell-lbl">Impact</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--purple)">C</div><div class="rcell-val">${item.c}</div><div class="rcell-lbl">Confidence</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--red)">E</div><div class="rcell-val">${item.e}</div><div class="rcell-lbl">Effort</div></div>
-       </div>
-       <div class="rice-result-box">
-         <span class="rice-formula-txt">(${item.r} × ${item.i} × ${item.c}) ÷ ${item.e}</span>
-         <span class="rice-score-big">${score}</span>
-       </div>
-       <div class="rice-bar-track"><div class="rice-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>`
-    : `<div class="no-score">No RICE score yet — insufficient data to estimate R, I, C, and E for this initiative. Scores can be added as the concept is developed.</div>`;
-
-  document.getElementById('dp-body').innerHTML =
-    `${item.desc ? `<p class="dp-desc">${esc(item.desc)}</p>` : ''}
-     ${buildProjectBriefHtml(item.name)}
-     <div class="dp-qblock"><p class="dp-qlabel">Quarter: <strong>${Q_NAMES[item.q]}</strong></p></div>
-     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)">${riceHtml}</div>`;
-
-  document.getElementById('dp-overlay').classList.add('open');
-  document.getElementById('dp-panel').classList.add('open');
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function buildPage(){
+  filtered = [...ITEMS];
+  buildHeroStats();
+  buildFYBanner('fyBanner');
+  buildFYBanner('fyBannerTl');
+  buildFYBanner('fyBannerPillar');
+  buildTlFilterBar();
+  applyFilters(); // renders chips + builds all views + binds clicks + sets count
+  // Open first pillar section by default
+  const first = document.querySelector('.pillar-sec');
+  if(first) first.classList.add('open');
 }
 
-function closePanel() {
-  if (activeEl) { activeEl.classList.remove('active'); activeEl = null; }
-  document.getElementById('dp-overlay').classList.remove('open');
-  document.getElementById('dp-panel').classList.remove('open');
+// ─── Company Switcher ─────────────────────────────────────────────────────────
+function toggleSwitcher(){
+  const trigger=document.getElementById('csTrigger');
+  const menu=document.getElementById('csMenu');
+  const isOpen=menu.classList.contains('open');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded',!isOpen);
 }
+document.addEventListener('click',function(e){
+  const sw=document.getElementById('companySwitcher');
+  if(sw&&!sw.contains(e.target)){
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
+  }
+  // Close filter/sort menus when clicking outside
+  const fd=document.getElementById('filterDropdown');
+  const sd=document.getElementById('sortDropdown');
+  if(fd&&!fd.contains(e.target)) document.getElementById('filterMenu')?.classList.remove('open');
+  if(sd&&!sd.contains(e.target)) document.getElementById('sortMenu')?.classList.remove('open');
+});
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-buildPage();
+window.addEventListener('load', buildPage);
 </script>
+
+<div class="overlay" id="overlay" onclick="closeFlyout()"></div>
+<div class="flyout" id="flyout">
+  <div class="flyout-close-row">
+    <button class="flyout-close" onclick="closeFlyout()">×</button>
+  </div>
+  <div class="flyout-body" id="flyoutBody"></div>
+</div>
+<script>
+// ─── Flyout ───────────────────────────────────────────────────────────────────
+const F_STATUS = {
+  live:    {cls:'fs-live',    label:'Live'},
+  progress:{cls:'fs-progress',label:'In Progress'},
+  planned: {cls:'fs-planned', label:'Planned'},
+  review:  {cls:'fs-review',  label:'In Review'},
+  done:    {cls:'fs-done',    label:'Done'},
+};
+const F_ACCENT = {
+  'Top Line Growth':'#2e7d32','Margin Improvements':'#c62828',
+  'Cost Control & Cash Flow':'#4527a0','People':'#b71c1c',
+  'Internal Working Improvement':'#1a5fa8','UX/UI':'#3730a3',
+};
+function fEsc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fRice(it){return(it.r&&it.i&&it.c&&it.e)?Math.round(it.r*it.i*(it.c/100)/it.e):0;}
+function fStatus(s){const m=F_STATUS[s]||F_STATUS.planned;return`<span class="${m.cls}">${m.label}</span>`;}
+function fTheme(t){const c=THEME_COLORS[t]||THEME_COLORS['Other'];return`<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t||'—'}</span>`;}
+function fQuadrant(mi,me){
+  if(!mi||!me) return null;
+  const hi=mi>=3,he=me>=3;
+  if(hi&&!he) return {label:'Quick Win',color:'#1b5e20',bg:'#e8f5e9',border:'#a8d4aa'};
+  if(hi&&he)  return {label:'Big Bet',  color:'#b84714',bg:'#fdf1ec',border:'#f0b89a'};
+  if(!hi&&!he)return {label:'Fill In',  color:'#1a5fa8',bg:'#e8f1fc',border:'#90bef5'};
+  return              {label:'Time Sink',color:'#7a5a00',bg:'#fff8e1',border:'#f5d48b'};
+}
+function openFlyout(itemId){
+  const p=ITEMS.find(it=>it.id===itemId);
+  if(!p) return;
+  const qd=fQuadrant(p.mi,p.me);
+  const hasRice=p.r||p.i||p.c||(p.e&&p.e>1);
+  const rice=fRice(p);
+  const accent=F_ACCENT[p.theme]||'#4f46e5';
+  const sm=F_STATUS[p.status]||F_STATUS.planned;
+  const tagHtml=(p.company||[]).map(c=>`<span class="flyout-tag">${fEsc(c)}</span>`).join('');
+  const qdHtml=qd
+    ?`<span class="f-quadrant" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
+    :`<span class="flyout-prop-val-muted">No matrix data</span>`;
+  const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
+  document.getElementById('flyoutBody').innerHTML=`
+    <div style="height:4px;border-radius:2px;background:${accent};margin-bottom:20px"></div>
+    ${tagHtml?`<div class="flyout-tags">${tagHtml}</div>`:''}
+    <div class="flyout-title">${fEsc(p.name)}</div>
+    ${p.desc?`<p class="flyout-subtitle">${fEsc(p.desc)}</p>`:''}
+    <div class="flyout-props">
+      ${window._nw
+        ? window._nw.buildFlyoutProp('status', p.status, p.notionId, 'Status')
+        : `<div><div class="flyout-prop-lbl">Status</div><div>${fStatus(p.status)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutProp('theme', p.theme, p.notionId, 'Pillar')
+        : `<div><div class="flyout-prop-lbl">Pillar</div><div>${fTheme(p.theme)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutProp('qLabel', p.qLabel, p.notionId, 'Quarter')
+        : `<div><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${fEsc(p.qLabel||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutProp('priority', p.priority, p.notionId, 'Priority')
+        : `<div><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${fEsc(p.priority||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutProp('lead', p.lead||'', p.notionId, 'Project Lead')
+        : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
+      <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
+    </div>
+    ${_brief ? _brief : `<div class="flyout-section">
+      <div class="flyout-section-hdr">
+        <span class="flyout-section-title">Project Brief</span>
+        <span class="${sm.cls}">${sm.label}</span>
+      </div>
+      ${p.desc?`<p class="flyout-desc">${fEsc(p.desc)}</p>`:'<p class="flyout-desc-empty">No description added in Notion yet.</p>'}
+    </div>`}
+    <div class="flyout-section">
+      <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score</span></div>
+      ${hasRice?`
+        <div class="f-rice-row">
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${window._nw?window._nw.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="f-rice-lbl">R</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-i">${window._nw?window._nw.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="f-rice-lbl">I</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-c">${window._nw?window._nw.buildRiceEditSpan('c',p.c||0,p.notionId):(p.c||0)}</div><div class="f-rice-lbl">C</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-e">${window._nw?window._nw.buildRiceEditSpan('e',p.e||1,p.notionId):(p.e||1)}</div><div class="f-rice-lbl">E</div></div>
+        </div>
+        <div class="f-rice-total">
+          <div><div class="f-rice-score-lbl">RICE Score</div><div class="f-rice-score">${rice.toLocaleString()}</div></div>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>`
+        :'<p class="flyout-desc-empty">RICE fields not yet filled in Notion.</p>'}
+    </div>
+    ${p.notionUrl?`
+    <a class="flyout-notion-link" href="${p.notionUrl}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M5 5.5h6M5 10.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Open in Notion
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:auto"><path d="M2.5 9.5l7-7M9.5 9.5V2.5H2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>`:''}
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('flyout').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeFlyout(){
+  document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('flyout').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
+</script>
+<script src="../project-briefs.js?v=1776242675000"></script>
+<script src="../sync.js?v=1776242675000"></script>
+<script src="../notion-write.js?v=1776243415000"></script>
 </body>
 </html>

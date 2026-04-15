@@ -215,21 +215,37 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .f-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .f-type-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 .f-ai-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#5b21b6}
-/* ── STATUS FILTER BAR ── */
-.rm-controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.rm-ctrl-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);flex-shrink:0;margin-right:2px}
-.rm-ctrl-chips{display:flex;gap:5px;flex-wrap:wrap;flex:1}
-.rm-sf-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 13px;border-radius:20px;border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:all .15s;white-space:nowrap}
-.rm-sf-btn:hover{border-color:var(--gray-3);color:var(--black)}
-.rm-sf-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
-.rm-sf-btn.sf-done.active{background:#5a5a54;border-color:#5a5a54}
-.rm-sf-btn.sf-live.active{background:#1b5e20;border-color:#1b5e20}
-.rm-sf-btn.sf-review.active{background:#6a1b9a;border-color:#6a1b9a}
-.rm-sf-btn.sf-progress.active{background:#7a5a00;border-color:#7a5a00}
-.rm-sf-btn.sf-planned.active{background:var(--brand-dark);border-color:var(--brand-dark)}
-.rm-ctrl-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0;margin-left:auto}
-.rm-ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:4px 10px;border-radius:20px;transition:background .15s;white-space:nowrap}
-.rm-ctrl-reset:hover{background:var(--brand-light)}
+/* ── CONTROLS BAR ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{-webkit-appearance:none;appearance:none;border:none;outline:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 26px 0 10px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 @media(max-width:1000px){.qgrid{grid-template-columns:1fr 1fr}.pillar-sec-body{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.qgrid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
@@ -286,19 +302,39 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     </div>
   </div>
 
-  <!-- STATUS FILTER BAR -->
-  <div class="rm-controls">
-    <span class="rm-ctrl-label">Status</span>
-    <div class="rm-ctrl-chips">
-      <button class="rm-sf-btn sf-all active" data-status="all"   onclick="setStatusFilter('all',this)">All</button>
-      <button class="rm-sf-btn sf-done"       data-status="done"     onclick="setStatusFilter('done',this)">Done</button>
-      <button class="rm-sf-btn sf-live"       data-status="live"     onclick="setStatusFilter('live',this)">Live</button>
-      <button class="rm-sf-btn sf-review"     data-status="review"   onclick="setStatusFilter('review',this)">In Review</button>
-      <button class="rm-sf-btn sf-progress"   data-status="progress" onclick="setStatusFilter('progress',this)">In Progress</button>
-      <button class="rm-sf-btn sf-planned"    data-status="planned"  onclick="setStatusFilter('planned',this)">Planned</button>
+  <!-- CONTROLS BAR -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 9.5l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search initiatives…" oninput="applyFilters()">
     </div>
-    <span class="rm-ctrl-count" id="rmCount"></span>
-    <button class="rm-ctrl-reset" id="rmReset" onclick="resetFilters()" style="display:none">Reset</button>
+    <div class="chips-area" id="chipsArea"></div>
+    <div class="ctrl-right">
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 3h10M3 6h6M5 9h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Filter
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status" onclick="toggleFilterField('status')">Status<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter" onclick="toggleFilterField('quarter')">Quarter<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar" onclick="toggleFilterField('pillar')">Pillars<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 2.5h10M2.5 5.5h7M4 8.5h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Sort
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status" onclick="setSortField('status')">Status<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter" onclick="setSortField('quarter')">Quarter<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar" onclick="setSortField('pillar')">Pillars<svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
   </div>
 
   <!-- KANBAN VIEW -->
@@ -390,6 +426,10 @@ const PILLARS = Object.keys(THEME_COLORS);
 // Done → Live → In Review → In Progress → Planned
 const STATUS_ORDER = {done:0, live:1, review:2, progress:3, planned:4};
 function sortByStatus(arr){
+  // If a chip sort is active, use that; otherwise default to status order
+  if(typeof chipSortState !== 'undefined' && chipSortState){
+    return [...arr].sort(chipSortFn);
+  }
   return [...arr].sort((a,b)=>{
     const oa = STATUS_ORDER[a.status] ?? 99;
     const ob = STATUS_ORDER[b.status] ?? 99;
@@ -397,34 +437,140 @@ function sortByStatus(arr){
   });
 }
 
-// ─── FILTER STATE ─────────────────────────────────────────────────────────────
-let statusFilter = 'all';
+// ─── CHIP FILTER/SORT STATE ───────────────────────────────────────────────────
+// Default to the current FY quarter (or first upcoming quarter that has items)
+const filterState = (function(){
+  const d=new Date(), m=d.getMonth()+1, y=d.getFullYear();
+  const fy = m>=3 ? y+1 : y;
+  const q  = m>=3&&m<=5 ? 1 : m>=6&&m<=8 ? 2 : m>=9&&m<=11 ? 3 : 4;
+  for(let i=0;i<8;i++){
+    let tq=q+i, tfy=fy; while(tq>4){tq-=4;tfy++;}
+    const l=`Q${tq} FY${String(tfy).slice(2)}`;
+    if(ITEMS.some(it=>it.qLabel===l)) return {quarter:l};
+  }
+  return {};
+})();
+let chipSortState = null;
 let filtered = [];
 
-function setStatusFilter(status, btn){
-  statusFilter = status;
-  document.querySelectorAll('.rm-sf-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('rmReset').style.display = status==='all'?'none':'';
-  applyFilters();
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: ()=>[
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
+  },
+  quarter: {
+    label: 'Quarter',
+    options: ()=>[...new Set(ITEMS.map(it=>it.qLabel).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+  pillar: {
+    label: 'Pillars',
+    options: ()=>[...new Set(ITEMS.map(it=>it.theme).filter(Boolean))].sort().map(v=>({value:v,label:v}))
+  },
+};
+
+const SORT_DEFS = {
+  status:  {label:'Status'},
+  quarter: {label:'Quarter'},
+  pillar:  {label:'Pillars'},
+};
+
+function renderChips(){
+  const area = document.getElementById('chipsArea');
+  let html = '';
+  for(const field of Object.keys(filterState)){
+    const def = FILTER_DEFS[field];
+    const val = filterState[field];
+    const optsHtml = def.options().map(o=>`<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`).join('');
+    html += `<div class="filter-chip"><span class="chip-label">${def.label}</span><select class="chip-select" onchange="setFilterValue('${field}',this.value)"><option value="">All</option>${optsHtml}</select><button class="chip-remove" onclick="removeFilterField('${field}')">×</button></div>`;
+  }
+  if(chipSortState){
+    const def = SORT_DEFS[chipSortState.field];
+    const dir = chipSortState.dir==='asc'?'↑':'↓';
+    html += `<div class="filter-chip sort-chip"><span class="chip-label">Sort · ${def.label}</span><button class="chip-dir" onclick="toggleChipSortDir()">${dir}</button><button class="chip-remove" onclick="removeChipSort()">×</button></div>`;
+  }
+  area.innerHTML = html;
+  document.getElementById('filterBtn').classList.toggle('active', Object.keys(filterState).length>0);
+  document.getElementById('sortBtn').classList.toggle('active', !!chipSortState);
+  ['status','quarter','pillar'].forEach(f=>{
+    const fi=document.getElementById('fmi-'+f); if(fi) fi.classList.toggle('on', f in filterState);
+    const si=document.getElementById('smi-'+f); if(si) si.classList.toggle('on', chipSortState?.field===f);
+  });
+  const anyActive = Object.keys(filterState).length>0 || !!chipSortState || (document.getElementById('searchInput').value||'').trim();
+  document.getElementById('resetBtn').style.display = anyActive ? '' : 'none';
 }
 
-function resetFilters(){
-  statusFilter = 'all';
-  document.querySelectorAll('.rm-sf-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelector('.rm-sf-btn.sf-all').classList.add('active');
-  document.getElementById('rmReset').style.display = 'none';
-  applyFilters();
+function toggleFilterField(field){
+  if(field in filterState) delete filterState[field]; else filterState[field]='';
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeFilterField(field){ delete filterState[field]; renderChips(); applyFilters(); }
+function setFilterValue(field,value){ filterState[field]=value; renderChips(); applyFilters(); }
+
+function setSortField(field){
+  if(chipSortState?.field===field) chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc';
+  else chipSortState={field,dir:'asc'};
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeChipSort(){ chipSortState=null; renderChips(); applyFilters(); }
+function toggleChipSortDir(){ if(chipSortState){chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc'; renderChips(); applyFilters();} }
+
+function toggleMenu(menuId,e){
+  if(e) e.stopPropagation();
+  const menu=document.getElementById(menuId);
+  const isOpen=menu.classList.contains('open');
+  closeAllMenus();
+  if(!isOpen) menu.classList.add('open');
+}
+function closeAllMenus(){
+  document.querySelectorAll('.ctrl-menu').forEach(m=>m.classList.remove('open'));
+}
+
+function chipSortFn(a,b){
+  if(!chipSortState) return 0;
+  const dir = chipSortState.dir==='asc' ? 1 : -1;
+  let av, bv;
+  switch(chipSortState.field){
+    case 'status':  av=STATUS_ORDER[a.status]??99; bv=STATUS_ORDER[b.status]??99; return (av-bv)*dir;
+    case 'quarter': av=a.qLabel||'zzz'; bv=b.qLabel||'zzz'; break;
+    case 'pillar':  av=a.theme||'';     bv=b.theme||'';      break;
+    default: return 0;
+  }
+  if(av<bv) return -dir; if(av>bv) return dir; return 0;
 }
 
 function applyFilters(){
-  filtered = statusFilter==='all' ? [...ITEMS] : ITEMS.filter(it=>it.status===statusFilter);
-  const cnt = document.getElementById('rmCount');
-  if(cnt) cnt.textContent = filtered.length + ' of ' + ITEMS.length + ' initiatives';
+  const search = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
+  filtered = ITEMS.filter(it=>{
+    if(search && !it.name.toLowerCase().includes(search) && !(it.desc||'').toLowerCase().includes(search)) return false;
+    for(const [field,val] of Object.entries(filterState)){
+      if(!val) continue;
+      if(field==='status'  && it.status!==val) return false;
+      if(field==='quarter' && it.qLabel!==val)  return false;
+      if(field==='pillar'  && it.theme!==val)   return false;
+    }
+    return true;
+  });
+  const cnt = document.getElementById('resultsCount');
+  if(cnt) cnt.textContent = filtered.length + ' of ' + ITEMS.length;
+  renderChips();
   buildKanban();
   buildTimeline();
   buildPillarView();
   bindCardClicks();
+}
+
+function resetAll(){
+  document.getElementById('searchInput').value='';
+  for(const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState=null;
+  renderChips();
+  applyFilters();
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -711,13 +857,13 @@ function bindCardClicks(){
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 function buildPage(){
-  filtered = [...ITEMS]; // initialise before any build
+  filtered = [...ITEMS];
   buildHeroStats();
   buildFYBanner('fyBanner');
   buildFYBanner('fyBannerTl');
   buildFYBanner('fyBannerPillar');
   buildTlFilterBar();
-  applyFilters(); // builds kanban + timeline + pillar + binds clicks + sets count
+  applyFilters(); // renders chips + builds all views + binds clicks + sets count
   // Open first pillar section by default
   const first = document.querySelector('.pillar-sec');
   if(first) first.classList.add('open');
@@ -737,6 +883,11 @@ document.addEventListener('click',function(e){
     document.getElementById('csMenu').classList.remove('open');
     document.getElementById('csTrigger').setAttribute('aria-expanded','false');
   }
+  // Close filter/sort menus when clicking outside
+  const fd=document.getElementById('filterDropdown');
+  const sd=document.getElementById('sortDropdown');
+  if(fd&&!fd.contains(e.target)) document.getElementById('filterMenu')?.classList.remove('open');
+  if(sd&&!sd.contains(e.target)) document.getElementById('sortMenu')?.classList.remove('open');
 });
 
 window.addEventListener('load', buildPage);
