@@ -695,7 +695,7 @@ function buildKanban(){
     </div>`;
   }).join('');
 
-  const backlog = sortByStatus(filtered.filter(it=>!itemQ(it)));
+  const backlog = sortByStatus(filtered.filter(it=>!itemQ(it) && it.status!=='done'));
   document.getElementById('backlogGrid').innerHTML = backlog.map(buildCard).join('');
 }
 
@@ -771,7 +771,7 @@ function buildTimeline(){
 
   const backlogWrap = document.getElementById('tlBacklogWrap');
   if(backlogWrap) backlogWrap.style.display = tlFilter==='all'?'':'none';
-  document.getElementById('tlBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
+  document.getElementById('tlBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it) && it.status!=='done')).map(buildCard).join('');
 
   // Bind timeline bar clicks
   document.querySelectorAll('#tlBody .tl-bar').forEach(el=>{
@@ -808,7 +808,7 @@ function buildPillarView(){
     </div>`;
   }).filter(Boolean).join('');
 
-  document.getElementById('pillarBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
+  document.getElementById('pillarBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it) && it.status!=='done')).map(buildCard).join('');
 }
 
 function togglePillar(id){
