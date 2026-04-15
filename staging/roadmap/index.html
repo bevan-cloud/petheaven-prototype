@@ -215,6 +215,21 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .f-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .f-type-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 .f-ai-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#5b21b6}
+/* ── STATUS FILTER BAR ── */
+.rm-controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rm-ctrl-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);flex-shrink:0;margin-right:2px}
+.rm-ctrl-chips{display:flex;gap:5px;flex-wrap:wrap;flex:1}
+.rm-sf-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 13px;border-radius:20px;border:1px solid var(--gray-2);background:#fff;color:var(--gray-5);cursor:pointer;transition:all .15s;white-space:nowrap}
+.rm-sf-btn:hover{border-color:var(--gray-3);color:var(--black)}
+.rm-sf-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+.rm-sf-btn.sf-done.active{background:#5a5a54;border-color:#5a5a54}
+.rm-sf-btn.sf-live.active{background:#1b5e20;border-color:#1b5e20}
+.rm-sf-btn.sf-review.active{background:#6a1b9a;border-color:#6a1b9a}
+.rm-sf-btn.sf-progress.active{background:#7a5a00;border-color:#7a5a00}
+.rm-sf-btn.sf-planned.active{background:var(--brand-dark);border-color:var(--brand-dark)}
+.rm-ctrl-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0;margin-left:auto}
+.rm-ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:4px 10px;border-radius:20px;transition:background .15s;white-space:nowrap}
+.rm-ctrl-reset:hover{background:var(--brand-light)}
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 @media(max-width:1000px){.qgrid{grid-template-columns:1fr 1fr}.pillar-sec-body{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.qgrid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
@@ -269,6 +284,21 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         By Pillar
       </button>
     </div>
+  </div>
+
+  <!-- STATUS FILTER BAR -->
+  <div class="rm-controls">
+    <span class="rm-ctrl-label">Status</span>
+    <div class="rm-ctrl-chips">
+      <button class="rm-sf-btn sf-all active" data-status="all"   onclick="setStatusFilter('all',this)">All</button>
+      <button class="rm-sf-btn sf-done"       data-status="done"     onclick="setStatusFilter('done',this)">Done</button>
+      <button class="rm-sf-btn sf-live"       data-status="live"     onclick="setStatusFilter('live',this)">Live</button>
+      <button class="rm-sf-btn sf-review"     data-status="review"   onclick="setStatusFilter('review',this)">In Review</button>
+      <button class="rm-sf-btn sf-progress"   data-status="progress" onclick="setStatusFilter('progress',this)">In Progress</button>
+      <button class="rm-sf-btn sf-planned"    data-status="planned"  onclick="setStatusFilter('planned',this)">Planned</button>
+    </div>
+    <span class="rm-ctrl-count" id="rmCount"></span>
+    <button class="rm-ctrl-reset" id="rmReset" onclick="resetFilters()" style="display:none">Reset</button>
   </div>
 
   <!-- KANBAN VIEW -->
@@ -355,6 +385,48 @@ const THEME_COLORS = {
 function tc(theme){ return THEME_COLORS[theme] || THEME_COLORS['Other']; }
 
 const PILLARS = Object.keys(THEME_COLORS);
+
+// ─── STATUS SORT ORDER ────────────────────────────────────────────────────────
+// Done → Live → In Review → In Progress → Planned
+const STATUS_ORDER = {done:0, live:1, review:2, progress:3, planned:4};
+function sortByStatus(arr){
+  return [...arr].sort((a,b)=>{
+    const oa = STATUS_ORDER[a.status] ?? 99;
+    const ob = STATUS_ORDER[b.status] ?? 99;
+    if(oa !== ob) return oa - ob;
+    return (riceScore(b)||0) - (riceScore(a)||0); // secondary: RICE desc
+  });
+}
+
+// ─── FILTER STATE ─────────────────────────────────────────────────────────────
+let statusFilter = 'all';
+let filtered = [];
+
+function setStatusFilter(status, btn){
+  statusFilter = status;
+  document.querySelectorAll('.rm-sf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rmReset').style.display = status==='all'?'none':'';
+  applyFilters();
+}
+
+function resetFilters(){
+  statusFilter = 'all';
+  document.querySelectorAll('.rm-sf-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.rm-sf-btn.sf-all').classList.add('active');
+  document.getElementById('rmReset').style.display = 'none';
+  applyFilters();
+}
+
+function applyFilters(){
+  filtered = statusFilter==='all' ? [...ITEMS] : ITEMS.filter(it=>it.status===statusFilter);
+  const cnt = document.getElementById('rmCount');
+  if(cnt) cnt.textContent = filtered.length + ' of ' + ITEMS.length + ' initiatives';
+  buildKanban();
+  buildTimeline();
+  buildPillarView();
+  bindCardClicks();
+}
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -472,7 +544,7 @@ function setView(name, btn){
 function buildKanban(){
   const qgrid = document.getElementById('qgrid');
   qgrid.innerHTML = FY_QUARTERS.map(q=>{
-    const qItems = ITEMS.filter(it=>it.qLabel===q.qLabel);
+    const qItems = sortByStatus(filtered.filter(it=>it.qLabel===q.qLabel));
     const isCur  = CUR_Q && CUR_Q.qLabel===q.qLabel;
     return `<div class="qcol${isCur?' current':''}">
       <div class="qhdr">
@@ -489,7 +561,7 @@ function buildKanban(){
     </div>`;
   }).join('');
 
-  const backlog = ITEMS.filter(it=>!itemQ(it));
+  const backlog = sortByStatus(filtered.filter(it=>!itemQ(it)));
   document.getElementById('backlogGrid').innerHTML = backlog.map(buildCard).join('');
 }
 
@@ -527,8 +599,8 @@ function buildTimeline(){
     }).join('');
 
   const scheduled = tlFilter==='all'
-    ? ITEMS.filter(it=>itemQ(it))
-    : ITEMS.filter(it=>it.qLabel===FY_QUARTERS.find(q=>q.n===tlFilter)?.qLabel);
+    ? filtered.filter(it=>itemQ(it))
+    : filtered.filter(it=>it.qLabel===FY_QUARTERS.find(q=>q.n===tlFilter)?.qLabel);
 
   const body = document.getElementById('tlBody');
   body.innerHTML = PILLARS.map(pillar=>{
@@ -537,13 +609,14 @@ function buildTimeline(){
     const c = tc(pillar);
     const cells = activeQs.map(q=>{
       const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
-      const cell = pillarItems.filter(it=>it.qLabel===q.qLabel);
+      const cell = sortByStatus(pillarItems.filter(it=>it.qLabel===q.qLabel));
       const bars = cell.map(it=>{
         const s=riceScore(it);
+        const stLabel={done:'Done',live:'Live',review:'In Review',progress:'In Progress',planned:'Planned'}[it.status]||'Planned';
         return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
           <div class="tl-bar-name">${esc(it.name)}</div>
           <div class="tl-bar-foot">
-            <span class="tl-bar-tag">${esc(it.status||'planned')}</span>
+            <span class="tl-bar-tag">${stLabel}</span>
             ${s!=null?`<span class="tl-bar-rice">${s}</span>`:''}
           </div>
         </div>`;
@@ -564,7 +637,7 @@ function buildTimeline(){
 
   const backlogWrap = document.getElementById('tlBacklogWrap');
   if(backlogWrap) backlogWrap.style.display = tlFilter==='all'?'':'none';
-  document.getElementById('tlBacklog').innerHTML = ITEMS.filter(it=>!itemQ(it)).map(buildCard).join('');
+  document.getElementById('tlBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
 
   // Bind timeline bar clicks
   document.querySelectorAll('#tlBody .tl-bar').forEach(el=>{
@@ -574,14 +647,14 @@ function buildTimeline(){
 
 // ─── BY PILLAR VIEW ───────────────────────────────────────────────────────────
 function buildPillarView(){
-  const scheduled = ITEMS.filter(it=>itemQ(it));
+  const scheduled = filtered.filter(it=>itemQ(it));
   document.getElementById('pillarSections').innerHTML = PILLARS.map(pillar=>{
     const pillarItems = scheduled.filter(it=>it.theme===pillar);
     if(!pillarItems.length) return '';
     const c = tc(pillar);
     const cols = FY_QUARTERS.map(q=>{
       const isCur = CUR_Q && CUR_Q.qLabel===q.qLabel;
-      const cell  = pillarItems.filter(it=>it.qLabel===q.qLabel);
+      const cell  = sortByStatus(pillarItems.filter(it=>it.qLabel===q.qLabel));
       return `<div class="pillar-qcol">
         <div class="pillar-qcol-hdr">${q.short}${isCur?'<span class="pillar-qcol-now">Now</span>':''}</div>
         <div class="pillar-items">
@@ -601,11 +674,7 @@ function buildPillarView(){
     </div>`;
   }).filter(Boolean).join('');
 
-  document.getElementById('pillarBacklog').innerHTML = ITEMS.filter(it=>!itemQ(it)).map(buildCard).join('');
-
-  // Open first pillar by default
-  const first = document.querySelector('.pillar-sec');
-  if(first) first.classList.add('open');
+  document.getElementById('pillarBacklog').innerHTML = sortByStatus(filtered.filter(it=>!itemQ(it))).map(buildCard).join('');
 }
 
 function togglePillar(id){
@@ -643,15 +712,16 @@ function bindCardClicks(){
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 function buildPage(){
+  filtered = [...ITEMS]; // initialise before any build
   buildHeroStats();
   buildFYBanner('fyBanner');
   buildFYBanner('fyBannerTl');
   buildFYBanner('fyBannerPillar');
-  buildKanban();
   buildTlFilterBar();
-  buildTimeline();
-  buildPillarView();
-  bindCardClicks();
+  applyFilters(); // builds kanban + timeline + pillar + binds clicks + sets count
+  // Open first pillar section by default
+  const first = document.querySelector('.pillar-sec');
+  if(first) first.classList.add('open');
 }
 
 // ─── Company Switcher ─────────────────────────────────────────────────────────
