@@ -49,6 +49,13 @@
     }
     .nw-edit-sel { cursor: pointer; }
     .nw-edit-inp { min-width: 130px; }
+    /* Number input — no font-size so it inherits (large in flyout, small in table) */
+    .nw-edit-num {
+      width: 100%; max-width: 90px; padding: 2px 4px; border-radius: 4px;
+      border: 1.5px solid #6366f1; background: #fff;
+      color: inherit; outline: none; text-align: center; box-sizing: border-box;
+      font-family: 'DM Sans', sans-serif; font-size: inherit; font-weight: inherit;
+    }
 
     /* Lead hint text */
     .nw-lead-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
@@ -137,6 +144,10 @@
       case 'theme':    return { 'Strategic Pillar': value ? { select: { name: value } } : { select: null } };
       case 'qLabel':   return { Quarter: value ? { select: { name: value } } : { select: null } };
       case 'priority': return { Priority: value ? { select: { name: value } } : { select: null } };
+      case 'r':        return { Reach:      { number: Number(value) } };
+      case 'i':        return { Impact:     { number: Number(value) } };
+      case 'c':        return { Confidence: { number: Number(value) } };
+      case 'e':        return { Effort:     { number: Math.max(1, Number(value)) } };
       default: return null;
     }
   }
@@ -231,6 +242,10 @@
         return v
           ? `<span class="nw-text">${esc(v)}</span>`
           : `<span class="nw-text-muted">—</span>`;
+      case 'r': return Number(v||0).toLocaleString();
+      case 'i': return String(Number(v||0));
+      case 'c': return String(Number(v||0)) + '%';
+      case 'e': return String(Number(v||0) || 1);
       default:
         return v ? esc(v) : '<span class="nw-text-muted">—</span>';
     }
@@ -248,6 +263,11 @@
   // For table cells (stopProp = true)
   function buildEditSpan(field, val, notionId) {
     return buildEditSpanHtml(field, val, notionId, true);
+  }
+
+  // For flyout RICE cells — no label wrapper, span sits directly inside coloured div
+  function buildRiceEditSpan(field, val, notionId) {
+    return buildEditSpanHtml(field, val, notionId, false);
   }
 
   // For flyout property rows
@@ -302,13 +322,28 @@
     }
   }
 
+  // ─── Recalculate rice score after an r/i/c/e edit ───────────────────────────
+  function updateRiceScore(notionId) {
+    const arr = (typeof PROJECTS !== 'undefined' ? PROJECTS : null)
+             || (typeof ITEMS    !== 'undefined' ? ITEMS    : null) || [];
+    const itm = arr.find(p => p.notionId === notionId);
+    if (!itm) return;
+    const newRice = Math.round((itm.r||0) * (itm.i||0) * ((itm.c||0)/100) / (itm.e||1));
+    itm.rice = newRice;
+    // Update any visible score display (flyout stays open during table edits)
+    document.querySelectorAll('.f-rice-score, .rice-score-num').forEach(el => {
+      el.textContent = newRice.toLocaleString();
+    });
+  }
+
   // ─── Core click-to-edit handler ───────────────────────────────────────────────
   function startEdit(span) {
     const field     = span.dataset.field;
     const notionId  = span.dataset.nid;
     const currentVal = span.dataset.val || '';
     const stopPropAttr = span.getAttribute('onclick') || '';
-    const isLead = field === 'lead';
+    const isLead   = field === 'lead';
+    const isNumber = ['r','i','c','e'].includes(field);
 
     // Build appropriate input element
     let el;
@@ -318,6 +353,14 @@
       el.className = 'nw-edit-inp';
       el.value = currentVal;
       el.placeholder = 'Name…';
+    } else if (isNumber) {
+      el = document.createElement('input');
+      el.type = 'number';
+      el.className = 'nw-edit-num';
+      el.step = 1;
+      el.min = field === 'e' ? 1 : 0;
+      if (field === 'c') el.max = 100;
+      el.value = currentVal !== '' ? Number(currentVal) : 0;
     } else {
       el = document.createElement('select');
       el.className = 'nw-edit-sel';
@@ -332,7 +375,7 @@
 
     span.replaceWith(el);
     el.focus();
-    if (isLead) el.select();
+    if (isLead || isNumber) el.select();
 
     // Restore the span (with a given value) and remove the input from DOM
     function restore(val) {
@@ -352,20 +395,30 @@
     async function commit() {
       if (committed) return;
       committed = true;
-      const newVal = isLead ? el.value.trim() : el.value;
 
       if (isLead) {
-        // For lead: restore old value while async lookup runs, then update
+        const newVal = el.value.trim();
         restore(currentVal);
         await saveLeadInternal(notionId, newVal);
+      } else if (isNumber) {
+        const rawNum = parseFloat(el.value);
+        const numVal = isNaN(rawNum) ? (field === 'e' ? 1 : 0)
+                     : field === 'e' ? Math.max(1, rawNum)
+                     : field === 'c' ? Math.min(100, Math.max(0, rawNum))
+                     : Math.max(0, rawNum);
+        restore(String(numVal));
+        updateLocal(notionId, field, numVal);
+        updateRiceScore(notionId);
+        if (typeof updateStats  === 'function') updateStats();
+        if (typeof applyFilters === 'function') applyFilters();
+        const props = buildProps(field, numVal);
+        if (props) notionPatch(notionId, props);
       } else {
-        // For all other fields: restore new value immediately (optimistic)
+        const newVal = el.value;
         restore(newVal);
         updateLocal(notionId, field, newVal);
-        // Re-render immediately so table reflects the change
-        if (typeof updateStats === 'function') updateStats();
+        if (typeof updateStats  === 'function') updateStats();
         if (typeof applyFilters === 'function') applyFilters();
-        // Patch Notion in the background
         const props = buildProps(field, newVal);
         if (props) notionPatch(notionId, props);
       }
@@ -383,6 +436,12 @@
         if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
         if (e.key === 'Escape') { committed = true; restore(currentVal); }
       });
+    } else if (isNumber) {
+      el.addEventListener('blur', commit);
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); commit(); }
+        if (e.key === 'Escape') cancel();
+      });
     } else {
       el.addEventListener('change', commit);
       el.addEventListener('blur', () => setTimeout(() => { if (!committed) cancel(); }, 120));
@@ -399,6 +458,7 @@
   window._nw = {
     startEdit,
     buildEditSpan,
+    buildRiceEditSpan,
     buildFlyoutProp,
     notionPatch,       // exposed so matrix Impact/Effort saves can call it directly
     showToast,

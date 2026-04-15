@@ -829,10 +829,10 @@ function openFlyout(idx) {
       </div>
       ${hasRice ? `
         <div class="rice-row">
-          <div class="rice-cell"><div class="rice-cell-val rice-cell-r">${p.r||0}</div><div class="rice-cell-lbl">R</div></div>
-          <div class="rice-cell"><div class="rice-cell-val rice-cell-i">${p.i||0}</div><div class="rice-cell-lbl">I</div></div>
-          <div class="rice-cell"><div class="rice-cell-val rice-cell-c">${p.c||0}</div><div class="rice-cell-lbl">C</div></div>
-          <div class="rice-cell"><div class="rice-cell-val rice-cell-e">${p.e||1}</div><div class="rice-cell-lbl">E</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-r">${_nwF?_nwF.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="rice-cell-lbl">R</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-i">${_nwF?_nwF.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="rice-cell-lbl">I</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-c">${_nwF?_nwF.buildRiceEditSpan('c',p.c||0,p.notionId):(p.c||0)}</div><div class="rice-cell-lbl">C</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-e">${_nwF?_nwF.buildRiceEditSpan('e',p.e||1,p.notionId):(p.e||1)}</div><div class="rice-cell-lbl">E</div></div>
         </div>
         <div class="rice-score-total">
           <div>
@@ -886,6 +886,6 @@ window.addEventListener('load', () => {
 </script>
 <script src="../project-briefs.js?v=1776242675000"></script>
 <script src="../sync.js?v=1776242675000"></script>
-<script src="../notion-write.js?v=1776242675000"></script>
+<script src="../notion-write.js?v=1776243415000"></script>
 </body>
 </html>

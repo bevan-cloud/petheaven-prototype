@@ -306,10 +306,10 @@ function openFlyout(itemId){
       <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score Breakdown</span></div>
       ${hasRice?`
         <div class="f-rice-row">
-          <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${p.r||0}</div><div class="f-rice-lbl">R</div></div>
-          <div class="f-rice-cell"><div class="f-rice-val f-rice-i">${p.i||0}</div><div class="f-rice-lbl">I</div></div>
-          <div class="f-rice-cell"><div class="f-rice-val f-rice-c">${p.c||0}</div><div class="f-rice-lbl">C</div></div>
-          <div class="f-rice-cell"><div class="f-rice-val f-rice-e">${p.e||1}</div><div class="f-rice-lbl">E</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${window._nw?window._nw.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="f-rice-lbl">R</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-i">${window._nw?window._nw.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="f-rice-lbl">I</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-c">${window._nw?window._nw.buildRiceEditSpan('c',p.c||0,p.notionId):(p.c||0)}</div><div class="f-rice-lbl">C</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-e">${window._nw?window._nw.buildRiceEditSpan('e',p.e||1,p.notionId):(p.e||1)}</div><div class="f-rice-lbl">E</div></div>
         </div>
         <div class="f-rice-total">
           <div><div class="f-rice-score-lbl">RICE Score</div><div class="f-rice-score">${rice.toLocaleString()}</div></div>
@@ -337,6 +337,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
 </script>
 <script src="../project-briefs.js?v=1776242675000"></script>
 <script src="../sync.js?v=1776242675000"></script>
-<script src="../notion-write.js?v=1776242675000"></script>
+<script src="../notion-write.js?v=1776243415000"></script>
 </body>
 </html>
