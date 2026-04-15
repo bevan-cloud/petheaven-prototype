@@ -400,6 +400,7 @@
     startEdit,
     buildEditSpan,
     buildFlyoutProp,
+    notionPatch,       // exposed so matrix Impact/Effort saves can call it directly
     showToast,
     // Legacy wrappers kept for back-compat (pages that still call old names)
     buildSelect:        buildEditSpan,

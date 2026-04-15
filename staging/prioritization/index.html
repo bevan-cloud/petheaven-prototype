@@ -51,19 +51,19 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
 .search-input:focus{border-color:var(--brand-mid);background:#fff}
 .chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
-.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:var(--radius);overflow:hidden;background:#fff;flex-shrink:0;height:32px}
-.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 8px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
-.chip-select{border:none;outline:none;background:transparent;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);padding:0 6px;cursor:pointer;min-width:90px;height:100%}
-.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 9px;cursor:pointer;color:var(--gray-3);font-size:15px;line-height:1;display:flex;align-items:center;transition:background .1s}
-.chip-remove:hover{background:var(--gray-2);color:var(--gray-5)}
-.sort-chip .chip-label{color:var(--brand-dark);background:var(--brand-light)}
-.sort-chip{border-color:var(--brand-mid)}
-.chip-dir{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
-.chip-dir:hover{background:var(--brand-light)}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{-webkit-appearance:none;appearance:none;border:none;outline:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 26px 0 10px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
 .ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
 .ctrl-dropdown{position:relative;flex-shrink:0}
-.ctrl-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid var(--gray-2);border-radius:var(--radius);background:var(--gray-1);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:32px;transition:all .15s}
-.ctrl-btn:hover{background:var(--gray-2);color:var(--black)}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
 .ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
 .ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
 .ctrl-menu.open{display:block}
@@ -72,7 +72,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
 .ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
 .ctrl-menu-item.on .ctrl-menu-check{opacity:1}
-.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;white-space:nowrap;height:32px}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
 .ctrl-reset:hover{background:var(--brand-light)}
 .results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 
@@ -128,8 +128,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .m-score-val{font-weight:700;font-size:14px}
 .sv-impact{color:var(--brand-dark)}
 .sv-effort{color:#b84714}
-.m-editable{cursor:pointer;border-bottom:1px dashed var(--gray-3);transition:color .15s}
-.m-editable:hover{color:var(--brand)}
+.m-editable{cursor:pointer;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+.m-editable:hover{color:var(--brand);border-bottom-color:var(--gray-3)}
 .m-edit-input{width:40px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--brand);border-radius:4px;padding:2px 6px;text-align:center;outline:none}
 
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
@@ -319,7 +319,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 </div>
 
-<script src="../notion-data.js?v=1776234109195"></script>
+<script src="../notion-data.js?v=1776242675000"></script>
 <script>
 const ITEMS = NOTION_ITEMS;
 
@@ -559,12 +559,14 @@ function renderAll(){
 function render(){
   const sorted=getSorted(filtered);
   const tbody=document.getElementById('riceTbody');
+  const _nw=window._nw;
   tbody.innerHTML=sorted.map((it,idx)=>{
     const sc=riceScore(it);
+    const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
     return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
       <td><div class="rank-badge">${idx+1}</div></td>
-      <td><div class="item-name">${it.name}</div>${themeHtml(it.theme)}</td>
-      <td>${themeHtml(it.theme)}</td>
+      <td><div class="item-name">${it.name}</div></td>
+      <td onclick="event.stopPropagation()">${themeCell}</td>
       <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
       <td>${it.r.toLocaleString()}</td>
       <td>${it.i}</td>
@@ -602,13 +604,15 @@ function renderMatrix(){
 function renderMatrixTable(){
   const sorted=getMSorted(filtered);
   const tbody=document.getElementById('matrixTbody');
+  const _nw=window._nw;
   tbody.innerHTML=sorted.map(it=>{
     const q=getQuadrant(it);
+    const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
     return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
       <td><div class="item-name">${it.name}</div></td>
-      <td>${themeHtml(it.theme)}</td>
-      <td><span class="m-score-val sv-impact m-editable" data-id="${it.id}" data-field="mi" onclick="event.stopPropagation();startEditMatrix(event)">${it.mi??'—'}</span></td>
-      <td><span class="m-score-val sv-effort m-editable" data-id="${it.id}" data-field="me" onclick="event.stopPropagation();startEditMatrix(event)">${it.me??'—'}</span></td>
+      <td onclick="event.stopPropagation()">${themeCell}</td>
+      <td><span class="m-score-val sv-impact m-editable" data-id="${it.id}" data-field="mi" data-nid="${it.notionId}" onclick="event.stopPropagation();startEditMatrix(event)">${it.mi??'—'}</span></td>
+      <td><span class="m-score-val sv-effort m-editable" data-id="${it.id}" data-field="me" data-nid="${it.notionId}" onclick="event.stopPropagation();startEditMatrix(event)">${it.me??'—'}</span></td>
       <td>${quadrantHtml(q)}</td>
     </tr>`;
   }).join('');
@@ -618,6 +622,7 @@ function startEditMatrix(e){
   const span=e.target;
   const id=parseInt(span.dataset.id);
   const field=span.dataset.field;
+  const notionId=span.dataset.nid;
   const item=ITEMS.find(x=>x.id===id);
   if(!item) return;
   const input=document.createElement('input');
@@ -628,7 +633,16 @@ function startEditMatrix(e){
   input.focus();input.select();
   function save(){
     const v=parseInt(input.value);
-    if(v>=1&&v<=5) item[field]=v;
+    if(v>=1&&v<=5){
+      item[field]=v;
+      // Sync to Notion via notion-write.js if available
+      if(window._nw && notionId){
+        const prop = field==='mi'
+          ? {'Matrix Impact':{number:v}}
+          : {'Matrix Effort':{number:v}};
+        window._nw.notionPatch ? window._nw.notionPatch(notionId,prop) : null;
+      }
+    }
     renderMatrix();renderMatrixTable();
   }
   input.addEventListener('blur',save);
@@ -777,8 +791,8 @@ function closeFlyout(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
 </script>
-<script src="../project-briefs.js?v=1776239948000"></script>
-<script src="../sync.js?v=1776239948000"></script>
-<script src="../notion-write.js?v=1776240476000"></script>
+<script src="../project-briefs.js?v=1776242675000"></script>
+<script src="../sync.js?v=1776242675000"></script>
+<script src="../notion-write.js?v=1776242675000"></script>
 </body>
 </html>
