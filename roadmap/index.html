@@ -404,8 +404,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 <script src="../staging/notion-data.js?v=1776320619988"></script>
 <script>
-const ITEMS = NOTION_ITEMS.filter(it => Array.isArray(it.company) && it.company.includes('PH'));
-
 // ─── FY CALCULATION (March–February fiscal year) ──────────────────────────────
 const _now  = new Date();
 const _m    = _now.getMonth() + 1;   // 1–12
@@ -414,6 +412,16 @@ const CUR_FY      = _m >= 3 ? _y + 1 : _y;          // e.g. 2027 = FY27
 const CUR_FY2     = String(CUR_FY).slice(2);          // "27"
 const FY_SY       = CUR_FY - 1;                       // start year, e.g. 2026
 const FY_LABEL    = `FY${String(FY_SY).slice(2)}${CUR_FY2}`; // "FY2627"
+
+// Filter: company = PH, and exclude items from prior financial years
+const ITEMS = NOTION_ITEMS.filter(it => {
+  if (!Array.isArray(it.company) || !it.company.includes('PH')) return false;
+  const ql = it.qLabel || '';
+  if (!ql) return true;                          // backlog — no quarter, always include
+  const fyMatch = ql.match(/FY(\d+)/i);
+  if (!fyMatch) return false;                    // e.g. "2025 and Prior" — exclude
+  return parseInt(fyMatch[1], 10) >= parseInt(CUR_FY2, 10); // current or future FY only
+});
 
 const FY_QUARTERS = [
   {n:1, qLabel:`Q1 FY${CUR_FY2}`, short:'Q1', period:`Mar – May ${FY_SY}`,        start:new Date(FY_SY,2,1),  end:new Date(FY_SY,5,1)},
