@@ -259,6 +259,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .qdrill-back:hover{background:rgba(255,255,255,.26)}
 .qdrill-bc{font-size:13px;color:rgba(255,255,255,.55);flex:1}
 .qdrill-bc strong{color:#fff}
+/* View tabs inside the drill-down topbar */
+.qdrill-tabs{display:flex;gap:2px;background:rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:3px;flex-shrink:0}
+.qdrill-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:var(--radius);border:none;background:none;color:rgba(255,255,255,.65);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.qdrill-tab:hover{color:#fff}
+.qdrill-tab.active{background:#fff;color:var(--brand-dark)}
+.qdrill-view{display:none}
+.qdrill-view.active{display:block}
 .qdrill-content{max-width:1200px;margin:0 auto;padding:32px 40px 80px;width:100%}
 .qdrill-hdr{margin-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .qdrill-hdr-left{}
@@ -269,6 +276,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .qdrill-tally-item{text-align:right}
 .qdrill-tally-val{font-size:20px;font-weight:700;color:var(--black);line-height:1}
 .qdrill-tally-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+/* Status board (kanban) */
 .qdrill-board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
 .qdrill-col{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
 .qdrill-col-hdr{padding:12px 14px 10px;border-bottom:1px solid var(--gray-2)}
@@ -277,12 +285,24 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .qdrill-col-cnt{font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
 .qdrill-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:80px}
 .qdrill-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:20px 0;font-style:italic}
+/* Timeline (by pillar) */
+.qdrill-tl{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.qdrill-tl-row{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--gray-2)}
+.qdrill-tl-row:first-child{border-top:none}
+.qdrill-tl-th{padding:14px 16px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3px;border-right:1px solid var(--gray-2)}
+.qdrill-tl-th-inner{position:relative;padding-left:10px}
+.qdrill-tl-th-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px}
+.qdrill-tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.35}
+.qdrill-tl-th-count{font-size:10px;color:var(--gray-4);margin-top:1px}
+.qdrill-tl-cell{padding:10px;display:flex;flex-direction:column;gap:6px;min-height:52px;background:#fff}
+.qdrill-tl-empty{font-size:11px;color:var(--gray-3);font-style:italic;padding:4px 0}
 /* Make quarter headers clickable */
 .qhdr{cursor:pointer;transition:background .12s;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
 .qhdr:hover{background:var(--gray-1)}
 .qhdr-drill-hint{display:flex;align-items:center;gap:4px;margin-top:5px;font-size:10px;font-weight:600;color:var(--brand);opacity:0;transition:opacity .15s;pointer-events:none}
 .qcol:hover .qhdr-drill-hint{opacity:1}
 @media(max-width:1100px){.qdrill-board{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.qdrill-tl-row{grid-template-columns:130px 1fr}}
 @media(max-width:700px){.qdrill-board{grid-template-columns:1fr 1fr}.qdrill-topbar{padding:0 20px}.qdrill-content{padding:20px 16px 60px}}
 </style>
 </head>
@@ -869,9 +889,56 @@ const DRILL_COLS = [
   {key:'done',     label:'Done',        color:'#5a5a54', bg:'#f7f7f5', border:'#d0d0c8', cntBg:'#e5e7eb'},
 ];
 
+let _drillQLabel = null;
+
+function setDrillView(name, btn){
+  document.querySelectorAll('.qdrill-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.qdrill-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('dview-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildDrillTimeline(qItems){
+  const rows = PILLARS.map(pillar => {
+    const pillarItems = sortByStatus(qItems.filter(it => it.theme === pillar));
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const bars = pillarItems.map(it => {
+      const s = riceScore(it);
+      const stLabel = {done:'Done',live:'Live',review:'In Review',progress:'In Progress',planned:'Planned'}[it.status]||'Planned';
+      return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
+        <div class="tl-bar-name">${esc(it.name)}</div>
+        <div class="tl-bar-foot">
+          <span class="tl-bar-tag">${stLabel}</span>
+          ${s!=null?`<span class="tl-bar-rice">${s}</span>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="qdrill-tl-row">
+      <div class="qdrill-tl-th">
+        <div class="qdrill-tl-th-inner">
+          <div class="qdrill-tl-th-bar" style="background:${c.bar}"></div>
+          <div class="qdrill-tl-th-name">${esc(pillar)}</div>
+          <div class="qdrill-tl-th-count">${pillarItems.length} item${pillarItems.length>1?'s':''}</div>
+        </div>
+      </div>
+      <div class="qdrill-tl-cell">${bars}</div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  const el = document.getElementById('drillTimeline');
+  el.innerHTML = rows || '<div class="qdrill-empty" style="padding:32px 0">No initiatives scheduled for this quarter yet.</div>';
+
+  // Bind bar clicks to flyout
+  el.querySelectorAll('.tl-bar').forEach(bar => {
+    bar.addEventListener('click', () => openFlyout(parseInt(bar.dataset.id)));
+  });
+}
+
 function openQuarterDrill(qLabel){
   const q = FY_QUARTERS.find(q => q.qLabel === qLabel);
   if(!q) return;
+  _drillQLabel = qLabel;
 
   const qItems = filtered.filter(it => it.qLabel === qLabel);
   const isCurQ = CUR_Q && CUR_Q.qLabel === qLabel;
@@ -885,14 +952,14 @@ function openQuarterDrill(qLabel){
   document.getElementById('drillSub').textContent = `${qItems.length} initiative${qItems.length!==1?'s':''} scheduled`;
 
   // Tally
-  const done = qItems.filter(it=>it.status==='done'||it.status==='live').length;
-  const inProg = qItems.filter(it=>it.status==='progress'||it.status==='review').length;
+  const done   = qItems.filter(it => it.status==='done' || it.status==='live').length;
+  const inProg = qItems.filter(it => it.status==='progress' || it.status==='review').length;
   document.getElementById('drillTally').innerHTML =
     `<div class="qdrill-tally-item"><div class="qdrill-tally-val">${done}</div><div class="qdrill-tally-lbl">Shipped</div></div>
      <div class="qdrill-tally-item"><div class="qdrill-tally-val">${inProg}</div><div class="qdrill-tally-lbl">In Flight</div></div>
      <div class="qdrill-tally-item"><div class="qdrill-tally-val">${qItems.length}</div><div class="qdrill-tally-lbl">Total</div></div>`;
 
-  // Status board
+  // Status board (kanban)
   document.getElementById('drillBoard').innerHTML = DRILL_COLS.map(s => {
     const colItems = qItems.filter(it => (it.status||'planned') === s.key);
     return `<div class="qdrill-col">
@@ -908,6 +975,15 @@ function openQuarterDrill(qLabel){
     </div>`;
   }).join('');
 
+  // Timeline (by pillar)
+  buildDrillTimeline(qItems);
+
+  // Reset to kanban tab
+  document.querySelectorAll('.qdrill-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.qdrill-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('dview-kanban').classList.add('active');
+  document.getElementById('dtab-kanban').classList.add('active');
+
   // Open panel + lock scroll
   const panel = document.getElementById('quarterDrill');
   panel.classList.add('open');
@@ -915,7 +991,7 @@ function openQuarterDrill(qLabel){
   document.body.style.overflow = 'hidden';
 
   // Bind card clicks (flyout still works inside drill)
-  panel.querySelectorAll('.rm-card').forEach(el => {
+  panel.querySelectorAll('#drillBoard .rm-card').forEach(el => {
     el.addEventListener('click', () => {
       panel.querySelectorAll('.rm-card').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
@@ -1126,6 +1202,16 @@ function closeFlyout(){
       Back to Roadmap
     </button>
     <div class="qdrill-bc">Roadmap &rsaquo; <strong id="drillBreadcrumb"></strong></div>
+    <div class="qdrill-tabs">
+      <button class="qdrill-tab active" id="dtab-kanban" onclick="setDrillView('kanban',this)">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Status Board
+      </button>
+      <button class="qdrill-tab" id="dtab-timeline" onclick="setDrillView('timeline',this)">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+        By Pillar
+      </button>
+    </div>
   </div>
   <div class="qdrill-content">
     <div class="qdrill-hdr">
@@ -1136,7 +1222,14 @@ function closeFlyout(){
       </div>
       <div class="qdrill-tally" id="drillTally"></div>
     </div>
-    <div class="qdrill-board" id="drillBoard"></div>
+    <!-- Status Board view -->
+    <div class="qdrill-view active" id="dview-kanban">
+      <div class="qdrill-board" id="drillBoard"></div>
+    </div>
+    <!-- By Pillar (timeline) view -->
+    <div class="qdrill-view" id="dview-timeline">
+      <div class="qdrill-tl" id="drillTimeline"></div>
+    </div>
   </div>
 </div>
 </body>
