@@ -359,6 +359,7 @@ const STATUS_META = {
   review:  {cls:'status-review',  label:'In Review'},
   done:    {cls:'status-done',    label:'Done'},
 };
+const STATUS_SORT_ORDER = {live:1, review:2, progress:3, planned:4, done:5};
 const PRIORITY_ORDER = {'P1 🔥 Critical':1,'P2':2,'P3':3,'P4':4,'P5':5,'':9};
 
 function riceScore(it){ return (it.r && it.i && it.c && it.e) ? Math.round(it.r * it.i * (it.c/100) / it.e) : 0; }
@@ -372,7 +373,7 @@ const PROJECTS = NOTION_ITEMS.map(it => ({
 // ─── State ────────────────────────────────────────────────────────────────────
 let filtered = [...PROJECTS];
 let currentView = 'table';
-let sortCol = 'name', sortDir = 'asc';
+let sortCol = 'status', sortDir = 'asc';
 
 // Dynamic filter/sort state
 // Default to the current FY quarter (Mar–Feb fiscal year).
@@ -569,6 +570,7 @@ function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
 
   filtered = PROJECTS.filter(p => {
+    if (p.status === 'done' && filterState.status !== 'done') return false;
     if (search && !p.name.toLowerCase().includes(search) && !(p.desc||'').toLowerCase().includes(search)) return false;
     for (const [field, val] of Object.entries(filterState)) {
       if (!val) continue;
@@ -610,7 +612,7 @@ function getSorted(arr) {
     return [...arr].sort((a, b) => {
       let av, bv;
       switch (chipSortState.field) {
-        case 'status':   av = a.status||'';   bv = b.status||'';   break;
+        case 'status':   av = STATUS_SORT_ORDER[a.status]||9; bv = STATUS_SORT_ORDER[b.status]||9; break;
         case 'quarter':  av = a.qLabel||'';   bv = b.qLabel||'';   break;
         case 'pillar':   av = a.theme||'';    bv = b.theme||'';    break;
         case 'quadrant': av = getQuadrantKey(a)||'zzz'; bv = getQuadrantKey(b)||'zzz'; break;
@@ -626,6 +628,7 @@ function getSorted(arr) {
     let av, bv;
     if (sortCol === 'rice')          { av = a.rice; bv = b.rice; }
     else if (sortCol === 'priority') { av = PRIORITY_ORDER[a.priority]||9; bv = PRIORITY_ORDER[b.priority]||9; }
+    else if (sortCol === 'status')   { av = STATUS_SORT_ORDER[a.status]||9; bv = STATUS_SORT_ORDER[b.status]||9; }
     else if (sortCol === 'company')  { av = (a.company||[]).join(','); bv = (b.company||[]).join(','); }
     else { av = (a[sortCol]||'').toString().toLowerCase(); bv = (b[sortCol]||'').toString().toLowerCase(); }
     if (av < bv) return sortDir === 'asc' ? -1 : 1;
