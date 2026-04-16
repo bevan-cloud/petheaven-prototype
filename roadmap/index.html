@@ -257,6 +257,56 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 @media(max-width:1000px){.qgrid{grid-template-columns:1fr 1fr}.pillar-sec-body{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.qgrid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:32px 16px 60px}}
 @media(max-width:760px){.flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}.flyout.open{transform:translateY(0)}}
+
+/* ── QUARTER DRILL-DOWN ── */
+.qdrill{position:fixed;inset:0;background:var(--gray-1);z-index:280;transform:translateY(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.qdrill.open{transform:translateY(0)}
+.qdrill-topbar{background:var(--brand-dark);padding:0 48px;height:60px;display:flex;align-items:center;gap:16px;flex-shrink:0;position:sticky;top:0;z-index:10}
+.qdrill-back{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 16px 6px 12px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;flex-shrink:0}
+.qdrill-back:hover{background:rgba(255,255,255,.26)}
+.qdrill-bc{font-size:13px;color:rgba(255,255,255,.55);flex:1}
+.qdrill-bc strong{color:#fff}
+.qdrill-tabs{display:flex;gap:2px;background:rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:3px;flex-shrink:0}
+.qdrill-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:var(--radius);border:none;background:none;color:rgba(255,255,255,.65);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.qdrill-tab:hover{color:#fff}
+.qdrill-tab.active{background:#fff;color:var(--brand-dark)}
+.qdrill-view{display:none}
+.qdrill-view.active{display:block}
+.qdrill-content{max-width:1200px;margin:0 auto;padding:32px 40px 80px;width:100%}
+.qdrill-hdr{margin-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.qdrill-hdr-left{}
+.qdrill-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--brand);margin-bottom:4px}
+.qdrill-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black);line-height:1.15;margin-bottom:4px}
+.qdrill-sub{font-size:13px;color:var(--gray-5)}
+.qdrill-tally{display:flex;gap:16px;flex-shrink:0}
+.qdrill-tally-item{text-align:right}
+.qdrill-tally-val{font-size:20px;font-weight:700;color:var(--black);line-height:1}
+.qdrill-tally-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.qdrill-board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+.qdrill-col{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.qdrill-col-hdr{padding:12px 14px 10px;border-bottom:1px solid var(--gray-2)}
+.qdrill-col-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.qdrill-col-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.qdrill-col-cnt{font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
+.qdrill-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:80px}
+.qdrill-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:20px 0;font-style:italic}
+.qdrill-tl{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.qdrill-tl-row{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--gray-2)}
+.qdrill-tl-row:first-child{border-top:none}
+.qdrill-tl-th{padding:14px 16px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3px;border-right:1px solid var(--gray-2)}
+.qdrill-tl-th-inner{position:relative;padding-left:10px}
+.qdrill-tl-th-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px}
+.qdrill-tl-th-name{font-size:11px;font-weight:700;color:var(--black);line-height:1.35}
+.qdrill-tl-th-count{font-size:10px;color:var(--gray-4);margin-top:1px}
+.qdrill-tl-cell{padding:10px;display:flex;flex-direction:column;gap:6px;min-height:52px;background:#fff}
+.qdrill-tl-empty{font-size:11px;color:var(--gray-3);font-style:italic;padding:4px 0}
+.qhdr{cursor:pointer;transition:background .12s;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.qhdr:hover{background:var(--gray-1)}
+.qhdr-drill-hint{display:flex;align-items:center;gap:4px;margin-top:5px;font-size:10px;font-weight:600;color:var(--brand);opacity:0;transition:opacity .15s;pointer-events:none}
+.qcol:hover .qhdr-drill-hint{opacity:1}
+@media(max-width:1100px){.qdrill-board{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.qdrill-tl-row{grid-template-columns:130px 1fr}}
+@media(max-width:700px){.qdrill-board{grid-template-columns:1fr 1fr}.qdrill-topbar{padding:0 20px}.qdrill-content{padding:20px 16px 60px}}
 </style>
 </head>
 <body>
@@ -713,13 +763,14 @@ function buildKanban(){
     const qItems = sortByStatus(filtered.filter(it=>it.qLabel===q.qLabel));
     const isCur  = CUR_Q && CUR_Q.qLabel===q.qLabel;
     return `<div class="qcol${isCur?' current':''}">
-      <div class="qhdr">
+      <div class="qhdr" onclick="openQuarterDrill('${q.qLabel}')" title="Click to view status board for ${q.qLabel}">
         <div class="qhdr-row1">
           <span class="q-qlabel">${q.qLabel}</span>
           ${isCur?'<span class="q-now-badge">Current</span>':''}
         </div>
         <div class="q-period">${q.period}</div>
         <div class="q-count"><strong>${qItems.length}</strong> initiative${qItems.length!==1?'s':''}</div>
+        <div class="qhdr-drill-hint"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5h7M6 2.5l2.5 2.5L6 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>View status board</div>
       </div>
       <div class="qbody">
         ${qItems.length ? qItems.map(buildCard).join('') : '<div class="q-empty">Nothing scheduled yet</div>'}
@@ -848,6 +899,121 @@ function togglePillar(id){
   const isOpen = target.classList.contains('open');
   document.querySelectorAll('.pillar-sec').forEach(s=>s.classList.remove('open'));
   if(!isOpen) target.classList.add('open');
+}
+
+// ─── QUARTER DRILL-DOWN ───────────────────────────────────────────────────────
+const DRILL_COLS = [
+  {key:'planned',  label:'Planned',     color:'#3730a3', bg:'#eef2ff', border:'#c7d2fe', cntBg:'#e0e7ff'},
+  {key:'progress', label:'In Progress', color:'#7a5a00', bg:'#fff8e1', border:'#fde68a', cntBg:'#fef3c7'},
+  {key:'review',   label:'In Review',   color:'#6a1b9a', bg:'#f3e5f5', border:'#d1a8e0', cntBg:'#ede9fe'},
+  {key:'live',     label:'Live',        color:'#1b5e20', bg:'#e8f5e9', border:'#a8d4aa', cntBg:'#dcfce7'},
+  {key:'done',     label:'Done',        color:'#5a5a54', bg:'#f7f7f5', border:'#d0d0c8', cntBg:'#e5e7eb'},
+];
+
+function setDrillView(name, btn){
+  document.querySelectorAll('.qdrill-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.qdrill-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('dview-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildDrillTimeline(qItems){
+  const rows = PILLARS.map(pillar => {
+    const pillarItems = sortByStatus(qItems.filter(it => it.theme === pillar));
+    if(!pillarItems.length) return '';
+    const c = tc(pillar);
+    const bars = pillarItems.map(it => {
+      const s = riceScore(it);
+      const stLabel = {done:'Done',live:'Live',review:'In Review',progress:'In Progress',planned:'Planned'}[it.status]||'Planned';
+      return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
+        <div class="tl-bar-name">${esc(it.name)}</div>
+        <div class="tl-bar-foot">
+          <span class="tl-bar-tag">${stLabel}</span>
+          ${s!=null?`<span class="tl-bar-rice">${s}</span>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="qdrill-tl-row">
+      <div class="qdrill-tl-th">
+        <div class="qdrill-tl-th-inner">
+          <div class="qdrill-tl-th-bar" style="background:${c.bar}"></div>
+          <div class="qdrill-tl-th-name">${esc(pillar)}</div>
+          <div class="qdrill-tl-th-count">${pillarItems.length} item${pillarItems.length>1?'s':''}</div>
+        </div>
+      </div>
+      <div class="qdrill-tl-cell">${bars}</div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  const el = document.getElementById('drillTimeline');
+  el.innerHTML = rows || '<div class="qdrill-empty" style="padding:32px 0">No initiatives scheduled for this quarter yet.</div>';
+
+  el.querySelectorAll('.tl-bar').forEach(bar => {
+    bar.addEventListener('click', () => openFlyout(parseInt(bar.dataset.id)));
+  });
+}
+
+function openQuarterDrill(qLabel){
+  const q = FY_QUARTERS.find(q => q.qLabel === qLabel);
+  if(!q) return;
+
+  const qItems = filtered.filter(it => it.qLabel === qLabel);
+  const isCurQ = CUR_Q && CUR_Q.qLabel === qLabel;
+  const isPast  = !isCurQ && q.end <= _now;
+  const meta    = isCurQ ? 'Current quarter' : isPast ? 'Completed quarter' : 'Upcoming quarter';
+
+  document.getElementById('drillBreadcrumb').textContent = qLabel;
+  document.getElementById('drillEyebrow').textContent = `Quarter ${q.n} · ${meta}`;
+  document.getElementById('drillTitle').textContent = `${qLabel}  ·  ${q.period}`;
+  document.getElementById('drillSub').textContent = `${qItems.length} initiative${qItems.length!==1?'s':''} scheduled`;
+
+  const done   = qItems.filter(it => it.status==='done' || it.status==='live').length;
+  const inProg = qItems.filter(it => it.status==='progress' || it.status==='review').length;
+  document.getElementById('drillTally').innerHTML =
+    `<div class="qdrill-tally-item"><div class="qdrill-tally-val">${done}</div><div class="qdrill-tally-lbl">Shipped</div></div>
+     <div class="qdrill-tally-item"><div class="qdrill-tally-val">${inProg}</div><div class="qdrill-tally-lbl">In Flight</div></div>
+     <div class="qdrill-tally-item"><div class="qdrill-tally-val">${qItems.length}</div><div class="qdrill-tally-lbl">Total</div></div>`;
+
+  document.getElementById('drillBoard').innerHTML = DRILL_COLS.map(s => {
+    const colItems = qItems.filter(it => (it.status||'planned') === s.key);
+    return `<div class="qdrill-col">
+      <div class="qdrill-col-hdr" style="background:${s.bg};border-bottom-color:${s.border}">
+        <div class="qdrill-col-top">
+          <span class="qdrill-col-name" style="color:${s.color}">${s.label}</span>
+          <span class="qdrill-col-cnt" style="background:${s.cntBg};color:${s.color}">${colItems.length}</span>
+        </div>
+      </div>
+      <div class="qdrill-col-body">
+        ${colItems.length ? colItems.map(buildCard).join('') : '<div class="qdrill-empty">None</div>'}
+      </div>
+    </div>`;
+  }).join('');
+
+  buildFYBanner('fyBannerDrill');
+  buildDrillTimeline(qItems);
+
+  document.querySelectorAll('.qdrill-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.qdrill-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('dview-kanban').classList.add('active');
+  document.getElementById('dtab-kanban').classList.add('active');
+
+  const panel = document.getElementById('quarterDrill');
+  panel.classList.add('open');
+  panel.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  panel.querySelectorAll('#drillBoard .rm-card').forEach(el => {
+    el.addEventListener('click', () => {
+      panel.querySelectorAll('.rm-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      openFlyout(parseInt(el.dataset.id));
+    });
+  });
+}
+
+function closeQuarterDrill(){
+  document.getElementById('quarterDrill').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ─── HERO STATS ───────────────────────────────────────────────────────────────
@@ -1011,12 +1177,59 @@ function closeFlyout(){
   document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
   document.getElementById('overlay').classList.remove('open');
   document.getElementById('flyout').classList.remove('open');
-  document.body.style.overflow='';
+  if(!document.getElementById('quarterDrill').classList.contains('open')){
+    document.body.style.overflow='';
+  }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  if(document.getElementById('quarterDrill').classList.contains('open')){
+    closeQuarterDrill();
+  } else {
+    closeFlyout();
+  }
+});
 </script>
 <script src="../staging/project-briefs.js?v=1776320619988"></script>
 <script src="../staging/sync.js?v=1776320619988"></script>
 <script src="../staging/notion-write.js?v=1776320619988"></script>
+
+<!-- ── QUARTER DRILL-DOWN PANEL ── -->
+<div class="qdrill" id="quarterDrill">
+  <div class="qdrill-topbar">
+    <button class="qdrill-back" onclick="closeQuarterDrill()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Roadmap
+    </button>
+    <div class="qdrill-bc">Roadmap &rsaquo; <strong id="drillBreadcrumb"></strong></div>
+    <div class="qdrill-tabs">
+      <button class="qdrill-tab active" id="dtab-kanban" onclick="setDrillView('kanban',this)">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
+        Status Board
+      </button>
+      <button class="qdrill-tab" id="dtab-timeline" onclick="setDrillView('timeline',this)">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+        By Pillar
+      </button>
+    </div>
+  </div>
+  <div class="qdrill-content">
+    <div class="qdrill-hdr">
+      <div class="qdrill-hdr-left">
+        <div class="qdrill-eyebrow" id="drillEyebrow"></div>
+        <div class="qdrill-title" id="drillTitle"></div>
+        <div class="qdrill-sub" id="drillSub"></div>
+      </div>
+      <div class="qdrill-tally" id="drillTally"></div>
+    </div>
+    <div class="fy-banner" id="fyBannerDrill" style="margin-bottom:24px"></div>
+    <div class="qdrill-view active" id="dview-kanban">
+      <div class="qdrill-board" id="drillBoard"></div>
+    </div>
+    <div class="qdrill-view" id="dview-timeline">
+      <div class="qdrill-tl" id="drillTimeline"></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
