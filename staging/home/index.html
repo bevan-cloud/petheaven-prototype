@@ -75,10 +75,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
 
 /* PAGE */
-.page{max-width:1080px;margin:0 auto;padding:64px 40px 100px}
+.page{max-width:1240px;margin:0 auto;padding:56px 40px 100px}
 
 /* INTRO */
-.intro{margin-bottom:24px;text-align:center}
+.intro{margin-bottom:32px;text-align:center}
 .intro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
 .intro-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
 .intro h1{font-family:'DM Serif Display',serif;font-size:44px;line-height:1.12;color:var(--black);margin-bottom:12px}
@@ -87,8 +87,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* SECTION LABEL */
 .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
-/* NAV GRID */
-.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:64px}
+/* NAV GRID — 3 columns, scales to 2 then 1 */
+.nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
 
 /* NAV TILE */
 .nav-tile{
@@ -111,32 +111,33 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .nav-tile:hover .tile-arrow{color:var(--brand-dark)}
 
 /* TILE ACCENT */
-.tile-accent{height:6px}
+.tile-accent{height:5px}
 
 /* TILE PREVIEW */
 .tile-preview{
-  height:140px;
+  height:116px;
   display:flex;align-items:center;justify-content:center;
-  padding:24px;
+  padding:18px 20px;
   overflow:hidden;
   position:relative;
 }
 
 /* TILE BODY */
-.tile-body{padding:22px 24px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
+.tile-body{padding:18px 20px 18px;flex:1;display:flex;flex-direction:column;gap:5px}
 .tile-header{display:flex;align-items:center;justify-content:space-between}
-.tile-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--black)}
+.tile-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--black)}
 .tile-arrow{color:var(--gray-3);transition:color 0.15s}
-.tile-desc{font-size:13px;color:var(--gray-5);line-height:1.6}
+.tile-desc{font-size:12px;color:var(--gray-5);line-height:1.6}
 
 /* TILE META */
-.tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.tile-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.tile-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tile-tag{font-size:10px;font-weight:500;padding:2px 9px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 
 /* FOOTER */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 
-@media(max-width:680px){
+@media(max-width:900px){.nav-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){
   .nav-grid{grid-template-columns:1fr}
   .page{padding:40px 20px 60px}
   .intro h1{font-size:32px}
