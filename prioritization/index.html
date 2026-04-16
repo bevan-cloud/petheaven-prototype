@@ -34,16 +34,22 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
-.page{max-width:1080px;margin:0 auto;padding:48px 40px 100px}
-.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:40px 48px 36px;margin-bottom:36px;color:#fff;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:8px}
-.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6;margin-bottom:20px}
-.view-tabs{display:flex;gap:8px}
-.view-tab{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.03em}
-.view-tab.active{background:#fff;color:var(--brand-dark);border-color:#fff}
-.model-desc{font-size:13px;color:rgba(255,255,255,.7);margin-top:12px;max-width:560px;line-height:1.55}
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:9px 40px;font-size:12px;display:flex;align-items:center}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}.breadcrumb a:hover{color:var(--brand-dark)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}.bc-cur{color:var(--gray-4)}
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:36px 40px 32px;margin-bottom:0}
+.hero-inner{max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;color:var(--black);margin-bottom:6px}
+.hero-sub{font-size:14px;color:var(--gray-5);max-width:600px;line-height:1.7;margin-bottom:0}
+.view-tabs{display:flex;gap:0;margin:20px 0 0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:5px;width:fit-content;align-items:center}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 18px;border-radius:var(--radius-lg);border:none;background:none;cursor:pointer;color:var(--gray-4);transition:background .15s,color .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;line-height:1}
+.view-tab:hover{color:var(--black)}
+.view-tab.active{background:var(--black);color:#fff}
+.model-desc{padding:20px 0 4px}
+.page{max-width:1200px;margin:0 auto;padding:32px 40px 100px}
 /* ── Controls bar ── */
 .controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .search-wrap{position:relative;width:220px;flex-shrink:0}
@@ -147,11 +153,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .m-tip-name{font-weight:600;margin-bottom:2px}
 .m-tip-meta{font-size:10px;opacity:.7}
 /* Quadrant definition cards in model-desc */
-.model-desc-cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.model-desc-card{flex:1;min-width:140px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:12px 14px}
+.model-desc-cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.model-desc-card{flex:1;min-width:140px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px}
 .mdc-letter{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;margin-bottom:4px}
-.mdc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.6);margin-bottom:3px}
-.mdc-desc{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+.mdc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:3px}
+.mdc-desc{font-size:11px;color:var(--gray-4);line-height:1.5}
 .model-quadrant-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .mqg-cell{border-radius:var(--radius);padding:8px 12px}
 .mqg-title{font-size:11px;font-weight:700;margin-bottom:2px}
@@ -239,34 +245,63 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </header>
 
-<div class="page">
+<div class="breadcrumb">
+  <a href="../home/">Home</a><span class="bc-sep">›</span><span class="bc-cur">Prioritization</span>
+</div>
 
-  <div class="hero">
-    <div class="hero-badge">petheaven.co.za · FY2026/27 · Product Prioritization</div>
-    <h1>Prioritization</h1>
-    <p class="hero-sub">Two complementary frameworks for evaluating Pet Heaven's product backlog — RICE scoring and the Impact vs Effort matrix.</p>
-    <div class="view-tabs">
-      <button class="view-tab active" data-view="rice" onclick="switchView('rice',this)">RICE Score</button>
-      <button class="view-tab" data-view="matrix" onclick="switchView('matrix',this)">Impact vs Effort</button>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>petheaven.co.za · FY2026/27 · Product Prioritization</div>
+    <h1>Product Prioritization</h1>
+    <p class="hero-sub">Two complementary frameworks for evaluating Pet Heaven's product backlog — RICE scoring and the Impact vs Effort matrix. All scores are editable.</p>
+
+    <div class="view-tabs" style="margin:20px 0 0">
+      <button class="view-tab active" id="tab-rice" data-view="rice" onclick="switchView('rice',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0.5" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".4"/><rect x="0" y="4.75" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".7"/><rect x="0" y="9" width="12" height="2.5" rx="1.2" fill="currentColor"/></svg>
+        RICE Scoring
+      </button>
+      <button class="view-tab" id="tab-matrix" data-view="matrix" onclick="switchView('matrix',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="9.5" r="1.5" fill="currentColor" opacity=".4"/><circle cx="5" cy="5" r="1.5" fill="currentColor" opacity=".7"/><circle cx="9.5" cy="2" r="2" fill="currentColor"/><circle cx="10.5" cy="7.5" r="1.5" fill="currentColor" opacity=".5"/></svg>
+        Impact vs Effort
+      </button>
     </div>
-    <div class="model-desc" id="model-desc-rice">RICE scoring weighs <strong>Reach</strong>, <strong>Impact</strong>, <strong>Confidence</strong> and <strong>Effort</strong> to produce a comparable priority number across all initiatives.</div>
-    <div id="model-desc-matrix" style="display:none;margin-top:12px">
+
+    <!-- RICE MODEL DESCRIPTION -->
+    <div id="model-desc-rice" class="model-desc">
       <div class="model-desc-cards">
-        <div class="model-desc-card"><div class="mdc-letter" style="color:#a5b4fc">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX or operational gain. <strong>Scale 1–5</strong></div></div>
-        <div class="model-desc-card"><div class="mdc-letter" style="color:#fca5a5">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops and change management. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#1a6fd4">R</div><div class="mdc-name">Reach</div><div class="mdc-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--brand)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#7b1fa2">C</div><div class="mdc-name">Confidence</div><div class="mdc-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#a00000">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Build cost — higher = more work. <strong>Scale 1–5</strong></div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500;margin-bottom:10px">RICE = (R × I × C) ÷ E <span style="opacity:.5;font-size:11px">· higher score = higher priority · all values editable</span></div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Click any R / I / C / E value in the table to edit it. Press Enter or Tab to save, Esc to cancel.
+      </div>
+    </div>
+
+    <!-- MATRIX MODEL DESCRIPTION -->
+    <div id="model-desc-matrix" class="model-desc" style="display:none">
+      <div class="model-desc-cards">
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--brand-dark)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX improvement, or operational gain. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#a00000">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops, and change management combined. <strong>Scale 1–5</strong></div></div>
       </div>
       <div class="model-quadrant-grid">
-        <div class="mqg-cell" style="background:rgba(27,94,32,.25);border:1px solid rgba(27,94,32,.4)"><div class="mqg-title" style="color:#86efac">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:#86efac">→ Do now</div></div>
-        <div class="mqg-cell" style="background:rgba(184,71,20,.25);border:1px solid rgba(184,71,20,.4)"><div class="mqg-title" style="color:#fca5a5">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:#fca5a5">→ Plan &amp; resource</div></div>
-        <div class="mqg-cell" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15)"><div class="mqg-title" style="color:rgba(255,255,255,.6)">💭 Nice to Have</div><div class="mqg-sub">Low impact, low effort</div><div class="mqg-rec" style="color:rgba(255,255,255,.45)">→ If capacity allows</div></div>
-        <div class="mqg-cell" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)"><div class="mqg-title" style="color:rgba(255,255,255,.45)">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:rgba(255,255,255,.35)">→ Deprioritise</div></div>
+        <div class="mqg-cell" style="background:rgba(58,158,63,.07);border:1px solid rgba(58,158,63,.2)"><div class="mqg-title" style="color:var(--brand-dark)">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:var(--brand-dark)">→ Do now</div></div>
+        <div class="mqg-cell" style="background:rgba(26,111,212,.07);border:1px solid rgba(26,111,212,.2)"><div class="mqg-title" style="color:#1a6fd4">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:#1a6fd4">→ Plan &amp; resource</div></div>
+        <div class="mqg-cell" style="background:var(--gray-1);border:1px solid var(--gray-2)"><div class="mqg-title" style="color:var(--gray-5)">💭 Nice to Have</div><div class="mqg-sub">Low impact, low effort</div><div class="mqg-rec" style="color:var(--gray-4)">→ If capacity allows</div></div>
+        <div class="mqg-cell" style="background:rgba(160,0,0,.05);border:1px solid rgba(160,0,0,.15)"><div class="mqg-title" style="color:#a00000">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:#a00000">→ Deprioritise</div></div>
       </div>
-      <div class="model-desc" style="margin-top:0">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="vertical-align:middle;opacity:.6"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Click any Impact or Effort value in the table below to edit it. The matrix updates instantly.
       </div>
     </div>
   </div>
+</div>
+
+<div class="page">
 
   <!-- Controls bar -->
   <div class="controls">
