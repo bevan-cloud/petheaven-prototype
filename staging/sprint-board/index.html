@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bevan Staging — Sprint Board</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#4f46e5;--brand-dark:#3730a3;--brand-light:#eef2ff;--brand-mid:#c7d2fe;
+  --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --col-todo:#3b82f6;--col-todo-bg:#eff6ff;--col-todo-border:#bfdbfe;
+  --col-inprog:#f59e0b;--col-inprog-bg:#fffbeb;--col-inprog-border:#fde68a;
+  --col-done:#10b981;--col-done-bg:#ecfdf5;--col-done-border:#a7f3d0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* ── STAGING BANNER ── */
+.staging-banner{background:var(--brand);color:#fff;font-size:11px;font-weight:600;text-align:center;padding:5px 0;letter-spacing:.05em;text-transform:uppercase}
+
+/* ── SITE HEADER ── */
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
+.company-switcher{position:relative;margin-left:auto}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger:hover{background:rgba(255,255,255,.2)}
+.cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
+.cs-trigger[aria-expanded="true"] .cs-chevron{transform:rotate(180deg)}
+.cs-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;overflow:hidden;display:none;z-index:200}
+.cs-menu.open{display:block}
+.cs-option{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;font-size:13px;font-weight:500;color:var(--black);transition:background .1s}
+.cs-option:hover{background:var(--gray-1)}
+.cs-option.active{background:var(--gray-1);font-weight:600}
+.cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cs-option-label{flex:1}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
+.cs-option.active .cs-option-check{opacity:1}
+.cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.nav-icon-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s;text-decoration:none;margin-left:4px}
+.nav-icon-btn:hover{background:rgba(255,255,255,.22)}
+.nav-sync-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);border:none;color:#fff;cursor:pointer;flex-shrink:0;transition:background .15s;padding:0;margin-left:4px}
+.nav-sync-btn:hover:not(:disabled){background:rgba(255,255,255,.22)}
+.nav-sync-btn:disabled{opacity:.5;cursor:not-allowed}
+.nav-sync-btn.syncing svg{animation:nspin 1s linear infinite}
+.nav-sync-btn.done{background:rgba(74,222,128,.28)}
+@keyframes nspin{to{transform:rotate(360deg)}}
+
+/* ── TOAST ── */
+#syncToast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(8px);background:#1a1a1a;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 22px;border-radius:24px;box-shadow:0 4px 24px rgba(0,0,0,.22);z-index:9999;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap}
+#syncToast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── PAGE LAYOUT ── */
+.page{max-width:1240px;margin:0 auto;padding:40px 40px 100px}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-bottom:20px}
+.breadcrumb a{color:var(--gray-4);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:var(--brand)}
+.breadcrumb-sep{opacity:.5}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:36px 48px 32px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.hero::before{content:'';position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px}
+.hero-sub{font-size:14px;opacity:.75;max-width:540px;line-height:1.6;margin-bottom:20px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:22px}
+.hero-stat{display:flex;flex-direction:column}
+.hero-stat-val{font-size:26px;font-weight:700;line-height:1}
+.hero-stat-label{font-size:11px;opacity:.6;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── SPRINT GOAL PILL ── */
+.sprint-goal-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:8px 14px;cursor:pointer;transition:background .15s;position:relative;z-index:1}
+.sprint-goal-pill:hover{background:rgba(255,255,255,.18)}
+.sprint-goal-pill-label{font-size:12px;font-weight:600;opacity:.9;flex-shrink:0}
+.sprint-goal-pill-meta{font-size:12px;opacity:.65;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sprint-goal-chevron{flex-shrink:0;opacity:.65;transition:transform .2s}
+.sprint-goal-pill.open .sprint-goal-chevron{transform:rotate(180deg)}
+.sprint-goal-body{display:none;margin-top:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:14px 16px;font-size:13px;opacity:.85;line-height:1.75;white-space:pre-wrap;position:relative;z-index:1}
+.sprint-goal-body.open{display:block}
+
+/* ── SECTION HEADER ── */
+.section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--black)}
+.section-meta{font-size:13px;color:var(--gray-4)}
+.section-divider{flex:1;height:1px;background:var(--gray-2);min-width:20px}
+.section-block{margin-bottom:40px}
+
+/* ── KANBAN BOARD ── */
+.kanban-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+.kanban-col{border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--gray-2)}
+.kanban-col-hdr{padding:14px 16px;border-bottom:1px solid;display:flex;align-items:center;gap:8px}
+.kanban-col-hdr.todo{background:var(--col-todo-bg);border-color:var(--col-todo-border)}
+.kanban-col-hdr.inprog{background:var(--col-inprog-bg);border-color:var(--col-inprog-border)}
+.kanban-col-hdr.done{background:var(--col-done-bg);border-color:var(--col-done-border)}
+.kanban-col-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;flex:1}
+.kanban-col-hdr.todo .kanban-col-title{color:var(--col-todo)}
+.kanban-col-hdr.inprog .kanban-col-title{color:#b45309}
+.kanban-col-hdr.done .kanban-col-title{color:#047857}
+.kanban-count-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;flex-shrink:0}
+.kanban-col-hdr.todo .kanban-count-badge{background:var(--col-todo);color:#fff}
+.kanban-col-hdr.inprog .kanban-count-badge{background:var(--col-inprog);color:#fff}
+.kanban-col-hdr.done .kanban-count-badge{background:var(--col-done);color:#fff}
+.kanban-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;background:#fff;min-height:120px}
+.kanban-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:24px 0;font-style:italic}
+
+/* ── ISSUE CARD ── */
+.issue-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:border-color .12s,box-shadow .12s,background .1s;position:relative}
+.issue-card:hover{border-color:var(--brand-mid);box-shadow:0 2px 10px rgba(79,70,229,.08);background:var(--brand-light)}
+.issue-card-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.issue-type-icon{flex-shrink:0;width:14px;height:14px;display:flex;align-items:center;justify-content:center}
+.issue-key{font-family:'DM Mono',monospace,monospace;font-size:10px;font-weight:600;color:var(--gray-4);text-decoration:none;letter-spacing:.02em;flex-shrink:0;transition:color .12s}
+.issue-key:hover{color:var(--brand)}
+.issue-card-summary{font-size:12px;font-weight:600;color:var(--black);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
+.issue-card-footer{display:flex;align-items:center;gap:6px}
+.assignee-avatar{width:22px;height:22px;border-radius:50%;flex-shrink:0;object-fit:cover;border:1.5px solid var(--gray-2)}
+.assignee-initials{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--brand-mid);color:var(--brand-dark);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--brand-light);text-transform:uppercase;letter-spacing:.03em}
+.assignee-name{font-size:11px;color:var(--gray-4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.card-spacer{flex:1}
+.priority-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ── BACKLOG TABLE ── */
+.backlog-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.backlog-table{width:100%;border-collapse:collapse}
+.backlog-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);padding:11px 14px;text-align:left;border-bottom:2px solid var(--gray-2);background:var(--gray-1);white-space:nowrap}
+.backlog-table td{padding:10px 14px;border-bottom:1px solid var(--gray-2);vertical-align:middle;font-size:13px}
+.backlog-table tr:last-child td{border-bottom:none}
+.backlog-table tbody tr:nth-child(even) td{background:#fafaff}
+.backlog-table tbody tr:hover td{background:var(--brand-light);cursor:pointer}
+.bt-key{font-family:'DM Mono',monospace,monospace;font-size:11px;font-weight:600;color:var(--gray-5);text-decoration:none;white-space:nowrap;transition:color .12s}
+.bt-key:hover{color:var(--brand)}
+.bt-summary{font-weight:500;color:var(--black);max-width:340px}
+.bt-summary-text{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.status-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.02em}
+.status-new{background:#dbeafe;color:#1d4ed8}
+.status-indeterminate{background:#fef3c7;color:#92400e}
+.status-done{background:#d1fae5;color:#065f46}
+.bt-type-cell{width:30px}
+.bt-pri-cell{width:40px;text-align:center}
+.bt-assignee-cell{white-space:nowrap;font-size:12px;color:var(--gray-5);display:flex;align-items:center;gap:6px;min-width:0}
+.empty-table-row td{text-align:center;padding:32px;font-size:13px;color:var(--gray-3);font-style:italic}
+
+/* ── FLYOUT ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.flyout{position:fixed;top:0;right:0;bottom:0;width:500px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.flyout.open{transform:translateX(0)}
+.flyout-accent{height:4px;flex-shrink:0}
+.flyout-top-row{display:flex;justify-content:flex-end;padding:14px 18px 0;flex-shrink:0}
+.flyout-close{width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;cursor:pointer;font-size:18px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;line-height:1}
+.flyout-close:hover{background:var(--gray-1)}
+.flyout-body{overflow-y:auto;padding:8px 24px 40px;flex:1}
+.flyout-epic-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--brand);text-decoration:none;background:var(--brand-light);border:1px solid var(--brand-mid);padding:4px 10px;border-radius:20px;margin-bottom:12px;transition:background .15s;max-width:100%}
+.flyout-epic-link:hover{background:var(--brand-mid)}
+.flyout-epic-key{font-family:'DM Mono',monospace,monospace;letter-spacing:.02em;opacity:.8}
+.flyout-epic-sum{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px}
+.flyout-title{font-family:'DM Serif Display',serif;font-size:24px;line-height:1.2;color:var(--black);margin-bottom:14px}
+.flyout-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.flyout-assignee-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--gray-2)}
+.flyout-assignee-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gray-2);flex-shrink:0}
+.flyout-assignee-initials{width:30px;height:30px;border-radius:50%;background:var(--brand-mid);color:var(--brand-dark);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase}
+.flyout-assignee-name{font-size:13px;font-weight:500;color:var(--black)}
+.flyout-assignee-label{font-size:11px;color:var(--gray-4)}
+.flyout-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--gray-2)}
+.flyout-section-hdr{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:10px}
+.flyout-desc{font-size:13px;color:var(--gray-5);line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.flyout-desc-empty{font-size:13px;color:var(--gray-3);font-style:italic}
+
+/* ── SUBTASKS ── */
+.subtask-progress-bar{height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.subtask-progress-fill{height:100%;background:var(--col-done);border-radius:3px;transition:width .4s ease}
+.subtask-progress-label{font-size:11px;color:var(--gray-4);margin-bottom:8px}
+.subtask-list{display:flex;flex-direction:column;gap:5px}
+.subtask-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--black);padding:6px 8px;border-radius:var(--radius);background:var(--gray-1)}
+.subtask-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.subtask-name{flex:1;line-height:1.3}
+
+/* ── TIME TRACKING ── */
+.time-tracking-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.time-stat-box{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 14px;text-align:center}
+.time-stat-val{font-size:18px;font-weight:700;color:var(--black);line-height:1}
+.time-stat-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.time-tracking-bar{height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-top:8px}
+.time-tracking-fill{height:100%;background:var(--brand);border-radius:3px;transition:width .4s ease}
+
+/* ── FLYOUT OPEN IN JIRA BTN ── */
+.flyout-jira-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;margin-top:20px;background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:var(--radius-lg);text-decoration:none;color:var(--brand-dark);font-size:13px;font-weight:600;transition:background .15s}
+.flyout-jira-btn:hover{background:var(--brand-mid)}
+
+/* ── PAGE FOOTER ── */
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px;display:flex;flex-direction:column;gap:4px}
+
+/* ── MEDIA QUERIES ── */
+@media(max-width:900px){.kanban-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.kanban-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:24px 16px 60px}.hero{padding:24px 24px 20px}}
+@media(max-width:760px){.flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}.flyout.open{transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="staging-banner">🧪 Staging Environment — safe to experiment</div>
+
+<header class="site-header">
+  <a href="../home/" class="site-header-wordmark">Bevan Staging</a>
+  <div class="site-header-divider"></div>
+  <span class="site-logo">Product Workspace</span>
+  <div class="company-switcher" id="companySwitcher">
+    <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
+      <span class="cs-dot" style="background:#4f46e5"></span>
+      Bevan Staging
+      <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cs-menu" id="csMenu">
+      <a class="cs-option" href="../../home/"><span class="cs-option-dot" style="background:#3a9e3f"></span><span class="cs-option-label">Pet Heaven</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option" href="../../faithful-to-nature/home/"><span class="cs-option-dot" style="background:#5a8840"></span><span class="cs-option-label">Faithful to Nature</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="cs-option" href="../../ucook/home/"><span class="cs-option-dot" style="background:#e05a1e"></span><span class="cs-option-label">UCook</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="cs-divider"></div>
+      <a class="cs-option active" href="../home/"><span class="cs-option-dot" style="background:#4f46e5"></span><span class="cs-option-label">Bevan Staging</span><svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+  <a href="../home/" class="nav-icon-btn" title="Home" style="margin-left:8px">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerJiraSync()" title="Sync from Jira">
+    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</header>
+
+<div class="page">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../home/">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Sprint Board</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🧪 Bevan Staging · Sprint Board</div>
+    <h1>Sprint Board</h1>
+    <p class="hero-sub">Active sprint pulled from Jira. Cards show live status — click any ticket to see full details.</p>
+    <div class="hero-stats" id="heroStats">
+      <div class="hero-stat"><span class="hero-stat-val" id="statTotal">—</span><span class="hero-stat-label">Active Issues</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="statInProg">—</span><span class="hero-stat-label">In Progress</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="statDone">—</span><span class="hero-stat-label">Done</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="statAssignees">—</span><span class="hero-stat-label">Assignees</span></div>
+    </div>
+    <div id="sprintGoalArea"></div>
+  </section>
+
+  <!-- SECTION 1 — KANBAN BOARD -->
+  <section class="section-block">
+    <div class="section-hdr">
+      <h2 class="section-title" id="kanbanTitle">Active Sprint</h2>
+      <span class="section-meta" id="kanbanMeta"></span>
+      <div class="section-divider"></div>
+    </div>
+    <div class="kanban-grid" id="kanbanGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </section>
+
+  <!-- SECTION 2 — BACKLOG TABLE -->
+  <section class="section-block">
+    <div class="section-hdr">
+      <h2 class="section-title" id="backlogTitle">Up Next · Product Backlog</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="backlog-wrap">
+      <table class="backlog-table">
+        <thead>
+          <tr>
+            <th class="bt-type-cell">Type</th>
+            <th>Ticket</th>
+            <th>Summary</th>
+            <th>Status</th>
+            <th class="bt-pri-cell">Pri</th>
+            <th>Assignee</th>
+          </tr>
+        </thead>
+        <tbody id="backlogBody">
+          <!-- Rendered by JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div>Bevan Staging · Sprint Board · Powered by Jira</div>
+    <div id="syncedAtLine" style="font-size:11px;color:var(--gray-3)"></div>
+  </footer>
+</div>
+
+<!-- FLYOUT -->
+<div class="overlay" id="overlay" onclick="closeFlyout()"></div>
+<div class="flyout" id="flyout" role="dialog" aria-modal="true" aria-label="Issue details">
+  <div class="flyout-accent" id="flyoutAccent"></div>
+  <div class="flyout-top-row">
+    <button class="flyout-close" onclick="closeFlyout()" aria-label="Close">&times;</button>
+  </div>
+  <div class="flyout-body" id="flyoutBody"></div>
+</div>
+
+<script src="../jira-sprint-data.js"></script>
+<script>
+/* ─────────────────────────────────────────────
+   PER-COMPANY CONFIG
+   ───────────────────────────────────────────── */
+var SPRINT_CONFIG = {
+  projectKeys: ['UC'],
+  epicPrefixInclude: null,
+  epicPrefixExclude: null,
+  displayName: 'UCook Tech',
+  jiraUrl: 'https://silvertree-holdings-dev.atlassian.net'
+};
+
+/* ─────────────────────────────────────────────
+   JIRA SYNC
+   ───────────────────────────────────────────── */
+function triggerJiraSync() {
+  var token = localStorage.getItem('gh_sync_pat');
+  if (!token) {
+    token = prompt('Enter your GitHub PAT (needs workflow scope):');
+    if (!token) return;
+    localStorage.setItem('gh_sync_pat', token.trim());
+  }
+  var btn = document.getElementById('navSyncBtn');
+  if (btn) { btn.disabled = true; btn.classList.add('syncing'); }
+  fetch('https://api.github.com/repos/bevan-cloud/petheaven-prototype/actions/workflows/sync-jira.yml/dispatches', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ref: 'main' })
+  }).then(function(res) {
+    if (btn) btn.classList.remove('syncing');
+    if (res.status === 204) {
+      if (btn) btn.classList.add('done');
+      var t = document.getElementById('syncToast');
+      if (!t) { t = document.createElement('div'); t.id = 'syncToast'; document.body.appendChild(t); }
+      t.textContent = '✓ Jira sync triggered — refreshing in ~60s';
+      t.classList.add('visible');
+      setTimeout(function() { t.classList.remove('visible'); }, 6000);
+      setTimeout(function() { location.reload(); }, 70000);
+    }
+  }).catch(function() {
+    if (btn) btn.classList.remove('syncing');
+  }).finally(function() {
+    if (btn) btn.disabled = false;
+  });
+}
+
+/* ─────────────────────────────────────────────
+   COMPANY SWITCHER
+   ───────────────────────────────────────────── */
+function toggleSwitcher() {
+  var menu = document.getElementById('csMenu');
+  var trigger = document.getElementById('csTrigger');
+  var open = menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function(e) {
+  var sw = document.getElementById('companySwitcher');
+  if (sw && !sw.contains(e.target)) {
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded', 'false');
+  }
+});
+
+/* ─────────────────────────────────────────────
+   ISSUE FILTERING
+   ───────────────────────────────────────────── */
+function filterIssues(issues) {
+  if (!issues) return [];
+  return issues.filter(function(issue) {
+    if (!SPRINT_CONFIG.projectKeys.includes(issue.project)) return false;
+    var epicKey = ((issue.parent && issue.parent.key) || '').toUpperCase();
+    var epicSum = ((issue.parent && issue.parent.summary) || '').toUpperCase();
+    if (SPRINT_CONFIG.epicPrefixInclude) {
+      var p = SPRINT_CONFIG.epicPrefixInclude.toUpperCase();
+      if (!epicKey.startsWith(p) && !epicSum.startsWith(p)) return false;
+    }
+    if (SPRINT_CONFIG.epicPrefixExclude) {
+      var p2 = SPRINT_CONFIG.epicPrefixExclude.toUpperCase();
+      if (epicKey.startsWith(p2) || epicSum.startsWith(p2)) return false;
+    }
+    return true;
+  });
+}
+
+/* ─────────────────────────────────────────────
+   HELPERS
+   ───────────────────────────────────────────── */
+function getInitials(name) {
+  if (!name) return '?';
+  var parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function priorityColor(name) {
+  var n = (name || '').toLowerCase();
+  if (n === 'highest' || n === 'critical') return '#e53935';
+  if (n === 'high') return '#f57c00';
+  if (n === 'medium') return '#f5c842';
+  if (n === 'low') return '#9a9a94';
+  if (n === 'lowest') return '#d0d0c8';
+  return '#d0d0c8';
+}
+
+function statusClass(cat) {
+  if (cat === 'new') return 'status-new';
+  if (cat === 'indeterminate') return 'status-indeterminate';
+  if (cat === 'done') return 'status-done';
+  return 'status-new';
+}
+
+function typeAccentColor(typeName) {
+  var t = (typeName || '').toLowerCase();
+  if (t === 'bug') return '#e53935';
+  if (t === 'story') return '#36B37E';
+  if (t === 'task') return '#4C9AFF';
+  if (t === 'subtask') return '#4C9AFF';
+  if (t === 'spike') return '#6554C0';
+  return '#9a9a94';
+}
+
+function typeIconSvg(typeName) {
+  var t = (typeName || '').toLowerCase();
+  if (t === 'bug') {
+    return '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Bug"><circle cx="7" cy="7" r="6" fill="#e53935"/><path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  }
+  if (t === 'story') {
+    return '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Story"><path d="M3 2h8v10l-4-2.5L3 12V2z" fill="#36B37E"/></svg>';
+  }
+  if (t === 'task') {
+    return '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Task"><rect x="1.5" y="1.5" width="11" height="11" rx="2" fill="#4C9AFF"/><path d="M4.5 7l2 2 3-3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  if (t === 'subtask') {
+    return '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-label="Subtask"><rect x="1" y="1" width="10" height="10" rx="2" fill="#4C9AFF" opacity=".7"/><path d="M3.5 6l2 2 3-3" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  if (t === 'spike') {
+    return '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Spike"><circle cx="7" cy="7" r="6" fill="#6554C0"/><path d="M7 3l-2 4h2l-1.5 4L10 6H7.5L9 3H7z" fill="#fff"/></svg>';
+  }
+  return '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#9a9a94"/></svg>';
+}
+
+function subtaskStatusColor(cat) {
+  if (cat === 'done') return '#10b981';
+  if (cat === 'indeterminate') return '#f59e0b';
+  return '#93c5fd';
+}
+
+function assigneeHtml(issue, size) {
+  size = size || 22;
+  var assignee = issue.assignee;
+  if (!assignee) {
+    return '<span class="assignee-initials" style="width:' + size + 'px;height:' + size + 'px">?</span>';
+  }
+  var initials = getInitials(assignee.displayName);
+  if (assignee.avatar) {
+    return '<img class="assignee-avatar" src="' + escHtml(assignee.avatar) + '" alt="' + escHtml(assignee.displayName) + '" width="' + size + '" height="' + size + '" style="width:' + size + 'px;height:' + size + 'px" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+      + '<span class="assignee-initials" style="display:none;width:' + size + 'px;height:' + size + 'px">' + escHtml(initials) + '</span>';
+  }
+  return '<span class="assignee-initials" style="width:' + size + 'px;height:' + size + 'px">' + escHtml(initials) + '</span>';
+}
+
+function formatDate(isoStr) {
+  if (!isoStr) return '';
+  try {
+    var d = new Date(isoStr);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  } catch(e) { return isoStr; }
+}
+
+/* ─────────────────────────────────────────────
+   RENDER KANBAN CARD
+   ───────────────────────────────────────────── */
+function renderCard(issue) {
+  var assigneeName = (issue.assignee && issue.assignee.displayName) || 'Unassigned';
+  var priColor = priorityColor((issue.priority && issue.priority.name) || '');
+  var jiraUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(issue.key);
+
+  return '<div class="issue-card" onclick="openFlyout(\'' + escHtml(issue.key) + '\')">'
+    + '<div class="issue-card-top">'
+    + '<span class="issue-type-icon">' + typeIconSvg(issue.issuetype && issue.issuetype.name) + '</span>'
+    + '<a class="issue-key" href="' + jiraUrl + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + escHtml(issue.key) + '</a>'
+    + '</div>'
+    + '<div class="issue-card-summary">' + escHtml(issue.summary) + '</div>'
+    + '<div class="issue-card-footer">'
+    + assigneeHtml(issue, 22)
+    + '<span class="assignee-name">' + escHtml(assigneeName) + '</span>'
+    + '<div class="card-spacer"></div>'
+    + '<span class="priority-dot" style="background:' + priColor + '" title="' + escHtml((issue.priority && issue.priority.name) || '') + '"></span>'
+    + '</div>'
+    + '</div>';
+}
+
+/* ─────────────────────────────────────────────
+   RENDER KANBAN
+   ───────────────────────────────────────────── */
+function renderKanban(activeIssues, sprint) {
+  var todo     = activeIssues.filter(function(i){ return i.status && i.status.category === 'new'; });
+  var inprog   = activeIssues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
+  var done     = activeIssues.filter(function(i){ return i.status && i.status.category === 'done'; });
+
+  function col(cls, title, items) {
+    var hdr = '<div class="kanban-col-hdr ' + cls + '">'
+      + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
+      + '<span class="kanban-count-badge">' + items.length + '</span>'
+      + '</div>';
+    var body = '<div class="kanban-col-body">';
+    if (items.length === 0) {
+      body += '<div class="kanban-empty">No issues</div>';
+    } else {
+      items.forEach(function(issue) { body += renderCard(issue); });
+    }
+    body += '</div>';
+    return '<div class="kanban-col">' + hdr + body + '</div>';
+  }
+
+  var grid = document.getElementById('kanbanGrid');
+  grid.innerHTML = col('todo', 'To Do', todo) + col('inprog', 'In Progress', inprog) + col('done', 'Done', done);
+
+  // Section header
+  if (sprint) {
+    document.getElementById('kanbanTitle').textContent = sprint.name || 'Active Sprint';
+    var meta = '';
+    if (sprint.startDate && sprint.endDate) {
+      meta = formatDate(sprint.startDate) + ' – ' + formatDate(sprint.endDate);
+    }
+    document.getElementById('kanbanMeta').textContent = meta;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   RENDER BACKLOG TABLE
+   ───────────────────────────────────────────── */
+function renderBacklogTable(nextIssues, nextSprint) {
+  var tbody = document.getElementById('backlogBody');
+  if (nextSprint && (nextSprint.name)) {
+    document.getElementById('backlogTitle').textContent = 'Up Next · ' + nextSprint.name;
+  }
+
+  if (!nextIssues || nextIssues.length === 0) {
+    tbody.innerHTML = '<tr class="empty-table-row"><td colspan="6">No backlog issues found</td></tr>';
+    return;
+  }
+
+  var html = '';
+  nextIssues.forEach(function(issue) {
+    var priColor = priorityColor((issue.priority && issue.priority.name) || '');
+    var sCat = (issue.status && issue.status.category) || 'new';
+    var sCls = statusClass(sCat);
+    var sName = (issue.status && issue.status.name) || '';
+    var jiraUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(issue.key);
+    var assigneeName = (issue.assignee && issue.assignee.displayName) || 'Unassigned';
+
+    html += '<tr onclick="openFlyout(\'' + escHtml(issue.key) + '\')">'
+      + '<td class="bt-type-cell"><span style="display:flex;align-items:center">' + typeIconSvg(issue.issuetype && issue.issuetype.name) + '</span></td>'
+      + '<td><a class="bt-key" href="' + jiraUrl + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + escHtml(issue.key) + '</a></td>'
+      + '<td class="bt-summary"><span class="bt-summary-text">' + escHtml(issue.summary) + '</span></td>'
+      + '<td><span class="status-badge ' + sCls + '">' + escHtml(sName) + '</span></td>'
+      + '<td class="bt-pri-cell"><span class="priority-dot" style="background:' + priColor + ';display:inline-block;margin:0 auto" title="' + escHtml((issue.priority && issue.priority.name) || '') + '"></span></td>'
+      + '<td><div class="bt-assignee-cell">' + assigneeHtml(issue, 20) + '<span>' + escHtml(assigneeName) + '</span></div></td>'
+      + '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────
+   RENDER HERO STATS
+   ───────────────────────────────────────────── */
+function renderStats(activeIssues) {
+  document.getElementById('statTotal').textContent = activeIssues.length;
+  document.getElementById('statInProg').textContent = activeIssues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; }).length;
+  document.getElementById('statDone').textContent = activeIssues.filter(function(i){ return i.status && i.status.category === 'done'; }).length;
+  var assignees = new Set();
+  activeIssues.forEach(function(i){ if (i.assignee && i.assignee.displayName) assignees.add(i.assignee.displayName); });
+  document.getElementById('statAssignees').textContent = assignees.size;
+}
+
+/* ─────────────────────────────────────────────
+   RENDER SPRINT GOAL PILL
+   ───────────────────────────────────────────── */
+function renderSprintGoal(sprint) {
+  if (!sprint) return;
+  var area = document.getElementById('sprintGoalArea');
+  var goal = (sprint.goal || '').trim();
+  var name = sprint.name || 'Sprint';
+  var meta = '';
+  if (sprint.startDate && sprint.endDate) {
+    meta = formatDate(sprint.startDate) + ' – ' + formatDate(sprint.endDate);
+  }
+
+  var preview = goal ? (goal.replace(/\n+/g,' ').substring(0,80) + (goal.length > 80 ? '…' : '')) : 'No goal set';
+
+  area.innerHTML = '<div class="sprint-goal-pill" id="goalPill" onclick="toggleGoal()">'
+    + '<span class="sprint-goal-pill-label">🎯 ' + escHtml(name) + '</span>'
+    + (meta ? '<span class="sprint-goal-pill-meta">' + escHtml(meta) + '</span>' : '')
+    + '<svg class="sprint-goal-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    + '</div>'
+    + '<div class="sprint-goal-body" id="goalBody">'
+    + escHtml(goal || 'No goal set for this sprint.')
+    + '</div>';
+}
+
+function toggleGoal() {
+  var pill = document.getElementById('goalPill');
+  var body = document.getElementById('goalBody');
+  if (!pill) return;
+  var open = body.classList.toggle('open');
+  pill.classList.toggle('open', open);
+}
+
+/* ─────────────────────────────────────────────
+   FLYOUT
+   ───────────────────────────────────────────── */
+var _issueMap = {};
+
+function buildIssueMap(issues) {
+  (issues || []).forEach(function(i){ _issueMap[i.key] = i; });
+}
+
+function openFlyout(key) {
+  var issue = _issueMap[key];
+  if (!issue) return;
+
+  var accent = typeAccentColor(issue.issuetype && issue.issuetype.name);
+  document.getElementById('flyoutAccent').style.background = accent;
+
+  var body = document.getElementById('flyoutBody');
+  var jiraUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(issue.key);
+  var html = '';
+
+  // Epic/parent link
+  if (issue.parent && issue.parent.key) {
+    var epicJiraUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(issue.parent.key);
+    html += '<a class="flyout-epic-link" href="' + epicJiraUrl + '" target="_blank" rel="noopener">'
+      + '<span class="flyout-epic-key">' + escHtml(issue.parent.key) + '</span>'
+      + '<span>·</span>'
+      + '<span class="flyout-epic-sum">' + escHtml(issue.parent.summary || '') + '</span>'
+      + '</a>';
+  }
+
+  // Title
+  html += '<h2 class="flyout-title">' + escHtml(issue.summary) + '</h2>';
+
+  // Assignee row
+  var assigneeName = (issue.assignee && issue.assignee.displayName) || 'Unassigned';
+  html += '<div class="flyout-assignee-row">';
+  if (issue.assignee) {
+    var initials = getInitials(assigneeName);
+    if (issue.assignee.avatar) {
+      html += '<img class="flyout-assignee-avatar" src="' + escHtml(issue.assignee.avatar) + '" alt="' + escHtml(assigneeName) + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'
+        + '<span class="flyout-assignee-initials" style="display:none">' + escHtml(initials) + '</span>';
+    } else {
+      html += '<span class="flyout-assignee-initials">' + escHtml(initials) + '</span>';
+    }
+  } else {
+    html += '<span class="flyout-assignee-initials">?</span>';
+  }
+  html += '<div>'
+    + '<div class="flyout-assignee-name">' + escHtml(assigneeName) + '</div>'
+    + '<div class="flyout-assignee-label">Assignee</div>'
+    + '</div>';
+  html += '</div>';
+
+  // Status + type badges
+  var sCat = (issue.status && issue.status.category) || 'new';
+  var sName = (issue.status && issue.status.name) || '';
+  var typeName = (issue.issuetype && issue.issuetype.name) || '';
+  html += '<div class="flyout-meta-row">'
+    + '<span class="status-badge ' + statusClass(sCat) + '">' + escHtml(sName) + '</span>'
+    + '<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#f5f5f5;color:#333;border:1px solid #e0e0e0">'
+    + typeIconSvg(typeName)
+    + escHtml(typeName)
+    + '</span>';
+  if (issue.priority && issue.priority.name) {
+    var priColor = priorityColor(issue.priority.name);
+    html += '<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#f5f5f5;color:#555;border:1px solid #e0e0e0">'
+      + '<span style="width:7px;height:7px;border-radius:50%;background:' + priColor + ';display:inline-block;flex-shrink:0"></span>'
+      + escHtml(issue.priority.name)
+      + '</span>';
+  }
+  html += '</div>';
+
+  // Description
+  var desc = (issue.description || '').trim();
+  // Strip markdown-style bold markers and blob: image links for cleaner display
+  var cleanDesc = desc
+    .replace(/!\[.*?\]\(blob:.*?\)/g, '[image]')
+    .replace(/\*\*/g, '')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '$1')
+    .trim();
+
+  html += '<div class="flyout-section">'
+    + '<div class="flyout-section-hdr">Description</div>'
+    + (cleanDesc
+        ? '<div class="flyout-desc">' + escHtml(cleanDesc) + '</div>'
+        : '<div class="flyout-desc-empty">No description provided.</div>')
+    + '</div>';
+
+  // Subtasks
+  var subtasks = issue.subtasks || [];
+  if (subtasks.length > 0) {
+    var doneCount = subtasks.filter(function(s){ return s.status && s.status.category === 'done'; }).length;
+    var pct = Math.round((doneCount / subtasks.length) * 100);
+    html += '<div class="flyout-section">'
+      + '<div class="flyout-section-hdr">Subtasks</div>'
+      + '<div class="subtask-progress-label">' + doneCount + ' / ' + subtasks.length + ' done</div>'
+      + '<div class="subtask-progress-bar"><div class="subtask-progress-fill" style="width:' + pct + '%"></div></div>'
+      + '<div class="subtask-list">';
+    subtasks.forEach(function(st) {
+      var stCat = (st.status && st.status.category) || 'new';
+      var stColor = subtaskStatusColor(stCat);
+      var stUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(st.key);
+      html += '<div class="subtask-item">'
+        + '<span class="subtask-status-dot" style="background:' + stColor + '"></span>'
+        + '<a href="' + stUrl + '" target="_blank" rel="noopener" style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--gray-4);text-decoration:none;flex-shrink:0;margin-right:2px" onclick="event.stopPropagation()">' + escHtml(st.key) + '</a>'
+        + '<span class="subtask-name">' + escHtml(st.summary || '') + '</span>'
+        + '</div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Time tracking
+  var tt = issue.timetracking;
+  var hasTime = tt && (tt.spent || tt.remaining || tt.spentSeconds > 0 || tt.remainingSeconds > 0);
+  if (hasTime) {
+    html += '<div class="flyout-section">'
+      + '<div class="flyout-section-hdr">Time Tracking</div>'
+      + '<div class="time-tracking-stats">'
+      + '<div class="time-stat-box"><div class="time-stat-val">' + escHtml(tt.spent || '—') + '</div><div class="time-stat-lbl">Time Spent</div></div>'
+      + '<div class="time-stat-box"><div class="time-stat-val">' + escHtml(tt.remaining || '—') + '</div><div class="time-stat-lbl">Remaining</div></div>'
+      + '</div>';
+    if (tt.spentSeconds > 0 && tt.remainingSeconds >= 0) {
+      var total = tt.spentSeconds + tt.remainingSeconds;
+      var filledPct = total > 0 ? Math.round((tt.spentSeconds / total) * 100) : 0;
+      html += '<div class="time-tracking-bar"><div class="time-tracking-fill" style="width:' + filledPct + '%"></div></div>';
+    }
+    html += '</div>';
+  }
+
+  // Open in Jira
+  html += '<a class="flyout-jira-btn" href="' + jiraUrl + '" target="_blank" rel="noopener">'
+    + '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4.5l2.5 2.5L8 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    + 'Open in Jira'
+    + '</a>';
+
+  body.innerHTML = html;
+  body.scrollTop = 0;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('flyout').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFlyout() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('flyout').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeFlyout();
+});
+
+/* ─────────────────────────────────────────────
+   MAIN — INIT
+   ───────────────────────────────────────────── */
+window.addEventListener('load', function() {
+  var data = window.JIRA_SPRINT_DATA;
+  if (!data) {
+    document.getElementById('kanbanGrid').innerHTML = '<p style="color:var(--gray-4);padding:20px">No Jira data available. Run the sync to load sprint data.</p>';
+    return;
+  }
+
+  // Get sprint info from first matching project
+  var sprint = null;
+  var nextSprint = null;
+  SPRINT_CONFIG.projectKeys.forEach(function(pk) {
+    if (data.projects && data.projects[pk]) {
+      if (!sprint && data.projects[pk].activeSprint) sprint = data.projects[pk].activeSprint;
+      if (!nextSprint && data.projects[pk].nextSprint) nextSprint = data.projects[pk].nextSprint;
+    }
+  });
+
+  var activeIssues = filterIssues(data.issues && data.issues.active);
+  var nextIssues   = filterIssues(data.issues && data.issues.next);
+
+  // Build lookup map from both lists
+  buildIssueMap(activeIssues);
+  buildIssueMap(nextIssues);
+
+  renderStats(activeIssues);
+  renderSprintGoal(sprint);
+  renderKanban(activeIssues, sprint);
+  renderBacklogTable(nextIssues, nextSprint);
+
+  // Synced-at timestamp
+  // Try to extract from the data object or fall back to file comment
+  var syncedAt = data.syncedAt || data.lastSynced || null;
+  var syncedLine = document.getElementById('syncedAtLine');
+  if (syncedAt) {
+    syncedLine.textContent = 'Last synced: ' + new Date(syncedAt).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  } else {
+    // Try to get it from the script tag comment (first line of jira-sprint-data.js)
+    // Inject a hidden comment reader via a fetch
+    fetch('../jira-sprint-data.js').then(function(r){ return r.text(); }).then(function(txt) {
+      var m = txt.match(/Last synced:\s*(\S+)/);
+      if (m) {
+        try {
+          syncedLine.textContent = 'Last synced: ' + new Date(m[1]).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+        } catch(e) { syncedLine.textContent = 'Last synced: ' + m[1]; }
+      }
+    }).catch(function(){});
+  }
+});
+</script>
+<script src="../sync.js"></script>
+<script src="../notion-write.js"></script>
+</body>
+</html>
