@@ -844,17 +844,8 @@ function togglePillar(id){
 
 // ─── HERO STATS ───────────────────────────────────────────────────────────────
 function buildHeroStats(){
-  const scheduled = ITEMS.filter(it=>itemQ(it));
-  const pillarsUsed = new Set(scheduled.map(it=>it.theme)).size;
-  document.getElementById('heroStats').innerHTML =
-    `<div><div class="hero-stat-val">${scheduled.length}</div><div class="hero-stat-label">Scheduled</div></div>
-     <div><div class="hero-stat-val">${FY_QUARTERS.length}</div><div class="hero-stat-label">Quarters</div></div>
-     <div><div class="hero-stat-val">${pillarsUsed}</div><div class="hero-stat-label">Pillars</div></div>
-     <div><div class="hero-stat-val">${ITEMS.filter(it=>!itemQ(it)).length}</div><div class="hero-stat-label">Backlog</div></div>`;
-  document.getElementById('heroBadge').textContent =
-    `🧪 Bevan Staging · FY${FY_SY}/${String(CUR_FY).slice(2)} · Product Roadmap`;
-  document.getElementById('fyFooter').textContent =
-    `FY${FY_SY}/${String(CUR_FY).slice(2)}`;
+  const el = document.getElementById('fyFooter');
+  if(el) el.textContent = `FY${FY_SY}/${String(CUR_FY).slice(2)}`;
 }
 
 // ─── BIND CARD CLICKS ─────────────────────────────────────────────────────────
