@@ -417,7 +417,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <div class="flyout-body" id="flyoutBody"></div>
 </div>
 
-<script src="../../staging/jira-sprint-data.js"></script>
+<script src="../jira-sprint-data.js"></script>
 <script>
 /* ─────────────────────────────────────────────
    PER-COMPANY CONFIG
@@ -442,7 +442,7 @@ function triggerJiraSync() {
   }
   var btn = document.getElementById('navSyncBtn');
   if (btn) { btn.disabled = true; btn.classList.add('syncing'); }
-  fetch('https://api.github.com/repos/bevan-cloud/petheaven-prototype/actions/workflows/sync-jira.yml/dispatches', {
+  fetch('https://api.github.com/repos/bevan-cloud/petheaven-prototype/actions/workflows/sync-jira-ucook.yml/dispatches', {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer ' + token,

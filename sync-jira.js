@@ -1,6 +1,6 @@
-// sync-jira.js — Fetches active + next sprint issues from Jira and writes staging/jira-sprint-data.js
+// sync-jira.js — Fetches active + next sprint issues from Jira and writes per-company jira-sprint-data.js
 // Usage: node sync-jira.js
-// Env vars: JIRA_EMAIL, JIRA_API_TOKEN
+// Env vars: JIRA_EMAIL, JIRA_API_TOKEN, COMPANY (ucook | staging — defaults to staging)
 // Jira instance: silvertree-holdings-dev.atlassian.net
 
 'use strict';
@@ -13,7 +13,24 @@ const path = require('path');
 
 const JIRA_BASE = 'silvertree-holdings-dev.atlassian.net';
 const JIRA_API  = '/rest/api/3';
-const PROJECTS  = ['UC', 'FM'];
+
+// COMPANY determines which projects to fetch and where to write the output.
+// Add new companies here as sprint boards are built out.
+const COMPANY_CONFIG = {
+  staging:  { projects: ['UC', 'FM'], outDir: 'staging' },
+  ucook:    { projects: ['UC'],       outDir: 'ucook'   },
+  // faithful-to-nature and petheaven will be added here when ready
+};
+
+const COMPANY = (process.env.COMPANY || 'staging').toLowerCase();
+const config  = COMPANY_CONFIG[COMPANY];
+
+if (!config) {
+  console.error(`[sync-jira] ERROR: Unknown COMPANY "${COMPANY}". Valid values: ${Object.keys(COMPANY_CONFIG).join(', ')}`);
+  process.exit(1);
+}
+
+const PROJECTS = config.projects;
 
 const ACTIVE_FIELDS = 'summary,status,issuetype,priority,assignee,parent,subtasks,timetracking,description,customfield_10020';
 const NEXT_FIELDS   = 'summary,status,issuetype,priority,assignee,customfield_10020';
@@ -252,7 +269,7 @@ async function main() {
   };
 
   // ── Write output file ────────────────────────────────────────────────────
-  const outDir  = path.join(__dirname, 'staging');
+  const outDir  = path.join(__dirname, config.outDir);
   const outFile = path.join(outDir, 'jira-sprint-data.js');
 
   if (!fs.existsSync(outDir)) {
