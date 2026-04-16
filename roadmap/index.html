@@ -36,23 +36,31 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
 .nav-sync-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s;margin-left:4px}
 .nav-sync-btn:hover{background:rgba(255,255,255,.22)}
-.page{max-width:1200px;margin:0 auto;padding:40px 40px 100px}
+.page{max-width:1200px;margin:0 auto;padding:40px 40px 100px;overflow-x:visible}
 
 /* ── HERO ── */
-.hero{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 100%);border-radius:var(--radius-xl);padding:36px 48px 32px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px}
-.hero-sub{font-size:14px;opacity:.75;max-width:520px;line-height:1.6;margin-bottom:20px}
-.hero-stats{display:flex;gap:24px;margin-bottom:22px}
-.hero-stat-val{font-size:26px;font-weight:700;line-height:1}
-.hero-stat-label{font-size:11px;opacity:.6;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+.breadcrumb{font-size:12px;color:var(--gray-4);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.breadcrumb a{color:var(--gray-4);text-decoration:none;transition:color .15s}.breadcrumb a:hover{color:var(--black)}
+.bc-sep{color:var(--gray-3)}
+.bc-cur{color:var(--black);font-weight:500}
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:32px 40px 28px}
+.hero-inner{max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);border:1px solid var(--brand-mid);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px;color:var(--black)}
+.hero-sub{font-size:14px;color:var(--gray-5);max-width:520px;line-height:1.6;margin-bottom:16px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.legend-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.status-legend{display:flex;gap:12px;flex-wrap:wrap}
+.sl-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.sl-dot{font-size:10px;font-weight:700}
 
 /* ── VIEW TABS ── */
-.view-tabs{display:flex;gap:2px;background:rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:3px;width:fit-content}
-.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.view-tab:hover{color:#fff}
-.view-tab.active{background:#fff;color:var(--brand-dark)}
+.view-tabs{display:flex;gap:2px;background:var(--gray-2);border-radius:var(--radius-lg);padding:3px;margin-bottom:20px;width:fit-content}
+.view-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 16px;border-radius:var(--radius);border:none;background:none;color:var(--gray-5);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.view-tab:hover{color:var(--black)}
+.view-tab.active{background:#fff;color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 .view-section{display:none}
 .view-section.active{display:block}
 
@@ -276,27 +284,46 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </header>
 
-<div class="page">
-
-  <div class="hero">
-    <div class="hero-badge" id="heroBadge">petheaven.co.za · FY2026/27 · Product Roadmap</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="../home/">Home</a><span class="bc-sep">›</span><span class="bc-cur">Roadmap</span></div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>petheaven.co.za · FY2026/27 · Product Roadmap</div>
     <h1>Roadmap</h1>
     <p class="hero-sub">Quarterly view of Pet Heaven initiatives. Financial year runs March–February. Click any card to see details.</p>
-    <div class="hero-stats" id="heroStats"></div>
-    <div class="view-tabs">
-      <button class="view-tab active" onclick="setView('kanban',this)">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
-        Kanban
-      </button>
-      <button class="view-tab" onclick="setView('timeline',this)">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
-        Timeline
-      </button>
-      <button class="view-tab" onclick="setView('pillar',this)">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="2.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="2.5" cy="9.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="9.5" cy="6" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 2.5h3a2 2 0 012 2v0a2 2 0 01-2 2H4.5M4.5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        By Pillar
-      </button>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#2e7d32"></span>Top Line Growth</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#c62828"></span>Margin Improvements</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#4527a0"></span>Cost Control &amp; Cash Flow</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#b71c1c"></span>People</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#1a5fa8"></span>Internal Working Improvement</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#3730a3"></span>UX/UI</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#9a9a94"></span>Other</span>
     </div>
+    <div class="status-legend">
+      <span class="sl-item"><span class="sl-dot" style="color:#2d7a31">✓</span>&nbsp;Done</span>
+      <span class="sl-item"><span class="sl-dot" style="color:#2d7a31">✓</span>&nbsp;Live</span>
+      <span class="sl-item"><span class="sl-dot" style="color:#6a1b9a">◎</span>&nbsp;In Review</span>
+      <span class="sl-item"><span class="sl-dot" style="color:#7a5a00">⚡</span>&nbsp;In Progress</span>
+      <span class="sl-item"><span class="sl-dot" style="color:var(--brand)">○</span>&nbsp;Planned</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="view-tabs">
+    <button class="view-tab active" onclick="setView('kanban',this)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.6" y="0" width="2.8" height="12" rx="1" fill="currentColor"/><rect x="9.2" y="0" width="2.8" height="12" rx="1" fill="currentColor" opacity=".7"/></svg>
+      Kanban
+    </button>
+    <button class="view-tab" onclick="setView('timeline',this)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="1" width="12" height="2" rx="1" fill="currentColor" opacity=".4"/><rect x="0" y="5" width="8" height="2" rx="1" fill="currentColor"/><rect x="0" y="9" width="10" height="2" rx="1" fill="currentColor" opacity=".7"/></svg>
+      Timeline
+    </button>
+    <button class="view-tab" onclick="setView('pillar',this)">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="2.5" cy="2.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="2.5" cy="9.5" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="9.5" cy="6" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 2.5h3a2 2 0 012 2v0a2 2 0 01-2 2H4.5M4.5 9.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      By Pillar
+    </button>
   </div>
 
   <!-- CONTROLS BAR -->
