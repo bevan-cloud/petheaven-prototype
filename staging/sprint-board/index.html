@@ -196,9 +196,25 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* ── PAGE FOOTER ── */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px;display:flex;flex-direction:column;gap:4px}
 
+/* ── CONTROLS BAR ── */
+.controls{display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:360px}
+.search-wrap .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--gray-4)}
+.search-input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--gray-2);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+.search-input:focus{border-color:var(--brand-mid);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.search-input::placeholder{color:var(--gray-3)}
+.ctrl-select{padding:9px 32px 9px 11px;border:1px solid var(--gray-2);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:#fff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;-webkit-appearance:none;appearance:none;outline:none;cursor:pointer;transition:border-color .15s;flex-shrink:0}
+.ctrl-select:focus{border-color:var(--brand-mid);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.ctrl-reset{padding:9px 14px;border:1px solid var(--gray-2);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--gray-5);background:#fff;cursor:pointer;transition:background .15s,border-color .15s;white-space:nowrap;flex-shrink:0}
+.ctrl-reset:hover{background:var(--gray-1);border-color:var(--gray-3)}
+.ctrl-reset.active{border-color:var(--brand-mid);color:var(--brand);background:var(--brand-light)}
+.ctrl-spacer{flex:1}
+.ctrl-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
+.ctrl-count strong{color:var(--black);font-weight:600}
+
 /* ── MEDIA QUERIES ── */
 @media(max-width:900px){.kanban-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.kanban-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:24px 16px 60px}.hero{padding:24px 24px 20px}}
+@media(max-width:600px){.kanban-grid{grid-template-columns:1fr}.site-header{padding:0 20px}.page{padding:24px 16px 60px}.hero{padding:24px 24px 20px}.controls{gap:8px}.search-wrap{max-width:100%;flex-basis:100%}}
 @media(max-width:760px){.flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}.flyout.open{transform:translateY(0)}}
 </style>
 </head>
@@ -253,6 +269,23 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     </div>
     <div id="sprintGoalArea"></div>
   </section>
+
+  <!-- CONTROLS BAR -->
+  <div class="controls" id="controlsBar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10.5 10.5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search tickets…" autocomplete="off" oninput="applyFilters()">
+    </div>
+    <select class="ctrl-select" id="assigneeFilter" onchange="applyFilters()" aria-label="Filter by assignee">
+      <option value="">All assignees</option>
+    </select>
+    <button class="ctrl-reset" id="resetBtn" onclick="resetFilters()">Reset</button>
+    <div class="ctrl-spacer"></div>
+    <span class="ctrl-count" id="filterCount"></span>
+  </div>
 
   <!-- SECTION 1 — KANBAN BOARD -->
   <section class="section-block">
@@ -784,6 +817,80 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ─────────────────────────────────────────────
+   SEARCH & FILTER STATE
+   ───────────────────────────────────────────── */
+var _allActive = [];
+var _allNext   = [];
+var _activeSprint = null;
+var _nextSprint   = null;
+
+function populateAssigneeFilter(issues) {
+  var sel = document.getElementById('assigneeFilter');
+  if (!sel) return;
+  // Collect unique assignees from both active + next issues
+  var seen = {};
+  var names = [];
+  (_allActive.concat(_allNext)).forEach(function(i) {
+    var n = (i.assignee && i.assignee.displayName) || '';
+    if (n && !seen[n]) { seen[n] = true; names.push(n); }
+  });
+  names.sort();
+  // Remove existing options beyond the first "All assignees"
+  while (sel.options.length > 1) sel.remove(1);
+  names.forEach(function(n) {
+    var opt = document.createElement('option');
+    opt.value = n;
+    opt.textContent = n;
+    sel.appendChild(opt);
+  });
+}
+
+function applyFilters() {
+  var search   = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+  var assignee = (document.getElementById('assigneeFilter').value || '');
+
+  function matchIssue(issue) {
+    if (search) {
+      var haystack = (issue.summary || '').toLowerCase() + ' ' + (issue.key || '').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    if (assignee) {
+      var name = (issue.assignee && issue.assignee.displayName) || '';
+      if (name !== assignee) return false;
+    }
+    return true;
+  }
+
+  var filtActive = _allActive.filter(matchIssue);
+  var filtNext   = _allNext.filter(matchIssue);
+
+  renderKanban(filtActive, _activeSprint);
+  renderBacklogTable(filtNext, _nextSprint);
+
+  // Update count badge
+  var total = _allActive.length + _allNext.length;
+  var showing = filtActive.length + filtNext.length;
+  var countEl = document.getElementById('filterCount');
+  if (countEl) {
+    if (search || assignee) {
+      countEl.innerHTML = '<strong>' + showing + '</strong> of ' + total + ' issues';
+    } else {
+      countEl.innerHTML = '<strong>' + total + '</strong> issues';
+    }
+  }
+
+  // Toggle reset button active state
+  var resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.classList.toggle('active', !!(search || assignee));
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('assigneeFilter').value = '';
+  applyFilters();
+}
+
+/* ─────────────────────────────────────────────
    MAIN — INIT
    ───────────────────────────────────────────── */
 window.addEventListener('load', function() {
@@ -803,17 +910,21 @@ window.addEventListener('load', function() {
     }
   });
 
-  var activeIssues = filterIssues(data.issues && data.issues.active);
-  var nextIssues   = filterIssues(data.issues && data.issues.next);
+  _allActive = filterIssues(data.issues && data.issues.active);
+  _allNext   = filterIssues(data.issues && data.issues.next);
+  _activeSprint = sprint;
+  _nextSprint   = nextSprint;
 
   // Build lookup map from both lists
-  buildIssueMap(activeIssues);
-  buildIssueMap(nextIssues);
+  buildIssueMap(_allActive);
+  buildIssueMap(_allNext);
 
-  renderStats(activeIssues);
+  renderStats(_allActive);
   renderSprintGoal(sprint);
-  renderKanban(activeIssues, sprint);
-  renderBacklogTable(nextIssues, nextSprint);
+  renderKanban(_allActive, sprint);
+  renderBacklogTable(_allNext, nextSprint);
+  populateAssigneeFilter();
+  applyFilters(); // sets initial count
 
   // Synced-at timestamp
   // Try to extract from the data object or fall back to file comment
