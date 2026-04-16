@@ -9202,7 +9202,7 @@ const NOTION_ITEMS = [
     "notionId": "3426bd1c-dd34-81dd-9067-f878c9f5afe0",
     "name": "FTN M2 Analytics",
     "company": [
-      "PH"
+      "FTN"
     ],
     "theme": "Top Line Growth",
     "pillar": "Top Line Growth",
