@@ -196,6 +196,73 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* ── PAGE FOOTER ── */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px;display:flex;flex-direction:column;gap:4px}
 
+/* ── INSIGHTS TRIGGER BUTTON ── */
+.ins-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border:1px solid var(--gray-2);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-5);background:#fff;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.ins-btn:hover{background:var(--brand-light);border-color:var(--brand-mid);color:var(--brand)}
+.ins-btn svg{flex-shrink:0}
+
+/* ── INSIGHTS PANEL ── */
+.ins-panel{position:fixed;inset:0;background:var(--gray-1);z-index:500;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.ins-panel.open{transform:translateY(0)}
+.ins-header{display:flex;align-items:flex-start;justify-content:space-between;padding:28px 40px 22px;border-bottom:1px solid var(--gray-2);flex-shrink:0;background:#fff;gap:16px}
+.ins-header-left{display:flex;flex-direction:column;gap:3px}
+.ins-breadcrumb{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4)}
+.ins-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--black);line-height:1.2}
+.ins-subtitle{font-size:13px;color:var(--gray-4)}
+.ins-close{width:36px;height:36px;border:1px solid var(--gray-2);border-radius:var(--radius);background:#fff;cursor:pointer;font-size:20px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;line-height:1;margin-top:2px}
+.ins-close:hover{background:var(--gray-1)}
+.ins-body{flex:1;overflow-y:auto;padding:28px 40px 60px}
+/* Metric cards row */
+.ins-metrics-row{display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.ins-stat-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 22px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px}
+.ins-stat-card.donut-card{flex-direction:row;align-items:center;gap:18px;padding:18px 24px}
+.ins-stat-val{font-size:30px;font-weight:700;color:var(--black);line-height:1}
+.ins-stat-icon-lbl{font-size:14px;font-weight:600;margin-bottom:2px}
+.ins-stat-label{font-size:11px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em}
+.ins-donut-text{display:flex;flex-direction:column;gap:2px}
+.ins-donut-pct{font-size:30px;font-weight:700;color:var(--black);line-height:1}
+.ins-donut-sub{font-size:11px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em}
+/* Charts grid */
+.ins-charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ins-chart-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:20px 22px}
+.ins-chart-wide{grid-column:1 / -1}
+.ins-chart-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:14px}
+/* Horizontal bar chart */
+.ins-bar-chart{display:flex;flex-direction:column;gap:9px}
+.ins-bar-row{display:flex;align-items:center;gap:8px}
+.ins-bar-name{font-size:12px;font-weight:500;color:var(--black);width:82px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ins-bar-track{flex:1;height:18px;background:var(--gray-1);border-radius:4px;overflow:hidden;display:flex}
+.ins-bar-seg{height:100%;transition:width .45s ease}
+.ins-bar-done{background:var(--col-done)}
+.ins-bar-inprog{background:var(--col-inprog)}
+.ins-bar-todo{background:var(--col-todo)}
+.ins-bar-count{font-size:12px;font-weight:600;color:var(--gray-5);width:22px;text-align:right;flex-shrink:0}
+/* Legend */
+.ins-legend{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
+.ins-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.ins-legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+/* Epic progress chart */
+.ins-epic-chart{display:flex;flex-direction:column;gap:10px}
+.ins-epic-row{display:flex;align-items:center;gap:10px}
+.ins-epic-name{font-size:12px;font-weight:500;color:var(--black);width:200px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ins-epic-key{font-family:'DM Mono',monospace,monospace;font-size:10px;color:var(--gray-4)}
+.ins-epic-bar-wrap{flex:1;display:flex;align-items:center;gap:8px}
+.ins-epic-bar{flex:1;height:14px;border-radius:4px;overflow:hidden;background:var(--gray-1);display:flex}
+.ins-epic-bar>div{height:100%;transition:width .45s ease}
+.ins-epic-pct{font-size:11px;font-weight:600;color:var(--gray-5);width:30px;flex-shrink:0;text-align:right}
+.ins-epic-count{font-size:11px;color:var(--gray-4);width:56px;flex-shrink:0;text-align:right}
+/* Time tracking */
+.ins-time-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ins-time-stat{text-align:center;background:var(--gray-1);border-radius:var(--radius-lg);padding:12px}
+.ins-time-val{font-size:20px;font-weight:700;color:var(--black);line-height:1}
+.ins-time-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.ins-time-bar-wrap{display:flex;align-items:center;gap:10px}
+.ins-time-bar{flex:1;height:8px;background:var(--gray-2);border-radius:4px;overflow:hidden}
+.ins-time-pct{font-size:11px;color:var(--gray-5);white-space:nowrap;flex-shrink:0}
+/* Responsive */
+@media(max-width:900px){.ins-charts-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.ins-header{padding:18px 20px 16px}.ins-body{padding:20px 16px 40px}.ins-metrics-row{gap:10px}.ins-stat-card{min-width:100px;padding:14px 16px}.ins-epic-name{width:130px}}
+
 /* ── CONTROLS BAR ── */
 .controls{display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
 .search-wrap{position:relative;flex:1;min-width:200px;max-width:360px}
@@ -293,6 +360,14 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       <h2 class="section-title" id="kanbanTitle">Active Sprint</h2>
       <span class="section-meta" id="kanbanMeta"></span>
       <div class="section-divider"></div>
+      <button class="ins-btn" id="insightsBtn" onclick="openInsights()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <rect x="1" y="8" width="2.5" height="5" rx="1" fill="currentColor"/>
+          <rect x="5.75" y="5" width="2.5" height="8" rx="1" fill="currentColor"/>
+          <rect x="10.5" y="1" width="2.5" height="12" rx="1" fill="currentColor"/>
+        </svg>
+        Sprint Insights
+      </button>
     </div>
     <div class="kanban-grid" id="kanbanGrid">
       <!-- Rendered by JS -->
@@ -328,6 +403,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <div>Bevan Staging · Sprint Board · Powered by Jira</div>
     <div id="syncedAtLine" style="font-size:11px;color:var(--gray-3)"></div>
   </footer>
+</div>
+
+<!-- INSIGHTS PANEL -->
+<div class="ins-panel" id="insightsPanel" role="dialog" aria-modal="true" aria-label="Sprint Insights">
+  <!-- Content built by JS -->
 </div>
 
 <!-- FLYOUT -->
@@ -813,8 +893,288 @@ function closeFlyout() {
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeFlyout();
+  if (e.key === 'Escape') {
+    var ins = document.getElementById('insightsPanel');
+    if (ins && ins.classList.contains('open')) { closeInsights(); return; }
+    closeFlyout();
+  }
 });
+
+/* ─────────────────────────────────────────────
+   SPRINT INSIGHTS
+   ───────────────────────────────────────────── */
+function openInsights() {
+  var panel = document.getElementById('insightsPanel');
+  if (!panel) return;
+  panel.innerHTML = buildInsightsHTML(_allActive, _activeSprint);
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeInsights() {
+  var panel = document.getElementById('insightsPanel');
+  if (panel) panel.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function _insDonut(pct) {
+  var r = 40, cx = 52, cy = 52;
+  var circ = 2 * Math.PI * r;
+  var filled = circ * (pct / 100);
+  var empty  = circ - filled;
+  return '<svg width="96" height="96" viewBox="0 0 104 104" aria-hidden="true">'
+    + '<circle cx="52" cy="52" r="40" fill="none" stroke="var(--gray-2)" stroke-width="11"/>'
+    + '<circle cx="52" cy="52" r="40" fill="none" stroke="var(--col-done)" stroke-width="11"'
+    + ' stroke-dasharray="' + filled.toFixed(2) + ' ' + empty.toFixed(2) + '"'
+    + ' stroke-linecap="round" transform="rotate(-90 52 52)"/>'
+    + '</svg>';
+}
+
+function _insStatCard(val, label, iconColor) {
+  return '<div class="ins-stat-card">'
+    + '<div class="ins-stat-val" style="color:' + iconColor + '">' + val + '</div>'
+    + '<div class="ins-stat-label">' + escHtml(label) + '</div>'
+    + '</div>';
+}
+
+function _insFormatSeconds(s) {
+  if (!s || s <= 0) return '0h';
+  var h = Math.floor(s / 3600);
+  var m = Math.floor((s % 3600) / 60);
+  if (h >= 8) { return (Math.round(h / 8 * 10) / 10) + 'd'; }
+  return h + 'h' + (m > 0 ? ' ' + m + 'm' : '');
+}
+
+function buildInsightsHTML(issues, sprint) {
+  if (!issues || issues.length === 0) {
+    return '<div class="ins-header"><div class="ins-header-left"><div class="ins-breadcrumb">Sprint Insights</div><div class="ins-title">No Data</div></div><button class="ins-close" onclick="closeInsights()">&times;</button></div>'
+      + '<div class="ins-body" style="display:flex;align-items:center;justify-content:center;color:var(--gray-4);font-size:14px">No sprint data available — run a sync to load issues.</div>';
+  }
+
+  var total   = issues.length;
+  var done    = issues.filter(function(i){ return i.status && i.status.category === 'done'; }).length;
+  var inprog  = issues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; }).length;
+  var todo    = total - done - inprog;
+  var donePct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  var sprintName = (sprint && sprint.name) || 'Active Sprint';
+  var subtitle = '';
+  if (sprint && sprint.endDate) {
+    var diff = Math.ceil((new Date(sprint.endDate) - new Date()) / 86400000);
+    if (diff > 0)      subtitle = diff + ' day' + (diff === 1 ? '' : 's') + ' remaining';
+    else if (diff === 0) subtitle = 'Sprint ends today';
+    else                subtitle = 'Sprint completed';
+  }
+
+  var html = '';
+
+  // ── Header ──
+  html += '<div class="ins-header">';
+  html += '<div class="ins-header-left">';
+  html += '<div class="ins-breadcrumb">Sprint Insights</div>';
+  html += '<div class="ins-title">' + escHtml(sprintName) + '</div>';
+  if (subtitle) html += '<div class="ins-subtitle">' + escHtml(subtitle) + '</div>';
+  html += '</div>';
+  html += '<button class="ins-close" onclick="closeInsights()" aria-label="Close">&times;</button>';
+  html += '</div>';
+
+  html += '<div class="ins-body">';
+
+  // ── Key metrics ──
+  html += '<div class="ins-metrics-row">';
+  // Donut card
+  html += '<div class="ins-stat-card donut-card">';
+  html += _insDonut(donePct);
+  html += '<div class="ins-donut-text"><div class="ins-donut-pct">' + donePct + '%</div><div class="ins-donut-sub">Complete</div></div>';
+  html += '</div>';
+  html += _insStatCard(done,   'Done',        'var(--col-done)');
+  html += _insStatCard(inprog, 'In Progress', 'var(--col-inprog)');
+  html += _insStatCard(todo,   'To Do',       'var(--col-todo)');
+  var unassigned = issues.filter(function(i){ return !i.assignee; }).length;
+  html += _insStatCard(unassigned, 'Unassigned', 'var(--gray-3)');
+  html += '</div>'; // ins-metrics-row
+
+  // ── Charts grid ──
+  html += '<div class="ins-charts-grid">';
+
+  // By Assignee
+  html += (function() {
+    var data = {};
+    issues.forEach(function(i) {
+      var n = (i.assignee && i.assignee.displayName) || 'Unassigned';
+      if (!data[n]) data[n] = { done:0, inprog:0, todo:0, total:0 };
+      var cat = (i.status && i.status.category) || 'new';
+      if (cat === 'done') data[n].done++;
+      else if (cat === 'indeterminate') data[n].inprog++;
+      else data[n].todo++;
+      data[n].total++;
+    });
+    var keys = Object.keys(data).sort(function(a,b){ return data[b].total - data[a].total; });
+    var max = keys.reduce(function(m,k){ return Math.max(m, data[k].total); }, 0);
+    var out = '<div class="ins-chart-card"><div class="ins-chart-title">By Assignee</div><div class="ins-bar-chart">';
+    keys.forEach(function(n) {
+      var d = data[n];
+      out += '<div class="ins-bar-row">'
+        + '<div class="ins-bar-name" title="' + escHtml(n) + '">' + escHtml(n.split(' ')[0]) + '</div>'
+        + '<div class="ins-bar-track">'
+        + (d.done   > 0 ? '<div class="ins-bar-seg ins-bar-done"   style="width:' + (d.done   / max * 100).toFixed(1) + '%"></div>' : '')
+        + (d.inprog > 0 ? '<div class="ins-bar-seg ins-bar-inprog" style="width:' + (d.inprog / max * 100).toFixed(1) + '%"></div>' : '')
+        + (d.todo   > 0 ? '<div class="ins-bar-seg ins-bar-todo"   style="width:' + (d.todo   / max * 100).toFixed(1) + '%"></div>' : '')
+        + '</div>'
+        + '<div class="ins-bar-count">' + d.total + '</div>'
+        + '</div>';
+    });
+    out += '</div>';
+    out += '<div class="ins-legend">'
+      + '<span class="ins-legend-item"><span class="ins-legend-dot" style="background:var(--col-done)"></span>Done</span>'
+      + '<span class="ins-legend-item"><span class="ins-legend-dot" style="background:var(--col-inprog)"></span>In Progress</span>'
+      + '<span class="ins-legend-item"><span class="ins-legend-dot" style="background:var(--col-todo)"></span>To Do</span>'
+      + '</div>';
+    out += '</div>';
+    return out;
+  })();
+
+  // By Issue Type
+  html += (function() {
+    var data = {}; var typeColors = { 'Bug':'#e53935','Story':'#36B37E','Task':'#4C9AFF','Subtask':'#4C9AFF','Spike':'#6554C0' };
+    issues.forEach(function(i) {
+      var t = (i.issuetype && i.issuetype.name) || 'Other';
+      data[t] = (data[t] || 0) + 1;
+    });
+    var keys = Object.keys(data).sort(function(a,b){ return data[b] - data[a]; });
+    var max = keys.reduce(function(m,k){ return Math.max(m, data[k]); }, 0);
+    var out = '<div class="ins-chart-card"><div class="ins-chart-title">By Issue Type</div><div class="ins-bar-chart">';
+    keys.forEach(function(t) {
+      var color = typeColors[t] || '#9a9a94';
+      out += '<div class="ins-bar-row">'
+        + '<div class="ins-bar-name">' + escHtml(t) + '</div>'
+        + '<div class="ins-bar-track"><div class="ins-bar-seg" style="width:' + (data[t] / max * 100).toFixed(1) + '%;background:' + color + '"></div></div>'
+        + '<div class="ins-bar-count">' + data[t] + '</div>'
+        + '</div>';
+    });
+    out += '</div></div>';
+    return out;
+  })();
+
+  // By Priority
+  html += (function() {
+    var order = ['Highest','High','Medium','Low','Lowest'];
+    var data = {};
+    issues.forEach(function(i) {
+      var p = (i.priority && i.priority.name) || 'None';
+      data[p] = (data[p] || 0) + 1;
+    });
+    var keys = order.filter(function(p){ return data[p]; });
+    Object.keys(data).forEach(function(p){ if (!order.includes(p)) keys.push(p); });
+    var max = keys.reduce(function(m,k){ return Math.max(m, data[k] || 0); }, 0);
+    var out = '<div class="ins-chart-card"><div class="ins-chart-title">By Priority</div><div class="ins-bar-chart">';
+    keys.forEach(function(p) {
+      out += '<div class="ins-bar-row">'
+        + '<div class="ins-bar-name">' + escHtml(p) + '</div>'
+        + '<div class="ins-bar-track"><div class="ins-bar-seg" style="width:' + (data[p] / max * 100).toFixed(1) + '%;background:' + priorityColor(p) + '"></div></div>'
+        + '<div class="ins-bar-count">' + data[p] + '</div>'
+        + '</div>';
+    });
+    out += '</div></div>';
+    return out;
+  })();
+
+  // By Status (exact status names)
+  html += (function() {
+    var data = {};
+    issues.forEach(function(i) {
+      var s = (i.status && i.status.name) || 'Unknown';
+      var cat = (i.status && i.status.category) || 'new';
+      if (!data[s]) data[s] = { count:0, cat:cat };
+      data[s].count++;
+    });
+    var keys = Object.keys(data).sort(function(a,b){ return data[b].count - data[a].count; });
+    var max = keys.reduce(function(m,k){ return Math.max(m, data[k].count); }, 0);
+    var catColor = { done:'var(--col-done)', indeterminate:'var(--col-inprog)', new:'var(--col-todo)' };
+    var out = '<div class="ins-chart-card"><div class="ins-chart-title">By Status</div><div class="ins-bar-chart">';
+    keys.forEach(function(s) {
+      var color = catColor[data[s].cat] || 'var(--gray-3)';
+      out += '<div class="ins-bar-row">'
+        + '<div class="ins-bar-name" title="' + escHtml(s) + '">' + escHtml(s) + '</div>'
+        + '<div class="ins-bar-track"><div class="ins-bar-seg" style="width:' + (data[s].count / max * 100).toFixed(1) + '%;background:' + color + '"></div></div>'
+        + '<div class="ins-bar-count">' + data[s].count + '</div>'
+        + '</div>';
+    });
+    out += '</div></div>';
+    return out;
+  })();
+
+  // Epic Progress — wide card
+  html += (function() {
+    var data = {};
+    issues.forEach(function(i) {
+      var epicKey = (i.parent && i.parent.key) || null;
+      var epicSum = (i.parent && i.parent.summary) || 'No Epic';
+      var k = epicKey || '__none__';
+      if (!data[k]) data[k] = { name:epicSum, key:epicKey, done:0, inprog:0, todo:0, total:0 };
+      var cat = (i.status && i.status.category) || 'new';
+      if (cat === 'done') data[k].done++;
+      else if (cat === 'indeterminate') data[k].inprog++;
+      else data[k].todo++;
+      data[k].total++;
+    });
+    var keys = Object.keys(data).sort(function(a,b){ return data[b].total - data[a].total; });
+    if (keys.length === 0) return '';
+    var out = '<div class="ins-chart-card ins-chart-wide"><div class="ins-chart-title">Epic Progress</div><div class="ins-epic-chart">';
+    keys.forEach(function(k) {
+      var e = data[k];
+      var dPct = e.total > 0 ? Math.round(e.done   / e.total * 100) : 0;
+      var iPct = e.total > 0 ? Math.round(e.inprog / e.total * 100) : 0;
+      var tPct = 100 - dPct - iPct;
+      out += '<div class="ins-epic-row">'
+        + '<div class="ins-epic-name" title="' + escHtml(e.name) + '">'
+        + (e.key ? '<span class="ins-epic-key">' + escHtml(e.key) + '</span> ' : '')
+        + escHtml(e.name)
+        + '</div>'
+        + '<div class="ins-epic-bar-wrap">'
+        + '<div class="ins-epic-bar">'
+        + (dPct > 0 ? '<div style="width:' + dPct + '%;background:var(--col-done)"></div>' : '')
+        + (iPct > 0 ? '<div style="width:' + iPct + '%;background:var(--col-inprog)"></div>' : '')
+        + (tPct > 0 ? '<div style="width:' + tPct + '%;background:var(--col-todo-border)"></div>' : '')
+        + '</div>'
+        + '<span class="ins-epic-pct">' + dPct + '%</span>'
+        + '</div>'
+        + '<div class="ins-epic-count">' + e.total + ' issue' + (e.total !== 1 ? 's' : '') + '</div>'
+        + '</div>';
+    });
+    out += '</div></div>';
+    return out;
+  })();
+
+  // Time Tracking — only if we have data
+  html += (function() {
+    var spent = 0, remaining = 0;
+    issues.forEach(function(i) {
+      if (i.timetracking) {
+        spent     += (i.timetracking.spentSeconds     || 0);
+        remaining += (i.timetracking.remainingSeconds || 0);
+      }
+    });
+    if (spent === 0 && remaining === 0) return '';
+    var ttotal = spent + remaining;
+    var spentPct = ttotal > 0 ? Math.round(spent / ttotal * 100) : 0;
+    return '<div class="ins-chart-card ins-chart-wide"><div class="ins-chart-title">Time Tracking (Sprint Total)</div>'
+      + '<div class="ins-time-stats">'
+      + '<div class="ins-time-stat"><div class="ins-time-val">' + _insFormatSeconds(spent)     + '</div><div class="ins-time-lbl">Logged</div></div>'
+      + '<div class="ins-time-stat"><div class="ins-time-val">' + _insFormatSeconds(remaining) + '</div><div class="ins-time-lbl">Remaining</div></div>'
+      + '<div class="ins-time-stat"><div class="ins-time-val">' + _insFormatSeconds(ttotal)    + '</div><div class="ins-time-lbl">Estimated</div></div>'
+      + '</div>'
+      + '<div class="ins-time-bar-wrap">'
+      + '<div class="ins-time-bar"><div style="width:' + spentPct + '%;background:var(--brand);height:100%;border-radius:inherit;transition:width .4s"></div></div>'
+      + '<span class="ins-time-pct">' + spentPct + '% logged</span>'
+      + '</div>'
+      + '</div>';
+  })();
+
+  html += '</div>'; // ins-charts-grid
+  html += '</div>'; // ins-body
+  return html;
+}
 
 /* ─────────────────────────────────────────────
    SEARCH & FILTER STATE
