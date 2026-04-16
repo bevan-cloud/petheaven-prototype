@@ -2,34 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UCook — Product Prioritization</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --brand:#e05a1e;--brand-dark:#b84714;--brand-light:#fdf1ec;--brand-mid:#f0b89a;
-  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
-  --blue:#1a6fd4;--blue-light:#e8f1fc;
-  --purple:#7b1fa2;--purple-light:#f3e5f5;
-  --teal:#00695c;--teal-light:#e0f2f1;
-  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
-  --data:#1565c0;--data-light:#e3f2fd;
-  --red:#a00000;--red-light:#fff0f0;
+  --amber:#7a5a00;--amber-mid:#f5c842;
   --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
-  --white:#fff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
-
-/* HEADER */
-.site-nav{position:sticky;top:0;z-index:100;background:var(--brand-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:14px}
-.site-nav-wordmark{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
-.site-nav-div{width:1px;height:20px;background:rgba(255,255,255,.2);flex-shrink:0}
-.site-nav-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.65)}
-
-/* COMPANY SWITCHER */
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
 .company-switcher{position:relative;margin-left:auto}
-.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
 .cs-trigger:hover{background:rgba(255,255,255,.2)}
 .cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
@@ -44,267 +34,201 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
-
 /* BREADCRUMB */
 .breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:9px 40px;font-size:12px;display:flex;align-items:center}
-.breadcrumb a{color:var(--gray-5);text-decoration:none}
-.breadcrumb a:hover{color:var(--brand-dark)}
-.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
-.bc-cur{color:var(--gray-4)}
-
-/* HERO */
-.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:36px 40px 32px}
+.breadcrumb a{color:var(--gray-5);text-decoration:none}.breadcrumb a:hover{color:var(--brand-dark)}
+.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}.bc-cur{color:var(--gray-4)}
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:36px 40px 32px;margin-bottom:0}
 .hero-inner{max-width:1200px;margin:0 auto}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
 .hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;color:var(--black);margin-bottom:6px}
-.hero-sub{font-size:14px;color:var(--gray-5);max-width:600px;line-height:1.7;margin-bottom:24px}
-.rice-cards{display:flex;gap:10px;flex-wrap:wrap}
-.rice-card{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px;flex:1;min-width:160px;max-width:200px}
-.rice-card-letter{font-family:'DM Serif Display',serif;font-size:28px;line-height:1;margin-bottom:4px}
-.rc-r{color:var(--blue)}.rc-i{color:var(--green)}.rc-c{color:var(--purple)}.rc-e{color:var(--red)}
-.rice-card-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:3px}
-.rice-card-desc{font-size:11px;color:var(--gray-4);line-height:1.5}
-.rice-formula{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500}
-.rice-formula span{opacity:.5;font-size:11px}
-.edit-hint{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:12px}
-
-/* MAIN */
-.main{max-width:1200px;margin:0 auto;padding:24px 40px 80px}
-
-/* FILTER BAR */
-.filter-bar{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:16px 20px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.filter-search{flex:1;min-width:180px;position:relative}
-.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
-.filter-search input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--black);outline:none;background:var(--gray-1)}
-.filter-search input:focus{border-color:var(--brand);background:#fff}
-.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray-5);outline:none;background:var(--gray-1);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
-.filter-select:focus{border-color:var(--brand)}
-.filter-reset{font-size:12px;font-weight:500;color:var(--gray-4);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:6px 0}
-.filter-reset:hover{color:var(--red)}
-.filter-count{font-size:12px;color:var(--gray-4);margin-left:auto;white-space:nowrap}
-.filter-count strong{color:var(--black)}
-
-/* TABLE */
-.table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:900px}
-thead tr{background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
-th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);padding:11px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;-webkit-user-select:none}
-th:hover{color:var(--black)}
-th.sorted{color:var(--brand-dark)}
-th .sort-arrow{display:inline-block;margin-left:4px;opacity:.5;font-size:9px}
-th.sorted .sort-arrow{opacity:1}
-th.th-score{text-align:center}
-th.th-rice{text-align:left;padding-left:16px}
-th.no-sort{cursor:default}
-th.no-sort:hover{color:var(--gray-4)}
-tbody tr{border-bottom:1px solid var(--gray-2);transition:background .1s;cursor:pointer}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--gray-1)}
-tbody tr.row-active td{background:var(--brand-light) !important}
-td{padding:10px 14px;vertical-align:middle;font-size:13px}
-tr.tier-high td:first-child{border-left:3px solid var(--green)}
-tr.tier-mid td:first-child{border-left:3px solid var(--amber-mid)}
-tr.tier-low td:first-child{border-left:3px solid var(--gray-2)}
-.td-rank{font-size:11px;font-weight:700;color:var(--gray-4);width:48px;text-align:center}
-.td-name{min-width:200px}
-.item-name{font-weight:600;color:var(--black);line-height:1.3}
-.item-desc{font-size:11px;color:var(--gray-4);margin-top:2px;line-height:1.4;max-width:280px}
-
-/* THEME PILLS */
-.theme-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
-.tp-proc{background:var(--amber-light);color:var(--amber)}
-.tp-web{background:var(--blue-light);color:var(--blue)}
-.tp-eco{background:var(--green-light);color:var(--green-dark)}
-.tp-infra{background:var(--teal-light);color:var(--teal)}
-.tp-retail{background:var(--purple-light);color:var(--purple)}
-.tp-data{background:var(--data-light);color:var(--data)}
-.tp-none{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-
-/* STATUS PILLS */
-.status-pill{display:inline-block;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap;line-height:1.8}
-.sp-live{background:var(--green-light);color:var(--green-dark)}
-.sp-inprogress{background:var(--amber-light);color:var(--amber)}
-.sp-blocked{background:var(--red-light);color:var(--red)}
-
-/* TYPE PILLS */
-.type-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
-.type-qw{background:var(--green-light);color:var(--green-dark)}
-.type-er{background:var(--blue-light);color:var(--blue)}
-
-/* SCORE CELLS */
-.td-score{text-align:center;width:60px;font-variant-numeric:tabular-nums}
-.score-val{display:inline-flex;align-items:center;justify-content:center;width:32px;height:26px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;transition:background .1s,color .1s}
-.score-val:hover{background:var(--gray-2)}
-.sv-r{color:var(--blue)}.sv-i{color:var(--green-dark)}.sv-c{color:var(--purple)}.sv-e{color:var(--red)}
-.score-input{width:36px;height:26px;border:1.5px solid var(--brand);border-radius:var(--radius);text-align:center;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;outline:none;padding:0 2px;-moz-appearance:textfield}
-.score-input::-webkit-outer-spin-button,.score-input::-webkit-inner-spin-button{-webkit-appearance:none}
-
-/* RICE COLUMN */
-.td-rice{min-width:140px}
-.rice-wrap{display:flex;align-items:center;gap:8px}
-.rice-bar-track{flex:1;height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden;min-width:60px}
-.rice-bar{height:100%;border-radius:3px;transition:width .2s ease;background:var(--green)}
-tr.tier-high .rice-bar{background:var(--green)}
-tr.tier-mid .rice-bar{background:var(--amber-mid)}
-tr.tier-low .rice-bar{background:var(--gray-3)}
-.rice-num{font-size:12px;font-weight:700;color:var(--black);width:36px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
-
-/* EXPORT */
-.export-bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:16px}
-.btn-export{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius);padding:7px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,color .15s}
-.btn-export:hover{border-color:var(--brand);color:var(--brand-dark)}
-
-.empty-state{padding:48px 24px;text-align:center;color:var(--gray-4);font-size:13px}
-
-/* DETAIL PANEL */
-.dp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
-.dp-overlay.open{opacity:1;pointer-events:all}
-.dp-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#fff;z-index:201;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
-.dp-panel.open{transform:translateX(0)}
-.dp-hdr{padding:20px 20px 16px;border-bottom:1px solid var(--gray-2);display:flex;align-items:flex-start;gap:10px}
-.dp-close{width:28px;height:28px;border:1px solid var(--gray-2);border-radius:var(--radius);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-4);flex-shrink:0;transition:background .1s,color .1s;margin-top:2px}
-.dp-close:hover{background:var(--gray-1);color:var(--black)}
-.dp-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.dp-name{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;color:var(--black)}
-.dp-body{padding:18px 20px;flex:1}
-.dp-desc{font-size:13px;color:var(--gray-5);line-height:1.8;margin-bottom:20px}
-.dp-sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
-.rice-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.rcell{background:var(--gray-1);border-radius:var(--radius);padding:10px 6px;text-align:center}
-.rcell-letter{font-family:'DM Serif Display',serif;font-size:18px;line-height:1;margin-bottom:2px}
-.rcell-val{font-size:16px;font-weight:700;color:var(--black)}
-.rcell-lbl{font-size:9px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-.rice-result-box{background:var(--black);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.rice-formula-txt{font-size:11px;color:rgba(255,255,255,.45)}
-.rice-score-big{font-family:'DM Serif Display',serif;font-size:28px;color:#fff}
-.dp-bar-track{height:5px;background:var(--gray-2);border-radius:3px;overflow:hidden;margin-bottom:20px}
-.dp-bar-fill{height:100%;border-radius:3px}
-.no-score{font-size:12px;color:var(--gray-4);font-style:italic;background:var(--gray-1);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:20px;line-height:1.6}
-.dp-meta-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2);display:flex;flex-direction:column;gap:8px}
-.dp-meta-row{display:flex;gap:8px;font-size:12px;align-items:baseline}
-.dp-meta-key{color:var(--gray-4);min-width:100px;flex-shrink:0}
-.dp-meta-val{color:var(--black);font-weight:500}
-
-/* PROJECT BRIEF IN PANEL */
-.dp-proj{margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)}
-.dp-proj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
-.dp-proj-badge{font-size:9px;font-weight:700;background:var(--brand-light);color:var(--brand-dark);padding:1px 7px;border-radius:20px;text-transform:none;letter-spacing:.02em}
-.dp-proj-summary{font-size:12px;color:var(--gray-5);line-height:1.7;margin-bottom:12px}
-.dp-proj-feats{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.dp-proj-feat{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--gray-5);line-height:1.5}
-.dp-proj-feat-dot{width:5px;height:5px;border-radius:50%;background:var(--brand);flex-shrink:0;margin-top:5px}
-.dp-proj-links{display:flex;flex-direction:column;gap:6px}
-.dp-proj-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--radius-lg);border:1px solid var(--gray-2);text-decoration:none;transition:border-color .15s,background .15s}
-.dp-proj-link:hover{border-color:var(--brand);background:var(--brand-light)}
-.dp-proj-link-icon{font-size:13px;flex-shrink:0;width:24px;text-align:center}
-.dp-proj-link-title{font-size:12px;font-weight:600;color:var(--black);display:block;line-height:1.3}
-.dp-proj-link-sub{font-size:11px;color:var(--gray-4);display:block;margin-top:1px}
-.dp-proj-link-arrow{color:var(--gray-3);flex-shrink:0;margin-left:auto}
-
-/* ─── VIEW TABS ─────────────────────────────────────────────────────────── */
-.view-tabs{display:flex;gap:0;margin-bottom:20px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:5px;width:fit-content;align-items:center}
+.hero-sub{font-size:14px;color:var(--gray-5);max-width:600px;line-height:1.7;margin-bottom:0}
+.view-tabs{display:flex;gap:0;margin:20px 0 0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:5px;width:fit-content;align-items:center}
 .view-tab{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 18px;border-radius:var(--radius-lg);border:none;background:none;cursor:pointer;color:var(--gray-4);transition:background .15s,color .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;line-height:1}
 .view-tab:hover{color:var(--black)}
 .view-tab.active{background:var(--black);color:#fff}
-
-/* ─── MODEL DESCRIPTIONS ──────────────────────────────────────────────────── */
 .model-desc{padding:20px 0 4px}
+.page{max-width:1200px;margin:0 auto;padding:32px 40px 100px}
+/* ── Controls bar ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{-webkit-appearance:none;appearance:none;border:none;outline:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 26px 0 10px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
+
+/* RICE TABLE */
+#rice-view .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
+.rice-table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.rice-table{width:100%;border-collapse:collapse}
+.rice-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:12px 16px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.rice-table th:hover{color:var(--brand)}
+.rice-table td{padding:14px 16px;border-bottom:1px solid var(--gray-2);vertical-align:middle;font-size:13px}
+.rice-table tr:last-child td{border-bottom:none}
+.rice-table tr:hover td{background:#fafafa}
+.item-name{font-weight:600;color:var(--black)}
+.item-theme{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-top:3px}
+.score-val{font-weight:700;font-size:15px;color:var(--brand-dark)}
+.score-sub{font-size:10px;color:var(--gray-4)}
+.rank-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;background:var(--brand)}
+
+/* MATRIX VIEW */
+.matrix-canvas-row{display:flex;align-items:stretch;gap:0}
+.matrix-y-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);text-align:center;padding:0 6px;flex-shrink:0}
+.matrix-canvas-wrap{flex:1;min-width:0}
+.matrix-canvas{position:relative;width:100%;padding-bottom:60%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2);background:#fff}
+.matrix-grid-h,.matrix-grid-v{position:absolute;background:var(--gray-2);pointer-events:none}
+.matrix-grid-h{left:0;right:0;height:1px;top:50%}
+.matrix-grid-v{top:0;bottom:0;width:1px;left:50%}
+.q-tl,.q-tr,.q-bl,.q-br{position:absolute;width:50%;height:50%}
+.q-tl{top:0;left:0;background:rgba(27,94,32,.07)}
+.q-tr{top:0;right:0;background:rgba(184,71,20,.06)}
+.q-bl{bottom:0;left:0;background:rgba(200,200,192,.2)}
+.q-br{bottom:0;right:0;background:rgba(160,0,0,.04)}
+.q-label{position:absolute;pointer-events:none;z-index:2}
+.q-label-inner{display:inline-flex;flex-direction:column;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.07);border-radius:var(--radius);padding:4px 8px;backdrop-filter:blur(2px)}
+.q-label-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.3}
+.q-label-sub{font-size:9px;font-weight:400;color:var(--gray-4);line-height:1.4;margin-top:1px}
+.q-label.qw{top:8px;left:8px;color:#1b5e20}
+.q-label.bb{top:8px;right:8px;color:#b84714;text-align:right}
+.q-label.bb .q-label-inner{align-items:flex-end}
+.q-label.nth{bottom:8px;left:8px;color:var(--gray-5)}
+.q-label.ts{bottom:8px;right:8px;color:var(--gray-4);text-align:right}
+.q-label.ts .q-label-inner{align-items:flex-end}
+.bubble{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .15s,transform .15s;z-index:5}
+.bubble:hover{box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:20;transform:scale(1.08)}
+
+/* MATRIX TABLE */
+.matrix-table-wrap{margin-top:16px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.matrix-table{width:100%;border-collapse:collapse}
+.matrix-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.matrix-table th.m-sorted{color:var(--brand-dark)}
+.matrix-table th:hover{color:var(--brand)}
+.matrix-table td{padding:12px 14px;border-bottom:1px solid var(--gray-2);font-size:13px;vertical-align:middle}
+.matrix-table tr:last-child td{border-bottom:none}
+.matrix-table tr:hover td{background:#fafafa}
+.quadrant-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.03em;white-space:nowrap}
+.qw-badge{background:#e8f5e9;color:#1b5e20}
+.bb-badge{background:#fdf1ec;color:#b84714}
+.nth-badge{background:#e8f1fc;color:#1a5fa8}
+.ts-badge{background:var(--gray-1);color:var(--gray-4)}
+.m-score-val{font-weight:700;font-size:14px}
+.sv-impact{color:var(--brand-dark)}
+.sv-effort{color:#b84714}
+.m-editable{cursor:pointer;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+.m-editable:hover{color:var(--brand);border-bottom-color:var(--gray-3)}
+.m-edit-input{width:40px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--brand);border-radius:4px;padding:2px 6px;text-align:center;outline:none}
+
+/* Matrix legend + tooltip */
+.matrix-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.m-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
+.m-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.m-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.92);color:#fff;font-size:11px;padding:7px 11px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;min-width:160px;max-width:240px;white-space:normal;text-align:center;line-height:1.5}
+.bubble:hover .m-tip{opacity:1}
+.m-tip-name{font-weight:600;margin-bottom:2px}
+.m-tip-meta{font-size:10px;opacity:.7}
+/* Quadrant definition cards in model-desc */
 .model-desc-cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.model-desc-card{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px;flex:1;min-width:140px;max-width:200px}
+.model-desc-card{flex:1;min-width:140px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:12px 16px}
 .mdc-letter{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;margin-bottom:4px}
 .mdc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-5);margin-bottom:3px}
 .mdc-desc{font-size:11px;color:var(--gray-4);line-height:1.5}
-.model-formula{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500;margin-bottom:10px}
-.model-formula span{opacity:.5;font-size:11px}
-.model-edit-hint{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px}
 .model-quadrant-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .mqg-cell{border-radius:var(--radius-lg);padding:12px 14px}
-.mqg-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.mqg-sub{font-size:11px;color:var(--gray-5);line-height:1.5}
-.mqg-rec{font-size:10px;font-weight:600;margin-top:4px;opacity:.8}
-
-/* ─── IMPACT VS EFFORT MATRIX ────────────────────────────────────────────── */
-.matrix-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
-.matrix-inner{padding:20px 24px 24px}
-/* Canvas outer row: y-axis label + canvas */
-.matrix-canvas-row{display:flex;align-items:stretch;gap:0}
-.matrix-y-label{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:600;color:var(--gray-4);letter-spacing:.08em;text-transform:uppercase;padding:0 6px 0 0;flex-shrink:0;user-select:none}
-.matrix-canvas{position:relative;width:100%;padding-bottom:64%;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
-.q-tl,.q-tr,.q-bl,.q-br{position:absolute;width:50%;height:50%}
-.q-tl{top:0;left:0;background:rgba(58,158,63,.07)}
-.q-tr{top:0;right:0;background:rgba(26,111,212,.07)}
-.q-bl{bottom:0;left:0;background:rgba(200,200,192,.3)}
-.q-br{bottom:0;right:0;background:rgba(160,0,0,.05)}
-.q-line-h{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--gray-3)}
-.q-line-v{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--gray-3)}
-/* Quadrant corner badges — sit inside each quadrant corner, clear of bubbles */
-.q-label{position:absolute;pointer-events:none;z-index:2}
-.q-label-inner{display:inline-flex;flex-direction:column;background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.07);border-radius:var(--radius);padding:5px 9px;backdrop-filter:blur(2px)}
-.q-label-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-5);line-height:1.3}
-.q-label-sub{font-size:9px;font-weight:400;color:var(--gray-4);line-height:1.4;margin-top:1px}
-.q-label.tl{top:8px;left:8px}
-.q-label.tr{top:8px;right:8px;text-align:right}
-.q-label.bl{bottom:8px;left:8px}
-.q-label.br{bottom:8px;right:8px;text-align:right}
-.q-label.tr .q-label-inner,.q-label.br .q-label-inner{align-items:flex-end}
-.m-dot{position:absolute;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .15s,transform .15s;z-index:5;line-height:1}
-.m-dot:hover{box-shadow:0 4px 18px rgba(0,0,0,.28);z-index:20;transform:scale(1.08)}
-.m-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,10,.92);color:#fff;font-size:11px;padding:7px 11px;border-radius:var(--radius);pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;min-width:160px;max-width:240px;white-space:normal;text-align:center;line-height:1.5}
-.m-dot:hover .m-tip{opacity:1}
-.m-tip-name{font-weight:600;margin-bottom:2px}
-.m-tip-meta{font-size:10px;opacity:.7}
-.matrix-axis-label{display:flex;justify-content:space-between;align-items:center;padding:5px 0 0 28px;font-size:11px;color:var(--gray-4)}
-.matrix-legend{display:flex;gap:10px;flex-wrap:wrap}
-.m-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-5)}
-.m-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.matrix-unscored{margin-top:14px;padding:12px 16px;background:var(--gray-1);border-radius:var(--radius-lg);border:1px solid var(--gray-2)}
-.mu-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);margin-bottom:8px}
+.mqg-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.mqg-sub{font-size:12px;color:var(--gray-5);line-height:1.5}
+.mqg-rec{font-size:11px;font-weight:600;margin-top:5px;opacity:.85}
+.matrix-unscored{margin-top:14px;padding:12px 16px;background:rgba(255,255,255,.08);border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.15)}
+.mu-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-bottom:8px}
 .mu-chips{display:flex;flex-wrap:wrap;gap:5px}
-.mu-chip{font-size:11px;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:20px;padding:2px 10px;cursor:pointer;transition:border-color .1s,color .1s}
-.mu-chip:hover{border-color:var(--brand);color:var(--brand-dark)}
-
-/* ─── MATRIX TABLE ───────────────────────────────────────────────────────── */
-.matrix-tbl-wrap{margin-top:20px;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;overflow-x:auto}
-.matrix-tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;border-bottom:1px solid var(--gray-2)}
+.mu-chip{font-size:11px;color:var(--gray-5);background:#fff;border:1px solid var(--gray-2);border-radius:20px;padding:2px 10px}
+.matrix-inner-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;padding:20px 24px 24px;margin-bottom:16px}
+.matrix-tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 0 10px;border-bottom:1px solid var(--gray-2);margin-bottom:0}
 .matrix-tbl-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)}
-table.m-tbl{width:100%;border-collapse:collapse;min-width:700px}
-table.m-tbl thead tr{background:var(--gray-1);border-bottom:2px solid var(--gray-2)}
-table.m-tbl th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);padding:10px 14px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
-table.m-tbl th:hover{color:var(--black)}
-table.m-tbl th.m-sorted{color:var(--brand-dark)}
-table.m-tbl th.no-sort{cursor:default}
-table.m-tbl th.no-sort:hover{color:var(--gray-4)}
-table.m-tbl tbody tr{border-bottom:1px solid var(--gray-2);transition:background .1s;cursor:pointer}
-table.m-tbl tbody tr:last-child{border-bottom:none}
-table.m-tbl tbody tr:hover{background:var(--gray-1)}
-table.m-tbl tbody tr.row-active td{background:var(--brand-light) !important}
-table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
-.m-score-cell{text-align:center;width:56px}
-.m-score-val{display:inline-flex;align-items:center;justify-content:center;width:30px;height:24px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;transition:background .1s}
-.m-score-val:hover{background:var(--gray-2)}
-.m-score-val.sv-impact{color:var(--green-dark)}
-.m-score-val.sv-effort{color:var(--red)}
-.m-quadrant-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.03em}
-.qp-qw{background:var(--green-light);color:var(--green-dark)}
-.qp-bb{background:var(--blue-light);color:var(--blue)}
-.qp-nth{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-.qp-ts{background:var(--red-light);color:var(--red)}
 
-@media(max-width:680px){
-  .site-nav,.breadcrumb,.main,.hero{padding-left:20px;padding-right:20px}
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+
+@media(max-width:680px){.page{padding:32px 16px 60px}.site-header{padding:0 20px}}
+
+/* ── Flyout overlay ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+/* ── Flyout panel ── */
+.flyout{position:fixed;top:0;right:0;bottom:0;width:480px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.flyout.open{transform:translateX(0)}
+.flyout-close-row{display:flex;justify-content:flex-end;padding:16px 20px 0;flex-shrink:0}
+.flyout-close{width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;cursor:pointer;font-size:18px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.flyout-close:hover{background:var(--gray-1)}
+.flyout-body{overflow-y:auto;padding:4px 24px 40px;flex:1}
+.flyout-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.flyout-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid var(--gray-2);color:var(--gray-5);background:var(--gray-1)}
+.flyout-title{font-family:'DM Serif Display',serif;font-size:26px;line-height:1.2;color:var(--black);margin-bottom:8px}
+.flyout-subtitle{font-size:14px;color:var(--gray-4);line-height:1.6;margin-bottom:0}
+.flyout-props{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2);display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}
+.flyout-prop-lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-4);margin-bottom:5px}
+.flyout-prop-val{font-size:13px;color:var(--black);font-weight:500;line-height:1.4}
+.flyout-prop-val-muted{font-size:13px;color:var(--gray-3);font-style:italic}
+.f-quadrant{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px}
+.flyout-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2)}
+.flyout-section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.flyout-section-title{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4)}
+.flyout-desc{font-size:13px;color:var(--gray-5);line-height:1.75}
+.flyout-desc-empty{font-size:13px;color:var(--gray-3);font-style:italic}
+.f-rice-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.f-rice-cell{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:12px 8px;text-align:center}
+.f-rice-val{font-size:20px;font-weight:700}
+.f-rice-r{color:#4527a0}.f-rice-i{color:#1b5e20}.f-rice-c{color:#b84714}.f-rice-e{color:#1a5fa8}
+.f-rice-total{background:linear-gradient(135deg,var(--brand-dark),var(--brand));border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.f-rice-score{font-size:24px;font-weight:700}
+.f-rice-score-lbl{font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.06em}
+.flyout-notion-link{display:flex;align-items:center;gap:8px;margin-top:20px;padding:12px 16px;background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:var(--radius-lg);text-decoration:none;color:var(--brand-dark);font-size:13px;font-weight:600;transition:background .15s}
+.flyout-notion-link:hover{background:var(--brand-mid)}
+.fs-live{background:#e8f5e9;color:#1b5e20;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-progress{background:#fff8e1;color:#7a5a00;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-planned{background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-review{background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+.fs-done{background:var(--gray-2);color:var(--gray-5);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block}
+@media(max-width:760px){
+  .flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}
+  .flyout.open{transform:translateY(0)}
 }
 </style>
 </head>
 <body>
 
-<nav class="site-nav">
-  <a href="../home/" class="site-nav-wordmark">UCook</a>
-  <div class="site-nav-div"></div>
-  <span class="site-nav-label">Product Prioritization</span>
+<header class="site-header">
+  <a href="../home/" class="site-header-wordmark">UCook</a>
+  <div class="site-header-divider"></div>
+  <span class="site-logo">Product Workspace</span>
   <div class="company-switcher" id="companySwitcher">
     <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
-      <span class="cs-dot" style="background:#e05a1e"></span>UCook
+      <span class="cs-dot" style="background:#e05a1e"></span>
+      UCook
       <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="cs-menu" id="csMenu">
@@ -317,7 +241,8 @@ table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
     </div>
   </div>
   <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-</nav>
+  <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</header>
 
 <div class="breadcrumb">
   <a href="../home/">Home</a><span class="bc-sep">›</span><span class="bc-cur">Prioritization</span>
@@ -325,11 +250,10 @@ table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>UCook · FY2026/27 · Product Prioritization</div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · Product Prioritization</div>
     <h1>Product Prioritization</h1>
-    <p class="hero-sub">Two complementary frameworks for evaluating UCook's product backlog. Use the RICE table to score initiatives quantitatively, or switch to the Impact vs Effort matrix for a visual portfolio view. All scores are editable.</p>
+    <p class="hero-sub">Two complementary frameworks for evaluating UCook's product backlog — RICE scoring and the Impact vs Effort matrix. All scores are editable.</p>
 
-    <!-- VIEW TABS — live above the model definitions -->
     <div class="view-tabs" style="margin:20px 0 0">
       <button class="view-tab active" id="tab-rice" data-view="rice" onclick="switchView('rice',this)">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0.5" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".4"/><rect x="0" y="4.75" width="12" height="2.5" rx="1.2" fill="currentColor" opacity=".7"/><rect x="0" y="9" width="12" height="2.5" rx="1.2" fill="currentColor"/></svg>
@@ -344,31 +268,31 @@ table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
     <!-- RICE MODEL DESCRIPTION -->
     <div id="model-desc-rice" class="model-desc">
       <div class="model-desc-cards">
-        <div class="rice-card"><div class="rice-card-letter rc-r">R</div><div class="rice-card-name">Reach</div><div class="rice-card-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
-        <div class="rice-card"><div class="rice-card-letter rc-i">I</div><div class="rice-card-name">Impact</div><div class="rice-card-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
-        <div class="rice-card"><div class="rice-card-letter rc-c">C</div><div class="rice-card-name">Confidence</div><div class="rice-card-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
-        <div class="rice-card"><div class="rice-card-letter rc-e">E</div><div class="rice-card-name">Effort</div><div class="rice-card-desc">Build cost — higher = more work. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#1a6fd4">R</div><div class="mdc-name">Reach</div><div class="mdc-desc">How many users are affected? <strong>Scale 1–10</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--brand)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">How much does it move the metric? <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#7b1fa2">C</div><div class="mdc-name">Confidence</div><div class="mdc-desc">How certain are we? <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#a00000">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Build cost — higher = more work. <strong>Scale 1–5</strong></div></div>
       </div>
-      <div class="rice-formula">RICE = (R × I × C) ÷ E <span>· higher score = higher priority · all values editable</span></div>
-      <div class="edit-hint" style="margin-top:10px">
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--black);border-radius:var(--radius-lg);color:#fff;font-size:13px;font-weight:500;margin-bottom:10px">RICE = (R × I × C) ÷ E <span style="opacity:.5;font-size:11px">· higher score = higher priority · all values editable</span></div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Click any R / I / C / E value in the table to edit it. Press Enter or Tab to save, Esc to cancel.
       </div>
     </div>
 
-    <!-- IMPACT VS EFFORT MODEL DESCRIPTION -->
+    <!-- MATRIX MODEL DESCRIPTION -->
     <div id="model-desc-matrix" class="model-desc" style="display:none">
       <div class="model-desc-cards">
-        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--green-dark)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX improvement, or operational gain. <strong>Scale 1–5</strong></div></div>
-        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--red)">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops, and change management combined. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:var(--brand-dark)">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX improvement, or operational gain. <strong>Scale 1–5</strong></div></div>
+        <div class="model-desc-card"><div class="mdc-letter" style="color:#a00000">E</div><div class="mdc-name">Effort</div><div class="mdc-desc">Total cost to deliver — dev, design, ops, and change management combined. <strong>Scale 1–5</strong></div></div>
       </div>
       <div class="model-quadrant-grid">
-        <div class="mqg-cell" style="background:rgba(58,158,63,.07);border:1px solid rgba(58,158,63,.2)"><div class="mqg-title" style="color:var(--green-dark)">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:var(--green-dark)">→ Do now</div></div>
-        <div class="mqg-cell" style="background:rgba(26,111,212,.07);border:1px solid rgba(26,111,212,.2)"><div class="mqg-title" style="color:var(--blue)">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:var(--blue)">→ Plan &amp; resource</div></div>
+        <div class="mqg-cell" style="background:rgba(224,90,30,.07);border:1px solid rgba(224,90,30,.2)"><div class="mqg-title" style="color:var(--brand-dark)">⚡ Quick Wins</div><div class="mqg-sub">High impact, low effort</div><div class="mqg-rec" style="color:var(--brand-dark)">→ Do now</div></div>
+        <div class="mqg-cell" style="background:rgba(26,111,212,.07);border:1px solid rgba(26,111,212,.2)"><div class="mqg-title" style="color:#1a6fd4">🎯 Big Bets</div><div class="mqg-sub">High impact, high effort</div><div class="mqg-rec" style="color:#1a6fd4">→ Plan &amp; resource</div></div>
         <div class="mqg-cell" style="background:var(--gray-1);border:1px solid var(--gray-2)"><div class="mqg-title" style="color:var(--gray-5)">💭 Nice to Have</div><div class="mqg-sub">Low impact, low effort</div><div class="mqg-rec" style="color:var(--gray-4)">→ If capacity allows</div></div>
-        <div class="mqg-cell" style="background:rgba(160,0,0,.05);border:1px solid rgba(160,0,0,.15)"><div class="mqg-title" style="color:var(--red)">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:var(--red)">→ Deprioritise</div></div>
+        <div class="mqg-cell" style="background:rgba(160,0,0,.05);border:1px solid rgba(160,0,0,.15)"><div class="mqg-title" style="color:#a00000">🕳️ Time Sinks</div><div class="mqg-sub">Low impact, high effort</div><div class="mqg-rec" style="color:#a00000">→ Deprioritise</div></div>
       </div>
-      <div class="edit-hint">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:8px">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9.5 2.5l2 2-7 7H2.5v-2l7-7z" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Click any Impact or Effort value in the table below to edit it. The matrix updates instantly.
       </div>
@@ -376,736 +300,655 @@ table.m-tbl td{padding:10px 14px;vertical-align:middle;font-size:13px}
   </div>
 </div>
 
-<div class="main">
-  <div class="filter-bar">
-    <div class="filter-search">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="text" id="filter-search" placeholder="Search initiatives…" oninput="applyFilters()">
+<div class="page">
+
+  <!-- Controls bar -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search initiatives…" oninput="applyFilters()">
     </div>
-    <select class="filter-select" id="filter-theme" onchange="applyFilters()">
-      <option value="all">All themes</option>
-      <option value="Process Optimization">Process Optimization</option>
-      <option value="Web/App Enhancement">Web/App Enhancement</option>
-      <option value="Ecommerce Growth">Ecommerce Growth</option>
-      <option value="Tech Infrastructure">Tech Infrastructure</option>
-      <option value="Retail Growth">Retail Growth</option>
-      <option value="Data &amp; Insights">Data &amp; Insights</option>
-    </select>
-    <select class="filter-select" id="filter-status" onchange="applyFilters()">
-      <option value="all">All statuses</option>
-      <option value="live">Live</option>
-      <option value="inprogress">In Progress</option>
-      <option value="blocked">Blocked</option>
-      <option value="none">Upcoming</option>
-    </select>
-    <select class="filter-select" id="filter-type" onchange="applyFilters()">
-      <option value="all">All types</option>
-      <option value="Quick Win">Quick Win</option>
-      <option value="Existing Roadmap">Existing Roadmap</option>
-    </select>
-    <button class="filter-reset" onclick="resetFilters()">Reset</button>
-    <span class="filter-count" id="row-count"></span>
+    <div class="chips-area" id="chipsArea"></div>
+    <div class="ctrl-right">
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Filter
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status"   onclick="toggleFilterField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter"  onclick="toggleFilterField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar"   onclick="toggleFilterField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quadrant" onclick="toggleFilterField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h8M1 7h5M1 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2v10M8.5 9.5L11 12l2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sort
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status"   onclick="setSortField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter"  onclick="setSortField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar"   onclick="setSortField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quadrant" onclick="setSortField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
   </div>
 
+  <!-- RICE VIEW -->
   <div id="rice-view">
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th class="th-rank no-sort">#</th>
-          <th onclick="setSort('name')">Name <span class="sort-arrow" id="sort-name"></span></th>
-          <th onclick="setSort('theme')">Theme <span class="sort-arrow" id="sort-theme"></span></th>
-          <th onclick="setSort('type')">Type <span class="sort-arrow" id="sort-type"></span></th>
-          <th class="no-sort">Status</th>
-          <th class="th-score" onclick="setSort('r')" title="Reach: 1–10">R <span class="sort-arrow" id="sort-r"></span></th>
-          <th class="th-score" onclick="setSort('i')" title="Impact: 1–5">I <span class="sort-arrow" id="sort-i"></span></th>
-          <th class="th-score" onclick="setSort('c')" title="Confidence: 1–5">C <span class="sort-arrow" id="sort-c"></span></th>
-          <th class="th-score" onclick="setSort('e')" title="Effort: 1–5">E <span class="sort-arrow" id="sort-e"></span></th>
-          <th class="th-rice" onclick="setSort('rice')">RICE Score <span class="sort-arrow" id="sort-rice"></span></th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-    <div id="empty-state" class="empty-state" style="display:none">No initiatives match the current filters.</div>
-  </div>
-
-  <div class="export-bar">
-    <button class="btn-export" onclick="exportCSV()">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3M1 10.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Export CSV
-    </button>
-  </div>
-  </div><!-- /rice-view -->
-
-  <!-- IMPACT VS EFFORT MATRIX -->
-  <div id="matrix-view" style="display:none">
-    <div class="matrix-wrap">
-      <div class="matrix-inner">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--black)">Impact vs Effort Matrix</div>
-            <div style="font-size:12px;color:var(--gray-4);margin-top:2px">Bubble size reflects RICE score · click any bubble to open details</div>
-          </div>
-          <div class="matrix-legend" id="matrix-legend"></div>
-        </div>
-        <!-- Canvas row: rotated y-axis label + canvas -->
-        <div class="matrix-canvas-row">
-          <div class="matrix-y-label">← Impact →</div>
-          <div style="flex:1;min-width:0">
-            <div class="matrix-canvas" id="matrix-canvas">
-              <div class="q-tl"></div><div class="q-tr"></div>
-              <div class="q-bl"></div><div class="q-br"></div>
-              <div class="q-line-h"></div><div class="q-line-v"></div>
-              <div class="q-label tl"><div class="q-label-inner"><span class="q-label-title">⚡ Quick Wins</span><span class="q-label-sub">Do now</span></div></div>
-              <div class="q-label tr"><div class="q-label-inner"><span class="q-label-title">🎯 Big Bets</span><span class="q-label-sub">Plan for</span></div></div>
-              <div class="q-label bl"><div class="q-label-inner"><span class="q-label-title">💭 Nice to Have</span><span class="q-label-sub">If capacity</span></div></div>
-              <div class="q-label br"><div class="q-label-inner"><span class="q-label-title">🕳️ Time Sinks</span><span class="q-label-sub">Deprioritise</span></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="matrix-axis-label"><span>1</span><span style="font-weight:600;color:var(--gray-5)">← Effort →</span><span>5</span></div>
-        <div id="matrix-unscored" class="matrix-unscored" style="display:none">
-          <div class="mu-label">Not yet scored — excluded from matrix</div>
-          <div class="mu-chips" id="matrix-unscored-chips"></div>
-        </div>
-      </div>
-    </div>
-    <!-- PROJECT TABLE BELOW MATRIX -->
-    <div class="matrix-tbl-wrap">
-      <div class="matrix-tbl-hdr">
-        <span class="matrix-tbl-title">All initiatives</span>
-        <span id="m-tbl-count" style="font-size:12px;color:var(--gray-4)"></span>
-      </div>
-      <table class="m-tbl">
+    <div class="section-label">All test initiatives — ranked by RICE score</div>
+    <div class="rice-table-wrap">
+      <table class="rice-table" id="riceTable">
         <thead>
           <tr>
-            <th class="no-sort" style="width:42px">#</th>
-            <th onclick="setMSort('name')">Name <span class="sort-arrow" id="msort-name"></span></th>
-            <th onclick="setMSort('theme')">Theme <span class="sort-arrow" id="msort-theme"></span></th>
-            <th class="no-sort" style="text-align:center">Status</th>
-            <th style="text-align:center" onclick="setMSort('mi')">Impact <span class="sort-arrow" id="msort-mi"></span></th>
-            <th style="text-align:center" onclick="setMSort('me')">Effort <span class="sort-arrow" id="msort-me"></span></th>
-            <th class="no-sort">Quadrant</th>
-            <th class="no-sort">Action</th>
+            <th onclick="setSort('rank')">#</th>
+            <th onclick="setSort('name')">Initiative</th>
+            <th onclick="setSort('theme')">Theme</th>
+            <th onclick="setSort('score')">RICE Score</th>
+            <th onclick="setSort('r')">Reach</th>
+            <th onclick="setSort('i')">Impact</th>
+            <th onclick="setSort('c')">Confidence</th>
+            <th onclick="setSort('e')">Effort</th>
           </tr>
         </thead>
-        <tbody id="m-tbl-body"></tbody>
+        <tbody id="riceTbody"></tbody>
       </table>
     </div>
   </div>
+
+  <!-- MATRIX VIEW -->
+  <div id="matrix-view" style="display:none">
+    <div class="matrix-inner-wrap">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--black)">Impact vs Effort Matrix</div>
+          <div style="font-size:12px;color:var(--gray-4);margin-top:2px">Bubble size reflects RICE score · click any bubble to open details</div>
+        </div>
+        <div class="matrix-legend" id="matrix-legend"></div>
+      </div>
+      <div class="matrix-canvas-row">
+        <div class="matrix-y-label">← Impact →</div>
+        <div style="flex:1;min-width:0">
+          <div class="matrix-canvas-wrap">
+            <div class="matrix-canvas" id="matrixCanvas">
+              <div class="q-tl"></div><div class="q-tr"></div>
+              <div class="q-bl"></div><div class="q-br"></div>
+              <div class="matrix-grid-h"></div>
+              <div class="matrix-grid-v"></div>
+              <div class="q-label qw"><div class="q-label-inner"><span class="q-label-title">⚡ Quick Wins</span><span class="q-label-sub">Do now</span></div></div>
+              <div class="q-label bb"><div class="q-label-inner"><span class="q-label-title">🎯 Big Bets</span><span class="q-label-sub">Plan for</span></div></div>
+              <div class="q-label nth"><div class="q-label-inner"><span class="q-label-title">💭 Nice to Have</span><span class="q-label-sub">If capacity</span></div></div>
+              <div class="q-label ts"><div class="q-label-inner"><span class="q-label-title">🕳️ Time Sinks</span><span class="q-label-sub">Deprioritise</span></div></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0 0;font-size:11px;color:var(--gray-4)"><span>1</span><span style="font-weight:600;color:var(--gray-5)">← Effort →</span><span>5</span></div>
+        </div>
+      </div>
+      <div id="matrix-unscored" class="matrix-unscored" style="display:none">
+        <div class="mu-label">Not yet scored — excluded from matrix</div>
+        <div class="mu-chips" id="matrix-unscored-chips"></div>
+      </div>
+    </div>
+    <div class="rice-table-wrap">
+      <div class="matrix-tbl-hdr" style="padding:14px 20px 10px">
+        <span class="matrix-tbl-title">All initiatives</span>
+        <span id="m-tbl-count" style="font-size:12px;color:var(--gray-4)"></span>
+      </div>
+      <table class="rice-table" id="matrixTable">
+        <thead>
+          <tr>
+            <th onclick="setMSort('rank')">#</th>
+            <th onclick="setMSort('name')">Initiative</th>
+            <th onclick="setMSort('theme')">Theme</th>
+            <th onclick="setMSort('status')">Status</th>
+            <th onclick="setMSort('r')" title="Reach">R</th>
+            <th onclick="setMSort('i')" title="Impact">I</th>
+            <th onclick="setMSort('c')" title="Confidence">C%</th>
+            <th onclick="setMSort('e')" title="Effort">E</th>
+            <th onclick="setMSort('score')">RICE</th>
+            <th onclick="setMSort('quadrant')">Quadrant</th>
+          </tr>
+        </thead>
+        <tbody id="matrixTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="page-footer">UCook · Product Prioritization · FY2026/27</p>
+
 </div>
 
-<div class="dp-overlay" id="dp-overlay" onclick="closePanel()"></div>
-<aside class="dp-panel" id="dp-panel">
-  <div class="dp-hdr">
-    <div style="flex:1"><div class="dp-pills" id="dp-pills"></div><div class="dp-name" id="dp-name"></div></div>
-    <button class="dp-close" onclick="closePanel()"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-  </div>
-  <div class="dp-body" id="dp-body"></div>
-</aside>
-
+<script src="../../staging/notion-data.js?v=1776242675000"></script>
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-// mi = matrix impact (1–5), me = matrix effort (1–5) — independent of RICE i/e
-const items = [
-  // PROCESS OPTIMIZATION
-  {id:1,  name:"Recipe Card Proofreading",           theme:"Process Optimization", type:"Quick Win",       status:"live",       desc:"Quality check and correction of all recipe card copy and imagery before delivery — improves unboxing experience and brand trust.", r:8, i:3, c:5, e:1, mi:4, me:1},
-  {id:2,  name:"CS Billing Tasks Efficiencies",      theme:"Process Optimization", type:"Quick Win",       status:null,         desc:"Streamline customer service billing workflows to reduce manual tasks, resolution time, and escalation rates.", r:5, i:3, c:4, e:2, mi:3, me:2},
-  {id:3,  name:"Recipe Management Portal",           theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing production errors.", r:6, i:4, c:4, e:3, mi:4, me:4},
-  {id:4,  name:"Loop Implementation",               theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Implement Loop for returns and exchanges — reduces CS manual processing time and improves customer self-serve resolution.", r:5, i:4, c:3, e:3, mi:2, me:3},
-  {id:5,  name:"Logistics Overhaul",                theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.", r:7, i:5, c:3, e:4, mi:5, me:5},
-  {id:6,  name:"Acumatica Refactor",                theme:"Process Optimization", type:"Existing Roadmap",status:null,         desc:"Refactor the Acumatica ERP integration for improved reliability, maintainability, and reduced sync errors between systems.", r:4, i:4, c:3, e:4, owner:"Sahil", mi:2, me:4},
-  // WEB/APP ENHANCEMENT
-  {id:7,  name:"Customer Journey — Key Project",    theme:"Web/App Enhancement",  type:"Existing Roadmap",status:null,         desc:"Define scope, requirements, user flow mapping, and architecture for the end-to-end customer journey redesign. Development begins Q2.", r:9, i:5, c:4, e:2, mi:5, me:5},
-  // ECOMMERCE GROWTH
-  {id:8,  name:"WhatsApp Payment Links",            theme:"Ecommerce Growth",     type:"Quick Win",       status:null,         desc:"Enable payment links via WhatsApp for CRM-driven checkout — reduces cart abandonment from conversational sales channels.", r:7, i:4, c:4, e:2, owner:"Anand", mi:4, me:2},
-  {id:9,  name:"Yoyo — WiCodes",                   theme:"Ecommerce Growth",     type:"Existing Roadmap",status:"live",        desc:"Integrate Yoyo WiCodes for in-store and online loyalty payment functionality across checkout.", r:6, i:3, c:5, e:2, mi:3, me:4},
-  {id:10, name:"Discounts Refinements",             theme:"Ecommerce Growth",     type:"Existing Roadmap",status:null,         desc:"Improve discount engine flexibility — better rule stacking, CS override tools, and promotion management.", r:7, i:3, c:4, e:2, mi:3, me:2},
-  {id:11, name:"Yoyo — Gift Voucher Replacement",   theme:"Ecommerce Growth",     type:"Existing Roadmap",status:null,         desc:"Replace the legacy gift voucher system with Yoyo-powered wrapped vouchers for improved flexibility, tracking, and redemption UX.", r:5, i:3, c:4, e:3, owner:"Anand", mi:2, me:3},
-  // RETAIL GROWTH
-  {id:12, name:"Yoyo — Loyalty Pro Integration",    theme:"Retail Growth",        type:"Existing Roadmap",status:null,         desc:"Full Yoyo Loyalty Pro integration for points earning, redemption, and tier management across retail and online channels.", r:6, i:4, c:3, e:3, mi:4, me:4},
-  // TECH INFRASTRUCTURE
-  {id:13, name:"Capacitor iOS App",                 theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"live",        desc:"iOS app built with Capacitor — live on App Store with improved mobile experience, push notifications, and deeper engagement.", r:8, i:4, c:5, e:3, mi:4, me:4},
-  {id:14, name:"Admin & PWA Upgrades",              theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"inprogress",  desc:"Upgrade admin panel and PWA — improved performance, dependency management, and developer tooling.", r:6, i:4, c:4, e:4, owner:"Anand + Matthew", mi:2, me:3},
-  {id:15, name:"Postgres Upgrade",                  theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Upgrade to latest PostgreSQL version for improved security, performance, and access to newer database features.", r:4, i:5, c:4, e:3, mi:3, me:4},
-  {id:16, name:"Migration to Cluster",              theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.", r:5, i:5, c:3, e:4, mi:4, me:5},
-  {id:17, name:"Mono Repo Architecture",            theme:"Tech Infrastructure",  type:"Existing Roadmap",status:null,         desc:"Migrate to monorepo structure for unified dependency management, shared tooling, and faster cross-service development cycles.", r:4, i:5, c:3, e:4, owner:"Matthew", mi:2, me:4},
-  {id:18, name:"Capacitor iOS App — Phase 2",       theme:"Tech Infrastructure",  type:"Existing Roadmap",status:"blocked",     desc:"Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.", r:7, i:4, c:2, e:3, mi:4, me:3},
-  // DATA & INSIGHTS
-  {id:19, name:"Order Attribution",                 theme:"Data & Insights",      type:"Existing Roadmap",status:null,         desc:"Implement multi-touch order attribution modelling to correctly credit marketing channels and accurately inform media spend decisions.", r:6, i:5, c:3, e:3, mi:5, me:3},
-];
+const ITEMS = NOTION_ITEMS.filter(it => Array.isArray(it.company) && it.company.includes('UCOOK'));
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let sortCol = 'rice', sortDir = 'desc';
+const THEME_COLORS = {
+  // Notion Strategic Pillars
+  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
+  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f'},
+  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0'},
+  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c'},
+  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
+  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
+  'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
+};
+const MATRIX_THEME_COLORS = {
+  'Top Line Growth':              '#1b5e20',
+  'Margin Improvements':          '#880e4f',
+  'Cost Control & Cash Flow':     '#4527a0',
+  'People':                       '#b71c1c',
+  'Internal Working Improvement': '#1a5fa8',
+  'UX/UI':                        '#3730a3',
+  'Other':                        '#9a9a94',
+};
 
-function rice(item) {
-  if (item.r == null) return null;
-  return Math.round((item.r * item.i * item.c) / item.e * 10) / 10;
-}
+let sortCol = 'score', sortDir = 'desc', mSortCol = 'mi', mSortDir = 'desc';
+let currentView = 'rice';
+let filtered = [...ITEMS];
 
-function themeClass(theme) {
-  const map = {
-    'Process Optimization':'tp-proc',
-    'Web/App Enhancement':'tp-web',
-    'Ecommerce Growth':'tp-eco',
-    'Tech Infrastructure':'tp-infra',
-    'Retail Growth':'tp-retail',
-    'Data & Insights':'tp-data',
-  };
-  return map[theme] || 'tp-none';
-}
-function themeShort(theme) {
-  const map = {
-    'Process Optimization':'Process',
-    'Web/App Enhancement':'Web/App',
-    'Ecommerce Growth':'Ecommerce',
-    'Tech Infrastructure':'Infrastructure',
-    'Retail Growth':'Retail',
-    'Data & Insights':'Data',
-  };
-  return map[theme] || theme;
-}
-function typeClass(type) {
-  if (type === 'Quick Win') return 'type-qw';
-  if (type === 'Existing Roadmap') return 'type-er';
-  return '';
-}
-function statusHtml(status) {
-  if (!status) return '';
-  if (status === 'live') return '<span class="status-pill sp-live">✓ Live</span>';
-  if (status === 'inprogress') return '<span class="status-pill sp-inprogress">⚡ In Progress</span>';
-  if (status === 'blocked') return '<span class="status-pill sp-blocked">✕ Blocked</span>';
-  return '';
-}
-
-function getFiltered() {
-  const search = document.getElementById('filter-search').value.toLowerCase();
-  const theme = document.getElementById('filter-theme').value;
-  const status = document.getElementById('filter-status').value;
-  const type = document.getElementById('filter-type').value;
-  return items.filter(item => {
-    if (search && !item.name.toLowerCase().includes(search) && !(item.desc||'').toLowerCase().includes(search)) return false;
-    if (theme !== 'all' && item.theme !== theme) return false;
-    if (type !== 'all' && item.type !== type) return false;
-    if (status !== 'all') {
-      if (status === 'none' && item.status != null) return false;
-      if (status !== 'none' && item.status !== status) return false;
-    }
-    return true;
-  });
-}
-function applyFilters() {
-  render();
-  if (typeof currentView !== 'undefined' && currentView === 'matrix') {
-    renderMatrix();
-    renderMatrixTable();
+// ─── Dynamic filter/sort state ────────────────────────────────────────────────
+// Default to the current FY quarter (Mar–Feb fiscal year).
+// Q1=Mar–May, Q2=Jun–Aug, Q3=Sep–Nov, Q4=Dec–Feb
+// FY year: March 2026 onwards = FY27 (y+1); Jan/Feb stay in same FY (y)
+// Tries current quarter first, then walks forward until one with items is found.
+const filterState = (function(){
+  const d=new Date(), m=d.getMonth()+1, y=d.getFullYear();
+  const fy = m>=3 ? y+1 : y;
+  const q  = m>=3&&m<=5 ? 1 : m>=6&&m<=8 ? 2 : m>=9&&m<=11 ? 3 : 4;
+  for(let i=0;i<8;i++){
+    let tq=q+i,tfy=fy; while(tq>4){tq-=4;tfy++;}
+    const l=`Q${tq} FY${String(tfy).slice(2)}`;
+    if(ITEMS.some(it=>it.qLabel===l)) return {quarter:l};
   }
-}
-function resetFilters() {
-  ['filter-search','filter-theme','filter-status','filter-type'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el.tagName === 'INPUT') el.value = ''; else el.value = 'all';
-  });
-  render();
-}
+  return {};
+})();
+let chipSortState = null;
 
-function setSort(col) {
-  if (sortCol === col) { sortDir = sortDir === 'desc' ? 'asc' : 'desc'; }
-  else { sortCol = col; sortDir = (col === 'name' || col === 'theme' || col === 'type') ? 'asc' : 'desc'; }
-  render();
-}
-function getSorted(filtered) {
-  return [...filtered].sort((a, b) => {
-    let av, bv;
-    if (sortCol === 'rice') { av = rice(a); bv = rice(b); }
-    else if (['r','i','c','e'].includes(sortCol)) { av = a[sortCol]; bv = b[sortCol]; }
-    else if (sortCol === 'name') { av = a.name.toLowerCase(); bv = b.name.toLowerCase(); }
-    else if (sortCol === 'theme') { av = a.theme; bv = b.theme; }
-    else if (sortCol === 'type') { av = a.type; bv = b.type; }
-    else { av = 0; bv = 0; }
-    if (av == null && bv == null) return 0;
-    if (av == null) return 1;
-    if (bv == null) return -1;
-    if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
-    return sortDir === 'asc' ? av - bv : bv - av;
-  });
-}
-
-function render() {
-  const filtered = getFiltered();
-  const sorted = getSorted(filtered);
-  const riceScores = sorted.map(rice).filter(v => v != null);
-  const maxRice = riceScores.length ? Math.max(...riceScores) : 1;
-
-  document.getElementById('row-count').innerHTML = `<strong>${sorted.length}</strong> of ${items.length} initiatives`;
-
-  ['name','theme','type','r','i','c','e','rice'].forEach(col => {
-    const el = document.getElementById('sort-' + col);
-    if (!el) return;
-    el.textContent = sortCol === col ? (sortDir === 'desc' ? '↓' : '↑') : '↕';
-    el.closest('th').classList.toggle('sorted', sortCol === col);
-  });
-
-  const tbody = document.getElementById('table-body');
-  const empty = document.getElementById('empty-state');
-  if (!sorted.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-
-  tbody.innerHTML = sorted.map((item, idx) => {
-    const score = rice(item);
-    const hasScore = score != null;
-    const barPct = hasScore ? Math.round((score / maxRice) * 100) : 0;
-    const tier = !hasScore ? 'tier-low' : score >= 60 ? 'tier-high' : score >= 30 ? 'tier-mid' : 'tier-low';
-
-    function scoreCell(field, cls, title) {
-      const val = item[field];
-      if (val == null) return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}" style="color:var(--gray-3)">–</span></td>`;
-      return `<td class="td-score"><span class="score-val ${cls} editable" data-field="${field}" title="${title}">${val}</span></td>`;
-    }
-
-    return `<tr class="${tier}" data-id="${item.id}" onclick="openPanelById(${item.id})">
-      <td class="td-rank">${idx + 1}</td>
-      <td class="td-name">
-        <div class="item-name">${esc(item.name)}</div>
-        ${item.desc ? `<div class="item-desc">${esc(item.desc.substring(0,100))}…</div>` : ''}
-      </td>
-      <td><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></td>
-      <td><span class="type-pill ${typeClass(item.type)}">${esc(item.type)}</span></td>
-      <td>${statusHtml(item.status)}</td>
-      ${scoreCell('r','sv-r','Reach 1–10')}
-      ${scoreCell('i','sv-i','Impact 1–5')}
-      ${scoreCell('c','sv-c','Confidence 1–5')}
-      ${scoreCell('e','sv-e','Effort 1–5')}
-      <td class="td-rice">
-        <div class="rice-wrap">
-          ${hasScore
-            ? `<div class="rice-bar-track"><div class="rice-bar" style="width:${barPct}%"></div></div><span class="rice-num">${score}</span>`
-            : `<span style="font-size:12px;color:var(--gray-3);padding-left:4px">Not scored</span>`}
-        </div>
-      </td>
-    </tr>`;
-  }).join('');
-
-  tbody.querySelectorAll('.editable').forEach(el => el.addEventListener('click', startEdit));
-}
-
-function esc(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function startEdit(e) {
-  e.stopPropagation();
-  const span = e.currentTarget;
-  if (span.querySelector('input')) return;
-  const id = parseInt(span.closest('tr').dataset.id);
-  const field = span.dataset.field;
-  const item = items.find(x => x.id === id);
-  const max = field === 'r' ? 10 : 5;
-  const input = document.createElement('input');
-  input.type = 'number'; input.min = 1; input.max = max;
-  input.value = item[field] ?? ''; input.className = 'score-input';
-  span.textContent = ''; span.appendChild(input);
-  input.focus(); input.select();
-  function save() {
-    const parsed = parseInt(input.value);
-    if (!isNaN(parsed)) item[field] = Math.min(max, Math.max(1, parsed));
-    render();
-  }
-  input.addEventListener('blur', save);
-  input.addEventListener('keydown', ev => {
-    if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
-    if (ev.key === 'Escape') render();
-    if (ev.key === 'Tab') { ev.preventDefault(); input.blur(); }
-  });
-  input.addEventListener('click', ev => ev.stopPropagation());
-}
-
-function exportCSV() {
-  const filtered = getSorted(getFiltered());
-  const header = ['Rank','Name','Theme','Type','Status','Owner','Description','Reach','Impact','Confidence','Effort','RICE Score'];
-  const rows = filtered.map((item, idx) => [
-    idx + 1,
-    `"${item.name.replace(/"/g,'""')}"`,
-    `"${item.theme}"`,
-    `"${item.type}"`,
-    item.status || 'upcoming',
-    item.owner || '',
-    `"${(item.desc||'').replace(/"/g,'""')}"`,
-    item.r ?? '', item.i ?? '', item.c ?? '', item.e ?? '',
-    rice(item) ?? ''
-  ]);
-  const csv = [header, ...rows].map(r => r.join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'ucook-prioritization.csv'; a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ─── PROJECT BRIEFS ───────────────────────────────────────────────────────────
-const PROJECT_BRIEFS = {
-  'Recipe Card Proofreading': {
-    summary: 'Quality review and correction of recipe card copy and imagery before weekly delivery to subscribers.',
-    features: ['Pre-delivery proofing of all recipe card copy for accuracy','Image quality checks — correct dish, correct week, no artefacts','Standardised sign-off checklist for content team','Feedback loop to reduce repeat errors']
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: () => [
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
   },
-  'Acumatica Refactor': {
-    summary: 'ERP integration overhaul to reduce sync errors and improve maintainability across fulfilment workflows.',
-    features: ['Audit and map all current Acumatica integration touchpoints','Rebuild sync logic to reduce fulfilment errors and data drift','Improve error handling and alerting for failed sync events','Documentation of updated integration contracts']
+  quarter: {
+    label: 'Quarter',
+    options: () => [...new Set(ITEMS.map(it => it.qLabel).filter(Boolean))].sort().map(v=>({value:v,label:v}))
   },
-  'Customer Journey — Key Project': {
-    summary: 'End-to-end customer journey redesign — scoping and architecture in Q1, development kicks off in Q2.',
-    features: ['End-to-end journey mapping from discovery through repeat order','Pain point identification across key touchpoints','Technical architecture planning and dependency mapping','Stakeholder alignment on scope, phasing, and success metrics']
+  pillar: {
+    label: 'Pillars',
+    options: () => [...new Set(ITEMS.map(it => it.theme).filter(Boolean))].sort().map(v=>({value:v,label:v}))
   },
-  'Yoyo — WiCodes': {
-    summary: 'In-store and online loyalty payment integration enabling customers to pay with Yoyo wallet and earn rewards.',
-    features: ['Yoyo WiCode generation at checkout — scan-to-pay in app','Loyalty point accrual and balance display within UCook app','Webhook-based order confirmation and reward processing','In-store redemption flow for pick-up and retail orders']
-  },
-  'Yoyo — Gift Voucher Replacement': {
-    summary: 'Replace the legacy gift voucher system with Yoyo-wrapped digital vouchers for improved redemption tracking and reporting.',
-    features: ['Migrate gift voucher issuance to Yoyo platform','Redemption flow at checkout (web and app)','Balance inquiry and partial redemption support','CS tooling for voucher management and re-issue']
-  },
-  'WhatsApp Payment Links': {
-    summary: 'Payment links sent via WhatsApp for CRM-driven checkout — captures conversational sales that currently drop off.',
-    features: ['Generate unique payment links from CS/CRM tooling','Automated WhatsApp delivery via existing messaging stack','One-click checkout landing page (pre-filled order)','Link expiry, status tracking, and CS visibility']
-  },
-  'Capacitor iOS App': {
-    summary: 'Native iOS app on the App Store via Capacitor — push notifications, improved mobile UX, and offline-capable features.',
-    features: ['App Store listing — UCook iOS app live on App Store','Push notification support via Capacitor plugin','Improved mobile navigation and gesture support','Deep link handling for marketing campaigns']
-  },
-  'Admin & PWA Upgrades': {
-    summary: 'Performance improvements, dependency management, and developer tooling upgrades across the admin panel and PWA.',
-    features: ['Admin panel performance audit and lazy-load improvements','PWA service worker update for reliable offline and caching','Dependency upgrades — resolve known security and compatibility issues','Build tooling improvements to reduce CI/CD times']
-  },
-  'Mono Repo Architecture': {
-    summary: 'Unified codebase structure across services — faster cross-service development, shared utilities, and simplified CI/CD.',
-    features: ['Evaluate and select mono repo tooling (Nx / Turborepo)','Migrate shared utilities and component libraries into shared packages','Update CI/CD pipelines for unified build and test execution','Developer documentation and onboarding guide']
-  },
-  'Recipe Management Portal': {
-    summary: 'Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing content errors.',
-    features: ['Culinary team portal for creating and editing recipe card content','Approval and sign-off workflow before content goes to print/digital','Version history and change tracking per recipe','Integration with existing recipe database and fulfilment schedule']
-  },
-  'CS Billing Tasks Efficiencies': {
-    summary: 'Streamline customer service billing workflows — fewer manual tasks, faster resolution, and lower escalation rates.',
-    features: ['Audit current CS billing workflows to identify manual bottlenecks','Automate repetitive billing adjustments and refund processing','Improve billing visibility within CS tooling','Reduce escalation rate through better self-serve resolution options']
-  },
-  'Discounts Refinements': {
-    summary: 'Improved discount engine flexibility — better rule stacking, CS override tools, and more powerful promotion management.',
-    features: ['Improved discount rule stacking and priority ordering','CS override tools for manual discount application and adjustment','Better promotion management UI for the marketing team','Discount usage reporting and limit enforcement']
-  },
-  'Yoyo — Loyalty Pro Integration': {
-    summary: 'Full Yoyo Loyalty Pro integration — points earning, redemption, and tier management across retail and online channels.',
-    features: ['Loyalty Pro programme setup — tiers, earning rules, and rewards catalogue','Points accrual across online orders, retail, and pick-up','Redemption at checkout — both web and in-app','Loyalty dashboard in customer account view']
-  },
-  'Order Attribution': {
-    summary: 'Multi-touch order attribution modelling to correctly credit marketing channels and inform media spend decisions.',
-    features: ['Multi-touch attribution model design and data source mapping','Channel-level reporting — paid, organic, CRM, referral','First-order and repeat-order attribution segmentation','Dashboard for marketing team with media spend recommendations']
-  },
-  'Loop Implementation': {
-    summary: 'Implement Loop for returns and exchanges — reduces manual CS processing and enables customer self-serve resolution.',
-    features: ['Loop platform integration with UCook order management','Customer-facing self-serve returns portal','Automated return approval rules and refund triggers','CS dashboard view for exception handling and escalations']
-  },
-  'Capacitor iOS App — Phase 2': {
-    summary: 'Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.',
-    features: ['Deep-linked push notifications tied to order and delivery events','Improved offline support and background data sync','App Clips for frictionless trial and first-order flow','Enhanced in-app navigation and transition animations']
-  },
-  'Postgres Upgrade': {
-    summary: 'Upgrade to the latest PostgreSQL version for improved security, performance, and access to modern database features.',
-    features: ['Upgrade PostgreSQL to latest stable LTS version','Pre-upgrade compatibility testing across all services','Zero-downtime migration using pg_upgrade or logical replication','Post-upgrade performance benchmarking and monitoring']
-  },
-  'Logistics Overhaul': {
-    summary: 'End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.',
-    features: ['Audit of current delivery SLAs, failure points, and supplier performance','Route optimisation and zone assignment improvements','Supplier SLA renegotiation and contingency planning','Real-time tracking integration for customer delivery communications']
-  },
-  'Migration to Cluster': {
-    summary: 'Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.',
-    features: ['Design cluster architecture with failover and auto-scaling policies','Service-by-service migration with blue-green deployment strategy','Load balancer configuration and health check implementation','Runbook documentation and disaster recovery testing']
+  quadrant: {
+    label: 'Matrix Quadrant',
+    options: () => [
+      {value:'qw', label:'⚡ Quick Win'},
+      {value:'bb', label:'🎯 Big Bet'},
+      {value:'fi', label:'💧 Fill In'},
+      {value:'ts', label:'⚠ Time Sink'},
+    ]
   },
 };
 
-function buildProjectBriefHtml(name) {
-  const brief = PROJECT_BRIEFS[name];
-  if (!brief) return '';
-  const featsHtml = (brief.features || []).map(f =>
-    `<li class="dp-proj-feat"><span class="dp-proj-feat-dot"></span>${f}</li>`
-  ).join('');
-  const linksHtml = (brief.links || []).map(l =>
-    `<a class="dp-proj-link" href="${l.href}" target="_blank" rel="noopener">
-      <span class="dp-proj-link-icon">${l.icon}</span>
-      <span><span class="dp-proj-link-title">${l.title}</span><span class="dp-proj-link-sub">${l.sub}</span></span>
-      <svg class="dp-proj-link-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>`
-  ).join('');
-  return `<div class="dp-proj">
-    <div class="dp-proj-label">Project Brief <span class="dp-proj-badge">From Projects Page</span></div>
-    ${brief.summary ? `<p class="dp-proj-summary">${brief.summary}</p>` : ''}
-    ${featsHtml ? `<ul class="dp-proj-feats">${featsHtml}</ul>` : ''}
-    ${linksHtml ? `<div class="dp-proj-links">${linksHtml}</div>` : ''}
-  </div>`;
-}
+const SORT_DEFS = {
+  status:   {label:'Status'},
+  quarter:  {label:'Quarter'},
+  pillar:   {label:'Pillars'},
+  quadrant: {label:'Matrix Quadrant'},
+};
 
-// ─── DETAIL PANEL ─────────────────────────────────────────────────────────────
-let activeTr = null;
-
-function openPanelById(id) {
-  const item = items.find(x => x.id === id);
-  if (!item) return;
-  if (activeTr) activeTr.classList.remove('row-active');
-  activeTr = document.querySelector(`tr[data-id="${id}"]`);
-  if (activeTr) activeTr.classList.add('row-active');
-
-  const score = rice(item);
-  const hasScore = score != null;
-  const barPct = hasScore ? Math.min(100, Math.round(score / 120 * 100)) : 0;
-  const barColor = score >= 60 ? 'var(--green)' : score >= 30 ? 'var(--amber-mid)' : 'var(--gray-3)';
-
-  document.getElementById('dp-pills').innerHTML =
-    `<span class="theme-pill ${themeClass(item.theme)}" style="font-size:10px">${item.theme}</span>
-     <span class="type-pill ${typeClass(item.type)}" style="font-size:10px">${esc(item.type)}</span>
-     ${statusHtml(item.status)}`;
-
-  document.getElementById('dp-name').textContent = item.name;
-
-  const metaRows = [];
-  if (item.owner) metaRows.push(`<div class="dp-meta-row"><span class="dp-meta-key">Owner</span><span class="dp-meta-val">${esc(item.owner)}</span></div>`);
-
-  const riceHtml = hasScore
-    ? `<div class="dp-sec-label">RICE Score Breakdown</div>
-       <div class="rice-cells">
-         <div class="rcell"><div class="rcell-letter" style="color:var(--blue)">R</div><div class="rcell-val">${item.r}</div><div class="rcell-lbl">Reach</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--green)">I</div><div class="rcell-val">${item.i}</div><div class="rcell-lbl">Impact</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--purple)">C</div><div class="rcell-val">${item.c}</div><div class="rcell-lbl">Confidence</div></div>
-         <div class="rcell"><div class="rcell-letter" style="color:var(--red)">E</div><div class="rcell-val">${item.e}</div><div class="rcell-lbl">Effort</div></div>
-       </div>
-       <div class="rice-result-box">
-         <span class="rice-formula-txt">(${item.r} × ${item.i} × ${item.c}) ÷ ${item.e}</span>
-         <span class="rice-score-big">${score}</span>
-       </div>
-       <div class="dp-bar-track"><div class="dp-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>`
-    : `<div class="no-score">No RICE score yet — add R, I, C, E values in the table to calculate.</div>`;
-
-  document.getElementById('dp-body').innerHTML =
-    `${item.desc ? `<p class="dp-desc">${esc(item.desc)}</p>` : ''}
-     ${buildProjectBriefHtml(item.name)}
-     ${metaRows.length ? `<div class="dp-meta-block">${metaRows.join('')}</div>` : ''}
-     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-2)">${riceHtml}</div>`;
-
-  document.getElementById('dp-overlay').classList.add('open');
-  document.getElementById('dp-panel').classList.add('open');
-}
-
-function closePanel() {
-  if (activeTr) { activeTr.classList.remove('row-active'); activeTr = null; }
-  document.getElementById('dp-overlay').classList.remove('open');
-  document.getElementById('dp-panel').classList.remove('open');
-}
-
-function toggleSwitcher() {
-  const trigger = document.getElementById('csTrigger');
-  const menu = document.getElementById('csMenu');
-  const isOpen = menu.classList.contains('open');
-  menu.classList.toggle('open');
-  trigger.setAttribute('aria-expanded', !isOpen);
-}
-document.addEventListener('click', function(e) {
-  const switcher = document.getElementById('companySwitcher');
-  if (switcher && !switcher.contains(e.target)) {
-    document.getElementById('csMenu').classList.remove('open');
-    document.getElementById('csTrigger').setAttribute('aria-expanded', 'false');
-  }
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-// ─── MATRIX VIEW ─────────────────────────────────────────────────────────────
-let currentView = 'rice';
-let mSortCol = 'mi', mSortDir = 'desc';
-
-function switchView(v, btn) {
-  currentView = v;
-  document.getElementById('rice-view').style.display = v === 'rice' ? '' : 'none';
-  document.getElementById('matrix-view').style.display = v === 'matrix' ? '' : 'none';
-  document.getElementById('model-desc-rice').style.display = v === 'rice' ? '' : 'none';
-  document.getElementById('model-desc-matrix').style.display = v === 'matrix' ? '' : 'none';
-  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === v));
-  if (v === 'matrix') { renderMatrix(); renderMatrixTable(); }
-}
-
-function getQuadrant(item) {
-  if (item.mi == null || item.me == null) return null;
-  const highImpact = item.mi >= 3;
-  const lowEffort = item.me <= 3;
-  if (highImpact && lowEffort) return 'qw';
-  if (highImpact && !lowEffort) return 'bb';
-  if (!highImpact && lowEffort) return 'nth';
+function getQuadrantKey(it){
+  if(!it.mi||!it.me) return null;
+  const hi=it.mi>=3,he=it.me>=3;
+  if(hi&&!he) return 'qw';
+  if(hi&&he)  return 'bb';
+  if(!hi&&!he) return 'fi';
   return 'ts';
 }
 
-function quadrantHtml(item) {
-  const q = getQuadrant(item);
-  if (!q) return '<span style="color:var(--gray-3);font-size:12px">—</span>';
-  const map = {
-    qw: ['⚡ Quick Win',  'qp-qw'],
-    bb: ['🎯 Big Bet',    'qp-bb'],
-    nth:['💭 Nice to Have','qp-nth'],
-    ts: ['🕳️ Time Sink',  'qp-ts']
-  };
-  const [label, cls] = map[q];
-  return `<span class="m-quadrant-pill ${cls}">${label}</span>`;
+function renderChips(){
+  const area=document.getElementById('chipsArea');
+  let html='';
+  for(const field of Object.keys(filterState)){
+    const def=FILTER_DEFS[field];
+    const val=filterState[field];
+    const optsHtml=def.options().map(o=>`<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`).join('');
+    html+=`<div class="filter-chip"><span class="chip-label">${def.label}</span><select class="chip-select" onchange="setFilterValue('${field}',this.value)"><option value="">All</option>${optsHtml}</select><button class="chip-remove" onclick="removeFilterField('${field}')">×</button></div>`;
+  }
+  if(chipSortState){
+    const def=SORT_DEFS[chipSortState.field];
+    const dir=chipSortState.dir==='asc'?'↑':'↓';
+    html+=`<div class="filter-chip sort-chip"><span class="chip-label">Sort · ${def.label}</span><button class="chip-dir" onclick="toggleChipSortDir()">${dir}</button><button class="chip-remove" onclick="removeChipSort()">×</button></div>`;
+  }
+  area.innerHTML=html;
+  document.getElementById('filterBtn').classList.toggle('active',Object.keys(filterState).length>0);
+  document.getElementById('sortBtn').classList.toggle('active',!!chipSortState);
+  ['status','quarter','pillar','quadrant'].forEach(f=>{
+    const fi=document.getElementById('fmi-'+f); if(fi) fi.classList.toggle('on',f in filterState);
+    const si=document.getElementById('smi-'+f); if(si) si.classList.toggle('on',chipSortState?.field===f);
+  });
+  const anyActive=Object.keys(filterState).length>0||!!chipSortState||(document.getElementById('searchInput').value||'').trim();
+  document.getElementById('resetBtn').style.display=anyActive?'':'none';
 }
 
-function setMSort(col) {
-  if (mSortCol === col) { mSortDir = mSortDir === 'desc' ? 'asc' : 'desc'; }
-  else { mSortCol = col; mSortDir = (col === 'name' || col === 'theme') ? 'asc' : 'desc'; }
+function toggleFilterField(field){
+  if(field in filterState) delete filterState[field]; else filterState[field]='';
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeFilterField(field){ delete filterState[field]; renderChips(); applyFilters(); }
+function setFilterValue(field,value){ filterState[field]=value; renderChips(); applyFilters(); }
+function setSortField(field){
+  if(chipSortState?.field===field) chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc';
+  else chipSortState={field,dir:'asc'};
+  closeAllMenus(); renderChips(); renderAll();
+}
+function removeChipSort(){ chipSortState=null; renderChips(); renderAll(); }
+function toggleChipSortDir(){ if(chipSortState){chipSortState.dir=chipSortState.dir==='asc'?'desc':'asc'; renderChips(); renderAll();} }
+
+function toggleMenu(menuId,e){
+  if(e) e.stopPropagation();
+  const menu=document.getElementById(menuId);
+  const isOpen=menu.classList.contains('open');
+  closeAllMenus();
+  if(!isOpen) menu.classList.add('open');
+}
+function closeAllMenus(){
+  document.querySelectorAll('.ctrl-menu').forEach(m=>m.classList.remove('open'));
+}
+
+function riceScore(item){ return Math.round(item.r * item.i * (item.c/100) / item.e); }
+
+function themeHtml(t){
+  const c = THEME_COLORS[t] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  return `<span class="item-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t}</span>`;
+}
+
+function getQuadrant(item){
+  if(item.mi==null||item.me==null) return null;
+  const hi=item.mi>=3, le=item.me<=3;
+  if(hi&&le) return 'qw';
+  if(hi&&!le) return 'bb';
+  if(!hi&&le) return 'nth';
+  return 'ts';
+}
+
+function quadrantHtml(q){
+  if(!q) return '<span class="quadrant-badge ts-badge">—</span>';
+  const map={qw:['qw-badge','⚡ Quick Win'],bb:['bb-badge','🎯 Big Bet'],nth:['nth-badge','💤 Nice to Have'],ts:['ts-badge','⚠ Time Sink']};
+  return `<span class="quadrant-badge ${map[q][0]}">${map[q][1]}</span>`;
+}
+
+function chipSortFn(a,b){
+  if(!chipSortState) return 0;
+  const dir=chipSortState.dir==='asc'?1:-1;
+  let av,bv;
+  switch(chipSortState.field){
+    case 'status':   av=a.status||'';  bv=b.status||'';  break;
+    case 'quarter':  av=a.qLabel||'';  bv=b.qLabel||'';  break;
+    case 'pillar':   av=a.theme||'';   bv=b.theme||'';   break;
+    case 'quadrant': av=getQuadrantKey(a)||'zzz'; bv=getQuadrantKey(b)||'zzz'; break;
+    default: return 0;
+  }
+  if(av<bv) return -dir; if(av>bv) return dir; return 0;
+}
+
+function getSorted(arr){
+  if(chipSortState) return [...arr].sort(chipSortFn);
+  return [...arr].sort((a,b)=>{
+    let av,bv;
+    if(sortCol==='score'){av=riceScore(a);bv=riceScore(b);}
+    else if(sortCol==='rank'){av=riceScore(a);bv=riceScore(b);return bv-av;}
+    else{av=a[sortCol];bv=b[sortCol];}
+    if(typeof av==='string') return sortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
+    return sortDir==='asc'?av-bv:bv-av;
+  });
+}
+
+function getMSorted(arr){
+  if(chipSortState) return [...arr].sort(chipSortFn);
+  return [...arr].sort((a,b)=>{
+    let av,bv;
+    if(mSortCol==='score'||mSortCol==='rank'){av=riceScore(a);bv=riceScore(b);}
+    else if(mSortCol==='quadrant'){av=getQuadrant(a)||'zzz';bv=getQuadrant(b)||'zzz';}
+    else{av=a[mSortCol];bv=b[mSortCol];}
+    if(typeof av==='string') return mSortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
+    return mSortDir==='asc'?(av??0)-(bv??0):(bv??0)-(av??0);
+  });
+}
+
+function setSort(col){
+  if(sortCol===col) sortDir=sortDir==='asc'?'desc':'asc';
+  else{sortCol=col;sortDir='desc';}
+  render();
+}
+
+function setMSort(col){
+  if(mSortCol===col) mSortDir=mSortDir==='asc'?'desc':'asc';
+  else{mSortCol=col;mSortDir='desc';}
   renderMatrixTable();
 }
 
-function getMSorted(filtered) {
-  return [...filtered].sort((a, b) => {
-    let av, bv;
-    if (mSortCol === 'mi') { av = a.mi; bv = b.mi; }
-    else if (mSortCol === 'me') { av = a.me; bv = b.me; }
-    else if (mSortCol === 'name') { av = a.name.toLowerCase(); bv = b.name.toLowerCase(); }
-    else if (mSortCol === 'theme') { av = a.theme; bv = b.theme; }
-    else { av = 0; bv = 0; }
-    if (av == null && bv == null) return 0;
-    if (av == null) return 1;
-    if (bv == null) return -1;
-    if (typeof av === 'string') return mSortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
-    return mSortDir === 'asc' ? av - bv : bv - av;
+function applyFilters(){
+  const search=(document.getElementById('searchInput').value||'').toLowerCase().trim();
+  filtered=ITEMS.filter(it=>{
+    if(search&&!it.name.toLowerCase().includes(search)&&!(it.desc||'').toLowerCase().includes(search)) return false;
+    for(const [field,val] of Object.entries(filterState)){
+      if(!val) continue;
+      if(field==='status'   && it.status!==val) return false;
+      if(field==='quarter'  && it.qLabel!==val) return false;
+      if(field==='pillar'   && it.theme!==val)  return false;
+      if(field==='quadrant' && getQuadrantKey(it)!==val) return false;
+    }
+    return true;
   });
+  renderChips();
+  renderAll();
 }
 
-function renderMatrixTable() {
-  const filtered = getFiltered();
-  const sorted = getMSorted(filtered);
-  const countEl = document.getElementById('m-tbl-count');
-  if (countEl) countEl.textContent = `${sorted.length} initiative${sorted.length !== 1 ? 's' : ''}`;
+function resetAll(){
+  document.getElementById('searchInput').value='';
+  for(const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState=null;
+  filtered=[...ITEMS];
+  renderChips();
+  renderAll();
+}
 
-  // Update sort arrows
-  ['name','theme','mi','me'].forEach(col => {
-    const el = document.getElementById('msort-' + col);
-    if (!el) return;
-    el.textContent = mSortCol === col ? (mSortDir === 'desc' ? '↓' : '↑') : '↕';
-    el.closest('th').classList.toggle('m-sorted', mSortCol === col);
-  });
+function renderAll(){
+  const cnt=document.getElementById('resultsCount');
+  if(cnt) cnt.textContent=filtered.length+' of '+ITEMS.length;
+  render();
+  if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
+}
 
-  const tbody = document.getElementById('m-tbl-body');
-  if (!tbody) return;
-  tbody.innerHTML = sorted.map((item, idx) => {
-    const miVal = item.mi != null ? item.mi : '–';
-    const meVal = item.me != null ? item.me : '–';
-    return `<tr data-id="${item.id}" onclick="openPanelById(${item.id})">
-      <td style="font-size:11px;font-weight:700;color:var(--gray-4);width:42px;text-align:center">${idx + 1}</td>
-      <td>
-        <div style="font-weight:600;color:var(--black);line-height:1.3">${esc(item.name)}</div>
-        <div style="font-size:11px;color:var(--gray-4);margin-top:1px"><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></div>
-      </td>
-      <td><span class="theme-pill ${themeClass(item.theme)}">${themeShort(item.theme)}</span></td>
-      <td style="text-align:center">${statusHtml(item.status) || '<span style="color:var(--gray-3);font-size:11px">—</span>'}</td>
-      <td class="m-score-cell"><span class="m-score-val sv-impact m-editable" data-field="mi" data-id="${item.id}">${miVal}</span></td>
-      <td class="m-score-cell"><span class="m-score-val sv-effort m-editable" data-field="me" data-id="${item.id}">${meVal}</span></td>
-      <td>${quadrantHtml(item)}</td>
-      <td><button style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:4px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);background:#fff;cursor:pointer;color:var(--gray-5)" onclick="event.stopPropagation();openPanelById(${item.id})">View →</button></td>
+function render(){
+  const sorted=getSorted(filtered);
+  const tbody=document.getElementById('riceTbody');
+  const _nw=window._nw;
+  tbody.innerHTML=sorted.map((it,idx)=>{
+    const sc=riceScore(it);
+    const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
+    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
+      <td><div class="rank-badge">${idx+1}</div></td>
+      <td><div class="item-name">${it.name}</div></td>
+      <td onclick="event.stopPropagation()">${themeCell}</td>
+      <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('r',it.r,it.notionId) : it.r.toLocaleString()}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('i',it.i,it.notionId) : it.i}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('c',it.c,it.notionId) : it.c+'%'}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('e',it.e,it.notionId) : it.e}</td>
     </tr>`;
   }).join('');
-
-  tbody.querySelectorAll('.m-editable').forEach(el => el.addEventListener('click', startEditMatrix));
 }
 
-function startEditMatrix(e) {
-  e.stopPropagation();
-  const span = e.currentTarget;
-  if (span.querySelector('input')) return;
-  const id = parseInt(span.dataset.id);
-  const field = span.dataset.field;
-  const item = items.find(x => x.id === id);
-  const input = document.createElement('input');
-  input.type = 'number'; input.min = 1; input.max = 5;
-  input.value = item[field] ?? ''; input.className = 'score-input';
-  span.textContent = ''; span.appendChild(input);
-  input.focus(); input.select();
-  function save() {
-    const parsed = parseInt(input.value);
-    if (!isNaN(parsed)) item[field] = Math.min(5, Math.max(1, parsed));
-    renderMatrix();
-    renderMatrixTable();
-  }
-  input.addEventListener('blur', save);
-  input.addEventListener('keydown', ev => {
-    if (ev.key === 'Enter') { ev.preventDefault(); input.blur(); }
-    if (ev.key === 'Escape') { renderMatrix(); renderMatrixTable(); }
-    if (ev.key === 'Tab') { ev.preventDefault(); input.blur(); }
-  });
-  input.addEventListener('click', ev => ev.stopPropagation());
-}
+function renderMatrix(){
+  const canvas=document.getElementById('matrixCanvas');
+  if(!canvas) return;
+  canvas.querySelectorAll('.bubble').forEach(b=>b.remove());
+  const unscoredEl=document.getElementById('matrix-unscored');
 
-const themeColorMap = {
-  'Process Optimization':'#7a5a00',
-  'Web/App Enhancement':'#1a6fd4',
-  'Ecommerce Growth':'#3a9e3f',
-  'Tech Infrastructure':'#00695c',
-  'Retail Growth':'#7b1fa2',
-  'Data & Insights':'#1565c0'
-};
+  const scored=filtered.filter(it=>it.mi!=null&&it.me!=null);
+  const unscored=filtered.filter(it=>it.mi==null||it.me==null);
 
-function renderMatrix() {
-  const canvas = document.getElementById('matrix-canvas');
-  if (!canvas) return;
-  canvas.querySelectorAll('.m-dot').forEach(d => d.remove());
-  const unscoredEl = document.getElementById('matrix-unscored');
-
-  const filtered = getFiltered();
-  const scored = filtered.filter(item => item.mi != null && item.me != null);
-  const unscored = filtered.filter(item => item.mi == null || item.me == null);
-
-  if (unscored.length) {
-    unscoredEl.style.display = '';
-    document.getElementById('matrix-unscored-chips').innerHTML =
-      unscored.map(u => `<span class="mu-chip">${esc(u.name)}</span>`).join('');
-  } else {
-    unscoredEl.style.display = 'none';
-  }
+  if(unscored.length){
+    unscoredEl.style.display='';
+    document.getElementById('matrix-unscored-chips').innerHTML=unscored.map(u=>`<span class="mu-chip">${u.name}</span>`).join('');
+  } else { unscoredEl.style.display='none'; }
 
   // Build legend
-  const themes = [...new Set(scored.map(i => i.theme))];
-  document.getElementById('matrix-legend').innerHTML = themes.map(t =>
-    `<div class="m-legend-item"><div class="m-legend-dot" style="background:${themeColorMap[t]||'#9a9a94'}"></div>${themeShort(t)}</div>`
+  const themes=[...new Set(scored.map(i=>i.theme))];
+  const legendEl=document.getElementById('matrix-legend');
+  if(legendEl) legendEl.innerHTML=themes.map(t=>
+    `<div class="m-legend-item"><div class="m-legend-dot" style="background:${MATRIX_THEME_COLORS[t]||'#9a9a94'}"></div>${t}</div>`
   ).join('');
 
-  const groups = {};
-  scored.forEach(item => {
-    const key = `${item.mi}_${item.me}`;
-    if (!groups[key]) groups[key] = [];
+  // Update table count
+  const cntEl=document.getElementById('m-tbl-count');
+  if(cntEl) cntEl.textContent=scored.length+' initiatives';
+
+  // Group by cell to jitter overlapping bubbles
+  const groups={};
+  scored.forEach(item=>{
+    const key=`${item.mi}_${item.me}`;
+    if(!groups[key]) groups[key]=[];
     groups[key].push(item);
   });
 
-  Object.values(groups).forEach(group => {
-    group.forEach((item, idx) => {
-      // Safe-zone: 12%–88% keeps bubbles away from corner badge labels
-      const baseX = (item.me - 1) / 4 * 76 + 12;
-      const baseY = (5 - item.mi) / 4 * 76 + 12;
-      let jx = 0, jy = 0;
-      if (group.length > 1) {
-        const angle = (idx / group.length) * 2 * Math.PI;
-        const r = 3.5 + idx * 1.5;
-        jx = Math.cos(angle) * r;
-        jy = Math.sin(angle) * r;
+  Object.values(groups).forEach(group=>{
+    group.forEach((item,idx)=>{
+      const baseX=(item.me-1)/4*76+12;
+      const baseY=(5-item.mi)/4*76+12;
+      let jx=0,jy=0;
+      if(group.length>1){
+        const angle=(idx/group.length)*2*Math.PI;
+        const r=3.5+idx*1.5;
+        jx=Math.cos(angle)*r; jy=Math.sin(angle)*r;
       }
-      const score = rice(item);
-      const size = Math.max(26, Math.min(44, 20 + (score || 0) * 0.35));
-      const color = themeColorMap[item.theme] || '#9a9a94';
-      const dot = document.createElement('div');
-      dot.className = 'm-dot';
-      dot.style.cssText = `left:calc(${baseX + jx}% - ${size/2}px);top:calc(${baseY + jy}% - ${size/2}px);width:${size}px;height:${size}px;background:${color};`;
-      dot.innerHTML = `<div class="m-tip"><div class="m-tip-name">${esc(item.name)}</div><div class="m-tip-meta">Impact: ${item.mi} · Effort: ${item.me}${score != null ? ` · RICE: ${score}` : ''}</div></div>`;
-      dot.addEventListener('click', () => openPanelById(item.id));
-      canvas.appendChild(dot);
+      const sc=riceScore(item);
+      const size=Math.max(26,Math.min(44,20+(sc||0)*0.35));
+      const color=MATRIX_THEME_COLORS[item.theme]||'#9a9a94';
+      const b=document.createElement('div');
+      b.className='bubble';
+      b.style.cssText=`left:calc(${baseX+jx}% - ${size/2}px);top:calc(${baseY+jy}% - ${size/2}px);width:${size}px;height:${size}px;background:${color};font-size:0`;
+      b.innerHTML=`<div class="m-tip"><div class="m-tip-name">${item.name}</div><div class="m-tip-meta">Impact: ${item.mi} · Effort: ${item.me} · RICE: ${sc}</div></div>`;
+      b.onclick=()=>openFlyout(item.id);
+      canvas.appendChild(b);
     });
   });
   renderMatrixTable();
 }
 
-render();
+function renderMatrixTable(){
+  const sorted=getMSorted(filtered);
+  const tbody=document.getElementById('matrixTbody');
+  const _nw=window._nw;
+  tbody.innerHTML=sorted.map((it,idx)=>{
+    const sc=riceScore(it);
+    const q=getQuadrant(it);
+    const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
+    const sm=F_STATUS[it.status]||F_STATUS.planned;
+    const statusBadge=`<span class="${sm.cls}">${sm.label}</span>`;
+    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
+      <td><div class="rank-badge">${idx+1}</div></td>
+      <td><div class="item-name">${it.name}</div></td>
+      <td onclick="event.stopPropagation()">${themeCell}</td>
+      <td>${statusBadge}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('r',it.r,it.notionId) : it.r.toLocaleString()}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('i',it.i,it.notionId) : it.i}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('c',it.c,it.notionId) : it.c+'%'}</td>
+      <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('e',it.e,it.notionId) : it.e}</td>
+      <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
+      <td>${quadrantHtml(q)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function startEditMatrix(e){
+  const span=e.target;
+  const id=parseInt(span.dataset.id);
+  const field=span.dataset.field;
+  const notionId=span.dataset.nid;
+  const item=ITEMS.find(x=>x.id===id);
+  if(!item) return;
+  const input=document.createElement('input');
+  input.type='number';input.min=1;input.max=5;input.step=1;
+  input.className='m-edit-input';
+  input.value=item[field]??'';
+  span.replaceWith(input);
+  input.focus();input.select();
+  function save(){
+    const v=parseInt(input.value);
+    if(v>=1&&v<=5){
+      item[field]=v;
+      // Sync to Notion via notion-write.js if available
+      if(window._nw && notionId){
+        const prop = field==='mi'
+          ? {'Matrix Impact':{number:v}}
+          : {'Matrix Effort':{number:v}};
+        window._nw.notionPatch ? window._nw.notionPatch(notionId,prop) : null;
+      }
+    }
+    renderMatrix();renderMatrixTable();
+  }
+  input.addEventListener('blur',save);
+  input.addEventListener('keydown',ev=>{if(ev.key==='Enter')save();if(ev.key==='Escape'){renderMatrixTable();}});
+}
+
+function switchView(v,btn){
+  currentView=v;
+  document.getElementById('rice-view').style.display=v==='rice'?'block':'none';
+  document.getElementById('matrix-view').style.display=v==='matrix'?'block':'none';
+  document.getElementById('model-desc-rice').style.display=v==='rice'?'':'none';
+  document.getElementById('model-desc-matrix').style.display=v==='matrix'?'':'none';
+  document.querySelectorAll('.view-tab').forEach(t=>t.classList.toggle('active',t.dataset.view===v));
+  if(v==='matrix'){renderMatrix();renderMatrixTable();}
+}
+
+function toggleSwitcher(){
+  const trigger=document.getElementById('csTrigger');
+  const menu=document.getElementById('csMenu');
+  const isOpen=menu.classList.contains('open');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded',!isOpen);
+}
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.ctrl-dropdown')&&!e.target.closest('.company-switcher')){
+    closeAllMenus();
+    document.getElementById('csMenu').classList.remove('open');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
+  }
+});
+
+window.addEventListener('load',()=>{ applyFilters(); }); // applies default quarter filter
+window.addEventListener('resize',()=>{if(currentView==='matrix') renderMatrix();});
 </script>
+
+<div class="overlay" id="overlay" onclick="closeFlyout()"></div>
+<div class="flyout" id="flyout">
+  <div class="flyout-close-row">
+    <button class="flyout-close" onclick="closeFlyout()">×</button>
+  </div>
+  <div class="flyout-body" id="flyoutBody"></div>
+</div>
+<script>
+// ─── Shared flyout ────────────────────────────────────────────────────────────
+const F_STATUS = {
+  live:    {cls:'fs-live',    label:'Live'},
+  progress:{cls:'fs-progress',label:'In Progress'},
+  planned: {cls:'fs-planned', label:'Planned'},
+  review:  {cls:'fs-review',  label:'In Review'},
+  done:    {cls:'fs-done',    label:'Done'},
+};
+const F_ACCENT = {
+  'Top Line Growth':'#2e7d32','Margin Improvements':'#c62828',
+  'Cost Control & Cash Flow':'#4527a0','People':'#b71c1c',
+  'Internal Working Improvement':'#1a5fa8','UX/UI':'#3730a3',
+};
+function fEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fRice(it){return(it.r&&it.i&&it.c&&it.e)?Math.round(it.r*it.i*(it.c/100)/it.e):0;}
+function fStatus(s){const m=F_STATUS[s]||F_STATUS.planned;return`<span class="${m.cls}">${m.label}</span>`;}
+function fTheme(t){const c=THEME_COLORS[t]||{bg:'#f5f5f5',border:'#ddd',text:'#555'};return`<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t||'—'}</span>`;}
+function fQuadrant(mi,me){
+  if(!mi||!me) return null;
+  const hi=mi>=3,he=me>=3;
+  if(hi&&!he) return {label:'Quick Win',color:'#1b5e20',bg:'#e8f5e9',border:'#a8d4aa'};
+  if(hi&&he)  return {label:'Big Bet',  color:'#b84714',bg:'#fdf1ec',border:'#f0b89a'};
+  if(!hi&&!he)return {label:'Fill In',  color:'#1a5fa8',bg:'#e8f1fc',border:'#90bef5'};
+  return              {label:'Time Sink',color:'#7a5a00',bg:'#fff8e1',border:'#f5d48b'};
+}
+function openFlyout(itemId){
+  const p=ITEMS.find(it=>it.id===itemId);
+  if(!p) return;
+  const qd=fQuadrant(p.mi,p.me);
+  const hasRice=p.r||p.i||p.c||p.e>1;
+  const rice=fRice(p);
+  const accent=F_ACCENT[p.theme]||'#4f46e5';
+  const sm=F_STATUS[p.status]||F_STATUS.planned;
+  const tagHtml=(p.company||[]).map(c=>`<span class="flyout-tag">${fEsc(c)}</span>`).join('');
+  const qdHtml=qd
+    ?`<span class="f-quadrant" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
+    :`<span class="flyout-prop-val-muted">No matrix data</span>`;
+  const _meta=(typeof getBriefMeta==='function')?getBriefMeta(p.name):{type:'',ai:false};
+  const _tCls=_meta.type==='Quick Win'?'f-type-qw':_meta.type==='Existing Roadmap'?'f-type-er':_meta.type==='Medium-term'?'f-type-mt':'f-type-unk';
+  const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
+  document.getElementById('flyoutBody').innerHTML=`
+    <div style="height:4px;border-radius:2px;background:${accent};margin-bottom:20px"></div>
+    ${tagHtml?`<div class="flyout-tags">${tagHtml}</div>`:''}
+    ${(_meta.type||_meta.ai)?`<div class="f-pill-row">${_meta.type?`<span class="f-type-pill ${_tCls}">${fEsc(_meta.type)}</span>`:''} ${_meta.ai?'<span class="f-ai-badge">✦ AI</span>':''}</div>`:''}
+    <div class="flyout-title">${fEsc(p.name)}</div>
+    ${p.desc?`<p class="flyout-subtitle">${fEsc(p.desc)}</p>`:''}
+    <div class="flyout-props">
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('status', p.status, p.notionId, 'Status')
+        : `<div><div class="flyout-prop-lbl">Status</div><div>${fStatus(p.status)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('theme', p.theme, p.notionId, 'Pillar')
+        : `<div><div class="flyout-prop-lbl">Pillar</div><div>${fTheme(p.theme)}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('qLabel', p.qLabel, p.notionId, 'Quarter')
+        : `<div><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${fEsc(p.qLabel||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildFlyoutSelect('priority', p.priority, p.notionId, 'Priority')
+        : `<div><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${fEsc(p.priority||'—')}</div></div>`}
+      ${window._nw
+        ? window._nw.buildLeadInput(p.lead||'', p.notionId)
+        : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>`}
+      <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
+    </div>
+    ${_brief ? _brief : `<div class="flyout-section">
+      <div class="flyout-section-hdr">
+        <span class="flyout-section-title">Project Brief</span>
+        <span class="${sm.cls}" style="font-size:11px">${sm.label}</span>
+      </div>
+      ${p.desc?`<p class="flyout-desc">${fEsc(p.desc)}</p>`:'<p class="flyout-desc-empty">No description added in Notion yet.</p>'}
+    </div>`}
+    <div class="flyout-section">
+      <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score Breakdown</span></div>
+      ${hasRice?`
+        <div class="f-rice-row">
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${window._nw?window._nw.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="f-rice-lbl">R</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-i">${window._nw?window._nw.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="f-rice-lbl">I</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-c">${window._nw?window._nw.buildRiceEditSpan('c',p.c||0,p.notionId):(p.c||0)}</div><div class="f-rice-lbl">C</div></div>
+          <div class="f-rice-cell"><div class="f-rice-val f-rice-e">${window._nw?window._nw.buildRiceEditSpan('e',p.e||1,p.notionId):(p.e||1)}</div><div class="f-rice-lbl">E</div></div>
+        </div>
+        <div class="f-rice-total">
+          <div><div class="f-rice-score-lbl">RICE Score</div><div class="f-rice-score">${rice.toLocaleString()}</div></div>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>`
+        :'<p class="flyout-desc-empty">RICE fields not yet filled in Notion.</p>'}
+    </div>
+    ${p.notionUrl?`
+    <a class="flyout-notion-link" href="${p.notionUrl}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M5 5.5h6M5 10.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Open in Notion
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:auto"><path d="M2.5 9.5l7-7M9.5 9.5V2.5H2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>`:''}
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('flyout').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeFlyout(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('flyout').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlyout();});
+</script>
+<script src="../../staging/project-briefs.js?v=1776242675000"></script>
+<script src="../../staging/sync.js?v=1776242675000"></script>
+<script src="../../staging/notion-write.js?v=1776243415000"></script>
 </body>
 </html>

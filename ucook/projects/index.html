@@ -2,35 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UCook — Product Projects</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UCook — Projects</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --brand:#e05a1e;--brand-dark:#b84714;--brand-light:#fdf1ec;--brand-mid:#f0b89a;
-  --green:#3a9e3f;--green-dark:#2d7a31;--green-light:#eef7ee;--green-mid:#a8d4aa;
-  --blue:#1a6fd4;--blue-light:#e8f1fc;
-  --purple:#7b1fa2;--purple-light:#f3e5f5;
-  --teal:#00695c;--teal-light:#e0f2f1;
-  --amber:#7a5a00;--amber-light:#fef8e6;--amber-mid:#f5c842;
-  --data:#1565c0;--data-light:#e3f2fd;
-  --red:#a00000;--red-light:#fff0f0;
   --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
-  --radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --white:#ffffff;--radius:6px;--radius-lg:10px;--radius-xl:16px;
+  --green:#3a9e3f;--amber:#e6a817;--red:#d32f2f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6}
-a{color:var(--brand);text-decoration:none}
+body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
 
-/* HEADER */
-.site-header{background:var(--brand-dark);padding:0 40px;height:56px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
-.site-header-wordmark{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;font-family:'DM Sans',sans-serif}
-.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
-.site-header-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.65)}
-
-/* COMPANY SWITCHER */
+/* ── Header ── */
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-wordmark{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;text-decoration:none}
+.site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.site-logo{font-size:13px;font-weight:500;color:rgba(255,255,255,0.65)}
 .company-switcher{position:relative;margin-left:auto}
-.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.cs-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;padding:6px 12px 6px 10px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
 .cs-trigger:hover{background:rgba(255,255,255,.2)}
 .cs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cs-chevron{opacity:.7;transition:transform .2s;flex-shrink:0}
@@ -45,140 +36,165 @@ a{color:var(--brand);text-decoration:none}
 .cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
+.nav-sync-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s;margin-left:4px}
+.nav-sync-btn:hover{background:rgba(255,255,255,.22)}
 
-/* BREADCRUMB */
-.breadcrumb{background:#fff;border-bottom:1px solid var(--gray-2);padding:10px 40px;font-size:12px;display:flex;align-items:center}
-.breadcrumb a{color:var(--gray-5);text-decoration:none}
-.breadcrumb a:hover{color:var(--brand-dark)}
-.bc-sep{margin:0 8px;color:var(--gray-3);font-size:10px}
-.bc-cur{color:var(--gray-4)}
+/* ── Hero ── */
+.breadcrumb{font-size:12px;color:var(--gray-4);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.breadcrumb a{color:var(--gray-4);text-decoration:none;transition:color .15s}.breadcrumb a:hover{color:var(--black)}
+.bc-sep{color:var(--gray-3)}.bc-cur{color:var(--black);font-weight:500}
+.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:32px 40px 28px}
+.hero-inner{max-width:1140px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);border:1px solid var(--brand-mid);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0}
+.hero h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.15;margin-bottom:6px;color:var(--black)}
+.hero-sub{font-size:14px;color:var(--gray-5);max-width:520px;line-height:1.6}
 
-/* HERO */
-.hero{background:#fff;border-bottom:1px solid var(--gray-2);padding:40px 40px 36px}
-.hero-inner{max-width:1080px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.05em;text-transform:uppercase}
-.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
-.hero h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.15;color:var(--black);margin-bottom:10px}
-.hero-sub{font-size:15px;color:var(--gray-5);max-width:580px;line-height:1.7}
-.hero-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap}
-.hero-stat{display:flex;flex-direction:column;gap:2px}
-.hero-stat-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black)}
-.hero-stat-label{font-size:12px;color:var(--gray-4)}
+/* ── Page layout ── */
+.page{max-width:1140px;margin:0 auto;padding:32px 40px 100px}
 
-/* MAIN */
-.main{max-width:1080px;margin:0 auto;padding:32px 40px 80px}
+/* ── Controls bar ── */
+.controls{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
+.search-input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--black);background:var(--gray-1);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--brand-mid);background:#fff}
 
-/* FILTER BAR */
-.filter-bar{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);padding:14px 18px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.filter-search{flex:1;min-width:180px;position:relative}
-.filter-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray-4);pointer-events:none}
-.filter-search input{width:100%;padding:7px 10px 7px 32px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--black);outline:none;background:var(--gray-1)}
-.filter-search input:focus{border-color:var(--brand);background:#fff}
-.filter-select{padding:7px 28px 7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray-5);outline:none;background:var(--gray-1);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
-.filter-select:focus{border-color:var(--brand)}
-.filter-reset{font-size:12px;font-weight:500;color:var(--gray-4);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:6px 0}
-.filter-reset:hover{color:var(--red)}
-.filter-count{font-size:12px;color:var(--gray-4);margin-left:auto;white-space:nowrap}
-.filter-count strong{color:var(--black)}
+/* ── Dynamic chips ── */
+.chips-area{display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex:1;min-width:0}
+.filter-chip{display:inline-flex;align-items:stretch;border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;background:#fff;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chip-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray-4);padding:0 10px;background:var(--gray-1);border-right:1px solid var(--gray-2);display:flex;align-items:center;white-space:nowrap}
+.chip-select{-webkit-appearance:none;appearance:none;border:none;outline:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%239a9a94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--black);font-weight:500;padding:0 26px 0 10px;cursor:pointer;min-width:90px;height:100%}
+.chip-remove{border:none;border-left:1px solid var(--gray-2);background:transparent;padding:0 10px;cursor:pointer;color:var(--gray-3);font-size:14px;line-height:1;display:flex;align-items:center;transition:background .1s,color .1s}
+.chip-remove:hover{background:var(--gray-1);color:var(--gray-5)}
+.sort-chip{border-color:var(--brand-mid);background:var(--brand-light)}
+.sort-chip .chip-label{color:var(--brand-dark);background:rgba(255,255,255,.5);border-right-color:var(--brand-mid)}
+.chip-dir{border:none;border-left:1px solid var(--brand-mid);background:transparent;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--brand-dark);display:flex;align-items:center;transition:background .1s;height:100%}
+.chip-dir:hover{background:rgba(255,255,255,.5)}
 
-/* PROJECT GRID */
-.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+/* ── Right-side controls ── */
+.ctrl-right{display:flex;gap:6px;align-items:center;margin-left:auto;flex-shrink:0}
+.ctrl-dropdown{position:relative;flex-shrink:0}
+.ctrl-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border:1px solid var(--gray-2);border-radius:20px;background:#fff;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-5);cursor:pointer;white-space:nowrap;height:30px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ctrl-btn:hover{background:var(--gray-1);color:var(--black);border-color:var(--gray-3)}
+.ctrl-btn.active{background:var(--brand-light);color:var(--brand-dark);border-color:var(--brand-mid)}
+.ctrl-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:175px;overflow:hidden;display:none;z-index:150}
+.ctrl-menu.open{display:block}
+.ctrl-menu-item{padding:9px 14px;font-size:13px;cursor:pointer;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ctrl-menu-item:hover{background:var(--gray-1)}
+.ctrl-menu-item.on{color:var(--brand-dark);font-weight:600}
+.ctrl-menu-check{color:var(--brand);opacity:0;flex-shrink:0}
+.ctrl-menu-item.on .ctrl-menu-check{opacity:1}
+.ctrl-reset{font-size:12px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;padding:5px 12px;border-radius:20px;transition:background .15s;white-space:nowrap;height:30px}
+.ctrl-reset:hover{background:var(--brand-light)}
+.view-toggle{display:flex;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:20px;overflow:hidden;flex-shrink:0;height:30px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.vt-btn{padding:0 14px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:none;border:none;cursor:pointer;color:var(--gray-4);transition:all .15s;display:flex;align-items:center;gap:5px;height:100%}
+.vt-btn.active{background:#fff;color:var(--brand-dark);box-shadow:0 1px 4px rgba(0,0,0,.08);border-radius:20px}
+.results-count{font-size:12px;color:var(--gray-4);white-space:nowrap;flex-shrink:0}
 
-/* PROJECT CARD */
-.project-card{border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;background:#fff;transition:box-shadow .15s}
-.project-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.project-card[data-status="live"]{border-left:3px solid var(--green)}
-.project-card[data-status="inprogress"]{border-left:3px solid var(--amber-mid)}
-.project-card[data-status="blocked"]{border-left:3px solid var(--red)}
+/* ── Section label ── */
+.section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
-.project-card-toggle{padding:18px 20px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;user-select:none;-webkit-user-select:none}
-.project-card-toggle:hover .toggle-chevron{color:var(--black)}
+/* ── Table view ── */
+.proj-table-wrap{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.proj-table{width:100%;border-collapse:collapse}
+.proj-table th{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4);padding:12px 16px;text-align:left;border-bottom:1px solid var(--gray-2);background:var(--gray-1);cursor:pointer;white-space:nowrap;user-select:none}
+.proj-table th:hover{color:var(--brand)}
+.proj-table th .sort-icon{display:inline-block;margin-left:4px;opacity:.4;font-style:normal}
+.proj-table th.sort-asc .sort-icon::after{content:'↑';opacity:1;color:var(--brand)}
+.proj-table th.sort-desc .sort-icon::after{content:'↓';opacity:1;color:var(--brand)}
+.proj-table th:not(.sort-asc):not(.sort-desc) .sort-icon::after{content:'↕'}
+.proj-table td{padding:13px 16px;border-bottom:1px solid var(--gray-2);vertical-align:middle;font-size:13px}
+.proj-table tr:last-child td{border-bottom:none}
+.proj-table tr:hover td{background:#fafaf8;cursor:pointer}
+.pt-name{font-weight:600;color:var(--black);max-width:320px}
+.pt-name-sub{font-size:11px;color:var(--gray-4);font-weight:400;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px}
+.pt-rice{font-weight:700;color:var(--brand-dark)}
+.pt-rice-none{color:var(--gray-3)}
 
-.project-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px}
+/* ── Card view ── */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.project-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;transition:box-shadow .15s,transform .15s;cursor:pointer}
+.project-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.09);transform:translateY(-2px)}
+.pc-accent{height:5px}
+.pc-body{padding:22px 24px 20px}
+.pc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.pc-name{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.25;color:var(--black)}
+.pc-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-left:12px;margin-top:3px}
+.pc-theme{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;margin-bottom:10px}
+.pc-desc{font-size:13px;color:var(--gray-5);line-height:1.6;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-meta{display:flex;gap:6px;flex-wrap:wrap}
+.pc-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
 
-.project-header-content{flex:1;min-width:0}
-.project-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black);line-height:1.3;margin-bottom:4px}
-.project-summary{font-size:12px;color:var(--gray-5);line-height:1.6}
-.project-meta-wrap{display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+/* ── Status badges ── */
+.status-live    {background:#e8f5e9;color:#1b5e20}
+.status-progress{background:#fff8e1;color:#7a5a00}
+.status-planned {background:var(--brand-light);color:var(--brand-dark)}
+.status-review  {background:#f3e5f5;color:#6a1b9a}
+.status-done    {background:var(--gray-2);color:var(--gray-5)}
 
-/* THEME PILLS */
-.theme-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
-.tp-proc{background:var(--amber-light);color:var(--amber)}
-.tp-web{background:var(--blue-light);color:var(--blue)}
-.tp-eco{background:var(--green-light);color:var(--green-dark)}
-.tp-infra{background:var(--teal-light);color:var(--teal)}
-.tp-retail{background:var(--purple-light);color:var(--purple)}
-.tp-data{background:var(--data-light);color:var(--data)}
+/* ── Flyout ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.flyout{position:fixed;top:0;right:0;bottom:0;width:480px;background:#fff;z-index:400;box-shadow:-8px 0 40px rgba(0,0,0,.14);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.flyout.open{transform:translateX(0)}
+.flyout-close-row{display:flex;justify-content:flex-end;padding:16px 20px 0;flex-shrink:0}
+.flyout-close{width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--gray-2);background:#fff;cursor:pointer;font-size:18px;color:var(--gray-4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.flyout-close:hover{background:var(--gray-1)}
+.flyout-body{overflow-y:auto;padding:4px 24px 40px;flex:1}
+.flyout-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.flyout-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid var(--gray-2);color:var(--gray-5);background:var(--gray-1)}
+.flyout-title{font-family:'DM Serif Display',serif;font-size:26px;line-height:1.2;color:var(--black);margin-bottom:8px}
+.flyout-subtitle{font-size:14px;color:var(--gray-4);line-height:1.6;margin-bottom:0}
+.flyout-props{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2);display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}
+.flyout-prop-lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-4);margin-bottom:5px}
+.flyout-prop-val{font-size:13px;color:var(--black);font-weight:500;line-height:1.4}
+.flyout-prop-val-muted{font-size:13px;color:var(--gray-3);font-style:italic}
+.quadrant-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px}
+.flyout-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-2)}
+.flyout-section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.flyout-section-title{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4)}
+.flyout-desc{font-size:13px;color:var(--gray-5);line-height:1.75}
+.flyout-desc-empty{font-size:13px;color:var(--gray-3);font-style:italic}
+.rice-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.rice-cell{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--radius);padding:12px 8px;text-align:center}
+.rice-cell-val{font-size:20px;font-weight:700}
+.rice-cell-r{color:#4527a0}.rice-cell-i{color:#1b5e20}.rice-cell-c{color:#b84714}.rice-cell-e{color:#1a5fa8}
+.rice-cell-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.rice-score-total{background:linear-gradient(135deg,var(--brand-dark),var(--brand));border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.rice-score-num{font-size:24px;font-weight:700}
+.rice-score-lbl{font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.06em}
+.flyout-notion-link{display:flex;align-items:center;gap:8px;margin-top:20px;padding:12px 16px;background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:var(--radius-lg);text-decoration:none;color:var(--brand-dark);font-size:13px;font-weight:600;transition:background .15s}
+.flyout-notion-link:hover{background:var(--brand-mid)}
+.f-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.f-type-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+.f-ai-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#ede9fe;color:#5b21b6}
+.empty-state{text-align:center;padding:60px 20px;color:var(--gray-4)}
+.empty-state-icon{font-size:36px;margin-bottom:12px}
+.empty-state p{font-size:14px}
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 
-/* STATUS PILLS */
-.status-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.03em}
-.sp-live{background:var(--green-light);color:var(--green-dark);border:1px solid var(--green-mid)}
-.sp-inprogress{background:var(--amber-light);color:var(--amber);border:1px solid var(--amber-mid)}
-.sp-blocked{background:var(--red-light);color:var(--red)}
-.sp-upcoming{background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-3)}
-
-/* TYPE PILL */
-.type-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;line-height:1.6}
-.tp-type-qw{background:var(--green-light);color:var(--green-dark)}
-.tp-type-enabler{background:var(--blue-light);color:var(--blue)}
-.tp-type-strategic{background:var(--purple-light);color:var(--purple)}
-
-/* OWNER PILL */
-.owner-pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2);white-space:nowrap}
-
-.toggle-chevron{flex-shrink:0;color:var(--gray-3);margin-top:4px;transition:transform .2s ease,color .15s}
-.project-card.open .toggle-chevron{transform:rotate(180deg);color:var(--gray-5)}
-
-/* EXPANDABLE BODY */
-.project-card-body{display:none;border-top:1px solid var(--gray-2)}
-.project-card.open .project-card-body{display:block}
-
-.project-card-sections{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.project-card-section{padding:16px 20px;border-right:1px solid var(--gray-2)}
-.project-card-section:last-child{border-right:none}
-.pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-4);margin-bottom:10px}
-
-.feat-list{list-style:none;display:flex;flex-direction:column;gap:7px}
-.feat-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-5);line-height:1.5}
-.feat-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;background:var(--gray-3)}
-.feat-dot.proc{background:var(--amber)}
-.feat-dot.web{background:var(--blue)}
-.feat-dot.eco{background:var(--green)}
-.feat-dot.infra{background:var(--teal)}
-
-.meta-row{display:flex;gap:8px;font-size:12px;align-items:baseline;margin-bottom:6px}
-.meta-key{color:var(--gray-4);min-width:72px;flex-shrink:0;font-size:11px}
-.meta-val{color:var(--black);font-weight:500}
-
-.project-card-footer{padding:11px 20px;background:var(--gray-1);border-top:1px solid var(--gray-2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.footer-tag{font-size:10px;font-weight:500;color:var(--gray-5);padding:2px 9px;border-radius:20px;background:#fff;border:1px solid var(--gray-3)}
-
-/* EMPTY STATE */
-.empty-state{padding:64px 24px;text-align:center;color:var(--gray-4);font-size:13px;grid-column:1/-1}
-.empty-state strong{color:var(--black);display:block;font-size:15px;margin-bottom:4px}
-
-@media(max-width:840px){
-  .project-grid{grid-template-columns:1fr}
-  .hero,.main{padding-left:20px;padding-right:20px}
-  .hero h1{font-size:28px}
-  .site-header,.breadcrumb{padding-left:20px;padding-right:20px}
-}
-@media(max-width:480px){
-  .project-card-sections{grid-template-columns:1fr}
-  .project-card-section{border-right:none;border-bottom:1px solid var(--gray-2)}
-  .project-card-section:last-child{border-bottom:none}
+@media(max-width:760px){
+  .projects-grid{grid-template-columns:1fr}
+  .flyout{width:100%;border-radius:var(--radius-xl) var(--radius-xl) 0 0;top:auto;height:92vh;transform:translateY(100%)}
+  .flyout.open{transform:translateY(0)}
+  .site-header{padding:0 20px}
+  .page{padding:24px 16px 60px}
+  .hero{padding:24px 20px 20px}
+  .controls{gap:8px}
 }
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <a href="../home/" class="site-header-wordmark" style="text-decoration:none;color:inherit">UCook</a>
+  <a href="../home/" class="site-header-wordmark">UCook</a>
   <div class="site-header-divider"></div>
-  <span class="site-header-label">Product Projects</span>
+  <span class="site-logo">Product Workspace</span>
   <div class="company-switcher" id="companySwitcher">
     <button class="cs-trigger" id="csTrigger" onclick="toggleSwitcher()" aria-expanded="false" aria-haspopup="true">
-      <span class="cs-dot" style="background:#e05a1e"></span>UCook
+      <span class="cs-dot" style="background:#e05a1e"></span>
+      UCook
       <svg class="cs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="cs-menu" id="csMenu">
@@ -191,963 +207,570 @@ a{color:var(--brand);text-decoration:none}
     </div>
   </div>
   <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </header>
-
-<div class="breadcrumb">
-  <a href="../home/">Home</a>
-  <span class="bc-sep">›</span>
-  <span class="bc-cur">Projects</span>
-</div>
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · All Quarters</div>
-    <h1>Product Projects</h1>
-    <p class="hero-sub">FY2026/27 initiatives across all themes and quarters — click any card to expand scope, ownership, and feature detail.</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><span class="hero-stat-val" id="stat-total">19</span><span class="hero-stat-label">FY initiatives</span></div>
-      <div class="hero-stat"><span class="hero-stat-val">3</span><span class="hero-stat-label">Live</span></div>
-      <div class="hero-stat"><span class="hero-stat-val">1</span><span class="hero-stat-label">In progress</span></div>
-      <div class="hero-stat"><span class="hero-stat-val">6</span><span class="hero-stat-label">Themes active</span></div>
-    </div>
+    <div class="breadcrumb"><a href="../home/">Home</a><span class="bc-sep">›</span><span class="bc-cur">Projects</span></div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>ucook.co.za · FY2026/27 · Projects</div>
+    <h1>Projects</h1>
+    <p class="hero-sub">All UCook roadmap initiatives — search, filter by status, pillar, or quarter, and switch between table and card views.</p>
   </div>
 </div>
 
-<div class="main">
+<div class="page">
 
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <div class="filter-search">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="text" id="searchInput" placeholder="Search projects…" oninput="applyFilters()">
+  <!-- Controls bar -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search projects…" oninput="applyFilters()">
     </div>
-    <select class="filter-select" id="themeFilter" onchange="applyFilters()">
-      <option value="">All themes</option>
-      <option value="proc">Process Optimization</option>
-      <option value="web">Web/App Enhancement</option>
-      <option value="eco">Ecommerce Growth</option>
-      <option value="infra">Tech Infrastructure</option>
-      <option value="retail">Retail Growth</option>
-      <option value="data">Data &amp; Insights</option>
-    </select>
-    <select class="filter-select" id="statusFilter" onchange="applyFilters()">
-      <option value="">All statuses</option>
-      <option value="live">Live</option>
-      <option value="inprogress">In Progress</option>
-      <option value="blocked">Blocked</option>
-      <option value="upcoming">Upcoming</option>
-    </select>
-    <select class="filter-select" id="typeFilter" onchange="applyFilters()">
-      <option value="">All types</option>
-      <option value="quick-win">Quick Win</option>
-      <option value="enabler">Enabler</option>
-      <option value="strategic">Strategic</option>
-    </select>
-    <select class="filter-select" id="quarterFilter" onchange="applyFilters()">
-      <option value="">All quarters</option>
-      <option value="q1">Q1 · Mar–May</option>
-      <option value="q2">Q2 · Jun–Aug</option>
-      <option value="q3">Q3 · Sep–Nov</option>
-      <option value="q4">Q4 · Dec–Feb</option>
-    </select>
-    <button class="filter-reset" onclick="resetFilters()">Reset</button>
-    <span class="filter-count" id="filterCount"><strong>19</strong> of 19 shown</span>
+
+    <div class="chips-area" id="chipsArea"></div>
+
+    <div class="ctrl-right">
+      <div class="ctrl-dropdown" id="filterDropdown">
+        <button class="ctrl-btn" id="filterBtn" onclick="toggleMenu('filterMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Filter
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="filterMenu">
+          <div class="ctrl-menu-item" id="fmi-status"   onclick="toggleFilterField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quarter"  onclick="toggleFilterField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-pillar"   onclick="toggleFilterField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="fmi-quadrant" onclick="toggleFilterField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="ctrl-dropdown" id="sortDropdown">
+        <button class="ctrl-btn" id="sortBtn" onclick="toggleMenu('sortMenu',event)">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 3h8M1 7h5M1 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2v10M8.5 9.5L11 12l2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sort
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ctrl-menu" id="sortMenu">
+          <div class="ctrl-menu-item" id="smi-status"   onclick="setSortField('status')">Status <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quarter"  onclick="setSortField('quarter')">Quarter <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-pillar"   onclick="setSortField('pillar')">Pillars <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="ctrl-menu-item" id="smi-quadrant" onclick="setSortField('quadrant')">Matrix Quadrant <svg class="ctrl-menu-check" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <button class="ctrl-reset" id="resetBtn" onclick="resetAll()" style="display:none">Reset</button>
+      <span class="results-count" id="resultsCount"></span>
+
+      <div class="view-toggle">
+        <button class="vt-btn" id="btnTable" onclick="setView('table')">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="6" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="11" width="12" height="2" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+          Table
+        </button>
+        <button class="vt-btn" id="btnCard" onclick="setView('card')">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+          Cards
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- PROJECT GRID -->
-  <div class="project-grid" id="projectGrid">
+  <div class="section-label" id="sectionLabel">All projects</div>
 
-    <!-- 1. ACUMATICA REFACTOR -->
-    <div class="project-card" id="card-1" data-theme="proc" data-status="upcoming" data-type="enabler" data-quarter="q1" data-search="acumatica refactor erp integration process optimization sahil">
-      <div class="project-card-toggle" onclick="toggleCard('card-1')">
-        <div class="project-icon" style="background:var(--amber-light)">⚙️</div>
-        <div class="project-header-content">
-          <div class="project-title">Acumatica Refactor</div>
-          <p class="project-summary">ERP integration overhaul to reduce sync errors and improve maintainability across fulfilment workflows.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Sahil</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Audit and map all current Acumatica integration touchpoints</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Rebuild sync logic to reduce fulfilment errors and data drift</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Improve error handling and alerting for failed sync events</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Documentation of updated integration contracts</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Sahil</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Acumatica sync failures create downstream issues in order fulfilment. This refactor reduces operational toil and builds a more reliable foundation for future ERP integrations.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">ERP · Integration</span>
-          <span class="footer-tag">Owner: Sahil</span>
-          <span class="footer-tag">Q1</span>
-        </div>
-      </div>
+  <!-- Table view (default) -->
+  <div id="tableView">
+    <div class="proj-table-wrap">
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th onclick="setSort('name')">Project <i class="sort-icon"></i></th>
+            <th onclick="setSort('status')" style="width:130px">Status <i class="sort-icon"></i></th>
+            <th onclick="setSort('theme')" style="width:200px">Pillar <i class="sort-icon"></i></th>
+            <th onclick="setSort('qLabel')" style="width:130px">Quarter <i class="sort-icon"></i></th>
+            <th onclick="setSort('priority')" style="width:80px">Priority <i class="sort-icon"></i></th>
+            <th onclick="setSort('rice')" style="width:90px;text-align:right">RICE <i class="sort-icon"></i></th>
+          </tr>
+        </thead>
+        <tbody id="projTbody"></tbody>
+      </table>
     </div>
-
-    <!-- 2. RECIPE CARD PROOFREADING -->
-    <div class="project-card" id="card-2" data-theme="proc" data-status="live" data-type="quick-win" data-quarter="q1" data-search="recipe card proofreading quality content process optimization">
-      <div class="project-card-toggle" onclick="toggleCard('card-2')">
-        <div class="project-icon" style="background:var(--amber-light)">📋</div>
-        <div class="project-header-content">
-          <div class="project-title">Recipe Card Proofreading</div>
-          <p class="project-summary">Quality review and correction of recipe card copy and imagery before weekly delivery to subscribers.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-live">✓ Live</span>
-            <span class="type-pill tp-type-qw">Quick Win</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Pre-delivery proofing of all recipe card copy for accuracy</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Image quality checks — correct dish, correct week, no artefacts</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Standardised sign-off checklist for content team</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Feedback loop to reduce repeat errors</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Recipe card errors impact the unboxing experience and brand trust. A lightweight proofing process catches issues before they reach customers and reduces CS contacts.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Content · Quality</span>
-          <span class="footer-tag">Q1</span>
-          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. CUSTOMER JOURNEY SCOPING -->
-    <div class="project-card" id="card-3" data-theme="web" data-status="upcoming" data-type="strategic" data-quarter="q1" data-search="customer journey key project web app enhancement ux redesign">
-      <div class="project-card-toggle" onclick="toggleCard('card-3')">
-        <div class="project-icon" style="background:var(--blue-light)">🗺️</div>
-        <div class="project-header-content">
-          <div class="project-title">Customer Journey — Key Project</div>
-          <p class="project-summary">End-to-end customer journey redesign — scoping and architecture in Q1, development kicks off in Q2.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-web">Web/App Enhancement</span>
-            <span class="status-pill sp-upcoming">Scoping</span>
-            <span class="type-pill tp-type-strategic">Strategic</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Q1 scope (scoping phase)</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot web"></span>End-to-end journey mapping from discovery through repeat order</li>
-              <li class="feat-item"><span class="feat-dot web"></span>Pain point identification across key touchpoints</li>
-              <li class="feat-item"><span class="feat-dot web"></span>Technical architecture planning and dependency mapping</li>
-              <li class="feat-item"><span class="feat-dot web"></span>Stakeholder alignment on scope, phasing, and success metrics</li>
-              <li class="feat-item"><span class="feat-dot web"></span>Competitive benchmarking and reference design review</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1 scope → Q2 dev</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Web/App Enhancement</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
-            <div style="background:var(--gray-1);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;gap:7px;margin-top:10px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span style="font-weight:600">Q1</span><span style="color:var(--gray-5)">Scoping &amp; architecture</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--gray-3);flex-shrink:0"></span><span style="font-weight:600">Q2</span><span style="color:var(--gray-5)">Development begins</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Key project</span>
-          <span class="footer-tag">Web · App · UX</span>
-          <span class="footer-tag">Dev in Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. YOYO WICODES -->
-    <div class="project-card" id="card-4" data-theme="eco" data-status="live" data-type="quick-win" data-quarter="q1" data-search="yoyo wicodes loyalty payment ecommerce growth anand">
-      <div class="project-card-toggle" onclick="toggleCard('card-4')">
-        <div class="project-icon" style="background:var(--green-light)">💳</div>
-        <div class="project-header-content">
-          <div class="project-title">Yoyo — WiCodes</div>
-          <p class="project-summary">In-store and online loyalty payment integration enabling customers to pay with Yoyo wallet and earn rewards.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-eco">Ecommerce Growth</span>
-            <span class="status-pill sp-live">✓ Live</span>
-            <span class="type-pill tp-type-qw">Quick Win</span>
-            <span class="owner-pill">Anand</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot eco"></span>Yoyo WiCode generation at checkout — scan-to-pay in app</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Loyalty point accrual and balance display within UCook app</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Webhook-based order confirmation and reward processing</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>In-store redemption flow for pick-up and retail orders</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
-            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">WiCodes builds the loyalty infrastructure needed for the Q2 Yoyo Loyalty Pro rollout. Expands checkout options and begins rewarding high-frequency subscribers.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Payments · Loyalty</span>
-          <span class="footer-tag">Owner: Anand</span>
-          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. YOYO GIFT VOUCHERS -->
-    <div class="project-card" id="card-5" data-theme="eco" data-status="upcoming" data-type="quick-win" data-quarter="q1" data-search="yoyo gift voucher replacement ecommerce growth anand">
-      <div class="project-card-toggle" onclick="toggleCard('card-5')">
-        <div class="project-icon" style="background:var(--green-light)">🎁</div>
-        <div class="project-header-content">
-          <div class="project-title">Yoyo — Gift Voucher Replacement</div>
-          <p class="project-summary">Replace the legacy gift voucher system with Yoyo-wrapped digital vouchers for improved redemption tracking and reporting.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-eco">Ecommerce Growth</span>
-            <span class="status-pill sp-upcoming">In Development</span>
-            <span class="type-pill tp-type-qw">Quick Win</span>
-            <span class="owner-pill">Anand</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot eco"></span>Migrate gift voucher issuance to Yoyo platform</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Redemption flow at checkout (web and app)</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Balance inquiry and partial redemption support</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>CS tooling for voucher management and re-issue</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">The legacy voucher system has limited reporting and difficult CS management. Yoyo-wrapped vouchers unify gifting within the loyalty stack and improve visibility of voucher liability.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Gifting · Vouchers</span>
-          <span class="footer-tag">Owner: Anand</span>
-          <span class="footer-tag">Q1</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. WHATSAPP PAYMENT LINKS -->
-    <div class="project-card" id="card-6" data-theme="eco" data-status="upcoming" data-type="quick-win" data-quarter="q1" data-search="whatsapp payment links crm checkout ecommerce growth anand">
-      <div class="project-card-toggle" onclick="toggleCard('card-6')">
-        <div class="project-icon" style="background:var(--green-light)">💬</div>
-        <div class="project-header-content">
-          <div class="project-title">WhatsApp Payment Links</div>
-          <p class="project-summary">Payment links sent via WhatsApp for CRM-driven checkout — captures conversational sales that currently drop off.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-eco">Ecommerce Growth</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-qw">Quick Win</span>
-            <span class="owner-pill">Anand</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot eco"></span>Generate unique payment links from CS/CRM tooling</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Automated WhatsApp delivery via existing messaging stack</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>One-click checkout landing page (pre-filled order)</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Link expiry, status tracking, and CS visibility</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Many sales conversations happen over WhatsApp but conversion breaks when customers are asked to navigate to the website. Payment links close that gap with a frictionless checkout path.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">WhatsApp · CRM</span>
-          <span class="footer-tag">Owner: Anand</span>
-          <span class="footer-tag">Q1</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. CAPACITOR iOS APP -->
-    <div class="project-card" id="card-7" data-theme="infra" data-status="live" data-type="enabler" data-quarter="q1" data-search="capacitor ios app store push notifications mobile tech infrastructure">
-      <div class="project-card-toggle" onclick="toggleCard('card-7')">
-        <div class="project-icon" style="background:var(--teal-light)">📱</div>
-        <div class="project-header-content">
-          <div class="project-title">Capacitor iOS App</div>
-          <p class="project-summary">Native iOS app on the App Store via Capacitor — push notifications, improved mobile UX, and offline-capable features.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-live">✓ Live</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>App Store listing — UCook iOS app live on App Store</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Push notification support via Capacitor plugin</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Improved mobile navigation and gesture support</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Deep link handling for marketing campaigns</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--green-dark)">✓ Live on App Store</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Opens a new channel with higher engagement potential than mobile web. Phase 2 (Q3) will build on this with deeper native capabilities.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">iOS · Mobile</span>
-          <span class="footer-tag">App Store</span>
-          <span class="footer-tag" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)">✓ Live</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. ADMIN & PWA UPGRADES -->
-    <div class="project-card" id="card-8" data-theme="infra" data-status="inprogress" data-type="enabler" data-quarter="q1" data-search="admin pwa upgrades performance developer tooling tech infrastructure anand matthew">
-      <div class="project-card-toggle" onclick="toggleCard('card-8')">
-        <div class="project-icon" style="background:var(--teal-light)">🛠️</div>
-        <div class="project-header-content">
-          <div class="project-title">Admin &amp; PWA Upgrades</div>
-          <p class="project-summary">Performance improvements, dependency management, and developer tooling upgrades across the admin panel and PWA.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-inprogress">⚡ In Progress</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Anand + Matthew</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>Admin panel performance audit and lazy-load improvements</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>PWA service worker update for reliable offline and caching</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Dependency upgrades — resolve known security and compatibility issues</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Build tooling improvements to reduce CI/CD times</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Anand + Matthew</span></div>
-            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--amber)">⚡ In Progress</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Admin performance impacts CS team productivity daily. PWA upgrades improve reliability for subscribers on mobile. Together these reduce developer friction and enable faster Q2 delivery.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">PWA · Admin · DevEx</span>
-          <span class="footer-tag">Anand · Matthew</span>
-          <span class="footer-tag" style="background:var(--amber-light);color:var(--amber);border-color:var(--amber-mid)">⚡ In Progress</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. MONO REPO -->
-    <div class="project-card" id="card-9" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q1" data-search="mono repo monorepo architecture codebase tech infrastructure matthew">
-      <div class="project-card-toggle" onclick="toggleCard('card-9')">
-        <div class="project-icon" style="background:var(--teal-light)">🏗️</div>
-        <div class="project-header-content">
-          <div class="project-title">Mono Repo Architecture</div>
-          <p class="project-summary">Unified codebase structure across services — faster cross-service development, shared utilities, and simplified CI/CD.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Matthew</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>Evaluate and select mono repo tooling (Nx / Turborepo)</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Migrate shared utilities and component libraries into shared packages</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Update CI/CD pipelines for unified build and test execution</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Developer documentation and onboarding guide</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Owner</span><span class="meta-val">Matthew</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q1</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Fragmented repos cause duplicated effort and slow cross-service changes. A mono repo reduces context-switching, enables shared tooling, and sets the foundation for faster Q2–Q4 delivery.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Architecture · DevEx</span>
-          <span class="footer-tag">Owner: Matthew</span>
-          <span class="footer-tag">Q1</span>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- ── Q2: Process & Growth (Jun–Aug 2026) ──────────────────────────── -->
-
-    <!-- 10. RECIPE MANAGEMENT PORTAL -->
-    <div class="project-card" id="card-10" data-theme="proc" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="recipe management portal culinary team content process optimization q2">
-      <div class="project-card-toggle" onclick="toggleCard('card-10')">
-        <div class="project-icon" style="background:var(--amber-light)">👨‍🍳</div>
-        <div class="project-header-content">
-          <div class="project-title">Recipe Management Portal</div>
-          <p class="project-summary">Internal portal for the culinary team to manage, edit, and approve recipe cards — eliminating manual handoffs and reducing content errors.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-strategic">Strategic</span>
-            <span class="owner-pill">Q2</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Culinary team portal for creating and editing recipe card content</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Approval and sign-off workflow before content goes to print/digital</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Version history and change tracking per recipe</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Integration with existing recipe database and fulfilment schedule</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Manual recipe card handoffs between culinary, content, and production teams create errors and delays. A dedicated portal reduces coordination overhead and builds a single source of truth for all recipe content.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Content · Operations</span>
-          <span class="footer-tag">Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 11. CS BILLING TASKS EFFICIENCIES -->
-    <div class="project-card" id="card-11" data-theme="proc" data-status="upcoming" data-type="quick-win" data-quarter="q2" data-search="cs billing tasks efficiencies customer service process optimization quick win q2">
-      <div class="project-card-toggle" onclick="toggleCard('card-11')">
-        <div class="project-icon" style="background:var(--amber-light)">⚡</div>
-        <div class="project-header-content">
-          <div class="project-title">CS Billing Tasks Efficiencies</div>
-          <p class="project-summary">Streamline customer service billing workflows — fewer manual tasks, faster resolution, and lower escalation rates.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-qw">Quick Win</span>
-            <span class="owner-pill">Q2</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Audit current CS billing workflows to identify manual bottlenecks</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Automate repetitive billing adjustments and refund processing</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Improve billing visibility within CS tooling</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Reduce escalation rate through better self-serve resolution options</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Quick Win</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">CS billing tasks consume significant agent time each day. Small automation and tooling improvements can meaningfully reduce AHT and free agents to focus on higher-value subscriber interactions.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">CS · Billing</span>
-          <span class="footer-tag">Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 12. DISCOUNTS REFINEMENTS -->
-    <div class="project-card" id="card-12" data-theme="eco" data-status="upcoming" data-type="enabler" data-quarter="q2" data-search="discounts refinements promotions ecommerce growth q2">
-      <div class="project-card-toggle" onclick="toggleCard('card-12')">
-        <div class="project-icon" style="background:var(--green-light)">🏷️</div>
-        <div class="project-header-content">
-          <div class="project-title">Discounts Refinements</div>
-          <p class="project-summary">Improved discount engine flexibility — better rule stacking, CS override tools, and more powerful promotion management for the marketing team.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-eco">Ecommerce Growth</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Q2</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot eco"></span>Improved discount rule stacking and priority ordering</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>CS override tools for manual discount application and adjustment</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Better promotion management UI for the marketing team</li>
-              <li class="feat-item"><span class="feat-dot eco"></span>Discount usage reporting and limit enforcement</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Ecommerce Growth</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">The current discount engine lacks flexibility for complex campaign structures. Refinements unlock richer promotional mechanics and give CS the tools to resolve discount-related contacts without escalation.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Promotions · CRM</span>
-          <span class="footer-tag">Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 13. YOYO LOYALTY PRO INTEGRATION -->
-    <div class="project-card" id="card-13" data-theme="retail" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="yoyo loyalty pro integration points redemption retail growth q2">
-      <div class="project-card-toggle" onclick="toggleCard('card-13')">
-        <div class="project-icon" style="background:var(--purple-light)">⭐</div>
-        <div class="project-header-content">
-          <div class="project-title">Yoyo — Loyalty Pro Integration</div>
-          <p class="project-summary">Full Yoyo Loyalty Pro integration — points earning, redemption, and tier management across retail and online channels.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-retail">Retail Growth</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-strategic">Strategic</span>
-            <span class="owner-pill">Q2</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Loyalty Pro programme setup — tiers, earning rules, and rewards catalogue</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Points accrual across online orders, retail, and pick-up</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Redemption at checkout — both web and in-app</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--purple)"></span>Loyalty dashboard in customer account view</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Retail Growth</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
-            <div style="background:var(--gray-1);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;gap:7px;margin-top:10px">
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></span><span style="font-weight:600">Q1</span><span style="color:var(--gray-5)">WiCodes foundation live</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:11px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand);flex-shrink:0"></span><span style="font-weight:600">Q2</span><span style="color:var(--gray-5)">Full Loyalty Pro integration</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Loyalty · Retail</span>
-          <span class="footer-tag">Builds on WiCodes</span>
-          <span class="footer-tag">Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 14. ORDER ATTRIBUTION -->
-    <div class="project-card" id="card-14" data-theme="data" data-status="upcoming" data-type="strategic" data-quarter="q2" data-search="order attribution multi-touch marketing channel data insights q2">
-      <div class="project-card-toggle" onclick="toggleCard('card-14')">
-        <div class="project-icon" style="background:var(--data-light)">📊</div>
-        <div class="project-header-content">
-          <div class="project-title">Order Attribution</div>
-          <p class="project-summary">Multi-touch order attribution modelling to correctly credit marketing channels and inform media spend decisions.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-data">Data &amp; Insights</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-strategic">Strategic</span>
-            <span class="owner-pill">Q2</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Multi-touch attribution model design and data source mapping</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Channel-level reporting — paid, organic, CRM, referral</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>First-order and repeat-order attribution segmentation</li>
-              <li class="feat-item"><span class="feat-dot" style="background:var(--data)"></span>Dashboard for marketing team with media spend recommendations</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q2 · Jun–Aug 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Data &amp; Insights</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Without multi-touch attribution, media spend decisions rely on last-click data. Proper attribution gives the marketing team confidence in channel ROI and enables smarter budget allocation.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Analytics · Marketing</span>
-          <span class="footer-tag">Q2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Q3: Platform & Scale (Sep–Nov 2026) ──────────────────────────── -->
-
-    <!-- 15. LOOP IMPLEMENTATION -->
-    <div class="project-card" id="card-15" data-theme="proc" data-status="upcoming" data-type="enabler" data-quarter="q3" data-search="loop returns exchanges customer service process optimization q3">
-      <div class="project-card-toggle" onclick="toggleCard('card-15')">
-        <div class="project-icon" style="background:var(--amber-light)">🔄</div>
-        <div class="project-header-content">
-          <div class="project-title">Loop Implementation</div>
-          <p class="project-summary">Implement Loop for returns and exchanges — reduces manual CS processing and enables customer self-serve resolution.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Q3</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Loop platform integration with UCook order management</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Customer-facing self-serve returns portal</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Automated return approval rules and refund triggers</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>CS dashboard view for exception handling and escalations</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Returns currently require CS manual intervention for every case. Loop automates the most common resolution paths, reducing agent workload and improving the post-purchase experience for subscribers.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Returns · CS</span>
-          <span class="footer-tag">Q3</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 16. CAPACITOR iOS APP — PHASE 2 -->
-    <div class="project-card" id="card-16" data-theme="infra" data-status="blocked" data-type="enabler" data-quarter="q3" data-search="capacitor ios app phase 2 deep link notifications app clips tech infrastructure q3">
-      <div class="project-card-toggle" onclick="toggleCard('card-16')">
-        <div class="project-icon" style="background:var(--teal-light)">📱</div>
-        <div class="project-header-content">
-          <div class="project-title">Capacitor iOS App — Phase 2</div>
-          <p class="project-summary">Phase 2 of the iOS app — deep-linked notifications, improved offline support, and App Clips integration.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-blocked">✕ Blocked</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Q3</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>Deep-linked push notifications tied to order and delivery events</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Improved offline support and background data sync</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>App Clips for frictionless trial and first-order flow</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Enhanced in-app navigation and transition animations</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Status</span><span class="meta-val" style="color:var(--red)">✕ Blocked</span></div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <div style="background:var(--red-light);border-radius:var(--radius);padding:10px 12px;margin-top:10px;font-size:12px;color:var(--red);line-height:1.6">Blocked — pending resolution of Phase 1 deep-link dependency before Phase 2 scoping can begin.</div>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">iOS · Mobile · Phase 2</span>
-          <span class="footer-tag" style="background:var(--red-light);color:var(--red)">✕ Blocked</span>
-          <span class="footer-tag">Q3</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 17. POSTGRES UPGRADE -->
-    <div class="project-card" id="card-17" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q3" data-search="postgres postgresql upgrade database security performance tech infrastructure q3">
-      <div class="project-card-toggle" onclick="toggleCard('card-17')">
-        <div class="project-icon" style="background:var(--teal-light)">🗄️</div>
-        <div class="project-header-content">
-          <div class="project-title">Postgres Upgrade</div>
-          <p class="project-summary">Upgrade to the latest PostgreSQL version for improved security, performance, and access to modern database features.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Q3</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>Upgrade PostgreSQL to latest stable LTS version</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Pre-upgrade compatibility testing across all services</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Zero-downtime migration using pg_upgrade or logical replication</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Post-upgrade performance benchmarking and monitoring</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q3 · Sep–Nov 2026</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Running an outdated PostgreSQL version creates security exposure and blocks access to newer query optimisations. The upgrade is prerequisite for the Q4 cluster migration and improves overall platform reliability.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Database · Infrastructure</span>
-          <span class="footer-tag">Q3</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Q4: Operations & Resilience (Dec 2026–Feb 2027) ──────────────── -->
-
-    <!-- 18. LOGISTICS OVERHAUL -->
-    <div class="project-card" id="card-18" data-theme="proc" data-status="upcoming" data-type="strategic" data-quarter="q4" data-search="logistics overhaul delivery operations supplier process optimization q4">
-      <div class="project-card-toggle" onclick="toggleCard('card-18')">
-        <div class="project-icon" style="background:var(--amber-light)">🚚</div>
-        <div class="project-header-content">
-          <div class="project-title">Logistics Overhaul</div>
-          <p class="project-summary">End-to-end review and restructure of logistics and delivery operations — addressing delivery time variability and supplier bottlenecks.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-proc">Process Optimization</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-strategic">Strategic</span>
-            <span class="owner-pill">Q4</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot proc"></span>Audit of current delivery SLAs, failure points, and supplier performance</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Route optimisation and zone assignment improvements</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Supplier SLA renegotiation and contingency planning</li>
-              <li class="feat-item"><span class="feat-dot proc"></span>Real-time tracking integration for customer delivery communications</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q4 · Dec 2026–Feb 2027</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Process Optimization</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Strategic</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Delivery variability is a top churn driver. A structured logistics overhaul addresses the root causes of late deliveries and creates a more resilient, cost-effective delivery network going into FY28.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Delivery · Operations</span>
-          <span class="footer-tag">Q4</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 19. MIGRATION TO CLUSTER -->
-    <div class="project-card" id="card-19" data-theme="infra" data-status="upcoming" data-type="enabler" data-quarter="q4" data-search="migration cluster architecture infrastructure scalability reliability tech q4">
-      <div class="project-card-toggle" onclick="toggleCard('card-19')">
-        <div class="project-icon" style="background:var(--teal-light)">☁️</div>
-        <div class="project-header-content">
-          <div class="project-title">Migration to Cluster</div>
-          <p class="project-summary">Infrastructure migration to cluster-based architecture for improved reliability, horizontal scalability, and reduced deployment risk.</p>
-          <div class="project-meta-wrap">
-            <span class="theme-pill tp-infra">Tech Infrastructure</span>
-            <span class="status-pill sp-upcoming">Upcoming</span>
-            <span class="type-pill tp-type-enabler">Enabler</span>
-            <span class="owner-pill">Q4</span>
-          </div>
-        </div>
-        <svg class="toggle-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-sections">
-          <div class="project-card-section">
-            <div class="pcs-label">Scope</div>
-            <ul class="feat-list">
-              <li class="feat-item"><span class="feat-dot infra"></span>Design cluster architecture with failover and auto-scaling policies</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Service-by-service migration with blue-green deployment strategy</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Load balancer configuration and health check implementation</li>
-              <li class="feat-item"><span class="feat-dot infra"></span>Runbook documentation and disaster recovery testing</li>
-            </ul>
-          </div>
-          <div class="project-card-section">
-            <div class="pcs-label">Details</div>
-            <div class="meta-row"><span class="meta-key">Quarter</span><span class="meta-val">Q4 · Dec 2026–Feb 2027</span></div>
-            <div class="meta-row"><span class="meta-key">Theme</span><span class="meta-val">Tech Infrastructure</span></div>
-            <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">Enabler</span></div>
-            <p style="font-size:12px;color:var(--gray-5);line-height:1.7;margin-top:8px">Single-node deployments create availability risk. Moving to a cluster enables zero-downtime deploys, horizontal scaling during peak weeks, and a more resilient platform as UCook continues to grow.</p>
-          </div>
-        </div>
-        <div class="project-card-footer">
-          <span class="footer-tag">Infrastructure · DevOps</span>
-          <span class="footer-tag">Requires Postgres Upgrade</span>
-          <span class="footer-tag">Q4</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="empty-state" id="emptyState" style="display:none">
-      <strong>No projects match your filters</strong>
-      Try adjusting your search or clearing the filters.
-    </div>
-
   </div>
+
+  <!-- Card view -->
+  <div id="cardView" style="display:none">
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+
+  <p class="page-footer">UCook · Projects · FY2026/27</p>
+
 </div>
 
+<!-- Flyout overlay -->
+<div class="overlay" id="overlay" onclick="closeFlyout()"></div>
+
+<!-- Flyout panel -->
+<div class="flyout" id="flyout">
+  <div class="flyout-close-row">
+    <button class="flyout-close" onclick="closeFlyout()">×</button>
+  </div>
+  <div class="flyout-body" id="flyoutBody"></div>
+</div>
+
+<script src="../../staging/notion-data.js?v=1776320619988"></script>
 <script>
-function toggleCard(id) {
-  document.getElementById(id).classList.toggle('open');
+
+// ─── Data — UCOOK items only ─────────────────────────────────────────────────────
+const THEME_COLORS = {
+  'Top Line Growth':              {bg:'#e8f5e9',border:'#a8d4aa',text:'#1b5e20'},
+  'Margin Improvements':          {bg:'#fce4ec',border:'#f48fb1',text:'#880e4f'},
+  'Cost Control & Cash Flow':     {bg:'#ede7f6',border:'#b39ddb',text:'#4527a0'},
+  'People':                       {bg:'#fce4ec',border:'#ef9a9a',text:'#b71c1c'},
+  'Internal Working Improvement': {bg:'#e8f1fc',border:'#90bef5',text:'#1a5fa8'},
+  'UX/UI':                        {bg:'#eef2ff',border:'#c7d2fe',text:'#3730a3'},
+  'Other':                        {bg:'#f5f5f5',border:'#ddd',text:'#555'},
+};
+const PILLAR_ACCENT = {
+  'Top Line Growth':'#2e7d32','Margin Improvements':'#c62828',
+  'Cost Control & Cash Flow':'#4527a0','People':'#b71c1c',
+  'Internal Working Improvement':'#1a5fa8','UX/UI':'#3730a3',
+};
+const STATUS_META = {
+  live:    {cls:'status-live',    label:'Live'},
+  progress:{cls:'status-progress',label:'In Progress'},
+  planned: {cls:'status-planned', label:'Planned'},
+  review:  {cls:'status-review',  label:'In Review'},
+  done:    {cls:'status-done',    label:'Done'},
+};
+const PRIORITY_ORDER = {'P1 🔥 Critical':1,'P2':2,'P3':3,'P4':4,'P5':5,'':9};
+
+function riceScore(it){ return (it.r && it.i && it.c && it.e) ? Math.round(it.r * it.i * (it.c/100) / it.e) : 0; }
+
+const PROJECTS = NOTION_ITEMS
+  .filter(it => Array.isArray(it.company) && it.company.includes('UCOOK'))
+  .map(it => ({
+    ...it,
+    accent: PILLAR_ACCENT[it.theme] || '#e05a1e',
+    rice: riceScore(it),
+  }));
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let filtered = [...PROJECTS];
+let currentView = 'table';
+let sortCol = 'name', sortDir = 'asc';
+const filterState = {};   // no default filter
+let chipSortState = null;
+
+// ─── Field definitions ────────────────────────────────────────────────────────
+const FILTER_DEFS = {
+  status: {
+    label: 'Status',
+    options: () => [
+      {value:'live',     label:'Live'},
+      {value:'progress', label:'In Progress'},
+      {value:'review',   label:'In Review'},
+      {value:'planned',  label:'Planned'},
+      {value:'done',     label:'Done'},
+    ]
+  },
+  quarter: {
+    label: 'Quarter',
+    options: () => [...new Set(PROJECTS.map(p => p.qLabel).filter(Boolean))].sort()
+                    .map(v => ({value:v, label:v}))
+  },
+  pillar: {
+    label: 'Pillars',
+    options: () => [...new Set(PROJECTS.map(p => p.theme).filter(Boolean))].sort()
+                    .map(v => ({value:v, label:v}))
+  },
+  quadrant: {
+    label: 'Matrix Quadrant',
+    options: () => [
+      {value:'qw',  label:'⚡ Quick Win'},
+      {value:'bb',  label:'🎯 Big Bet'},
+      {value:'fi',  label:'💧 Fill In'},
+      {value:'ts',  label:'⚠ Time Sink'},
+    ]
+  },
+};
+
+const SORT_DEFS = {
+  status:   { label: 'Status' },
+  quarter:  { label: 'Quarter' },
+  pillar:   { label: 'Pillars' },
+  quadrant: { label: 'Matrix Quadrant' },
+};
+
+function getQuadrantKey(p) {
+  if (!p.mi || !p.me) return null;
+  const hi = p.mi >= 3, he = p.me >= 3;
+  if (hi && !he) return 'qw';
+  if (hi && he)  return 'bb';
+  if (!hi && !he) return 'fi';
+  return 'ts';
 }
-function toggleSwitcher() {
-  const trigger = document.getElementById('csTrigger');
-  const menu = document.getElementById('csMenu');
+
+// ─── Chip rendering ───────────────────────────────────────────────────────────
+function renderChips() {
+  const area = document.getElementById('chipsArea');
+  let html = '';
+  for (const field of Object.keys(filterState)) {
+    const def = FILTER_DEFS[field];
+    const val = filterState[field];
+    const opts = def.options();
+    const optsHtml = opts.map(o =>
+      `<option value="${o.value}"${val===o.value?' selected':''}>${o.label}</option>`
+    ).join('');
+    html += `<div class="filter-chip">
+      <span class="chip-label">${def.label}</span>
+      <select class="chip-select" onchange="setFilterValue('${field}',this.value)">
+        <option value="">All</option>${optsHtml}
+      </select>
+      <button class="chip-remove" onclick="removeFilterField('${field}')" title="Remove">×</button>
+    </div>`;
+  }
+  if (chipSortState) {
+    const def = SORT_DEFS[chipSortState.field];
+    const dir = chipSortState.dir === 'asc' ? '↑' : '↓';
+    html += `<div class="filter-chip sort-chip">
+      <span class="chip-label">Sort · ${def.label}</span>
+      <button class="chip-dir" onclick="toggleChipSortDir()" title="Toggle direction">${dir}</button>
+      <button class="chip-remove" onclick="removeChipSort()" title="Remove">×</button>
+    </div>`;
+  }
+  area.innerHTML = html;
+  const hasFilters = Object.keys(filterState).length > 0;
+  document.getElementById('filterBtn').classList.toggle('active', hasFilters);
+  document.getElementById('sortBtn').classList.toggle('active', !!chipSortState);
+  ['status','quarter','pillar','quadrant'].forEach(f => {
+    const fi = document.getElementById('fmi-'+f);
+    if (fi) fi.classList.toggle('on', f in filterState);
+    const si = document.getElementById('smi-'+f);
+    if (si) si.classList.toggle('on', chipSortState?.field === f);
+  });
+  const anyActive = hasFilters || !!chipSortState || document.getElementById('searchInput').value;
+  document.getElementById('resetBtn').style.display = anyActive ? '' : 'none';
+}
+
+// ─── Filter field actions ─────────────────────────────────────────────────────
+function toggleFilterField(field) {
+  if (field in filterState) { delete filterState[field]; }
+  else { filterState[field] = ''; }
+  closeAllMenus(); renderChips(); applyFilters();
+}
+function removeFilterField(field) { delete filterState[field]; renderChips(); applyFilters(); }
+function setFilterValue(field, value) { filterState[field] = value; renderChips(); applyFilters(); }
+
+// ─── Sort chip actions ────────────────────────────────────────────────────────
+function setSortField(field) {
+  if (chipSortState?.field === field) { chipSortState.dir = chipSortState.dir === 'asc' ? 'desc' : 'asc'; }
+  else { chipSortState = { field, dir: 'asc' }; }
+  closeAllMenus(); renderChips(); render();
+}
+function removeChipSort() { chipSortState = null; renderChips(); render(); }
+function toggleChipSortDir() {
+  if (!chipSortState) return;
+  chipSortState.dir = chipSortState.dir === 'asc' ? 'desc' : 'asc';
+  renderChips(); render();
+}
+
+// ─── Menu toggle ──────────────────────────────────────────────────────────────
+function toggleMenu(menuId, e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById(menuId);
   const isOpen = menu.classList.contains('open');
-  menu.classList.toggle('open');
-  trigger.setAttribute('aria-expanded', !isOpen);
+  closeAllMenus();
+  if (!isOpen) menu.classList.add('open');
 }
-document.addEventListener('click', function(e) {
-  const switcher = document.getElementById('companySwitcher');
-  if (!switcher.contains(e.target)) {
+function closeAllMenus() {
+  document.querySelectorAll('.ctrl-menu').forEach(m => m.classList.remove('open'));
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.ctrl-dropdown') && !e.target.closest('.company-switcher')) {
+    closeAllMenus();
     document.getElementById('csMenu').classList.remove('open');
-    document.getElementById('csTrigger').setAttribute('aria-expanded', 'false');
+    document.getElementById('csTrigger').setAttribute('aria-expanded','false');
   }
 });
 
+// ─── Filter + sort ────────────────────────────────────────────────────────────
 function applyFilters() {
-  const search  = document.getElementById('searchInput').value.toLowerCase().trim();
-  const theme   = document.getElementById('themeFilter').value;
-  const status  = document.getElementById('statusFilter').value;
-  const type    = document.getElementById('typeFilter').value;
-  const quarter = document.getElementById('quarterFilter').value;
-
-  const cards = document.querySelectorAll('.project-card[data-theme]');
-  let shown = 0;
-  const total = cards.length;
-
-  cards.forEach(card => {
-    const matchSearch  = !search  || card.dataset.search.includes(search) || card.querySelector('.project-title').textContent.toLowerCase().includes(search);
-    const matchTheme   = !theme   || card.dataset.theme === theme;
-    const matchStatus  = !status  || card.dataset.status === status;
-    const matchType    = !type    || card.dataset.type === type;
-    const matchQuarter = !quarter || card.dataset.quarter === quarter;
-
-    const visible = matchSearch && matchTheme && matchStatus && matchType && matchQuarter;
-    card.style.display = visible ? '' : 'none';
-    if (visible) shown++;
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  filtered = PROJECTS.filter(p => {
+    if (search && !p.name.toLowerCase().includes(search) && !(p.desc||'').toLowerCase().includes(search)) return false;
+    for (const [field, val] of Object.entries(filterState)) {
+      if (!val) continue;
+      if (field === 'status'   && p.status !== val) return false;
+      if (field === 'quarter'  && p.qLabel !== val) return false;
+      if (field === 'pillar'   && p.theme  !== val) return false;
+      if (field === 'quadrant' && getQuadrantKey(p) !== val) return false;
+    }
+    return true;
   });
-
-  document.getElementById('filterCount').innerHTML = '<strong>' + shown + '</strong> of ' + total + ' shown';
-  document.getElementById('emptyState').style.display = shown === 0 ? '' : 'none';
+  renderChips(); updateStats(); render();
 }
 
-function resetFilters() {
+function resetAll() {
   document.getElementById('searchInput').value = '';
-  document.getElementById('themeFilter').value = '';
-  document.getElementById('statusFilter').value = '';
-  document.getElementById('typeFilter').value = '';
-  document.getElementById('quarterFilter').value = '';
-  applyFilters();
+  for (const k of Object.keys(filterState)) delete filterState[k];
+  chipSortState = null;
+  filtered = [...PROJECTS];
+  renderChips(); updateStats(); render();
 }
+
+// ─── Column sort ──────────────────────────────────────────────────────────────
+function setSort(col) {
+  if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+  else { sortCol = col; sortDir = 'asc'; }
+  updateSortHeaders(); render();
+}
+
+function getSorted(arr) {
+  if (chipSortState) {
+    const dir = chipSortState.dir === 'asc' ? 1 : -1;
+    return [...arr].sort((a, b) => {
+      let av, bv;
+      switch (chipSortState.field) {
+        case 'status':   av = a.status||'';   bv = b.status||'';   break;
+        case 'quarter':  av = a.qLabel||'';   bv = b.qLabel||'';   break;
+        case 'pillar':   av = a.theme||'';    bv = b.theme||'';    break;
+        case 'quadrant': av = getQuadrantKey(a)||'zzz'; bv = getQuadrantKey(b)||'zzz'; break;
+        default:         av = a.name||'';     bv = b.name||'';
+      }
+      if (av < bv) return -dir; if (av > bv) return dir; return 0;
+    });
+  }
+  return [...arr].sort((a, b) => {
+    let av, bv;
+    if (sortCol === 'rice')          { av = a.rice; bv = b.rice; }
+    else if (sortCol === 'priority') { av = PRIORITY_ORDER[a.priority]||9; bv = PRIORITY_ORDER[b.priority]||9; }
+    else { av = (a[sortCol]||'').toString().toLowerCase(); bv = (b[sortCol]||'').toString().toLowerCase(); }
+    if (av < bv) return sortDir === 'asc' ? -1 : 1;
+    if (av > bv) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function updateSortHeaders() {
+  document.querySelectorAll('.proj-table th').forEach(th => th.classList.remove('sort-asc','sort-desc'));
+  document.querySelectorAll('.proj-table th[onclick]').forEach(th => {
+    const col = th.getAttribute('onclick').match(/setSort\('(\w+)'\)/)?.[1];
+    if (col === sortCol) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+  });
+}
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('resultsCount').textContent = filtered.length + ' of ' + PROJECTS.length;
+  document.getElementById('sectionLabel').textContent =
+    filtered.length === PROJECTS.length ? 'All projects' : filtered.length + ' projects matching filters';
+}
+
+// ─── View toggle ──────────────────────────────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  document.getElementById('tableView').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('cardView').style.display  = v === 'card'  ? '' : 'none';
+  document.getElementById('btnTable').classList.toggle('active', v === 'table');
+  document.getElementById('btnCard').classList.toggle('active', v === 'card');
+  render();
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  if (currentView === 'table') renderTable();
+  else renderCards();
+}
+
+function themeTag(theme) {
+  const tc = THEME_COLORS[theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  return `<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${theme||'—'}</span>`;
+}
+
+function statusBadge(status) {
+  const sm = STATUS_META[status] || STATUS_META.planned;
+  return `<span class="pc-status ${sm.cls}">${sm.label}</span>`;
+}
+
+function renderTable() {
+  const sorted = getSorted(filtered);
+  const tbody = document.getElementById('projTbody');
+  if (sorted.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">🔍</div><p>No projects match the current filters</p></div></td></tr>`;
+    return;
+  }
+  const _nw = window._nw;
+  tbody.innerHTML = sorted.map((p, idx) => {
+    const riceVal = p.rice ? `<span class="pt-rice">${p.rice.toLocaleString()}</span>` : `<span class="pt-rice-none">—</span>`;
+    const statusCell   = _nw ? _nw.buildSelect('status',   p.status,   p.notionId) : statusBadge(p.status);
+    const pillarCell   = _nw ? _nw.buildSelect('theme',    p.theme,    p.notionId) : themeTag(p.theme);
+    const quarterCell  = _nw ? _nw.buildSelect('qLabel',   p.qLabel,   p.notionId) : (p.qLabel||'—');
+    const priorityCell = _nw ? _nw.buildSelect('priority', p.priority, p.notionId) : (p.priority||'—');
+    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}">
+      <td style="color:var(--gray-3);font-size:12px">${idx+1}</td>
+      <td><div class="pt-name">${esc(p.name)}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
+      <td onclick="event.stopPropagation()">${statusCell}</td>
+      <td onclick="event.stopPropagation()">${pillarCell}</td>
+      <td onclick="event.stopPropagation()">${quarterCell}</td>
+      <td onclick="event.stopPropagation()">${priorityCell}</td>
+      <td style="text-align:right">${riceVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderCards() {
+  const sorted = getSorted(filtered);
+  const grid = document.getElementById('projectsGrid');
+  if (sorted.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1"><div class="empty-state"><div class="empty-state-icon">🔍</div><p>No projects match the current filters</p></div></div>`;
+    return;
+  }
+  grid.innerHTML = sorted.map((p, idx) => {
+    const tc = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+    const sm = STATUS_META[p.status] || STATUS_META.planned;
+    const pills = [];
+    if (p.qLabel) pills.push(p.qLabel);
+    if (p.rice)   pills.push('RICE ' + p.rice.toLocaleString());
+    if (p.i)      pills.push('Impact ' + p.i);
+    return `<div class="project-card" onclick="openFlyout(${idx})">
+      <div class="pc-accent" style="background:${p.accent}"></div>
+      <div class="pc-body">
+        <div class="pc-header">
+          <div class="pc-name">${esc(p.name)}</div>
+          <span class="pc-status ${sm.cls}">${sm.label}</span>
+        </div>
+        <span class="pc-theme" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${p.theme}</span>
+        <p class="pc-desc">${p.desc ? esc(p.desc) : '<span style="color:var(--gray-3);font-style:italic">No description</span>'}</p>
+        <div class="pc-meta">${pills.map(pill=>`<span class="pc-pill">${esc(pill)}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Quadrant helper ──────────────────────────────────────────────────────────
+function getQuadrant(mi, me) {
+  if (!mi || !me) return null;
+  const hi = mi >= 3, he = me >= 3;
+  if (hi && !he) return {label:'Quick Win', color:'#1b5e20', bg:'#e8f5e9', border:'#a8d4aa'};
+  if (hi &&  he) return {label:'Big Bet',   color:'#b84714', bg:'#fdf1ec', border:'#f0b89a'};
+  if (!hi && !he)return {label:'Fill In',   color:'#1a5fa8', bg:'#e8f1fc', border:'#90bef5'};
+  return              {label:'Time Sink',   color:'#7a5a00', bg:'#fff8e1', border:'#f5d48b'};
+}
+
+// ─── Flyout ───────────────────────────────────────────────────────────────────
+function openFlyout(idx) {
+  const p = getSorted(filtered)[idx];
+  if (!p) return;
+  const tc  = THEME_COLORS[p.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  const sm  = STATUS_META[p.status] || STATUS_META.planned;
+  const qd  = getQuadrant(p.mi, p.me);
+  const hasRice = p.r || p.i || p.c || p.e > 1;
+  const _meta=(typeof getBriefMeta==='function')?getBriefMeta(p.name):{type:'',ai:false};
+  const _tCls=_meta.type==='Quick Win'?'f-type-qw':_meta.type==='Existing Roadmap'?'f-type-er':_meta.type==='Medium-term'?'f-type-mt':'f-type-unk';
+  const _brief=(typeof buildBriefHtml==='function')?buildBriefHtml(p.name):'';
+  const tagHtml = (p.company||[]).map(c => `<span class="flyout-tag">${esc(c)}</span>`).join('');
+  const quadrantHtml = qd
+    ? `<span class="quadrant-badge" style="background:${qd.bg};border:1px solid ${qd.border};color:${qd.color}">${qd.label}</span>`
+    : `<span class="flyout-prop-val-muted">No matrix data</span>`;
+  const _nwF = window._nw;
+  const propsHtml = `
+    <div class="flyout-props">
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('status', p.status, p.notionId, 'Status')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Status</div><div>${statusBadge(p.status)}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('theme', p.theme, p.notionId, 'Pillar')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Pillar</div><div>${themeTag(p.theme)}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('qLabel', p.qLabel, p.notionId, 'Quarter')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Quarter</div><div class="flyout-prop-val">${esc(p.qLabel||'—')}</div></div>`}
+      ${_nwF
+        ? _nwF.buildFlyoutSelect('priority', p.priority, p.notionId, 'Priority')
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Priority</div><div class="flyout-prop-val">${esc(p.priority||'—')}</div></div>`}
+      ${_nwF
+        ? _nwF.buildLeadInput(p.lead || '', p.notionId)
+        : `<div class="flyout-prop"><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead ? esc(p.lead) : '<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
+      <div class="flyout-prop">
+        <div class="flyout-prop-lbl">Matrix Quadrant</div>
+        <div>${quadrantHtml}</div>
+      </div>
+    </div>`;
+  document.getElementById('flyoutBody').innerHTML = `
+    <div style="height:4px;border-radius:2px;background:${p.accent};margin-bottom:20px"></div>
+    ${tagHtml ? `<div class="flyout-tags">${tagHtml}</div>` : ''}
+    ${(_meta.type||_meta.ai)?`<div class="f-pill-row">${_meta.type?`<span class="f-type-pill ${_tCls}">${esc(_meta.type)}</span>`:''} ${_meta.ai?'<span class="f-ai-badge">✦ AI</span>':''}</div>`:''}
+    <div class="flyout-title">${esc(p.name)}</div>
+    ${p.desc ? `<p class="flyout-subtitle">${esc(p.desc)}</p>` : ''}
+    ${propsHtml}
+    ${_brief ? _brief : `<div class="flyout-section">
+      <div class="flyout-section-hdr">
+        <span class="flyout-section-title">Project Brief</span>
+        <span class="pc-status ${sm.cls}" style="font-size:11px">${sm.label}</span>
+      </div>
+      ${p.desc
+        ? `<p class="flyout-desc">${esc(p.desc)}</p>`
+        : `<p class="flyout-desc-empty">No description added in Notion yet.</p>`}
+    </div>`}
+    <div class="flyout-section">
+      <div class="flyout-section-hdr">
+        <span class="flyout-section-title">RICE Score Breakdown</span>
+      </div>
+      ${hasRice ? `
+        <div class="rice-row">
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-r">${_nwF?_nwF.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="rice-cell-lbl">R</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-i">${_nwF?_nwF.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="rice-cell-lbl">I</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-c">${_nwF?_nwF.buildRiceEditSpan('c',p.c||0,p.notionId):(p.c||0)}</div><div class="rice-cell-lbl">C</div></div>
+          <div class="rice-cell"><div class="rice-cell-val rice-cell-e">${_nwF?_nwF.buildRiceEditSpan('e',p.e||1,p.notionId):(p.e||1)}</div><div class="rice-cell-lbl">E</div></div>
+        </div>
+        <div class="rice-score-total">
+          <div>
+            <div class="rice-score-lbl">RICE Score</div>
+            <div class="rice-score-num">${p.rice.toLocaleString()}</div>
+          </div>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>` :
+        `<p class="flyout-desc-empty">RICE fields not yet filled in Notion.</p>`}
+    </div>
+    ${p.notionUrl ? `
+    <a class="flyout-notion-link" href="${p.notionUrl}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M5 5.5h6M5 10.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Open in Notion
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left:auto"><path d="M2.5 9.5l7-7M9.5 9.5V2.5H2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>` : ''}
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('flyout').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFlyout() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('flyout').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlyout(); });
+
+// ─── Company switcher ─────────────────────────────────────────────────────────
+function toggleSwitcher(){
+  const trigger=document.getElementById('csTrigger');
+  const menu=document.getElementById('csMenu');
+  menu.classList.toggle('open');
+  trigger.setAttribute('aria-expanded', menu.classList.contains('open'));
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  applyFilters();
+  setView('table');
+  updateSortHeaders();
+});
 </script>
+<script src="../../staging/project-briefs.js?v=1776320619988"></script>
+<script src="../../staging/sync.js?v=1776320619988"></script>
+<script src="../../staging/notion-write.js?v=1776320619988"></script>
 </body>
 </html>
