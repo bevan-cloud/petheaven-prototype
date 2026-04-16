@@ -1143,7 +1143,7 @@ function openFlyout(itemId){
         ? window._nw.buildFlyoutProp('lead', p.lead||'', p.notionId, 'Project Lead')
         : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
-      ${(p.engineers&&p.engineers.length)?`<div style="grid-column:1/-1"><div class="flyout-prop-lbl">Engineers</div><div class="flyout-engineers">${p.engineers.map(e=>`<span class="flyout-eng-chip">${fEsc(e)}</span>`).join('')}</div></div>`:''}
+      <div style="grid-column:1/-1"><div class="flyout-prop-lbl">Engineers</div>${(p.engineers&&p.engineers.length)?`<div class="flyout-engineers">${p.engineers.map(e=>`<span class="flyout-eng-chip">${fEsc(e)}</span>`).join('')}</div>`:'<div class="flyout-prop-val-muted">—</div>'}</div>
     </div>
     ${_brief ? _brief : `<div class="flyout-section">
       <div class="flyout-section-hdr">
