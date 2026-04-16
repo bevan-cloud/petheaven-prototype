@@ -975,6 +975,9 @@ function openQuarterDrill(qLabel){
     </div>`;
   }).join('');
 
+  // FY progress banner
+  buildFYBanner('fyBannerDrill');
+
   // Timeline (by pillar)
   buildDrillTimeline(qItems);
 
@@ -1222,6 +1225,7 @@ function closeFlyout(){
       </div>
       <div class="qdrill-tally" id="drillTally"></div>
     </div>
+    <div class="fy-banner" id="fyBannerDrill" style="margin-bottom:24px"></div>
     <!-- Status Board view -->
     <div class="qdrill-view active" id="dview-kanban">
       <div class="qdrill-board" id="drillBoard"></div>
