@@ -315,6 +315,13 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 @media(max-width:1100px){.qdrill-board{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){.qdrill-tl-row{grid-template-columns:130px 1fr}}
 @media(max-width:700px){.qdrill-board{grid-template-columns:1fr 1fr}.qdrill-topbar{padding:0 20px}.qdrill-content{padding:20px 16px 60px}}
+
+/* ── Drag & drop ── */
+.rm-card{cursor:grab}
+.rm-card:active{cursor:grabbing}
+.rm-card.rm-dragging{opacity:.3;box-shadow:none !important}
+.qbody.rm-drag-over{background:rgba(99,102,241,.07);outline:2px dashed rgba(99,102,241,.25);outline-offset:-3px;border-radius:var(--radius-lg)}
+.qdrill-col.rm-drag-over .qdrill-col-body{background:rgba(99,102,241,.07);outline:2px dashed rgba(99,102,241,.25);outline-offset:-3px;border-radius:var(--radius-lg)}
 </style>
 </head>
 <body>
@@ -673,7 +680,7 @@ function buildCard(it){
   const stCls = F_STATUS[it.status] || 'fs-planned';
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
   const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
-  return `<div class="rm-card" data-id="${it.id}" style="border-left-color:${c.bar}">
+  return `<div class="rm-card" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
     <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}</div>${engsHtml}</div>
     <div class="rm-card-footer">
       <div class="rm-card-pills">
@@ -784,7 +791,7 @@ function buildKanban(){
         <div class="q-count"><strong>${qItems.length}</strong> initiative${qItems.length!==1?'s':''}</div>
         <div class="qhdr-drill-hint"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5h7M6 2.5l2.5 2.5L6 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>View status board</div>
       </div>
-      <div class="qbody">
+      <div class="qbody" data-qlabel="${q.qLabel}">
         ${qItems.length ? qItems.map(buildCard).join('') : '<div class="q-empty">Nothing scheduled yet</div>'}
       </div>
     </div>`;
@@ -792,6 +799,7 @@ function buildKanban(){
 
   const backlog = sortByStatus(filtered.filter(it=>!itemQ(it) && it.status!=='done'));
   document.getElementById('backlogGrid').innerHTML = backlog.map(buildCard).join('');
+  _rmBindKanbanDrag();
 }
 
 // ─── TIMELINE ─────────────────────────────────────────────────────────────────
@@ -966,6 +974,7 @@ function buildDrillTimeline(qItems){
 }
 
 function openQuarterDrill(qLabel){
+  _drillQLabel = qLabel;
   const q = FY_QUARTERS.find(q => q.qLabel === qLabel);
   if(!q) return;
 
@@ -988,14 +997,14 @@ function openQuarterDrill(qLabel){
 
   document.getElementById('drillBoard').innerHTML = DRILL_COLS.map(s => {
     const colItems = qItems.filter(it => (it.status||'planned') === s.key);
-    return `<div class="qdrill-col">
+    return `<div class="qdrill-col" data-status="${s.key}">
       <div class="qdrill-col-hdr" style="background:${s.bg};border-bottom-color:${s.border}">
         <div class="qdrill-col-top">
           <span class="qdrill-col-name" style="color:${s.color}">${s.label}</span>
           <span class="qdrill-col-cnt" style="background:${s.cntBg};color:${s.color}">${colItems.length}</span>
         </div>
       </div>
-      <div class="qdrill-col-body">
+      <div class="qdrill-col-body" data-status="${s.key}">
         ${colItems.length ? colItems.map(buildCard).join('') : '<div class="qdrill-empty">None</div>'}
       </div>
     </div>`;
@@ -1014,6 +1023,7 @@ function openQuarterDrill(qLabel){
   panel.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 
+  _rmBindDrillDrag();
   panel.querySelectorAll('#drillBoard .rm-card').forEach(el => {
     el.addEventListener('click', () => {
       panel.querySelectorAll('.rm-card').forEach(c => c.classList.remove('active'));
@@ -1039,6 +1049,118 @@ function bindCardClicks(){
   document.querySelectorAll('.rm-card').forEach(el=>{
     el.addEventListener('click',()=>{
       document.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      openFlyout(parseInt(el.dataset.id));
+    });
+  });
+}
+
+// ─── DRAG & DROP ──────────────────────────────────────────────────────────────
+let _rmDragId = null;
+let _drillQLabel = null;
+const RM_STATUS_TO_NOTION = {
+  planned:'3. Scheduled for Development',progress:'4. In progress',
+  review:'5. QA',live:'Live',done:'10. Done',
+};
+
+function _rmBindKanbanDrag(){
+  document.querySelectorAll('#qgrid .rm-card').forEach(card=>{
+    card.addEventListener('dragstart',e=>{
+      _rmDragId=card.dataset.id;
+      e.dataTransfer.setData('text/plain',_rmDragId);
+      e.dataTransfer.effectAllowed='move';
+      setTimeout(()=>card.classList.add('rm-dragging'),0);
+    });
+    card.addEventListener('dragend',()=>{card.classList.remove('rm-dragging');_rmDragId=null;});
+  });
+  document.querySelectorAll('#qgrid .qbody').forEach(zone=>{
+    const qLabel=zone.dataset.qlabel;
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('rm-drag-over');});
+    zone.addEventListener('dragleave',e=>{if(!zone.contains(e.relatedTarget))zone.classList.remove('rm-drag-over');});
+    zone.addEventListener('drop',e=>{
+      e.preventDefault();zone.classList.remove('rm-drag-over');
+      const id=e.dataTransfer.getData('text/plain')||_rmDragId;
+      if(!id||!qLabel) return;
+      _rmDropQuarter(id,qLabel);
+    });
+  });
+}
+
+function _rmDropQuarter(itemId,newQLabel){
+  const item=ITEMS.find(it=>String(it.id)===String(itemId));
+  if(!item||item.qLabel===newQLabel) return;
+  item.qLabel=newQLabel;
+  const fi=filtered.find(it=>String(it.id)===String(itemId));
+  if(fi) fi.qLabel=newQLabel;
+  buildKanban();bindCardClicks();
+  if(window._nw&&item.notionId) window._nw.notionPatch(item.notionId,{Quarter:{select:{name:newQLabel}}});
+}
+
+function _rmBindDrillDrag(){
+  const board=document.getElementById('drillBoard');
+  if(!board) return;
+  board.querySelectorAll('.rm-card').forEach(card=>{
+    card.addEventListener('dragstart',e=>{
+      _rmDragId=card.dataset.id;
+      e.dataTransfer.setData('text/plain',_rmDragId);
+      e.dataTransfer.effectAllowed='move';
+      setTimeout(()=>card.classList.add('rm-dragging'),0);
+    });
+    card.addEventListener('dragend',()=>{card.classList.remove('rm-dragging');_rmDragId=null;});
+  });
+  board.querySelectorAll('.qdrill-col').forEach(col=>{
+    const zone=col.querySelector('.qdrill-col-body');
+    const newStatus=col.dataset.status;
+    if(!zone||!newStatus) return;
+    zone.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('rm-drag-over');});
+    zone.addEventListener('dragleave',e=>{if(!col.contains(e.relatedTarget))col.classList.remove('rm-drag-over');});
+    zone.addEventListener('drop',e=>{
+      e.preventDefault();col.classList.remove('rm-drag-over');
+      const id=e.dataTransfer.getData('text/plain')||_rmDragId;
+      if(!id) return;
+      _rmDropStatus(id,newStatus);
+    });
+  });
+}
+
+function _rmDropStatus(itemId,newStatus){
+  const item=ITEMS.find(it=>String(it.id)===String(itemId));
+  if(!item||item.status===newStatus) return;
+  item.status=newStatus;
+  const fi=filtered.find(it=>String(it.id)===String(itemId));
+  if(fi) fi.status=newStatus;
+  if(_drillQLabel) _rmRebuildDrillBoard(_drillQLabel);
+  buildKanban();
+  if(window._nw&&item.notionId) window._nw.notionPatch(item.notionId,{Status:{status:{name:RM_STATUS_TO_NOTION[newStatus]||newStatus}}});
+}
+
+function _rmRebuildDrillBoard(qLabel){
+  const qItems=filtered.filter(it=>it.qLabel===qLabel);
+  const done=qItems.filter(it=>it.status==='done'||it.status==='live').length;
+  const inProg=qItems.filter(it=>it.status==='progress'||it.status==='review').length;
+  document.getElementById('drillTally').innerHTML=
+    `<div class="qdrill-tally-item"><div class="qdrill-tally-val">${done}</div><div class="qdrill-tally-lbl">Shipped</div></div>
+     <div class="qdrill-tally-item"><div class="qdrill-tally-val">${inProg}</div><div class="qdrill-tally-lbl">In Flight</div></div>
+     <div class="qdrill-tally-item"><div class="qdrill-tally-val">${qItems.length}</div><div class="qdrill-tally-lbl">Total</div></div>`;
+  document.getElementById('drillBoard').innerHTML=DRILL_COLS.map(s=>{
+    const colItems=qItems.filter(it=>(it.status||'planned')===s.key);
+    return `<div class="qdrill-col" data-status="${s.key}">
+      <div class="qdrill-col-hdr" style="background:${s.bg};border-bottom-color:${s.border}">
+        <div class="qdrill-col-top">
+          <span class="qdrill-col-name" style="color:${s.color}">${s.label}</span>
+          <span class="qdrill-col-cnt" style="background:${s.cntBg};color:${s.color}">${colItems.length}</span>
+        </div>
+      </div>
+      <div class="qdrill-col-body" data-status="${s.key}">
+        ${colItems.length?colItems.map(buildCard).join(''):'<div class="qdrill-empty">None</div>'}
+      </div>
+    </div>`;
+  }).join('');
+  _rmBindDrillDrag();
+  const panel=document.getElementById('quarterDrill');
+  panel.querySelectorAll('#drillBoard .rm-card').forEach(el=>{
+    el.addEventListener('click',()=>{
+      panel.querySelectorAll('.rm-card').forEach(c=>c.classList.remove('active'));
       el.classList.add('active');
       openFlyout(parseInt(el.dataset.id));
     });
