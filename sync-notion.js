@@ -91,7 +91,7 @@ function mapItem(page, idx) {
   const pillar   = p['Strategic Pillar']?.select?.name || '';
   const archive  = p.Archive?.checkbox ?? false;
   const lead      = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
-  const engineers = (p.Engineers?.multi_select ?? []).map(e => e.name).filter(Boolean);
+  const engineers = (p.Engineers?.people ?? []).map(e => e.name).filter(Boolean);
   const stagingUrl = p['Refernce']?.url || '';
 
   return {
