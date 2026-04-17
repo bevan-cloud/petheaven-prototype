@@ -169,6 +169,27 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 @media(max-width:680px){.page{padding:32px 16px 60px}.site-header{padding:0 20px}}
 
+/* ── Kanban board ── */
+.kb-board{display:flex;gap:14px;overflow-x:auto;padding:0 0 24px;align-items:flex-start}
+.kb-col{flex:0 0 240px;background:var(--gray-2);border-radius:var(--radius-xl);display:flex;flex-direction:column}
+.kb-col-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px}
+.kb-col-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.kb-col-count{font-size:11px;color:var(--gray-4);background:#fff;border-radius:10px;padding:1px 7px;font-weight:600}
+.kb-cards{flex:1;padding:0 8px 8px;display:flex;flex-direction:column;gap:7px;min-height:80px;border-radius:0 0 var(--radius-xl) var(--radius-xl);transition:background .15s}
+.kb-col.drag-over .kb-cards{background:rgba(99,102,241,.1);outline:2px dashed rgba(99,102,241,.3);outline-offset:-4px;border-radius:var(--radius-lg)}
+.kb-card{background:#fff;border-radius:var(--radius-lg);padding:11px 12px;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.07);border:1px solid var(--gray-2);transition:box-shadow .15s,opacity .15s;user-select:none}
+.kb-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.11);border-color:var(--gray-3)}
+.kb-card:active{cursor:grabbing}
+.kb-card.kb-dragging{opacity:.3;box-shadow:none}
+.kb-card-name{font-size:12px;font-weight:600;line-height:1.4;color:var(--black);margin-bottom:6px}
+.kb-card-theme{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;margin-top:2px}
+.kb-card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:7px;gap:6px}
+.kb-card-rice{font-size:10px;color:var(--gray-4);font-weight:500}
+.kb-card-quarter{font-size:10px;color:var(--gray-4)}
+.kb-empty{text-align:center;font-size:11px;color:var(--gray-3);padding:20px 8px;font-style:italic;pointer-events:none}
+.kb-saving{position:relative}
+.kb-saving::after{content:'Saving…';position:absolute;bottom:4px;right:6px;font-size:9px;color:var(--gray-4);font-style:italic}
+
 /* ── Flyout overlay ── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.open{opacity:1;pointer-events:all}
@@ -250,8 +271,20 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <div class="view-tabs">
       <button class="view-tab active" data-view="rice" onclick="switchView('rice',this)">RICE Score</button>
       <button class="view-tab" data-view="matrix" onclick="switchView('matrix',this)">Impact vs Effort</button>
+      <button class="view-tab" id="tab-kanban" data-view="kanban" onclick="switchView('kanban',this)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="3" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="4.5" y="0" width="3" height="8" rx="1" fill="currentColor" opacity=".75"/><rect x="9" y="0" width="3" height="5" rx="1" fill="currentColor"/></svg>
+        Kanban
+      </button>
     </div>
     <div class="model-desc" id="model-desc-rice">RICE scoring weighs <strong>Reach</strong>, <strong>Impact</strong>, <strong>Confidence</strong> and <strong>Effort</strong> to produce a comparable priority number across all initiatives.</div>
+    <!-- KANBAN MODEL DESCRIPTION -->
+    <div id="model-desc-kanban" class="model-desc" style="display:none">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-4);margin-top:4px">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v6l3 3" stroke="#9a9a94" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="7" r="6" stroke="#9a9a94" stroke-width="1.3"/></svg>
+        Drag cards between columns to update their status — changes save to Notion instantly.
+      </div>
+    </div>
+
     <div id="model-desc-matrix" style="display:none;margin-top:12px">
       <div class="model-desc-cards">
         <div class="model-desc-card"><div class="mdc-letter" style="color:#a5b4fc">I</div><div class="mdc-name">Impact</div><div class="mdc-desc">Business value delivered — revenue, UX or operational gain. <strong>Scale 1–5</strong></div></div>
@@ -387,6 +420,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
         <tbody id="matrixTbody"></tbody>
       </table>
     </div>
+  </div>
+
+  <div id="kanban-view" style="display:none">
+    <div id="kanban-board" class="kb-board"></div>
   </div>
 
   <p class="page-footer">Bevan Staging · Product prioritization · FY2026/27</p>
@@ -622,6 +659,7 @@ function applyFilters(){
   });
   renderChips();
   renderAll();
+  if(currentView==='kanban') renderKanban();
 }
 
 function resetAll(){
@@ -773,14 +811,112 @@ function startEditMatrix(e){
   input.addEventListener('keydown',ev=>{if(ev.key==='Enter')save();if(ev.key==='Escape'){renderMatrixTable();}});
 }
 
+// ── Kanban ────────────────────────────────────────────────────────────────────
+const KB_COLS = [
+  {key:'planned',  label:'Planned',     color:'#3730a3'},
+  {key:'progress', label:'In Progress', color:'#d97706'},
+  {key:'review',   label:'In Review',   color:'#7c3aed'},
+  {key:'live',     label:'Live',        color:'#059669'},
+  {key:'done',     label:'Done',        color:'#6b7280'},
+];
+const KB_STATUS_TO_NOTION = {
+  planned:  '3. Scheduled for Development',
+  progress: '4. In progress',
+  review:   '5. QA',
+  live:     'Live',
+  done:     '10. Done',
+};
+let _kbDragId = null;
+
+function renderKanban() {
+  const board = document.getElementById('kanban-board');
+  if (!board) return;
+  board.innerHTML = '';
+  KB_COLS.forEach(col => {
+    const cards = filtered.filter(it => it.status === col.key);
+    const colEl = document.createElement('div');
+    colEl.className = 'kb-col';
+    colEl.dataset.status = col.key;
+    colEl.innerHTML =
+      `<div class="kb-col-hdr">` +
+        `<span class="kb-col-title" style="color:${col.color}">${col.label}</span>` +
+        `<span class="kb-col-count">${cards.length}</span>` +
+      `</div>` +
+      `<div class="kb-cards" id="kbc-${col.key}">` +
+        (cards.length ? cards.map(it => _kbCard(it)).join('') : `<div class="kb-empty">No items</div>`) +
+      `</div>`;
+
+    const zone = colEl.querySelector('.kb-cards');
+    zone.addEventListener('dragover', e => { e.preventDefault(); colEl.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', e => { if (!colEl.contains(e.relatedTarget)) colEl.classList.remove('drag-over'); });
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      colEl.classList.remove('drag-over');
+      const id = e.dataTransfer.getData('text/plain') || _kbDragId;
+      if (!id) return;
+      _kbDrop(id, col.key);
+    });
+    board.appendChild(colEl);
+  });
+
+  // Wire drag events on cards after render
+  board.querySelectorAll('.kb-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      _kbDragId = card.dataset.id;
+      e.dataTransfer.setData('text/plain', _kbDragId);
+      e.dataTransfer.effectAllowed = 'move';
+      setTimeout(() => card.classList.add('kb-dragging'), 0);
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('kb-dragging');
+      _kbDragId = null;
+    });
+    card.addEventListener('click', () => openFlyout(card.dataset.id));
+  });
+}
+
+function _kbCard(it) {
+  const tc = THEME_COLORS[it.theme] || {bg:'#f5f5f5',border:'#ddd',text:'#555'};
+  const riceVal = (it.r && it.i && it.c && it.e) ? Math.round(it.r * it.i * (it.c/100) / it.e) : null;
+  return `<div class="kb-card" draggable="true" data-id="${it.id}">` +
+    `<div class="kb-card-name">${_kbEsc(it.name)}</div>` +
+    (it.theme ? `<div class="kb-card-theme" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${_kbEsc(it.theme)}</div>` : '') +
+    `<div class="kb-card-meta">` +
+      (riceVal ? `<span class="kb-card-rice">RICE ${riceVal.toLocaleString()}</span>` : '<span></span>') +
+      (it.qLabel ? `<span class="kb-card-quarter">${_kbEsc(it.qLabel)}</span>` : '') +
+    `</div>` +
+  `</div>`;
+}
+
+function _kbDrop(itemId, newStatus) {
+  const item = ITEMS.find(it => it.id === itemId);
+  if (!item || item.status === newStatus) return;
+  item.status = newStatus;
+  // Update filtered array in-place too
+  const fi = filtered.find(it => it.id === itemId);
+  if (fi) fi.status = newStatus;
+  renderKanban();
+  // Persist to Notion via N8N
+  if (window._nw && item.notionId) {
+    window._nw.notionPatch(item.notionId, {
+      Status: { status: { name: KB_STATUS_TO_NOTION[newStatus] || newStatus } }
+    });
+  }
+}
+
+function _kbEsc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
 function switchView(v,btn){
   currentView=v;
   document.getElementById('rice-view').style.display=v==='rice'?'block':'none';
   document.getElementById('matrix-view').style.display=v==='matrix'?'block':'none';
+  document.getElementById('kanban-view').style.display=v==='kanban'?'block':'none';
   document.getElementById('model-desc-rice').style.display=v==='rice'?'':'none';
   document.getElementById('model-desc-matrix').style.display=v==='matrix'?'':'none';
+  document.getElementById('model-desc-kanban').style.display=v==='kanban'?'':'none';
   document.querySelectorAll('.view-tab').forEach(t=>t.classList.toggle('active',t.dataset.view===v));
   if(v==='matrix'){renderMatrix();renderMatrixTable();}
+  if(v==='kanban'){renderKanban();}
 }
 
 function toggleSwitcher(){
