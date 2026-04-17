@@ -144,21 +144,36 @@ const NOTION_ITEMS = ${JSON.stringify(items, null, 2)};
   writeFileSync(OUTPUT, js, 'utf8');
   console.log(`Written → ${OUTPUT}`);
 
-  // Bust the browser cache in all staging pages by updating the ?v= query string
-  // This covers notion-data.js (data) AND the shared JS files (logic/styling).
+  // Bust the browser cache across ALL company pages by updating the ?v= query string.
+  // This ensures every roadmap/projects/prioritization page fetches fresh notion-data.js
+  // after a sync — regardless of which company the user is on.
   const v = Date.now();
   const PAGES = [
+    // Staging (original)
     'staging/projects/index.html',
     'staging/prioritization/index.html',
     'staging/roadmap/index.html',
+    // Pet Heaven (root)
+    'projects/index.html',
+    'prioritization/index.html',
+    'roadmap/index.html',
+    // UCook
+    'ucook/projects/index.html',
+    'ucook/prioritization/index.html',
+    'ucook/roadmap/index.html',
+    // Faithful to Nature
+    'faithful-to-nature/projects/index.html',
+    'faithful-to-nature/prioritization/index.html',
+    'faithful-to-nature/roadmap/index.html',
   ];
   for (const page of PAGES) {
-    const original = readFileSync(page, 'utf8');
+    let original;
+    try { original = readFileSync(page, 'utf8'); } catch { continue; } // skip if file doesn't exist yet
     let html = original;
-    // Cache-bust notion-data.js (data file)
-    html = html.replace(/src="\.\.\/notion-data\.js(\?v=\d+)?"/, `src="../notion-data.js?v=${v}"`);
+    // Cache-bust notion-data.js — matches any path variant ending in notion-data.js
+    html = html.replace(/src="([^"]*notion-data\.js)(\?v=\d+)?"/g, (_, path) => `src="${path}?v=${v}"`);
     // Cache-bust shared JS files (notion-write.js, project-briefs.js, sync.js)
-    html = html.replace(/src="(\.\.\/(?:notion-write|project-briefs|sync)\.js)(\?v=\d+)?"/g,
+    html = html.replace(/src="([^"]*\/(?:notion-write|project-briefs|sync)\.js)(\?v=\d+)?"/g,
       (_, file) => `src="${file}?v=${v}"`);
     if (html !== original) {
       writeFileSync(page, html, 'utf8');
@@ -166,7 +181,7 @@ const NOTION_ITEMS = ${JSON.stringify(items, null, 2)};
     }
   }
 
-  console.log('Done. Run git add staging/ && git push to publish.');
+  console.log('Done. Run git add . && git push to publish.');
 }
 
 main().catch(err => { console.error(err.message); process.exit(1); });
