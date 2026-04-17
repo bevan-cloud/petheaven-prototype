@@ -91,7 +91,7 @@
   // ─── N8N Webhook ─────────────────────────────────────────────────────────────
   // All Notion writes are routed through N8N — no token stored in the browser.
   // Swap to the production URL once the workflow is activated.
-  const N8N_WEBHOOK = 'https://workflow.sih.services/webhook/product-workspace-notion-update';
+  const N8N_WEBHOOK = 'https://workflow.sih.services/webhook-test/product-workspace-notion-update';
 
   async function notionPatch(notionId, properties) {
     try {
