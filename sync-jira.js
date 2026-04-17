@@ -17,9 +17,10 @@ const JIRA_API  = '/rest/api/3';
 // COMPANY determines which projects to fetch and where to write the output.
 // Add new companies here as sprint boards are built out.
 const COMPANY_CONFIG = {
-  staging:  { projects: ['UC', 'FM'], outDir: 'staging' },
-  ucook:    { projects: ['UC'],       outDir: 'ucook'   },
-  // faithful-to-nature and petheaven will be added here when ready
+  staging:            { projects: ['UC', 'FM'], outDir: 'staging'            },
+  ucook:              { projects: ['UC'],        outDir: 'ucook'              },
+  'faithful-to-nature': { projects: ['FM'],     outDir: 'faithful-to-nature' },
+  // petheaven will be added here when ready
 };
 
 const COMPANY = (process.env.COMPANY || 'staging').toLowerCase();

@@ -8,6 +8,7 @@
 <style>
 :root{
   --brand:#006654;--brand-dark:#204B4A;--brand-light:#D9EDE7;--brand-mid:#8BBEAA;
+  --col-todo:#3b82f6;
   --blue:#1a6fd4;--blue-light:#e8f1fc;
   --purple:#7b1fa2;--purple-light:#f3e5f5;
   --amber:#7a5a00;--amber-light:#fef8e6;
@@ -72,7 +73,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
 
 /* PAGE */
-.page{max-width:1080px;margin:0 auto;padding:64px 40px 100px}
+.page{max-width:1240px;margin:0 auto;padding:64px 40px 100px}
 
 /* INTRO */
 .intro{margin-bottom:24px;text-align:center}
@@ -85,7 +86,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
 /* NAV GRID */
-.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:64px}
+.nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
 
 /* NAV TILE */
 .nav-tile{
@@ -112,9 +113,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 /* TILE PREVIEW */
 .tile-preview{
-  height:140px;
+  height:116px;
   display:flex;align-items:center;justify-content:center;
-  padding:24px;
+  padding:18px 20px;
   overflow:hidden;
   position:relative;
 }
@@ -125,11 +126,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .skeleton-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4)}
 
 /* TILE BODY */
-.tile-body{padding:22px 24px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
+.tile-body{padding:16px 18px 16px;flex:1;display:flex;flex-direction:column;gap:5px}
 .tile-header{display:flex;align-items:center;justify-content:space-between}
-.tile-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--black)}
+.tile-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--black)}
 .tile-arrow{color:var(--gray-3);transition:color 0.15s}
-.tile-desc{font-size:13px;color:var(--gray-5);line-height:1.6}
+.tile-desc{font-size:12px;color:var(--gray-5);line-height:1.5}
 
 /* TILE META */
 .tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
@@ -141,7 +142,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* FOOTER */
 .page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
 
-@media(max-width:680px){
+@media(max-width:900px){.nav-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){
   .nav-grid{grid-template-columns:1fr}
   .page{padding:40px 20px 60px}
   .intro h1{font-size:32px}
@@ -329,6 +331,45 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M5 3v2.5l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
             Content coming soon
           </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- SPRINT BOARD TILE -->
+    <a class="nav-tile" href="../sprint-board/">
+      <div class="tile-accent" style="background:var(--brand)"></div>
+      <div class="tile-preview" style="background:#1a1a1a">
+        <div style="display:flex;gap:5px;width:100%">
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:var(--col-todo,#3b82f6);opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:var(--brand);opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:var(--brand);opacity:.6"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:#f59e0b;opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:#f59e0b;opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:#f59e0b;opacity:.6"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:#10b981;opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:#10b981;opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-header">
+          <span class="tile-title">Sprint Board</span>
+          <svg class="tile-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="tile-desc">Live Jira sprint board — active issues by status, backlog, and sprint insights.</p>
+        <div class="tile-meta">
+          <span class="tile-tag">Jira · FM project</span>
         </div>
       </div>
     </a>
