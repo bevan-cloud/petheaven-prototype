@@ -113,11 +113,14 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rm-card:hover{background:var(--gray-1)}
 .rm-card.active{background:var(--brand-light) !important;border-color:var(--brand-mid) !important}
 .rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;margin-bottom:6px}
-.rm-card-engineers{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
-.rm-eng-chip{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2);white-space:nowrap;line-height:1.6}
+.rm-card-engineers{display:flex;margin-bottom:7px}
+.rm-eng-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #fff;text-transform:uppercase;letter-spacing:.03em;margin-right:-6px;cursor:default;transition:transform .12s,z-index .12s;position:relative;z-index:1}
+.rm-eng-avatar:hover{transform:translateY(-2px);z-index:10}
+.rm-card-engineers .rm-eng-avatar:last-child{margin-right:0}
 .rm-card-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
-.flyout-engineers{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px}
-.flyout-eng-chip{font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--black);border:1px solid var(--gray-2)}
+.flyout-engineers{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.flyout-eng-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;padding:4px 12px 4px 4px;border-radius:20px;background:var(--gray-1);color:var(--black);border:1px solid var(--gray-2)}
+.flyout-eng-chip .fe-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.03em;flex-shrink:0}
 .rm-card-pills{display:flex;gap:4px;flex-wrap:wrap;flex:1}
 .rm-pill-theme{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;line-height:1.7}
 .rm-pill-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap}
@@ -659,12 +662,15 @@ function riceBadge(it){
   return `<span class="rm-rice ${cls}">${s}</span>`;
 }
 // ─── CARD ─────────────────────────────────────────────────────────────────────
+function engColor(n){var p=['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#06b6d4','#f97316','#ec4899','#14b8a6','#a855f7'];var h=0;for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))&0xffff;return p[h%p.length];}
+function engInitials(n){var p=n.trim().split(/\s+/);return p.length===1?p[0].charAt(0).toUpperCase():(p[0].charAt(0)+p[p.length-1].charAt(0)).toUpperCase();}
+
 function buildCard(it){
   const c = tc(it.theme);
   const F_STATUS = {live:'fs-live',progress:'fs-progress',planned:'fs-planned',review:'fs-review',done:'fs-done'};
   const stCls = F_STATUS[it.status] || 'fs-planned';
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
-  const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-chip">${esc(e)}</span>`).join('')}</div>`:'';
+  const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
   return `<div class="rm-card" data-id="${it.id}" style="border-left-color:${c.bar}">
     <div class="rm-card-name">${esc(it.name)}</div>
     ${engsHtml}
@@ -1143,7 +1149,7 @@ function openFlyout(itemId){
         ? window._nw.buildFlyoutProp('lead', p.lead||'', p.notionId, 'Project Lead')
         : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
-      <div style="grid-column:1/-1"><div class="flyout-prop-lbl">Engineers</div>${(p.engineers&&p.engineers.length)?`<div class="flyout-engineers">${p.engineers.map(e=>`<span class="flyout-eng-chip">${fEsc(e)}</span>`).join('')}</div>`:'<div class="flyout-prop-val-muted">—</div>'}</div>
+      <div style="grid-column:1/-1"><div class="flyout-prop-lbl">Engineers</div>${(p.engineers&&p.engineers.length)?`<div class="flyout-engineers">${p.engineers.map(e=>`<span class="flyout-eng-chip"><span class="fe-av" style="background:${engColor(e)}">${engInitials(e)}</span>${fEsc(e)}</span>`).join('')}</div>`:'<div class="flyout-prop-val-muted">—</div>'}</div>
     </div>
     ${_brief ? _brief : `<div class="flyout-section">
       <div class="flyout-section-hdr">
