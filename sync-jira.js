@@ -173,15 +173,24 @@ function extractSprintInfo(issues, type) {
 
     if (type === 'active') {
       const active = sprints.find((s) => s.state === 'active');
-      if (active) return { id: active.id, name: active.name, state: active.state, goal: active.goal || '' };
+      if (active) return {
+        id: active.id, name: active.name, state: active.state, goal: active.goal || '',
+        startDate: active.startDate || null, endDate: active.endDate || null,
+      };
     }
 
     if (type === 'next') {
       const future = sprints.find((s) => s.state === 'future');
-      if (future) return { id: future.id, name: future.name, state: future.state, goal: future.goal || '' };
+      if (future) return {
+        id: future.id, name: future.name, state: future.state, goal: future.goal || '',
+        startDate: future.startDate || null, endDate: future.endDate || null,
+      };
       // Fall back to first sprint in list
       const first = sprints[0];
-      if (first) return { id: first.id, name: first.name, state: first.state, goal: first.goal || '' };
+      if (first) return {
+        id: first.id, name: first.name, state: first.state, goal: first.goal || '',
+        startDate: first.startDate || null, endDate: first.endDate || null,
+      };
     }
   }
 
@@ -200,22 +209,27 @@ async function fetchProject(key) {
   );
 
   // ── Next sprint ──────────────────────────────────────────────────────────
+  // First try any future sprint (no hardcoded name — works across all projects)
   let nextRaw = [];
-  const nextJql = `project = ${key} AND sprint in futureSprints() AND sprint != "Product Backlog" ORDER BY created ASC`;
+  const nextJql = `project = ${key} AND sprint in futureSprints() ORDER BY created ASC`;
   nextRaw = await searchJql(
     nextJql,
     NEXT_FIELDS,
     `Fetching ${key} next sprint`
   );
 
+  // If no future sprint, try a sprint named "Product Backlog" (UC convention).
+  // Wrapped in try/catch — other projects may not have this sprint and Jira
+  // returns a 400 for unknown sprint names, which would otherwise crash the sync.
   if (nextRaw.length === 0) {
-    console.log(`[sync-jira] No future sprint found for ${key}, trying Product Backlog...`);
-    const backlogJql = `project = ${key} AND sprint = "Product Backlog" ORDER BY created ASC`;
-    nextRaw = await searchJql(
-      backlogJql,
-      NEXT_FIELDS,
-      `Fetching ${key} Product Backlog`
-    );
+    try {
+      console.log(`[sync-jira] No future sprint found for ${key}, trying Product Backlog...`);
+      const backlogJql = `project = ${key} AND sprint = "Product Backlog" ORDER BY created ASC`;
+      nextRaw = await searchJql(backlogJql, NEXT_FIELDS, `Fetching ${key} Product Backlog`);
+    } catch (e) {
+      console.log(`[sync-jira] No "Product Backlog" sprint for ${key} — skipping backlog fallback.`);
+      nextRaw = [];
+    }
   }
 
   // ── Sprint metadata ──────────────────────────────────────────────────────
