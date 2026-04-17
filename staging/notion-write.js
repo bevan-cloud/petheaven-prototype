@@ -88,43 +88,26 @@
     _toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms);
   }
 
-  // ─── Token ───────────────────────────────────────────────────────────────────
-  const TOKEN_KEY = 'notion_write_token';
-  function getToken()   { return localStorage.getItem(TOKEN_KEY); }
-  function clearToken() { localStorage.removeItem(TOKEN_KEY); }
-  function ensureToken() {
-    let t = getToken();
-    if (t) return t;
-    t = prompt('Enter your Notion integration token (ntn_…) to enable editing:');
-    if (t && t.startsWith('ntn_')) { localStorage.setItem(TOKEN_KEY, t.trim()); return t.trim(); }
-    showToast('⚠ Token required to edit');
-    return null;
-  }
+  // ─── N8N Webhook ─────────────────────────────────────────────────────────────
+  // All Notion writes are routed through N8N — no token stored in the browser.
+  // Swap to the production URL once the workflow is activated.
+  const N8N_WEBHOOK = 'https://workflow.sih.services/webhook/product-workspace-notion-update';
 
-  // ─── Notion API ──────────────────────────────────────────────────────────────
   async function notionPatch(notionId, properties) {
-    const token = ensureToken();
-    if (!token) return false;
     try {
-      const res = await fetch(`https://api.notion.com/v1/pages/${notionId}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Notion-Version': '2022-06-28',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ properties }),
+      const res = await fetch(N8N_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notionPageId: notionId, properties }),
       });
       if (!res.ok) {
-        const txt = await res.text();
-        if (res.status === 401) { clearToken(); showToast('⚠ Token invalid — cleared, try again'); }
-        else showToast(`⚠ Notion ${res.status}`);
+        showToast(`⚠ Save failed (${res.status}) — check N8N workflow`);
         return false;
       }
       showToast('✓ Saved to Notion');
       return true;
     } catch (err) {
-      showToast(err.name === 'TypeError' ? '⚠ Network error — check CORS / token' : '⚠ ' + err.message);
+      showToast('⚠ Could not reach N8N — check your connection');
       return false;
     }
   }
@@ -279,46 +262,21 @@
     </div>`;
   }
 
-  // ─── Users cache (for Lead) ───────────────────────────────────────────────────
-  let _notionUsers = null;
-  async function fetchUsers(token) {
-    if (_notionUsers) return _notionUsers;
-    try {
-      const res = await fetch('https://api.notion.com/v1/users', {
-        headers: { 'Authorization': `Bearer ${token}`, 'Notion-Version': '2022-06-28' },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        _notionUsers = (data.results || []).filter(u => u.type === 'person');
-      } else {
-        _notionUsers = [];
-      }
-    } catch { _notionUsers = []; }
-    return _notionUsers;
-  }
-
+  // ─── Lead save (routed via N8N — N8N resolves name → Notion user ID) ─────────
   async function saveLeadInternal(notionId, newName) {
-    const token = ensureToken();
-    if (!token) return;
-    const users = await fetchUsers(token);
-
-    let people = [];
-    if (newName) {
-      const match = users.find(u =>
-        u.name?.toLowerCase() === newName.toLowerCase() ||
-        u.name?.toLowerCase().includes(newName.toLowerCase())
-      );
-      if (!match) { showToast(`⚠ No Notion user matching "${newName}"`); return; }
-      people = [{ object: 'user', id: match.id }];
-      newName = match.name; // normalise to exact name
-    }
-
-    const ok = await notionPatch(notionId, { Lead: { people } });
-    if (ok) {
+    try {
+      const res = await fetch(N8N_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notionPageId: notionId, leadName: newName }),
+      });
+      if (!res.ok) { showToast(`⚠ Save failed (${res.status})`); return; }
+      showToast('✓ Saved to Notion');
       updateLocal(notionId, 'lead', newName);
-      // Update all lead spans on the page (flyout may have one, table may have one)
       document.querySelectorAll(`.nw-editable[data-field="lead"][data-nid="${CSS.escape(notionId)}"]`)
         .forEach(s => { s.dataset.val = newName; s.innerHTML = displayHtml('lead', newName); });
+    } catch (err) {
+      showToast('⚠ Could not reach N8N — check your connection');
     }
   }
 
