@@ -112,8 +112,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rm-card{background:#fff;border:1px solid var(--gray-2);border-left-width:3px;border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:border-color .12s,background .1s}
 .rm-card:hover{background:var(--gray-1)}
 .rm-card.active{background:var(--brand-light) !important;border-color:var(--brand-mid) !important}
-.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;margin-bottom:6px}
-.rm-card-engineers{display:flex;margin-bottom:7px}
+.rm-card-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.rm-card-name{font-size:12px;font-weight:600;color:var(--black);line-height:1.35;flex:1;min-width:0}
+.rm-card-engineers{display:flex;flex-shrink:0}
 .rm-eng-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #fff;text-transform:uppercase;letter-spacing:.03em;margin-right:-6px;cursor:default;transition:transform .12s,z-index .12s;position:relative;z-index:1}
 .rm-eng-avatar:hover{transform:translateY(-2px);z-index:10}
 .rm-card-engineers .rm-eng-avatar:last-child{margin-right:0}
@@ -672,8 +673,7 @@ function buildCard(it){
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
   const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
   return `<div class="rm-card" data-id="${it.id}" style="border-left-color:${c.bar}">
-    <div class="rm-card-name">${esc(it.name)}</div>
-    ${engsHtml}
+    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}</div>${engsHtml}</div>
     <div class="rm-card-footer">
       <div class="rm-card-pills">
         <span class="rm-pill-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${esc(it.theme||'Other')}</span>
