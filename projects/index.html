@@ -359,7 +359,17 @@ const PROJECTS = NOTION_ITEMS
 let filtered = [...PROJECTS];
 let currentView = 'table';
 let sortCol = 'status', sortDir = 'asc';
-const filterState = {};   // no default filter
+const filterState = (function(){
+  const d=new Date(), m=d.getMonth()+1, y=d.getFullYear();
+  const fy = m>=3 ? y+1 : y;
+  const q  = m>=3&&m<=5 ? 1 : m>=6&&m<=8 ? 2 : m>=9&&m<=11 ? 3 : 4;
+  for(let i=0;i<8;i++){
+    let tq=q+i,tfy=fy; while(tq>4){tq-=4;tfy++;}
+    const l=`Q${tq} FY${String(tfy).slice(2)}`;
+    if(PROJECTS.some(p=>p.qLabel===l)) return {quarter:l};
+  }
+  return {};
+})();
 let chipSortState = null;
 
 // ─── Field definitions ────────────────────────────────────────────────────────
