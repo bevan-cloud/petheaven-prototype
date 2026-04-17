@@ -20,7 +20,7 @@ const COMPANY_CONFIG = {
   staging:            { projects: ['UC', 'FM'], outDir: 'staging'            },
   ucook:              { projects: ['UC'],        outDir: 'ucook'              },
   'faithful-to-nature': { projects: ['FM'],     outDir: 'faithful-to-nature' },
-  // petheaven will be added here when ready
+  petheaven:          { projects: ['FM'],        outDir: '.'                  },
 };
 
 const COMPANY = (process.env.COMPANY || 'staging').toLowerCase();

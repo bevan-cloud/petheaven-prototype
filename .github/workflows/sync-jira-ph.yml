@@ -1,0 +1,35 @@
+name: Sync Jira Sprint Data — Pet Heaven
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 6 * * 1-5'
+
+permissions:
+  contents: write  # needed to commit + push jira-sprint-data.js
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync PH Jira sprint data
+        env:
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          COMPANY: petheaven
+        run: node sync-jira.js
+
+      - name: Commit updated sprint data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add jira-sprint-data.js
+          git diff --staged --quiet || git commit -m "chore: sync PH Jira sprint data [skip ci]"
+          git pull --rebase origin main
+          git push
