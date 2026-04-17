@@ -94,7 +94,7 @@ async function searchJql(jql, fields, label) {
 
   while (true) {
     const encoded = encodeURIComponent(jql);
-    const url = `${JIRA_API}/search?jql=${encoded}&fields=${encodeURIComponent(fields)}&maxResults=${maxResults}&startAt=${startAt}`;
+    const url = `${JIRA_API}/search/jql?jql=${encoded}&fields=${encodeURIComponent(fields)}&maxResults=${maxResults}&startAt=${startAt}`;
     const data = await request(url);
 
     const issues = data.issues || [];
