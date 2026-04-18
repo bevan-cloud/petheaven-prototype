@@ -89,9 +89,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .section-divider{flex:1;height:1px;background:var(--gray-2);min-width:20px}
 .section-block{margin-bottom:40px}
 
-/* ── KANBAN BOARD ── */
-.kanban-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
-.kanban-col{border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--gray-2)}
+/* ── KANBAN BOARD — SWIMLANE LAYOUT ── */
+.kanban-grid{display:flex;flex-direction:column;gap:12px}
+.kanban-col{overflow:hidden;border:none}
 .kanban-col-hdr{padding:14px 16px;border-bottom:1px solid;display:flex;align-items:center;gap:8px}
 .kanban-col-hdr.todo{background:var(--col-todo-bg);border-color:var(--col-todo-border)}
 .kanban-col-hdr.inprog{background:var(--col-inprog-bg);border-color:var(--col-inprog-border)}
@@ -104,8 +104,57 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .kanban-col-hdr.todo .kanban-count-badge{background:var(--col-todo);color:#fff}
 .kanban-col-hdr.inprog .kanban-count-badge{background:var(--col-inprog);color:#fff}
 .kanban-col-hdr.done .kanban-count-badge{background:var(--col-done);color:#fff}
-.kanban-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;background:#fff;min-height:120px}
-.kanban-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:24px 0;font-style:italic}
+.kanban-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;background:#fff;min-height:80px}
+.kanban-empty{font-size:12px;color:var(--gray-3);text-align:center;padding:20px 0;font-style:italic}
+
+/* ── EPIC SWIMLANES ── */
+.epic-swimlane{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden}
+.esw-hdr{padding:12px 16px;display:flex;align-items:center;gap:10px;background:var(--gray-1);border-bottom:1px solid var(--gray-2)}
+.esw-hdr-clickable{cursor:pointer;transition:background .15s}
+.esw-hdr-clickable:hover{background:var(--brand-light)}
+.esw-hdr-clickable:hover .esw-arrow{color:var(--brand)}
+.esw-hdr-left{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
+.esw-key{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:var(--gray-4);letter-spacing:.02em;flex-shrink:0}
+.esw-name{font-size:13px;font-weight:600;color:var(--black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.esw-stats{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap}
+.esw-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px}
+.esw-pill-todo{background:var(--col-todo-bg);color:var(--col-todo);border:1px solid var(--col-todo-border)}
+.esw-pill-inprog{background:var(--col-inprog-bg);color:#b45309;border:1px solid var(--col-inprog-border)}
+.esw-pill-done{background:var(--col-done-bg);color:#047857;border:1px solid var(--col-done-border)}
+.esw-arrow{flex-shrink:0;color:var(--gray-3);transition:color .15s}
+.esw-progress-bar{height:3px;background:var(--gray-2);display:flex}
+.esw-progress-done{background:var(--col-done);transition:width .4s}
+.esw-progress-inprog{background:var(--col-inprog);transition:width .4s}
+.esw-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.esw-grid .kanban-col{border-radius:0;border-right:1px solid var(--gray-2)}
+.esw-grid .kanban-col:last-child{border-right:none}
+
+/* ── EPIC DRILL-DOWN ── */
+.edrill{position:fixed;inset:0;background:var(--gray-1);z-index:280;transform:translateY(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.edrill.open{transform:translateY(0)}
+.edrill-topbar{background:var(--brand-dark);padding:0 48px;height:60px;display:flex;align-items:center;gap:16px;flex-shrink:0;position:sticky;top:0;z-index:10}
+.edrill-back{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 16px 6px 12px;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;flex-shrink:0}
+.edrill-back:hover{background:rgba(255,255,255,.26)}
+.edrill-bc{font-size:13px;color:rgba(255,255,255,.55);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.edrill-bc strong{color:#fff}
+.edrill-content{max-width:1240px;margin:0 auto;padding:32px 40px 80px;width:100%}
+.edrill-hdr{margin-bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.edrill-hdr-left{display:flex;flex-direction:column;gap:3px}
+.edrill-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--brand);margin-bottom:2px}
+.edrill-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--black);line-height:1.15}
+.edrill-sub{font-size:13px;color:var(--gray-5)}
+.edrill-tally{display:flex;gap:20px;flex-shrink:0}
+.edrill-tally-item{text-align:right}
+.edrill-tally-val{font-size:22px;font-weight:700;color:var(--black);line-height:1}
+.edrill-tally-lbl{font-size:10px;color:var(--gray-4);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.edrill-board{display:flex;flex-wrap:nowrap;gap:12px;align-items:start;overflow-x:auto;padding-bottom:4px}
+.edrill-col{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-xl);overflow:hidden;min-width:220px;flex:1}
+.edrill-col-hdr{padding:12px 14px;border-bottom:1px solid;display:flex;align-items:center;gap:8px}
+.edrill-col-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;flex:1}
+.edrill-col-cnt{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;color:#fff;flex-shrink:0}
+.edrill-col-body{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:100px}
+@media(max-width:760px){.edrill-topbar{padding:0 20px}.edrill-content{padding:20px 16px 60px}.edrill-board{flex-wrap:wrap}}
+@media(max-width:600px){.esw-grid{grid-template-columns:1fr}.esw-stats{display:none}}
 
 /* ── ISSUE CARD ── */
 .issue-card{background:#fff;border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:10px 12px;cursor:pointer;transition:border-color .12s,box-shadow .12s,background .1s;position:relative}
@@ -617,39 +666,178 @@ function renderCard(issue) {
 }
 
 /* ─────────────────────────────────────────────
-   RENDER KANBAN
+   RENDER KANBAN — EPIC SWIMLANES
    ───────────────────────────────────────────── */
 function renderKanban(activeIssues, sprint) {
-  var todo     = activeIssues.filter(function(i){ return i.status && i.status.category === 'new'; });
-  var inprog   = activeIssues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
-  var done     = activeIssues.filter(function(i){ return i.status && i.status.category === 'done'; });
+  // Group issues by epic
+  var epicMap = {};
+  activeIssues.forEach(function(issue) {
+    var epicKey = (issue.parent && issue.parent.key) || '__none__';
+    var epicSum = (issue.parent && issue.parent.summary) || 'No Epic';
+    if (!epicMap[epicKey]) epicMap[epicKey] = { key: epicKey, summary: epicSum, issues: [] };
+    epicMap[epicKey].issues.push(issue);
+  });
 
-  function col(cls, title, items) {
+  // Sort: named epics alphabetically, No Epic last
+  var epicKeys = Object.keys(epicMap).sort(function(a, b) {
+    if (a === '__none__') return 1;
+    if (b === '__none__') return -1;
+    return epicMap[a].summary.localeCompare(epicMap[b].summary);
+  });
+
+  function renderKanbanCol(cls, title, items) {
     var hdr = '<div class="kanban-col-hdr ' + cls + '">'
       + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
       + '<span class="kanban-count-badge">' + items.length + '</span>'
       + '</div>';
     var body = '<div class="kanban-col-body">';
-    if (items.length === 0) {
-      body += '<div class="kanban-empty">No issues</div>';
-    } else {
-      items.forEach(function(issue) { body += renderCard(issue); });
-    }
+    body += items.length ? items.map(renderCard).join('') : '<div class="kanban-empty">No issues</div>';
     body += '</div>';
     return '<div class="kanban-col">' + hdr + body + '</div>';
   }
 
+  function renderSwimlane(epic) {
+    var issues = epic.issues;
+    var todo   = issues.filter(function(i){ return i.status && i.status.category === 'new'; });
+    var inprog = issues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
+    var done   = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
+
+    var isReal = epic.key !== '__none__';
+    var total  = issues.length;
+    var donePct   = total > 0 ? Math.round(done.length / total * 100) : 0;
+    var inprogPct = total > 0 ? Math.round(inprog.length / total * 100) : 0;
+
+    var html = '<div class="epic-swimlane">';
+
+    // Header row
+    html += '<div class="esw-hdr' + (isReal ? ' esw-hdr-clickable' : '') + '"'
+      + (isReal ? ' onclick="openEpicDrill(\'' + escHtml(epic.key) + '\')" title="Drill into this epic"' : '') + '>';
+    html += '<div class="esw-hdr-left">';
+    if (isReal) html += '<span class="esw-key">' + escHtml(epic.key) + '</span>';
+    html += '<span class="esw-name">' + escHtml(epic.summary) + '</span>';
+    html += '</div>';
+    html += '<div class="esw-stats">';
+    if (todo.length)   html += '<span class="esw-pill esw-pill-todo">'   + todo.length   + ' to do</span>';
+    if (inprog.length) html += '<span class="esw-pill esw-pill-inprog">' + inprog.length + ' in progress</span>';
+    if (done.length)   html += '<span class="esw-pill esw-pill-done">'   + done.length   + ' done</span>';
+    html += '</div>';
+    if (isReal) html += '<svg class="esw-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    html += '</div>';
+
+    // Progress bar
+    html += '<div class="esw-progress-bar">'
+      + '<div class="esw-progress-done" style="width:' + donePct + '%"></div>'
+      + '<div class="esw-progress-inprog" style="width:' + inprogPct + '%"></div>'
+      + '</div>';
+
+    // 3-column kanban grid
+    html += '<div class="esw-grid">';
+    html += renderKanbanCol('todo', 'To Do', todo);
+    html += renderKanbanCol('inprog', 'In Progress', inprog);
+    html += renderKanbanCol('done', 'Done', done);
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
   var grid = document.getElementById('kanbanGrid');
-  grid.innerHTML = col('todo', 'To Do', todo) + col('inprog', 'In Progress', inprog) + col('done', 'Done', done);
+  grid.innerHTML = epicKeys.length
+    ? epicKeys.map(function(k){ return renderSwimlane(epicMap[k]); }).join('')
+    : '<p style="color:var(--gray-4);padding:20px">No issues found for this sprint.</p>';
 
   if (sprint) {
     document.getElementById('kanbanTitle').textContent = sprint.name || 'Active Sprint';
     var meta = '';
-    if (sprint.startDate && sprint.endDate) {
-      meta = formatDate(sprint.startDate) + ' – ' + formatDate(sprint.endDate);
-    }
+    if (sprint.startDate && sprint.endDate) meta = formatDate(sprint.startDate) + ' – ' + formatDate(sprint.endDate);
     document.getElementById('kanbanMeta').textContent = meta;
   }
+}
+
+/* ─────────────────────────────────────────────
+   EPIC DRILL-DOWN
+   ───────────────────────────────────────────── */
+var _drillEpicKey = null;
+
+function openEpicDrill(epicKey) {
+  _drillEpicKey = epicKey;
+
+  // Use full unfiltered active set for the drill-down
+  var epicIssues = _allActive.filter(function(i){
+    return (i.parent && i.parent.key) === epicKey;
+  });
+  if (!epicIssues.length) return;
+
+  var epicMeta = epicIssues[0].parent || { key: epicKey, summary: epicKey };
+  var epicName = epicMeta.summary || epicKey;
+
+  // Header
+  document.getElementById('epicDrillEyebrow').textContent = epicMeta.key || epicKey;
+  document.getElementById('epicDrillTitle').textContent   = epicName;
+  document.getElementById('epicDrillSub').textContent     = epicIssues.length + ' issue' + (epicIssues.length !== 1 ? 's' : '') + ' in active sprint';
+  document.getElementById('epicDrillBc').innerHTML        = 'Sprint Board &rsaquo; <strong>' + escHtml(epicName) + '</strong>';
+
+  // Stats
+  var done   = epicIssues.filter(function(i){ return i.status && i.status.category === 'done'; }).length;
+  var inprog = epicIssues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; }).length;
+  var todo   = epicIssues.length - done - inprog;
+  document.getElementById('epicDrillTally').innerHTML =
+    '<div class="edrill-tally-item"><div class="edrill-tally-val" style="color:var(--col-done)">'  + done   + '</div><div class="edrill-tally-lbl">Done</div></div>'
+  + '<div class="edrill-tally-item"><div class="edrill-tally-val" style="color:var(--col-inprog)">' + inprog + '</div><div class="edrill-tally-lbl">In Progress</div></div>'
+  + '<div class="edrill-tally-item"><div class="edrill-tally-val" style="color:var(--col-todo)">'   + todo   + '</div><div class="edrill-tally-lbl">To Do</div></div>'
+  + '<div class="edrill-tally-item"><div class="edrill-tally-val">'                                  + epicIssues.length + '</div><div class="edrill-tally-lbl">Total</div></div>';
+
+  _buildEpicDrillBoard(epicIssues);
+
+  var panel = document.getElementById('epicDrill');
+  panel.classList.add('open');
+  panel.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEpicDrill() {
+  document.getElementById('epicDrill').classList.remove('open');
+  document.body.style.overflow = '';
+  _drillEpicKey = null;
+}
+
+function _buildEpicDrillBoard(issues) {
+  // Collect unique status names, ordered by category: new → indeterminate → done
+  var statusMap = {};
+  issues.forEach(function(i) {
+    var sName = (i.status && i.status.name) || 'Unknown';
+    var sCat  = (i.status && i.status.category) || 'new';
+    if (!statusMap[sName]) statusMap[sName] = { name: sName, category: sCat, issues: [] };
+    statusMap[sName].issues.push(i);
+  });
+
+  var catOrder = { 'new': 0, 'indeterminate': 1, 'done': 2 };
+  var cols = Object.values(statusMap).sort(function(a, b) {
+    var ao = catOrder[a.category] !== undefined ? catOrder[a.category] : 3;
+    var bo = catOrder[b.category] !== undefined ? catOrder[b.category] : 3;
+    return ao !== bo ? ao - bo : a.name.localeCompare(b.name);
+  });
+
+  var colStyle = {
+    'new':           { bg: 'var(--col-todo-bg)',   border: 'var(--col-todo-border)',   nameColor: 'var(--col-todo)',  cntBg: 'var(--col-todo)'  },
+    'indeterminate': { bg: 'var(--col-inprog-bg)', border: 'var(--col-inprog-border)', nameColor: '#b45309',          cntBg: 'var(--col-inprog)' },
+    'done':          { bg: 'var(--col-done-bg)',   border: 'var(--col-done-border)',   nameColor: '#047857',          cntBg: 'var(--col-done)'  }
+  };
+
+  var html = cols.map(function(col) {
+    var s = colStyle[col.category] || colStyle['new'];
+    return '<div class="edrill-col">'
+      + '<div class="edrill-col-hdr" style="background:' + s.bg + ';border-color:' + s.border + '">'
+      + '<span class="edrill-col-name" style="color:' + s.nameColor + '">' + escHtml(col.name) + '</span>'
+      + '<span class="edrill-col-cnt" style="background:' + s.cntBg + '">' + col.issues.length + '</span>'
+      + '</div>'
+      + '<div class="edrill-col-body">'
+      + col.issues.map(renderCard).join('')
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  document.getElementById('epicDrillBoard').innerHTML = html || '<p style="color:var(--gray-4);padding:20px">No issues.</p>';
 }
 
 /* ─────────────────────────────────────────────
@@ -873,9 +1061,12 @@ function closeFlyout() {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
+    var flyout = document.getElementById('flyout');
+    if (flyout && flyout.classList.contains('open')) { closeFlyout(); return; }
     var ins = document.getElementById('insightsPanel');
     if (ins && ins.classList.contains('open')) { closeInsights(); return; }
-    closeFlyout();
+    var ed = document.getElementById('epicDrill');
+    if (ed && ed.classList.contains('open')) { closeEpicDrill(); return; }
   }
 });
 
@@ -1271,6 +1462,28 @@ window.addEventListener('load', function() {
   }
 });
 </script>
+<!-- EPIC DRILL-DOWN PANEL -->
+<div class="edrill" id="epicDrill" role="dialog" aria-modal="true" aria-label="Epic drill-down">
+  <div class="edrill-topbar">
+    <button class="edrill-back" onclick="closeEpicDrill()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Sprint
+    </button>
+    <div class="edrill-bc" id="epicDrillBc">Sprint Board</div>
+  </div>
+  <div class="edrill-content">
+    <div class="edrill-hdr">
+      <div class="edrill-hdr-left">
+        <div class="edrill-eyebrow" id="epicDrillEyebrow"></div>
+        <div class="edrill-title" id="epicDrillTitle"></div>
+        <div class="edrill-sub" id="epicDrillSub"></div>
+      </div>
+      <div class="edrill-tally" id="epicDrillTally"></div>
+    </div>
+    <div class="edrill-board" id="epicDrillBoard"></div>
+  </div>
+</div>
+
 <script src="../staging/sync.js"></script>
 <script src="../staging/notion-write.js"></script>
 </body>
