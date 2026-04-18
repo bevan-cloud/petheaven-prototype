@@ -7,10 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#57AB4E;--green-dark:#2F6C38;--green-light:#e8f5e6;--green-mid:#C8EAC2;
+  --brand:#57AB4E;--brand-dark:#2F6C38;--brand-light:#e8f5e6;--brand-mid:#C8EAC2;
+  --col-todo:#3b82f6;
   --blue:#1a6fd4;--blue-light:#e8f1fc;
   --purple:#7b1fa2;--purple-light:#f3e5f5;
-  --amber:#7a5a00;--amber-light:#fef8e6;
+  --amber:#7a5a00;--amber-mid:#f5c842;--amber-light:#fef8e6;
   --black:#1a1a1a;--gray-1:#f7f7f5;--gray-2:#efefec;--gray-3:#d0d0c8;--gray-4:#9a9a94;--gray-5:#5a5a54;
   --white:#ffffff;
   --radius:6px;--radius-lg:10px;--radius-xl:16px;
@@ -19,8 +20,8 @@
 body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1);font-size:14px;line-height:1.6;min-height:100vh}
 
 /* HEADER */
-.site-header{background:var(--green-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
-.site-header-logo{height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.95}
+.site-header{background:var(--brand-dark);padding:0 48px;height:64px;display:flex;align-items:center;gap:20px}
+.site-header-logo{height:32px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.95}
 .site-header-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0}
 .site-logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.65);letter-spacing:0.02em}
 
@@ -67,17 +68,17 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .cs-option.active{background:var(--gray-1);font-weight:600}
 .cs-option-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cs-option-label{flex:1}
-.cs-option-check{color:var(--green-dark);opacity:0;flex-shrink:0}
+.cs-option-check{color:var(--brand-dark);opacity:0;flex-shrink:0}
 .cs-option.active .cs-option-check{opacity:1}
 .cs-divider{height:1px;background:var(--gray-2);margin:4px 0}
 
 /* PAGE */
-.page{max-width:1080px;margin:0 auto;padding:64px 40px 100px}
+.page{max-width:1240px;margin:0 auto;padding:64px 40px 100px}
 
 /* INTRO */
 .intro{margin-bottom:24px;text-align:center}
-.intro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green-dark);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
-.intro-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.intro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light);color:var(--brand-dark);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
+.intro-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
 .intro h1{font-family:'DM Serif Display',serif;font-size:44px;line-height:1.12;color:var(--black);margin-bottom:12px}
 .intro-sub{font-size:16px;color:var(--gray-5);line-height:1.7;max-width:480px;margin:0 auto}
 
@@ -85,7 +86,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .section-label{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-4);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--gray-2)}
 
 /* NAV GRID */
-.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:64px}
+.nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
 
 /* NAV TILE */
 .nav-tile{
@@ -102,57 +103,35 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 }
 .nav-tile:hover{
   box-shadow:0 8px 32px rgba(0,0,0,0.10);
-  border-color:var(--green-mid);
+  border-color:var(--brand-mid);
   transform:translateY(-2px);
 }
-.nav-tile:hover .tile-arrow{color:var(--green-dark)}
+.nav-tile:hover .tile-arrow{color:var(--brand-dark)}
 
 /* TILE ACCENT */
 .tile-accent{height:6px}
-.ta-green{background:var(--green)}
-.ta-purple{background:#57AB4E}
-.ta-blue{background:var(--blue)}
 
 /* TILE PREVIEW */
 .tile-preview{
-  height:140px;
+  height:116px;
   display:flex;align-items:center;justify-content:center;
-  padding:24px;
+  padding:18px 20px;
   overflow:hidden;
   position:relative;
 }
-.tp-projects{background:var(--gray-1)}
-.tp-styleguide{background:#1a1a1a}
 
-/* Project preview cards */
-.preview-cards{display:flex;flex-direction:column;gap:6px;width:100%}
-.preview-card{background:#fff;border:1px solid var(--gray-2);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px}
-.preview-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#fff}
+/* Skeleton preview */
+.skeleton-preview{display:flex;flex-direction:column;gap:8px;width:100%;align-items:center;justify-content:center}
+.skeleton-bar{border-radius:4px;background:var(--gray-2)}
+.skeleton-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-4)}
+
+/* Preview card styles */
+.preview-cards{display:flex;flex-direction:column;gap:5px;width:100%}
+.preview-card{background:#fff;border:1px solid var(--gray-2);border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:8px}
+.preview-num{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;color:#fff}
 .preview-lines{flex:1;display:flex;flex-direction:column;gap:3px}
-.preview-line{height:6px;border-radius:3px;background:var(--gray-2)}
-.preview-pill{height:14px;width:50px;border-radius:20px;flex-shrink:0}
-
-/* Style guide preview swatches */
-.tp-styleguide{display:flex;flex-direction:column;gap:0;align-items:flex-start;justify-content:flex-start;padding:16px 24px 12px}
-.preview-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%}
-.preview-swatch{height:28px;border-radius:6px}
-.preview-type{margin-top:auto;padding-top:8px}
-.preview-type-text{font-size:18px;font-weight:700;color:#fff;font-family:'DM Sans',sans-serif;letter-spacing:-0.02em;opacity:0.9}
-.preview-type-sub{font-size:11px;color:rgba(255,255,255,0.85);margin-top:1px;letter-spacing:.04em;text-transform:uppercase}
-
-/* TILE BODY */
-.tile-body{padding:22px 24px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
-.tile-header{display:flex;align-items:center;justify-content:space-between}
-.tile-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--black)}
-.tile-arrow{color:var(--gray-3);transition:color 0.15s}
-.tile-desc{font-size:13px;color:var(--gray-5);line-height:1.6}
-
-/* TILE META */
-.tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.tile-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
-
-/* FOOTER */
-.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+.preview-line{height:5px;border-radius:3px;background:var(--gray-2)}
+.preview-pill{height:12px;width:40px;border-radius:20px;flex-shrink:0}
 
 /* Roadmap preview */
 .tp-roadmap{background:#1a1a1a;position:relative;overflow:hidden}
@@ -161,9 +140,31 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rm-preview-hdr{height:8px;border-radius:3px;margin-bottom:2px}
 .rm-preview-card{height:16px;border-radius:4px;opacity:.7}
 .rm-preview-card.dim{opacity:.35}
-.ta-amber{background:var(--amber-mid)}
 
-@media(max-width:680px){
+/* Style guide preview swatches */
+.tp-styleguide{background:#1a1a1a;display:flex;flex-direction:column;gap:0;align-items:flex-start;justify-content:flex-start;padding:14px 18px 10px}
+.preview-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;width:100%}
+.preview-swatch{height:24px;border-radius:5px}
+.preview-type{margin-top:auto;padding-top:6px}
+.preview-type-text{font-size:16px;font-weight:700;color:#fff;font-family:'DM Sans',sans-serif;letter-spacing:-0.02em;opacity:0.9}
+.preview-type-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:1px;letter-spacing:.04em;text-transform:uppercase}
+
+/* TILE BODY */
+.tile-body{padding:16px 18px 16px;flex:1;display:flex;flex-direction:column;gap:5px}
+.tile-header{display:flex;align-items:center;justify-content:space-between}
+.tile-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--black)}
+.tile-arrow{color:var(--gray-3);transition:color 0.15s}
+.tile-desc{font-size:12px;color:var(--gray-5);line-height:1.5}
+
+/* TILE META */
+.tile-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tile-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--gray-1);color:var(--gray-5);border:1px solid var(--gray-2)}
+
+/* FOOTER */
+.page-footer{text-align:center;font-size:12px;color:var(--gray-4);margin-top:40px}
+
+@media(max-width:900px){.nav-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){
   .nav-grid{grid-template-columns:1fr}
   .page{padding:40px 20px 60px}
   .intro h1{font-size:32px}
@@ -196,7 +197,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       </a>
       <div class="cs-divider"></div>
       <a class="cs-option" href="../faithful-to-nature/home/">
-        <span class="cs-option-dot" style="background:#5a8840"></span>
+        <span class="cs-option-dot" style="background:#006654"></span>
         <span class="cs-option-label">Faithful to Nature</span>
         <svg class="cs-option-check" width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -219,14 +220,18 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
       </a>
     </div>
   </div>
-  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  <button onclick="location.reload()" title="Refresh page" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <button onclick="location.reload()" title="Refresh page" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'">
+    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 </header>
 
 <div class="page">
 
   <div class="intro">
-    <div class="intro-badge"><span class="intro-badge-dot"></span>petheaven.co.za · Magento</div>
+    <div class="intro-badge"><span class="intro-badge-dot"></span>petheaven.co.za</div>
     <h1>Product Workspace</h1>
     <p class="intro-sub">Briefs, prototypes, and design resources for the Pet Heaven product team.</p>
   </div>
@@ -237,8 +242,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- PROJECTS TILE -->
     <a class="nav-tile" href="../projects/">
-      <div class="tile-accent ta-green"></div>
-      <div class="tile-preview tp-projects">
+      <div class="tile-accent" style="background:var(--brand)"></div>
+      <div class="tile-preview" style="background:var(--gray-1)">
         <div class="preview-cards">
           <div class="preview-card">
             <div class="preview-num" style="background:#57AB4E">1</div>
@@ -246,7 +251,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
               <div class="preview-line" style="width:70%"></div>
               <div class="preview-line" style="width:45%"></div>
             </div>
-            <div class="preview-pill" style="background:#e8f5e6;border:1px solid #C8EAC2"></div>
+            <div class="preview-pill" style="background:var(--brand-light);border:1px solid var(--brand-mid)"></div>
           </div>
           <div class="preview-card">
             <div class="preview-num" style="background:#7b1fa2">2</div>
@@ -254,7 +259,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
               <div class="preview-line" style="width:80%"></div>
               <div class="preview-line" style="width:50%"></div>
             </div>
-            <div class="preview-pill" style="background:#f3e5f5"></div>
+            <div class="preview-pill" style="background:var(--purple-light)"></div>
           </div>
           <div class="preview-card">
             <div class="preview-num" style="background:#1a6fd4">3</div>
@@ -262,7 +267,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
               <div class="preview-line" style="width:60%"></div>
               <div class="preview-line" style="width:38%"></div>
             </div>
-            <div class="preview-pill" style="background:#e8f1fc"></div>
+            <div class="preview-pill" style="background:var(--blue-light)"></div>
           </div>
         </div>
       </div>
@@ -284,19 +289,19 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- PRIORITIZATION TILE -->
     <a class="nav-tile" href="../prioritization/">
-      <div class="tile-accent" style="background:var(--amber)"></div>
+      <div class="tile-accent" style="background:var(--amber-mid)"></div>
       <div class="tile-preview" style="background:#fffbf0">
-        <div style="width:100%;display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;gap:6px">
-            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+        <div style="width:100%;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;gap:5px">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">High impact</div>
-              <div style="background:#e8f5e6;border:1px solid #C8EAC2;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#2F6C38">R&R Enhancements</div>
-              <div style="background:#fef8e6;border:1px solid #f5c842;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#7a5a00">CLP Enhancements</div>
+              <div style="background:var(--brand-light);border:1px solid var(--brand-mid);border-radius:5px;padding:5px 7px;font-size:9px;font-weight:600;color:var(--brand-dark)">R&amp;R Enhancements</div>
+              <div style="background:#fef8e6;border:1px solid var(--amber-mid);border-radius:5px;padding:5px 7px;font-size:9px;font-weight:600;color:var(--amber)">CLP Enhancements</div>
             </div>
-            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
               <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4);text-align:center;margin-bottom:2px">Lower impact</div>
-              <div style="background:#f3e5f5;border:1px solid #ce93d8;border-radius:6px;padding:6px 8px;font-size:10px;font-weight:600;color:#7b1fa2">S&amp;S PDP Split</div>
-              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:6px;padding:6px 8px;font-size:10px;color:var(--gray-4)">Backlog item…</div>
+              <div style="background:var(--purple-light);border:1px solid #ce93d8;border-radius:5px;padding:5px 7px;font-size:9px;font-weight:600;color:var(--purple)">S&amp;S PDP Split</div>
+              <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:5px;padding:5px 7px;font-size:9px;color:var(--gray-4)">Backlog item…</div>
             </div>
           </div>
           <div style="display:flex;justify-content:space-between;padding:0 2px">
@@ -323,7 +328,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- ROADMAP TILE -->
     <a class="nav-tile" href="../roadmap/">
-      <div class="tile-accent ta-amber"></div>
+      <div class="tile-accent" style="background:var(--brand-dark)"></div>
       <div class="tile-preview tp-roadmap">
         <div class="rm-preview-cols">
           <div class="rm-preview-col">
@@ -351,9 +356,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <div class="rm-preview-card dim" style="background:#fff"></div>
           </div>
           <div class="rm-preview-col">
-            <div class="rm-preview-hdr" style="background:#00695c;opacity:.8"></div>
+            <div class="rm-preview-hdr" style="background:#2F6C38;opacity:.8"></div>
             <div class="rm-preview-card" style="background:#7b1fa2"></div>
-            <div class="rm-preview-card" style="background:#00695c"></div>
+            <div class="rm-preview-card" style="background:#2F6C38"></div>
             <div class="rm-preview-card" style="background:#f5c842"></div>
             <div class="rm-preview-card" style="background:#7b1fa2"></div>
             <div class="rm-preview-card dim" style="background:#fff"></div>
@@ -378,27 +383,27 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- SPRINT BOARD TILE -->
     <a class="nav-tile" href="../sprint-board/">
-      <div class="tile-accent ta-green"></div>
-      <div class="tile-preview" style="background:#f0faf0;display:flex;flex-direction:column;gap:8px;padding:16px">
-        <div style="display:flex;gap:6px">
-          <div style="flex:1;background:#dbeafe;border-radius:6px;padding:8px 6px">
-            <div style="font-size:9px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">To Do</div>
-            <div style="background:#fff;border-radius:4px;height:8px;margin-bottom:4px"></div>
-            <div style="background:#fff;border-radius:4px;height:8px;width:70%"></div>
+      <div class="tile-accent" style="background:var(--brand)"></div>
+      <div class="tile-preview" style="background:#1a1a1a">
+        <div style="display:flex;gap:5px;width:100%">
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:var(--col-todo);opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:var(--brand);opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:var(--brand);opacity:.6"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
           </div>
-          <div style="flex:1;background:#fffbeb;border-radius:6px;padding:8px 6px">
-            <div style="font-size:9px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">In Progress</div>
-            <div style="background:#fff;border-radius:4px;height:8px;margin-bottom:4px"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:#f59e0b;opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:#f59e0b;opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:#f59e0b;opacity:.6"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
           </div>
-          <div style="flex:1;background:#ecfdf5;border-radius:6px;padding:8px 6px">
-            <div style="font-size:9px;font-weight:700;color:#047857;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Done</div>
-            <div style="background:#fff;border-radius:4px;height:8px;margin-bottom:4px"></div>
-            <div style="background:#fff;border-radius:4px;height:8px;width:80%"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="height:7px;border-radius:3px;background:#10b981;opacity:.9;margin-bottom:1px"></div>
+            <div style="height:13px;border-radius:3px;background:#10b981;opacity:.85"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
+            <div style="height:13px;border-radius:3px;background:rgba(255,255,255,.2)"></div>
           </div>
-        </div>
-        <div style="background:#fff;border-radius:6px;height:20px;display:flex;align-items:center;padding:0 8px;gap:6px">
-          <div style="width:6px;height:6px;border-radius:50%;background:#57AB4E;flex-shrink:0"></div>
-          <div style="height:6px;background:#e8f5e6;border-radius:3px;flex:1"></div>
         </div>
       </div>
       <div class="tile-body">
@@ -408,10 +413,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <p class="tile-desc">Active Jira sprint — kanban view of current issues with status, assignee, and sprint insights.</p>
+        <p class="tile-desc">Live Jira sprint board — active issues by status, backlog, and sprint insights.</p>
         <div class="tile-meta">
-          <span class="tile-tag">Jira FM</span>
-          <span class="tile-tag">Sprint tracking</span>
+          <span class="tile-tag">Jira · FM project</span>
           <span class="tile-tag">Auto-synced</span>
         </div>
       </div>
@@ -419,7 +423,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
     <!-- STYLE GUIDE TILE -->
     <a class="nav-tile" href="../style-guide/">
-      <div class="tile-accent" style="background:#57AB4E"></div>
+      <div class="tile-accent" style="background:var(--brand)"></div>
       <div class="tile-preview tp-styleguide">
         <div class="preview-swatches">
           <div class="preview-swatch" style="background:#57AB4E"></div>
@@ -457,7 +461,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   </div>
 
-  <p class="page-footer">petheaven.co.za · Magento · Product workspace</p>
+  <p class="page-footer">petheaven.co.za · Product workspace</p>
 
 </div>
 
