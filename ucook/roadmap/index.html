@@ -1282,7 +1282,7 @@ function openFlyout(itemId){
     </div>`}
     <div class="flyout-section">
       <div class="flyout-section-hdr"><span class="flyout-section-title">RICE Score</span></div>
-      ${hasRice?`
+      
         <div class="f-rice-row">
           <div class="f-rice-cell"><div class="f-rice-val f-rice-r">${window._nw?window._nw.buildRiceEditSpan('r',p.r||0,p.notionId):(p.r||0)}</div><div class="f-rice-lbl">R</div></div>
           <div class="f-rice-cell"><div class="f-rice-val f-rice-i">${window._nw?window._nw.buildRiceEditSpan('i',p.i||0,p.notionId):(p.i||0)}</div><div class="f-rice-lbl">I</div></div>
@@ -1292,8 +1292,7 @@ function openFlyout(itemId){
         <div class="f-rice-total">
           <div><div class="f-rice-score-lbl">RICE Score</div><div class="f-rice-score">${rice.toLocaleString()}</div></div>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>`
-        :'<p class="flyout-desc-empty">RICE fields not yet filled in Notion.</p>'}
+        </div>
     </div>
     ${p.notionUrl?`
     <a class="flyout-notion-link" href="${p.notionUrl}" target="_blank" rel="noopener">

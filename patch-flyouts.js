@@ -129,8 +129,7 @@ function openFlyout(itemId){
         <div class="f-rice-total">
           <div><div class="f-rice-score-lbl">RICE Score</div><div class="f-rice-score">\${rice.toLocaleString()}</div></div>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>\`
-        :'<p class="flyout-desc-empty">RICE fields not yet filled in Notion.</p>'}
+        </div>\
     </div>
     \${p.notionUrl?\`
     <a class="flyout-notion-link" href="\${p.notionUrl}" target="_blank" rel="noopener">
