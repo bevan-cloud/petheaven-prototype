@@ -84,8 +84,6 @@ function mapItem(page, idx) {
   const i       = p.Impact?.number         ?? 0;
   const c       = p.Confidence?.number     ?? 0;
   const e       = p.Effort?.number         || 1;   // avoid /0
-  const mi      = p['Matrix Impact']?.number ?? 0;
-  const me      = p['Matrix Effort']?.number || 1; // avoid /0
   const desc    = (p.Description?.rich_text ?? []).map(b => b.plain_text).join('').slice(0, 300).trim();
   const priority = p.Priority?.select?.name || '';
   const pillar   = p['Strategic Pillar']?.select?.name || '';
@@ -105,7 +103,6 @@ function mapItem(page, idx) {
     q,
     qLabel:    qRaw,
     r, i, c, e,
-    mi, me,
     desc,
     notionUrl: page.url,
     priority,

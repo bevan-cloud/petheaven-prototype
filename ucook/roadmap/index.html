@@ -1230,7 +1230,7 @@ function fStatus(s){const m=F_STATUS[s]||F_STATUS.planned;return`<span class="${
 function fTheme(t){const c=THEME_COLORS[t]||THEME_COLORS['Other'];return`<span style="display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px;background:${c.bg};border:1px solid ${c.border};color:${c.text}">${t||'—'}</span>`;}
 function fQuadrant(mi,me){
   if(!mi||!me) return null;
-  const hi=mi>=3,he=me>=3;
+  const hi=mi>=1,he=me>=3;
   if(hi&&!he) return {label:'Quick Win',color:'#1b5e20',bg:'#e8f5e9',border:'#a8d4aa'};
   if(hi&&he)  return {label:'Big Bet',  color:'#b84714',bg:'#fdf1ec',border:'#f0b89a'};
   if(!hi&&!he)return {label:'Fill In',  color:'#1a5fa8',bg:'#e8f1fc',border:'#90bef5'};
@@ -1239,7 +1239,7 @@ function fQuadrant(mi,me){
 function openFlyout(itemId){
   const p=ITEMS.find(it=>it.id===itemId);
   if(!p) return;
-  const qd=fQuadrant(p.mi,p.me);
+  const qd=fQuadrant(p.i,p.e);
   const hasRice=p.r||p.i||p.c||(p.e&&p.e>1);
   const rice=fRice(p);
   const accent=F_ACCENT[p.theme]||'#4f46e5';
