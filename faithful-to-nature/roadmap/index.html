@@ -118,6 +118,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rm-eng-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #fff;text-transform:uppercase;letter-spacing:.03em;margin-right:-6px;cursor:default;transition:transform .12s,z-index .12s;position:relative;z-index:1}
 .rm-eng-avatar:hover{transform:translateY(-2px);z-index:10}
 .rm-card-engineers .rm-eng-avatar:last-child{margin-right:0}
+.rm-lead-avatar{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.18);text-transform:uppercase;letter-spacing:.03em;cursor:default}
 .rm-card-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
 .flyout-engineers{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
 .flyout-eng-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;padding:4px 12px 4px 4px;border-radius:20px;background:var(--gray-1);color:var(--black);border:1px solid var(--gray-2)}
@@ -679,10 +680,12 @@ function buildCard(it){
   const F_STATUS = {live:'fs-live',progress:'fs-progress',planned:'fs-planned',review:'fs-review',done:'fs-done'};
   const stCls = F_STATUS[it.status] || 'fs-planned';
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
+  const leadHtml=it.lead?`<span class="rm-lead-avatar" style="background:${engColor(it.lead)}" title="${esc(it.lead)}">${engInitials(it.lead)}</span>`:'';
   const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
   return `<div class="rm-card" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
-    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}</div>${engsHtml}</div>
+    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}</div>${leadHtml}</div>
     <div class="rm-card-footer">
+      ${engsHtml}
       <div class="rm-card-pills">
         <span class="rm-pill-theme" style="background:${c.bg};border:1px solid ${c.border};color:${c.text}">${esc(it.theme||'Other')}</span>
         <span class="rm-pill-status ${stCls}">${stLbl}</span>
