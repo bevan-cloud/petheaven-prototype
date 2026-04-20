@@ -320,7 +320,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .rm-card{cursor:grab}
 .rm-card:active{cursor:grabbing}
 .rm-card.rm-dragging{opacity:.3;box-shadow:none !important}
+.tl-bar{cursor:grab}
+.tl-bar:active{cursor:grabbing}
+.tl-bar.rm-dragging{opacity:.3;box-shadow:none !important}
 .qbody.rm-drag-over{background:rgba(99,102,241,.07);outline:2px dashed rgba(99,102,241,.25);outline-offset:-3px;border-radius:var(--radius-lg)}
+.tl-cell.rm-drag-over{background:rgba(99,102,241,.07) !important;outline:2px dashed rgba(99,102,241,.25);outline-offset:-3px;border-radius:var(--radius-lg)}
 .qdrill-col.rm-drag-over .qdrill-col-body{background:rgba(99,102,241,.07);outline:2px dashed rgba(99,102,241,.25);outline-offset:-3px;border-radius:var(--radius-lg)}
 </style>
 </head>
@@ -468,6 +472,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 </div>
 
 <script src="../staging/notion-data.js?v=1776653269037"></script>
+<script src="../staging/notion-write.js"></script>
 <script>
 // ─── FY CALCULATION (March–February fiscal year) ──────────────────────────────
 const _now  = new Date();
@@ -850,7 +855,7 @@ function buildTimeline(){
       const bars = cell.map(it=>{
         const s=riceScore(it);
         const stLabel={done:'Done',live:'Live',review:'In Review',progress:'In Progress',planned:'Planned'}[it.status]||'Planned';
-        return `<div class="tl-bar" data-id="${it.id}" style="background:${c.bar}">
+        return `<div class="tl-bar" data-id="${it.id}" draggable="true" style="background:${c.bar}">
           <div class="tl-bar-name">${esc(it.name)}</div>
           <div class="tl-bar-foot">
             <span class="tl-bar-tag">${stLabel}</span>
@@ -858,7 +863,7 @@ function buildTimeline(){
           </div>
         </div>`;
       }).join('');
-      return `<div class="tl-cell${isCur?' tl-cur-col':''}">${bars}</div>`;
+      return `<div class="tl-cell${isCur?' tl-cur-col':''}" data-qlabel="${q.qLabel}">${bars}</div>`;
     }).join('');
     return `<div class="tl-row" style="grid-template-columns:${gridCols}">
       <div class="tl-th">
@@ -880,6 +885,8 @@ function buildTimeline(){
   document.querySelectorAll('#tlBody .tl-bar').forEach(el=>{
     el.addEventListener('click',()=>openFlyout(parseInt(el.dataset.id)));
   });
+
+  _rmBindTimelineDrag();
 }
 
 // ─── BY PILLAR VIEW ───────────────────────────────────────────────────────────
@@ -1079,6 +1086,30 @@ function _rmBindKanbanDrag(){
     zone.addEventListener('dragleave',e=>{if(!zone.contains(e.relatedTarget))zone.classList.remove('rm-drag-over');});
     zone.addEventListener('drop',e=>{
       e.preventDefault();zone.classList.remove('rm-drag-over');
+      const id=e.dataTransfer.getData('text/plain')||_rmDragId;
+      if(!id||!qLabel) return;
+      _rmDropQuarter(id,qLabel);
+    });
+  });
+}
+
+function _rmBindTimelineDrag(){
+  document.querySelectorAll('#tlBody .tl-bar').forEach(bar=>{
+    bar.addEventListener('dragstart',e=>{
+      _rmDragId=bar.dataset.id;
+      e.dataTransfer.setData('text/plain',_rmDragId);
+      e.dataTransfer.effectAllowed='move';
+      setTimeout(()=>bar.classList.add('rm-dragging'),0);
+    });
+    bar.addEventListener('dragend',()=>{bar.classList.remove('rm-dragging');_rmDragId=null;});
+  });
+  document.querySelectorAll('#tlBody .tl-cell').forEach(cell=>{
+    const qLabel=cell.dataset.qlabel;
+    if(!qLabel) return;
+    cell.addEventListener('dragover',e=>{e.preventDefault();cell.classList.add('rm-drag-over');});
+    cell.addEventListener('dragleave',e=>{if(!cell.contains(e.relatedTarget))cell.classList.remove('rm-drag-over');});
+    cell.addEventListener('drop',e=>{
+      e.preventDefault();cell.classList.remove('rm-drag-over');
       const id=e.dataTransfer.getData('text/plain')||_rmDragId;
       if(!id||!qLabel) return;
       _rmDropQuarter(id,qLabel);
