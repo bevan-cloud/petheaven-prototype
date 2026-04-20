@@ -342,6 +342,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .pf-loading.hidden{opacity:0}
 .pf-spinner{width:32px;height:32px;border:3px solid var(--gray-2);border-top-color:var(--brand);border-radius:50%;animation:pfspin .7s linear infinite}
 @keyframes pfspin{to{transform:rotate(360deg)}}
+
+.site-header .add-req-btn{margin-top:0;margin-left:12px;padding:7px 14px;font-size:12px}
 </style>
 </head>
 <body>
@@ -369,6 +371,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   </div>
   <a href="https://bevan-cloud.github.io/silvertree-product-workspace/" class="nav-home-icon" title="All workspaces" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.12)'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <button class="nav-sync-btn" id="navSyncBtn" onclick="triggerSync()" title="Sync from Notion"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="add-req-btn" onclick="openPF()" style="margin-left:12px;margin-top:0">
+    <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    Add Project Request
+  </button>
 </header>
 
 <div class="page">
@@ -377,10 +383,6 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <div class="hero-badge" id="heroBadge">🧪 Bevan Staging · FY2026/27 · Product Roadmap</div>
     <h1>Roadmap</h1>
     <p class="hero-sub">Quarterly view of initiatives pulled from Notion. Financial year runs March–February. Click any card to see details.</p>
-    <button class="add-req-btn" onclick="openPF()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-      Add Project Request
-    </button>
     <div class="hero-stats" id="heroStats"></div>
     <div class="view-tabs">
       <button class="view-tab active" onclick="setView('kanban',this)">
