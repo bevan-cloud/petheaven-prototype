@@ -88,7 +88,8 @@ function mapItem(page, idx) {
   const priority = p.Priority?.select?.name || '';
   const pillar   = p['Strategic Pillar']?.select?.name || '';
   const archive  = p.Archive?.checkbox ?? false;
-  const depDev   = p['Dependent on Dev']?.checkbox ?? null;
+  const depDevRaw = p['Dependent on Dev']?.select?.name || null;
+  const depDev    = depDevRaw === 'Yes' ? true : depDevRaw === 'No' ? false : null;
   const lead      = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
   const engineers = (p.Engineers?.people ?? []).map(e => e.name).filter(Boolean);
   const stagingUrl = p['Refernce']?.url || '';

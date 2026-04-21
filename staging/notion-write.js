@@ -136,7 +136,7 @@
       case 'i':        return { Impact:     { number: Number(value) } };
       case 'c':        return { Confidence: { number: Number(value) } };
       case 'e':        return { Effort:     { number: Math.max(1, Number(value)) } };
-      case 'depDev': return { 'Dependent on Dev': { checkbox: value === 'true' } };
+      case 'depDev': return { 'Dependent on Dev': value === '' ? { select: null } : { select: { name: value === 'true' ? 'Yes' : 'No' } } };
       default: return null;
     }
   }
