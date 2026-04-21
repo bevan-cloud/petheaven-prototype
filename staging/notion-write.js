@@ -57,6 +57,11 @@
       font-family: 'DM Sans', sans-serif; font-size: inherit; font-weight: inherit;
     }
 
+    /* Dev/AI type badge */
+    .dd-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+    .dd-dev{background:#e8f5e9;color:#1b5e20;border:1px solid #a8d4aa}
+    .dd-ai{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe}
+
     /* Lead hint text */
     .nw-lead-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
 
@@ -131,6 +136,7 @@
       case 'i':        return { Impact:     { number: Number(value) } };
       case 'c':        return { Confidence: { number: Number(value) } };
       case 'e':        return { Effort:     { number: Math.max(1, Number(value)) } };
+      case 'depDev': return { 'Dependent on Dev': { checkbox: value === 'true' } };
       default: return null;
     }
   }
@@ -180,6 +186,11 @@
       case 'theme':    return PILLAR_OPTIONS;
       case 'qLabel':   return quarterOptions();
       case 'priority': return PRIORITY_OPTIONS;
+      case 'depDev': return [
+        { value:'true',  label:'🧑‍💻 Yes — Dev Required' },
+        { value:'false', label:'✦ No — AI / No Dev' },
+        { value:'',      label:'— Not Set —' },
+      ];
       default: return [];
     }
   }

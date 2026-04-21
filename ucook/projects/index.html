@@ -747,6 +747,7 @@ function openFlyout(idx) {
         <div class="flyout-prop-lbl">Matrix Quadrant</div>
         <div>${quadrantHtml}</div>
       </div>
+      ${_nwF ? _nwF.buildFlyoutProp('depDev', p.depDev===null?'':String(p.depDev), p.notionId, 'Dev Dependent') : `<div class="flyout-prop"><div class="flyout-prop-lbl">Dev Dependent</div><div>${p.depDev===true?'<span class=\"dd-badge dd-dev\">Dev</span>':p.depDev===false?'<span class=\"dd-badge dd-ai\">AI</span>':'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>`}
     </div>`;
   document.getElementById('flyoutBody').innerHTML = `
     <div style="height:4px;border-radius:2px;background:${p.accent};margin-bottom:20px"></div>

@@ -262,6 +262,15 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 @keyframes pfspin{to{transform:rotate(360deg)}}
 
 .site-header .add-req-btn{margin-top:0;margin-left:12px;padding:7px 14px;font-size:12px}
+
+/* ── Dev / AI type badges ── */
+.dd-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.dd-dev{background:#e8f5e9;color:#1b5e20;border:1px solid #a8d4aa}
+.dd-ai{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe}
+
+/* Dev/AI type column */
+.dd-col{width:70px;text-align:center}
+.rice-table th.dd-col,.rice-table td.dd-col{text-align:center}
 </style>
 </head>
 <body>
@@ -416,6 +425,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <th onclick="setSort('i')">Impact</th>
             <th onclick="setSort('c')">Confidence</th>
             <th onclick="setSort('e')">Effort</th>
+            <th class="dd-col" title="Dev Dependent">Type</th>
           </tr>
         </thead>
         <tbody id="riceTbody"></tbody>
@@ -472,6 +482,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <th onclick="setMSort('i')" title="Impact">I</th>
             <th onclick="setMSort('c')" title="Confidence">C%</th>
             <th onclick="setMSort('e')" title="Effort">E</th>
+            <th class="dd-col" title="Dev Dependent">Type</th>
+            <th class="dd-col" title="Dev Dependent">Type</th>
             <th onclick="setMSort('score')">RICE</th>
             <th onclick="setMSort('quadrant')">Quadrant</th>
           </tr>
@@ -737,6 +749,13 @@ function renderAll(){
   if(currentView==='matrix'){renderMatrix();renderMatrixTable();}
 }
 
+
+function devTypeIcon(v){
+  if(v===null||v===undefined) return '<span style="color:var(--gray-3)">—</span>';
+  return v
+    ? `<span class="dd-badge dd-dev"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M4.5 4L2 7l2.5 3M9.5 4L12 7l-2.5 3M8.5 3.5l-3 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dev</span>`
+    : `<span class="dd-badge dd-ai"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1.5l1.3 3.8L12.5 7l-4.2 1.7L7 12.5l-1.3-3.8L1.5 7l4.2-1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>AI</span>`;
+}
 function render(){
   const sorted=getSorted(filtered);
   const tbody=document.getElementById('riceTbody');
@@ -753,6 +772,7 @@ function render(){
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('i',it.i,it.notionId) : it.i}</td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('c',it.c,it.notionId) : it.c+'%'}</td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('e',it.e,it.notionId) : it.e}</td>
+      <td class="dd-col">${devTypeIcon(it.depDev)}</td>
     </tr>`;
   }).join('');
 }
@@ -833,6 +853,7 @@ function renderMatrixTable(){
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('i',it.i,it.notionId) : it.i}</td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('c',it.c,it.notionId) : it.c+'%'}</td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('e',it.e,it.notionId) : it.e}</td>
+      <td class="dd-col">${devTypeIcon(it.depDev)}</td>
       <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
       <td>${quadrantHtml(q)}</td>
     </tr>`;
