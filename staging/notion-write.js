@@ -66,8 +66,9 @@
     .nw-lead-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
 
     /* ── Comments section ─────────────────────────────────────────────────── */
-    .comments-section { margin-top: 24px; border-top: 1px solid #f0f0ee; padding-top: 20px; }
-    .comments-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+    .comments-section { margin-top: 24px; border-top: 1px solid #f0f0ee; padding-top: 20px; width: 100%; box-sizing: border-box; }
+    .comments-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; width: 100%; }
+    .comment-input-row, .comment-item { pointer-events: all; }
     .comment-empty { font-size: 12px; color: #9a9a94; font-style: italic; margin: 0; }
     .comment-item { display: flex; gap: 10px; align-items: flex-start; }
     .comment-avatar {
