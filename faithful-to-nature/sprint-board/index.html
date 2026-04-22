@@ -340,6 +340,9 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
     <select class="ctrl-select" id="assigneeFilter" onchange="applyFilters()" aria-label="Filter by assignee">
       <option value="">All assignees</option>
     </select>
+    <select class="ctrl-select" id="epicFilter" onchange="applyFilters()" aria-label="Filter by epic">
+      <option value="">All epics</option>
+    </select>
     <button class="ctrl-reset" id="resetBtn" onclick="resetFilters()">Reset</button>
     <div class="ctrl-spacer"></div>
     <span class="ctrl-count" id="filterCount"></span>
@@ -1185,9 +1188,31 @@ function populateAssigneeFilter(issues) {
   });
 }
 
+
+function populateEpicFilter() {
+  var sel = document.getElementById('epicFilter');
+  if (!sel) return;
+  var seen = {};
+  var epics = [];
+  (_allActive.concat(_allNext)).forEach(function(i) {
+    if (i.parent && i.parent.issuetype === 'Epic' && i.parent.summary) {
+      var s = i.parent.summary;
+      if (!seen[s]) { seen[s] = true; epics.push(s); }
+    }
+  });
+  epics.sort();
+  while (sel.options.length > 1) sel.remove(1);
+  epics.forEach(function(s) {
+    var opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = s;
+    sel.appendChild(opt);
+  });
+}
 function applyFilters() {
   var search   = (document.getElementById('searchInput').value || '').trim().toLowerCase();
   var assignee = (document.getElementById('assigneeFilter').value || '');
+  var epic    = (document.getElementById('epicFilter') ? document.getElementById('epicFilter').value || '' : '');
 
   function matchIssue(issue) {
     if (search) {
@@ -1197,6 +1222,10 @@ function applyFilters() {
     if (assignee) {
       var name = (issue.assignee && issue.assignee.displayName) || '';
       if (name !== assignee) return false;
+    }
+    if (epic) {
+      var ep = (issue.parent && issue.parent.issuetype === 'Epic') ? issue.parent.summary : '';
+      if (ep !== epic) return false;
     }
     return true;
   }
@@ -1211,7 +1240,7 @@ function applyFilters() {
   var showing = filtActive.length + filtNext.length;
   var countEl = document.getElementById('filterCount');
   if (countEl) {
-    if (search || assignee) {
+    if (search || assignee || epic) {
       countEl.innerHTML = '<strong>' + showing + '</strong> of ' + total + ' issues';
     } else {
       countEl.innerHTML = '<strong>' + total + '</strong> issues';
@@ -1225,6 +1254,7 @@ function applyFilters() {
 function resetFilters() {
   document.getElementById('searchInput').value = '';
   document.getElementById('assigneeFilter').value = '';
+  var epF = document.getElementById('epicFilter'); if (epF) epF.value = '';
   applyFilters();
 }
 
@@ -1260,6 +1290,7 @@ window.addEventListener('load', function() {
   renderKanban(_allActive, sprint);
   renderBacklogTable(_allNext, nextSprint);
   populateAssigneeFilter();
+  populateEpicFilter();
   applyFilters();
 
   var syncedAt = data.syncedAt || data.lastSynced || null;
