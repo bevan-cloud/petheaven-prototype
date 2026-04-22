@@ -65,6 +65,48 @@
     /* Lead hint text */
     .nw-lead-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
 
+    /* ── Comments section ─────────────────────────────────────────────────── */
+    .comments-section { margin-top: 24px; border-top: 1px solid #f0f0ee; padding-top: 20px; }
+    .comments-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+    .comment-empty { font-size: 12px; color: #9a9a94; font-style: italic; margin: 0; }
+    .comment-item { display: flex; gap: 10px; align-items: flex-start; }
+    .comment-avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: #e8f0fd; color: #1a5fa8; font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      text-transform: uppercase; letter-spacing: .02em;
+    }
+    .comment-body { flex: 1; min-width: 0; }
+    .comment-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+    .comment-author { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+    .comment-date   { font-size: 11px; color: #9a9a94; }
+    .comment-text   { font-size: 13px; color: #374151; line-height: 1.55; word-break: break-word; }
+    .comment-item.comment-new .comment-avatar { background: #e8f5e9; color: #2e7d32; }
+    .comment-input-row { display: flex; gap: 10px; align-items: flex-start; margin-top: 4px; }
+    .comment-input-avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: #e8f5e9; color: #2e7d32; font-size: 9px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; letter-spacing: .02em;
+    }
+    .comment-input-wrap { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .comment-textarea {
+      width: 100%; resize: none; overflow: hidden; min-height: 36px;
+      padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: #1a1a1a;
+      background: #fafafa; outline: none; box-sizing: border-box;
+      transition: border-color .15s;
+    }
+    .comment-textarea:focus { border-color: #6366f1; background: #fff; }
+    .comment-textarea::placeholder { color: #b0b0a8; }
+    .comment-submit-btn {
+      align-self: flex-end; padding: 6px 16px; border-radius: 6px;
+      border: none; background: #1a2419; color: #fff; font-size: 12px;
+      font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: opacity .15s;
+    }
+    .comment-submit-btn:hover { opacity: .8; }
+    .comment-submit-btn:disabled { opacity: .45; cursor: not-allowed; }
+
     /* Flyout prop — consistent on all pages */
     .flyout-prop { display: flex; flex-direction: column; gap: 4px; }
 
@@ -424,6 +466,97 @@
   }
 
   // ─── Public API ───────────────────────────────────────────────────────────────
+  // ─── Comments ────────────────────────────────────────────────────────────────
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function buildCommentsHtml(item) {
+    const comments = item.comments || [];
+    const listHtml = comments.map(c => {
+      const d = new Date(c.date);
+      const dateStr = isNaN(d) ? '' : d.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+      const initials = c.author.split(' ').map(w => w[0] || '').join('').slice(0,2).toUpperCase();
+      return `<div class="comment-item">
+        <div class="comment-avatar" title="${escHtml(c.author)}">${escHtml(initials)}</div>
+        <div class="comment-body">
+          <div class="comment-header">
+            <span class="comment-author">${escHtml(c.author)}</span>
+            <span class="comment-date">${escHtml(dateStr)}</span>
+          </div>
+          <div class="comment-text">${escHtml(c.text).replace(/\n/g,'<br>')}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    const nid = escHtml(item.notionId);
+    return `<div class="flyout-section comments-section">
+      <div class="flyout-section-hdr">
+        <span class="flyout-section-title">💬 Comments${comments.length ? ` <span style="font-weight:400;color:#9a9a94">(${comments.length})</span>` : ''}</span>
+      </div>
+      <div class="comments-list" id="commentsList_${nid}">
+        ${listHtml || '<p class="comment-empty">No comments yet.</p>'}
+      </div>
+      <div class="comment-input-row">
+        <div class="comment-input-avatar">PW</div>
+        <div class="comment-input-wrap">
+          <textarea class="comment-textarea" id="commentInput_${nid}"
+            placeholder="Add a comment… (Ctrl+Enter to post)"
+            rows="1"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+            onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){window._nw.submitComment('${nid}');event.preventDefault()}"
+          ></textarea>
+          <button class="comment-submit-btn" onclick="window._nw.submitComment('${nid}')">Post</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  async function postComment(notionId, text) {
+    const res = await fetch(N8N_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'comment', notionId, text }),
+    });
+    if (!res.ok) throw new Error(res.status);
+    return true;
+  }
+
+  async function submitComment(notionId) {
+    const ta  = document.getElementById('commentInput_'  + notionId);
+    const list = document.getElementById('commentsList_' + notionId);
+    if (!ta || !ta.value.trim()) return;
+    const text = ta.value.trim();
+    const btn  = ta.closest('.comment-input-wrap').querySelector('.comment-submit-btn');
+
+    // Optimistic UI — append immediately
+    const dateStr = new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+    const empty = list.querySelector('.comment-empty');
+    if (empty) empty.remove();
+    list.insertAdjacentHTML('beforeend', `<div class="comment-item comment-new">
+      <div class="comment-avatar">PW</div>
+      <div class="comment-body">
+        <div class="comment-header">
+          <span class="comment-author">Product Workspace</span>
+          <span class="comment-date">${dateStr}</span>
+        </div>
+        <div class="comment-text">${escHtml(text).replace(/\n/g,'<br>')}</div>
+      </div>
+    </div>`);
+    ta.value = '';
+    ta.style.height = 'auto';
+    if (btn) { btn.disabled = true; btn.textContent = 'Posting…'; }
+
+    try {
+      await postComment(notionId, text);
+      showToast('✓ Comment posted to Notion');
+    } catch(e) {
+      showToast('⚠ Could not post comment — check N8N workflow');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Post'; }
+    }
+  }
+
   window._nw = {
     startEdit,
     buildEditSpan,
@@ -435,5 +568,7 @@
     buildSelect:        buildEditSpan,
     buildFlyoutSelect:  (field, val, nid, label) => buildFlyoutProp(field, val, nid, label),
     buildLeadInput:     (val, nid) => buildFlyoutProp('lead', val, nid, 'Project Lead'),
+    buildCommentsHtml,
+    submitComment,
   };
 })();

@@ -118,6 +118,28 @@ function mapItem(page, idx) {
   };
 }
 
+// ─── Fetch page-level comments for one page ──────────────────────────────────
+async function fetchPageComments(pageId) {
+  try {
+    const res = await fetch(`https://api.notion.com/v1/comments?block_id=${pageId}`, {
+      headers: {
+        'Authorization': `Bearer ${TOKEN}`,
+        'Notion-Version': '2022-06-28',
+      },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.results || [])
+      .filter(c => c.parent?.type === 'page_id') // page-level only, skip inline
+      .map(c => ({
+        author: c.created_by?.name || 'Product Workspace',
+        date:   c.created_time,
+        text:   (c.rich_text || []).map(r => r.plain_text).join('').trim(),
+      }))
+      .filter(c => c.text);
+  } catch { return []; }
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log('Fetching Notion Road Map…');
@@ -132,6 +154,19 @@ async function main() {
   );
 
   console.log(`  ${items.length} items after filtering archived / template rows`);
+
+  // Fetch page-level comments in batches (10 parallel, 500ms between batches)
+  console.log('Fetching comments…');
+  const BATCH = 10;
+  for (let i = 0; i < items.length; i += BATCH) {
+    const batch = items.slice(i, i + BATCH);
+    await Promise.all(batch.map(async item => {
+      item.comments = await fetchPageComments(item.notionId);
+    }));
+    if (i + BATCH < items.length) await new Promise(r => setTimeout(r, 500));
+  }
+  const totalComments = items.reduce((n, it) => n + (it.comments?.length || 0), 0);
+  console.log(`  ${totalComments} comments across ${items.length} items`);
 
   const timestamp = new Date().toISOString();
   const js =
