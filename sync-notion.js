@@ -93,6 +93,7 @@ function mapItem(page, idx) {
   const lead      = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
   const engineers = (p.Engineers?.people ?? []).map(e => e.name).filter(Boolean);
   const stagingUrl = p['Refernce']?.url || '';
+  const requestType = p['Request Type']?.select?.name || '';
 
   return {
     id:        idx + 1,
@@ -113,6 +114,7 @@ function mapItem(page, idx) {
     stagingUrl,
     archive,
     depDev,
+    requestType,
   };
 }
 

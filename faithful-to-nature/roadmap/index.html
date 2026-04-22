@@ -347,6 +347,12 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 @keyframes pfspin{to{transform:rotate(360deg)}}
 
 .site-header .add-req-btn{margin-top:0;margin-left:12px;padding:7px 14px;font-size:12px}
+
+/* ── Key Project glow ───────────────────────────────────────────────────── */
+.key-project{border-color:#f59e0b!important;box-shadow:0 0 0 1px rgba(245,158,11,.3),0 0 18px rgba(245,158,11,.22),0 2px 8px rgba(0,0,0,.06)!important}
+.kp-star{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#b45309;border:1px solid rgba(245,158,11,.5);margin-left:6px;vertical-align:middle;white-space:nowrap;flex-shrink:0}
+tr.key-project td{background:rgba(245,158,11,.05)!important}
+tr.key-project td:first-child{box-shadow:inset 3px 0 0 #f59e0b}
 </style>
 </head>
 <body>
@@ -710,8 +716,8 @@ function buildCard(it){
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
   const leadHtml=it.lead?`<span class="rm-lead-avatar" style="background:${engColor(it.lead)}" title="${esc(it.lead)}">${engInitials(it.lead)}</span>`:'';
   const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
-  return `<div class="rm-card" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
-    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}</div>${leadHtml}</div>
+  return `<div class="${it.requestType === 'Key Project' ? 'rm-card key-project' : 'rm-card'}" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
+    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}${it.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${leadHtml}</div>
     <div class="rm-card-footer">
       ${engsHtml}
       <div class="rm-card-pills">

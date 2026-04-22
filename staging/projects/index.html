@@ -218,6 +218,12 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 @keyframes pfspin{to{transform:rotate(360deg)}}
 
 .site-header .add-req-btn{margin-top:0;margin-left:12px;padding:7px 14px;font-size:12px}
+
+/* ── Key Project glow ───────────────────────────────────────────────────── */
+.key-project{border-color:#f59e0b!important;box-shadow:0 0 0 1px rgba(245,158,11,.3),0 0 18px rgba(245,158,11,.22),0 2px 8px rgba(0,0,0,.06)!important}
+.kp-star{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#b45309;border:1px solid rgba(245,158,11,.5);margin-left:6px;vertical-align:middle;white-space:nowrap;flex-shrink:0}
+tr.key-project td{background:rgba(245,158,11,.05)!important}
+tr.key-project td:first-child{box-shadow:inset 3px 0 0 #f59e0b}
 </style>
 </head>
 <body>
@@ -740,9 +746,9 @@ function renderTable() {
     const pillarCell   = _nw ? _nw.buildSelect('theme',    p.theme,    p.notionId) : themeTag(p.theme);
     const quarterCell  = _nw ? _nw.buildSelect('qLabel',   p.qLabel,   p.notionId) : (p.qLabel||'—');
     const priorityCell = _nw ? _nw.buildSelect('priority', p.priority, p.notionId) : (p.priority||'—');
-    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}">
+    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}"${p.requestType === 'Key Project' ? ' class="key-project"' : ''}>
       <td style="color:var(--gray-3);font-size:12px">${idx+1}</td>
-      <td><div class="pt-name">${esc(p.name)}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
+      <td><div class="pt-name">${esc(p.name)}${p.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
       <td onclick="event.stopPropagation()">${statusCell}</td>
       <td onclick="event.stopPropagation()">${pillarCell}</td>
       <td><div class="pt-company">${companyPills}</div></td>
@@ -774,11 +780,11 @@ function renderCards() {
     if (p.company?.length) pills.push(...p.company);
     const leadAvHtml = p.lead ? `<span class="pc-lead-av" style="background:${engColor(p.lead)}" title="${esc(p.lead)}">${engInitials(p.lead)}</span>` : '';
     const engsHtml = (p.engineers && p.engineers.length) ? `<div class="pc-engineers">${p.engineers.map(e=>`<span class="pc-eng-av" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>` : '';
-    return `<div class="project-card" onclick="openFlyout(${idx})">
+    return `<div class="${p.requestType === 'Key Project' ? 'project-card key-project' : 'project-card'}" onclick="openFlyout(${idx})">
       <div class="pc-accent" style="background:${p.accent}"></div>
       <div class="pc-body">
         <div class="pc-header">
-          <div class="pc-name">${esc(p.name)}</div>
+          <div class="pc-name">${esc(p.name)}${p.requestType === 'Key Project' ? '<span class="kp-star">★ Key Project</span>' : ''}</div>
           <div class="pc-header-right">${leadAvHtml}<span class="pc-status ${sm.cls}">${sm.label}</span></div>
         </div>
         <span class="pc-theme" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${p.theme}</span>

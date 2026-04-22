@@ -272,6 +272,12 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* Dev/AI type column */
 .dd-col{width:70px;text-align:center}
 .rice-table th.dd-col,.rice-table td.dd-col{text-align:center}
+
+/* ── Key Project glow ───────────────────────────────────────────────────── */
+.key-project{border-color:#f59e0b!important;box-shadow:0 0 0 1px rgba(245,158,11,.3),0 0 18px rgba(245,158,11,.22),0 2px 8px rgba(0,0,0,.06)!important}
+.kp-star{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#b45309;border:1px solid rgba(245,158,11,.5);margin-left:6px;vertical-align:middle;white-space:nowrap;flex-shrink:0}
+tr.key-project td{background:rgba(245,158,11,.05)!important}
+tr.key-project td:first-child{box-shadow:inset 3px 0 0 #f59e0b}
 </style>
 </head>
 <body>
@@ -764,9 +770,9 @@ function render(){
   tbody.innerHTML=sorted.map((it,idx)=>{
     const sc=riceScore(it);
     const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
-    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
+    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer"${it.requestType === 'Key Project' ? ' class="key-project"' : ''}>
       <td><div class="rank-badge">${idx+1}</div></td>
-      <td><div class="item-name">${it.name}</div></td>
+      <td><div class="item-name">${it.name}${it.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div></td>
       <td onclick="event.stopPropagation()">${themeCell}</td>
       <td><span class="score-val">${sc}</span><div class="score-sub">RICE</div></td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('r',it.r,it.notionId) : it.r.toLocaleString()}</td>
@@ -845,9 +851,9 @@ function renderMatrixTable(){
     const themeCell=_nw ? _nw.buildEditSpan('theme',it.theme,it.notionId) : themeHtml(it.theme);
     const sm=F_STATUS[it.status]||F_STATUS.planned;
     const statusBadge=`<span class="${sm.cls}">${sm.label}</span>`;
-    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer">
+    return `<tr onclick="openFlyout(${it.id})" style="cursor:pointer"${it.requestType === 'Key Project' ? ' class="key-project"' : ''}>
       <td><div class="rank-badge">${idx+1}</div></td>
-      <td><div class="item-name">${it.name}</div></td>
+      <td><div class="item-name">${it.name}${it.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div></td>
       <td onclick="event.stopPropagation()">${themeCell}</td>
       <td>${statusBadge}</td>
       <td onclick="event.stopPropagation()">${_nw ? _nw.buildEditSpan('r',it.r,it.notionId) : it.r.toLocaleString()}</td>
