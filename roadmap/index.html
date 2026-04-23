@@ -562,6 +562,7 @@ const PILLARS = Object.keys(THEME_COLORS);
 // ─── STATUS SORT ORDER ────────────────────────────────────────────────────────
 // Done → Live → In Review → In Progress → Planned
 const STATUS_ORDER = {done:0, live:1, review:2, progress:3, planned:4};
+const RT_ORDER = {'1. Key Project':0,'2. Strategic':1,'3. Tactical':2,'4. BAU':3};
 function sortByStatus(arr){
   // If a chip sort is active, use that; otherwise default to status order
   if(typeof chipSortState !== 'undefined' && chipSortState){
@@ -571,6 +572,16 @@ function sortByStatus(arr){
     const oa = STATUS_ORDER[a.status] ?? 99;
     const ob = STATUS_ORDER[b.status] ?? 99;
     return oa - ob;
+  });
+}
+// Sort by Request Type (primary) then Status (secondary) — used in quarter kanban columns
+function sortByRequestType(arr){
+  if(typeof chipSortState !== 'undefined' && chipSortState) return [...arr].sort(chipSortFn);
+  return [...arr].sort((a,b)=>{
+    const ra = RT_ORDER[a.requestType] ?? 99;
+    const rb = RT_ORDER[b.requestType] ?? 99;
+    if(ra !== rb) return ra - rb;
+    return (STATUS_ORDER[a.status]??99) - (STATUS_ORDER[b.status]??99);
   });
 }
 
@@ -821,7 +832,7 @@ function setView(name, btn){
 function buildKanban(){
   const qgrid = document.getElementById('qgrid');
   qgrid.innerHTML = FY_QUARTERS.map(q=>{
-    const qItems = sortByStatus(filtered.filter(it=>it.qLabel===q.qLabel));
+    const qItems = sortByRequestType(filtered.filter(it=>it.qLabel===q.qLabel));
     const isCur  = CUR_Q && CUR_Q.qLabel===q.qLabel;
     return `<div class="qcol${isCur?' current':''}">
       <div class="qhdr" onclick="openQuarterDrill('${q.qLabel}')" title="Click to view status board for ${q.qLabel}">
