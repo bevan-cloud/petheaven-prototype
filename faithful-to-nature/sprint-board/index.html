@@ -276,6 +276,15 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* ── Epic badge on card top ─────────────────────────────────────────────── */
 .issue-card-top{flex-wrap:nowrap}
 .epic-badge{margin-left:auto;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:rgba(0,0,0,.06);color:var(--gray-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;flex-shrink:0;line-height:1.5}
+
+/* ── M2 WRAP UP BUTTON ── */
+.m2-btn{position:absolute;top:28px;right:48px;display:flex;align-items:center;gap:7px;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);cursor:pointer;transition:all .15s;white-space:nowrap;z-index:2}
+.m2-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
+.m2-btn svg{flex-shrink:0}
+
+/* ── M2 WRAP UP PANEL ── */
+.m2-panel{position:fixed;inset:0;background:var(--gray-1);z-index:500;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.m2-panel.open{transform:translateY(0)}
 </style>
 </head>
 <body>
@@ -316,6 +325,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- HERO -->
   <section class="hero">
+    <button class="m2-btn" onclick="openM2Panel()" title="View M2 Wrap Up epic tickets">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
+      M2 Wrap Up
+    </button>
     <div class="hero-badge">Faithful to Nature · Sprint Board</div>
     <h1>Sprint Board</h1>
     <p class="hero-sub">Active sprint pulled from Jira. Cards show live status — click any ticket to see full details.</p>
@@ -401,6 +414,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
 <!-- INSIGHTS PANEL -->
 <div class="ins-panel" id="insightsPanel" role="dialog" aria-modal="true" aria-label="Sprint Insights">
+  <!-- Content built by JS -->
+</div>
+
+<!-- M2 WRAP UP PANEL -->
+<div class="m2-panel" id="m2Panel" role="dialog" aria-modal="true" aria-label="M2 Wrap Up">
   <!-- Content built by JS -->
 </div>
 
@@ -883,6 +901,8 @@ function closeFlyout() {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
+    var m2 = document.getElementById('m2Panel');
+    if (m2 && m2.classList.contains('open')) { closeM2Panel(); return; }
     var ins = document.getElementById('insightsPanel');
     if (ins && ins.classList.contains('open')) { closeInsights(); return; }
     closeFlyout();
@@ -904,6 +924,104 @@ function closeInsights() {
   var panel = document.getElementById('insightsPanel');
   if (panel) panel.classList.remove('open');
   document.body.style.overflow = '';
+}
+
+/* ─────────────────────────────────────────────
+   M2 WRAP UP PANEL
+   ───────────────────────────────────────────── */
+function openM2Panel() {
+  var panel = document.getElementById('m2Panel');
+  if (!panel) return;
+  panel.innerHTML = buildM2PanelHTML();
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeM2Panel() {
+  var panel = document.getElementById('m2Panel');
+  if (panel) panel.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function getM2Issues() {
+  var all = (_allActive || []).concat(_allNext || []);
+  return all.filter(function(i) {
+    return i.parent && i.parent.key === 'FM-3966';
+  });
+}
+
+function buildM2PanelHTML() {
+  var issues = getM2Issues();
+  var total  = issues.length;
+  var done   = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
+  var inprog = issues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
+  var todo   = issues.filter(function(i){ return i.status && i.status.category === 'new'; });
+  var donePct = total > 0 ? Math.round((done.length / total) * 100) : 0;
+
+  var jiraEpicUrl = SPRINT_CONFIG.jiraUrl + '/browse/FM-3966';
+
+  // Header
+  var html = '<div class="ins-header">'
+    + '<div class="ins-header-left">'
+    + '<div class="ins-breadcrumb">Faithful to Nature · Epic FM-3966</div>'
+    + '<div class="ins-title">M2 Wrap Up</div>'
+    + (total > 0 ? '<div class="ins-subtitle">' + total + ' ticket' + (total !== 1 ? 's' : '') + ' · ' + donePct + '% complete</div>' : '<div class="ins-subtitle">No tickets found in current sprint data</div>')
+    + '</div>'
+    + '<button class="ins-close" onclick="closeM2Panel()" aria-label="Close">&times;</button>'
+    + '</div>';
+
+  html += '<div class="ins-body">';
+
+  // Epic link
+  html += '<div style="margin-bottom:20px">'
+    + '<a href="' + jiraEpicUrl + '" target="_blank" rel="noopener" class="flyout-epic-link" style="font-size:12px">'
+    + '<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    + '<span class="flyout-epic-key">FM-3966</span><span>·</span><span class="flyout-epic-sum">Wrap Up M2</span>'
+    + '</a>'
+    + '</div>';
+
+  if (total === 0) {
+    html += '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px 0;text-align:center;color:var(--gray-4)">'
+      + '<svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="var(--gray-2)" stroke-width="2"/><path d="M18 26h16M26 18v16" stroke="var(--gray-3)" stroke-width="2.5" stroke-linecap="round"/></svg>'
+      + '<div style="font-size:15px;font-weight:600;color:var(--gray-5)">No M2 Wrap Up tickets in sprint data</div>'
+      + '<div style="font-size:13px;max-width:340px;line-height:1.6">Tickets under FM-3966 will appear here once they\'ve been added to a sprint and synced. Use the sync button in the header to refresh.</div>'
+      + '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // Stats row
+  html += '<div class="ins-metrics-row" style="margin-bottom:24px">'
+    + '<div class="ins-stat-card donut-card">' + _insDonut(donePct) + '<div class="ins-donut-text"><div class="ins-donut-pct">' + donePct + '%</div><div class="ins-donut-sub">Complete</div></div></div>'
+    + _insStatCard(done.length,   'Done',        'var(--col-done)')
+    + _insStatCard(inprog.length, 'In Progress', 'var(--col-inprog)')
+    + _insStatCard(todo.length,   'To Do',       'var(--col-todo)')
+    + '</div>';
+
+  // Kanban columns
+  function m2Col(cls, title, items) {
+    var hdr = '<div class="kanban-col-hdr ' + cls + '">'
+      + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
+      + '<span class="kanban-count-badge">' + items.length + '</span>'
+      + '</div>';
+    var body = '<div class="kanban-col-body">';
+    if (items.length === 0) {
+      body += '<div class="kanban-empty">No issues</div>';
+    } else {
+      items.forEach(function(issue) { body += renderCard(issue); });
+    }
+    body += '</div>';
+    return '<div class="kanban-col">' + hdr + body + '</div>';
+  }
+
+  html += '<div class="kanban-grid">'
+    + m2Col('todo',   'To Do',       todo)
+    + m2Col('inprog', 'In Progress', inprog)
+    + m2Col('done',   'Done',        done)
+    + '</div>';
+
+  html += '</div>'; // ins-body
+  return html;
 }
 
 function _insDonut(pct) {
