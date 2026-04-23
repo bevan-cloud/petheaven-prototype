@@ -179,7 +179,8 @@
       case 'i':        return { Impact:     { number: Number(value) } };
       case 'c':        return { Confidence: { number: Number(value) } };
       case 'e':        return { Effort:     { number: Math.max(1, Number(value)) } };
-      case 'depDev': return { 'Dependent on Dev': value === '' ? { select: null } : { select: { name: value === 'true' ? 'Yes' : 'No' } } };
+      case 'depDev':       return { 'Dependent on Dev': value === '' ? { select: null } : { select: { name: value === 'true' ? 'Yes' : 'No' } } };
+      case 'requestType':  return { 'Request Type': value ? { select: { name: value } } : { select: null } };
       default: return null;
     }
   }
