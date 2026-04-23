@@ -216,6 +216,14 @@
     { value: '',               label: '— None —' },
   ];
 
+  const REQUEST_TYPE_OPTIONS = [
+    { value: '1. Key Project', label: '1. Key Project' },
+    { value: '2. Strategic',   label: '2. Strategic' },
+    { value: '3. Tactical',    label: '3. Tactical' },
+    { value: '4. BAU',         label: '4. BAU' },
+    { value: '',               label: '— None —' },
+  ];
+
   function quarterOptions() {
     const arr = (typeof PROJECTS !== 'undefined' ? PROJECTS : null)
              || (typeof ITEMS    !== 'undefined' ? ITEMS    : null) || [];
@@ -234,6 +242,7 @@
         { value:'false', label:'✦ No — AI / No Dev' },
         { value:'',      label:'— Not Set —' },
       ];
+      case 'requestType': return REQUEST_TYPE_OPTIONS;
       default: return [];
     }
   }
@@ -276,6 +285,10 @@
         return `<span class="${cls}">${short}</span>`;
       }
       case 'lead':
+        return v
+          ? `<span class="nw-text">${esc(v)}</span>`
+          : `<span class="nw-text-muted">—</span>`;
+      case 'requestType':
         return v
           ? `<span class="nw-text">${esc(v)}</span>`
           : `<span class="nw-text-muted">—</span>`;
