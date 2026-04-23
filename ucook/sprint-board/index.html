@@ -449,7 +449,7 @@ function triggerJiraSync() {
   }
   var btn = document.getElementById('navSyncBtn');
   if (btn) { btn.disabled = true; btn.classList.add('syncing'); }
-  fetch('https://api.github.com/repos/bevan-cloud/petheaven-prototype/actions/workflows/sync-jira-UCOOK.yml/dispatches', {
+  fetch('https://api.github.com/repos/bevan-cloud/petheaven-prototype/actions/workflows/sync-jira-ucook.yml/dispatches', {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer ' + token,

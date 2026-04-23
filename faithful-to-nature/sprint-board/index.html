@@ -285,6 +285,30 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 /* ── M2 WRAP UP PANEL ── */
 .m2-panel{position:fixed;inset:0;background:var(--gray-1);z-index:500;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
 .m2-panel.open{transform:translateY(0)}
+
+/* ── M2 DRAG & DROP ── */
+.m2-drop-zone{transition:background .15s,outline .15s}
+.m2-drop-zone.drag-over{background:var(--brand-light)!important;outline:2px dashed var(--brand-mid);outline-offset:-3px;border-radius:0 0 var(--radius-xl) var(--radius-xl)}
+.issue-card.m2-dragging{opacity:.38;transform:scale(.97);box-shadow:none}
+.issue-card[draggable="true"]{cursor:grab}
+.issue-card[draggable="true"]:active{cursor:grabbing}
+
+/* ── M2 ADD FORM ── */
+.m2-add-row{padding:6px 8px 8px;border-top:1px dashed var(--gray-2);margin-top:2px;display:flex;gap:6px;align-items:center}
+.m2-add-input{flex:1;padding:7px 10px;border:1px solid var(--gray-2);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--black);outline:none;background:#fff;min-width:0}
+.m2-add-input:focus{border-color:var(--brand-mid);box-shadow:0 0 0 2px rgba(0,102,84,.08)}
+.m2-add-input::placeholder{color:var(--gray-3)}
+.m2-add-submit{padding:7px 11px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;flex-shrink:0}
+.m2-add-submit:hover{background:var(--brand-dark)}
+.m2-add-submit:disabled{opacity:.5;cursor:not-allowed}
+.m2-pending-card .issue-card{opacity:.6;border-style:dashed}
+
+/* ── M2 HEADER ACTIONS ── */
+.m2-hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.m2-refresh-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid var(--gray-2);border-radius:var(--radius);background:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-5);cursor:pointer;transition:all .15s}
+.m2-refresh-btn:hover{background:var(--brand-light);border-color:var(--brand-mid);color:var(--brand)}
+.m2-refresh-btn.spinning svg{animation:nspin .8s linear infinite}
+.m2-refresh-btn:disabled{opacity:.5;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -929,23 +953,8 @@ function closeInsights() {
 /* ─────────────────────────────────────────────
    M2 WRAP UP PANEL
    ───────────────────────────────────────────── */
-function openM2Panel() {
-  var panel = document.getElementById('m2Panel');
-  if (!panel) return;
-  /* Ensure static M2 tickets are in the issue map for flyout */
-  buildIssueMap(M2_EPIC_ISSUES);
-  panel.innerHTML = buildM2PanelHTML();
-  panel.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
 
-function closeM2Panel() {
-  var panel = document.getElementById('m2Panel');
-  if (panel) panel.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-/* Static FM-3966 epic issues — always shown; live sprint data overlays status/assignee when available */
+/* Static FM-3966 epic issues — always shown; Refresh overlays live Jira data */
 var M2_EPIC_ISSUES = [
   { key:'FM-3969', summary:'Test and validate sitemap migration from M1 (Anton + Shaughn)(5d)(*SSR dependent) - Turn off topic', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
   { key:'FM-3970', summary:'GTM + Analytics implementation (shaughn)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
@@ -965,54 +974,223 @@ var M2_EPIC_ISSUES = [
   { key:'FM-3984', summary:'Product Enable/Disable Not Triggering Index Refresh', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} }
 ];
 
-function getM2Issues() {
-  /* Build a live-data map from sprint data so updated statuses/assignees take precedence */
-  var liveMap = {};
-  (_allActive || []).concat(_allNext || []).forEach(function(i) { liveMap[i.key] = i; });
-  return M2_EPIC_ISSUES.map(function(t) { return liveMap[t.key] || t; });
+/* ── Jira credentials ── */
+function m2GetAuth() {
+  var creds = localStorage.getItem('m2_jira_auth');
+  if (!creds) {
+    var email = prompt('Jira email address:');
+    if (!email) return null;
+    var token = prompt('Jira API token\n(create one at id.atlassian.com → Security → API tokens):');
+    if (!token) return null;
+    creds = btoa(email.trim() + ':' + token.trim());
+    localStorage.setItem('m2_jira_auth', creds);
+  }
+  return creds;
 }
 
-function buildM2PanelHTML() {
+function m2ShowToast(msg, color) {
+  var t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:' + (color||'#1a1a1a') + ';color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:500;padding:10px 22px;border-radius:24px;z-index:9999;box-shadow:0 4px 18px rgba(0,0,0,.18);pointer-events:none;transition:opacity .3s';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); },320); },3000);
+}
+
+/* ── Live fetch from Jira REST API ── */
+function m2FetchLive(onDone) {
+  var auth = m2GetAuth();
+  if (!auth) { onDone && onDone(false); return; }
+  var jql  = encodeURIComponent('parent = FM-3966 ORDER BY created ASC');
+  var flds = 'summary,status,issuetype,priority,assignee';
+  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/search?jql=' + jql + '&maxResults=50&fields=' + flds, {
+    headers: { 'Authorization': 'Basic ' + auth, 'Accept': 'application/json' }
+  })
+  .then(function(r){
+    if (r.status === 401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
+    return r.json();
+  })
+  .then(function(data){
+    if (!data.issues) throw new Error('no issues');
+    var fresh = data.issues.map(function(i){
+      var cat = (i.fields.status.statusCategory && i.fields.status.statusCategory.key) || 'new';
+      return {
+        key: i.key, summary: i.fields.summary,
+        status: { name: i.fields.status.name, category: cat },
+        issuetype: { name: (i.fields.issuetype && i.fields.issuetype.name) || 'Story' },
+        priority:  { name: (i.fields.priority  && i.fields.priority.name)  || 'Medium' },
+        assignee: i.fields.assignee ? {
+          displayName: i.fields.assignee.displayName,
+          avatar: i.fields.assignee.avatarUrls && i.fields.assignee.avatarUrls['48x48']
+        } : null,
+        parent: { key:'FM-3966', summary:'Wrap Up M2', issuetype:'Epic' }
+      };
+    });
+    /* Keep any pending items not yet in Jira */
+    var freshKeys = {};
+    fresh.forEach(function(i){ freshKeys[i.key]=true; });
+    var pending = M2_EPIC_ISSUES.filter(function(i){ return i._pending && !freshKeys[i.key]; });
+    M2_EPIC_ISSUES = fresh.concat(pending);
+    buildIssueMap(M2_EPIC_ISSUES);
+    onDone && onDone(true);
+  })
+  .catch(function(err){
+    console.warn('M2 live fetch failed:', err.message);
+    onDone && onDone(false);
+  });
+}
+
+/* ── Refresh button ── */
+function m2RefreshPanel() {
+  var btn = document.getElementById('m2RefreshBtn');
+  if (btn){ btn.disabled=true; btn.classList.add('spinning'); }
+  m2FetchLive(function(ok){
+    if (btn){ btn.disabled=false; btn.classList.remove('spinning'); }
+    m2RedrawBody();
+    m2ShowToast(ok ? '✓ M2 tickets refreshed from Jira' : 'Using cached data — check Jira credentials', ok ? '#10b981' : '#f59e0b');
+  });
+}
+
+/* ── Redraw just the body, preserving panel header ── */
+function m2RedrawBody() {
+  var panel = document.getElementById('m2Panel');
+  if (!panel) return;
+  var oldBody = panel.querySelector('.ins-body');
+  var newBodyHtml = buildM2Body();
+  if (oldBody) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = newBodyHtml;
+    oldBody.parentNode.replaceChild(tmp.firstChild, oldBody);
+  } else {
+    panel.innerHTML = buildM2PanelHTML();
+  }
+}
+
+/* ── Drag & Drop ── */
+var _m2DragKey = null;
+function m2DragStart(key, el){ _m2DragKey = key; el.classList.add('m2-dragging'); }
+function m2DragEnd(el){ el.classList.remove('m2-dragging'); }
+function m2DragOver(e, el){ e.preventDefault(); el.classList.add('drag-over'); }
+function m2DragLeave(el){ el.classList.remove('drag-over'); }
+function m2Drop(e, targetCat, el) {
+  e.preventDefault(); el.classList.remove('drag-over');
+  var key = _m2DragKey; _m2DragKey = null;
+  if (!key) return;
+  var issue = _issueMap[key];
+  if (!issue) { for(var x=0;x<M2_EPIC_ISSUES.length;x++){ if(M2_EPIC_ISSUES[x].key===key){ issue=M2_EPIC_ISSUES[x]; break; } } }
+  if (!issue || (issue.status && issue.status.category) === targetCat) return;
+  var names = { 'new':'To Do','indeterminate':'In Progress','done':'Done' };
+  issue.status = { name: names[targetCat]||targetCat, category: targetCat };
+  m2RedrawBody();
+  m2TransitionIssue(key, targetCat);
+}
+
+function m2TransitionIssue(key, targetCat) {
+  var auth = m2GetAuth(); if (!auth) return;
+  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue/' + key + '/transitions', {
+    headers: { 'Authorization': 'Basic ' + auth, 'Accept': 'application/json' }
+  })
+  .then(function(r){
+    if (r.status===401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
+    return r.json();
+  })
+  .then(function(data){
+    var ts = data.transitions || [], t = null;
+    for (var i=0;i<ts.length;i++){
+      var cat = ts[i].to && ts[i].to.statusCategory && ts[i].to.statusCategory.key;
+      if (cat === targetCat){ t=ts[i]; break; }
+    }
+    if (!t){
+      var nm = { 'new':'to do','indeterminate':'in progress','done':'done' }[targetCat] || targetCat;
+      for (var j=0;j<ts.length;j++){
+        if ((ts[j].name||'').toLowerCase()===nm || ((ts[j].to&&ts[j].to.name)||'').toLowerCase()===nm){ t=ts[j]; break; }
+      }
+    }
+    if (!t){ m2ShowToast('No transition found for ' + key, '#e53935'); return Promise.resolve(); }
+    return fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue/' + key + '/transitions', {
+      method: 'POST',
+      headers: { 'Authorization':'Basic '+auth, 'Content-Type':'application/json', 'Accept':'application/json' },
+      body: JSON.stringify({ transition:{ id: t.id } })
+    });
+  })
+  .then(function(r){
+    if (!r) return;
+    if (r.ok || r.status===204) m2ShowToast('✓ ' + key + ' status updated', '#10b981');
+    else m2ShowToast('Could not update ' + key + ' in Jira', '#e53935');
+  })
+  .catch(function(err){ console.error('Transition error:',err); m2ShowToast('Error updating ' + key, '#e53935'); });
+}
+
+/* ── Create new ticket ── */
+function m2SubmitNew() {
+  var input = document.getElementById('m2NewInput');
+  var btn   = document.getElementById('m2NewSubmit');
+  if (!input) return;
+  var summary = input.value.trim();
+  if (!summary){ input.focus(); return; }
+  var auth = m2GetAuth(); if (!auth) return;
+  if (btn) btn.disabled = true;
+
+  var tempKey = '_new_' + Date.now();
+  var newIssue = { key:tempKey, _pending:true, summary:summary, status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} };
+  M2_EPIC_ISSUES.push(newIssue);
+  buildIssueMap(M2_EPIC_ISSUES);
+  input.value = '';
+  m2RedrawBody();
+
+  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue', {
+    method: 'POST',
+    headers: { 'Authorization':'Basic '+auth, 'Content-Type':'application/json', 'Accept':'application/json' },
+    body: JSON.stringify({ fields:{ project:{key:'FM'}, summary:summary, issuetype:{name:'Story'}, parent:{key:'FM-3966'}, labels:['FTN-CAPEX'] } })
+  })
+  .then(function(r){
+    if (r.status===401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
+    return r.json();
+  })
+  .then(function(data){
+    if (!data.key) throw new Error(JSON.stringify(data));
+    for (var i=0;i<M2_EPIC_ISSUES.length;i++){
+      if (M2_EPIC_ISSUES[i].key===tempKey){ M2_EPIC_ISSUES[i].key=data.key; M2_EPIC_ISSUES[i]._pending=false; break; }
+    }
+    buildIssueMap(M2_EPIC_ISSUES);
+    m2RedrawBody();
+    m2ShowToast('✓ Created ' + data.key, '#10b981');
+  })
+  .catch(function(err){
+    console.error('Create error:',err);
+    M2_EPIC_ISSUES = M2_EPIC_ISSUES.filter(function(i){ return i.key!==tempKey; });
+    m2RedrawBody();
+    m2ShowToast('Failed to create ticket in Jira', '#e53935');
+  });
+}
+
+function m2NewKeydown(e){ if(e.key==='Enter') m2SubmitNew(); }
+
+/* ── Render helpers ── */
+function renderM2Card(issue) {
+  var html = renderCard(issue);
+  var drag = ' draggable="true" ondragstart="m2DragStart(\'' + escHtml(issue.key) + '\',this)" ondragend="m2DragEnd(this)"';
+  html = html.replace('<div class="issue-card"', '<div class="issue-card"' + drag);
+  if (issue._pending) html = '<div class="m2-pending-card">' + html + '</div>';
+  return html;
+}
+
+function buildM2Body() {
   var issues = getM2Issues();
   var total  = issues.length;
   var done   = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
   var inprog = issues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
   var todo   = issues.filter(function(i){ return i.status && i.status.category === 'new'; });
   var donePct = total > 0 ? Math.round((done.length / total) * 100) : 0;
-
   var jiraEpicUrl = SPRINT_CONFIG.jiraUrl + '/browse/FM-3966';
 
-  // Header
-  var html = '<div class="ins-header">'
-    + '<div class="ins-header-left">'
-    + '<div class="ins-breadcrumb">Faithful to Nature · Epic FM-3966</div>'
-    + '<div class="ins-title">M2 Wrap Up</div>'
-    + (total > 0 ? '<div class="ins-subtitle">' + total + ' ticket' + (total !== 1 ? 's' : '') + ' · ' + donePct + '% complete</div>' : '<div class="ins-subtitle">No tickets found in current sprint data</div>')
-    + '</div>'
-    + '<button class="ins-close" onclick="closeM2Panel()" aria-label="Close">&times;</button>'
-    + '</div>';
+  var html = '<div class="ins-body">';
 
-  html += '<div class="ins-body">';
-
-  // Epic link
   html += '<div style="margin-bottom:20px">'
     + '<a href="' + jiraEpicUrl + '" target="_blank" rel="noopener" class="flyout-epic-link" style="font-size:12px">'
     + '<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     + '<span class="flyout-epic-key">FM-3966</span><span>·</span><span class="flyout-epic-sum">Wrap Up M2</span>'
-    + '</a>'
-    + '</div>';
+    + '</a></div>';
 
-  if (total === 0) {
-    html += '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px 0;text-align:center;color:var(--gray-4)">'
-      + '<svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="var(--gray-2)" stroke-width="2"/><path d="M18 26h16M26 18v16" stroke="var(--gray-3)" stroke-width="2.5" stroke-linecap="round"/></svg>'
-      + '<div style="font-size:15px;font-weight:600;color:var(--gray-5)">No M2 Wrap Up tickets in sprint data</div>'
-      + '<div style="font-size:13px;max-width:340px;line-height:1.6">Tickets under FM-3966 will appear here once they\'ve been added to a sprint and synced. Use the sync button in the header to refresh.</div>'
-      + '</div>';
-    html += '</div>';
-    return html;
-  }
-
-  // Stats row
   html += '<div class="ins-metrics-row" style="margin-bottom:24px">'
     + '<div class="ins-stat-card donut-card">' + _insDonut(donePct) + '<div class="ins-donut-text"><div class="ins-donut-pct">' + donePct + '%</div><div class="ins-donut-sub">Complete</div></div></div>'
     + _insStatCard(done.length,   'Done',        'var(--col-done)')
@@ -1020,30 +1198,80 @@ function buildM2PanelHTML() {
     + _insStatCard(todo.length,   'To Do',       'var(--col-todo)')
     + '</div>';
 
-  // Kanban columns
-  function m2Col(cls, title, items) {
+  function m2Col(cls, title, items, cat) {
     var hdr = '<div class="kanban-col-hdr ' + cls + '">'
       + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
       + '<span class="kanban-count-badge">' + items.length + '</span>'
       + '</div>';
-    var body = '<div class="kanban-col-body">';
-    if (items.length === 0) {
-      body += '<div class="kanban-empty">No issues</div>';
-    } else {
-      items.forEach(function(issue) { body += renderCard(issue); });
+    var body = '<div class="kanban-col-body m2-drop-zone"'
+      + ' ondragover="m2DragOver(event,this)"'
+      + ' ondragleave="m2DragLeave(this)"'
+      + ' ondrop="m2Drop(event,\'' + cat + '\',this)">';
+    if (items.length === 0) body += '<div class="kanban-empty">No issues</div>';
+    else items.forEach(function(i){ body += renderM2Card(i); });
+    if (cat === 'new') {
+      body += '<div class="m2-add-row">'
+        + '<input id="m2NewInput" class="m2-add-input" type="text" placeholder="New ticket summary…" autocomplete="off" onkeydown="m2NewKeydown(event)">'
+        + '<button id="m2NewSubmit" class="m2-add-submit" onclick="m2SubmitNew()">Add</button>'
+        + '</div>';
     }
     body += '</div>';
     return '<div class="kanban-col">' + hdr + body + '</div>';
   }
 
   html += '<div class="kanban-grid">'
-    + m2Col('todo',   'To Do',       todo)
-    + m2Col('inprog', 'In Progress', inprog)
-    + m2Col('done',   'Done',        done)
+    + m2Col('todo',   'To Do',       todo,   'new')
+    + m2Col('inprog', 'In Progress', inprog, 'indeterminate')
+    + m2Col('done',   'Done',        done,   'done')
     + '</div>';
 
-  html += '</div>'; // ins-body
+  html += '</div>';
   return html;
+}
+
+function buildM2PanelHTML() {
+  var issues  = getM2Issues();
+  var total   = issues.length;
+  var done    = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
+  var donePct = total > 0 ? Math.round((done.length / total) * 100) : 0;
+
+  var header = '<div class="ins-header">'
+    + '<div class="ins-header-left">'
+    + '<div class="ins-breadcrumb">Faithful to Nature · Epic FM-3966</div>'
+    + '<div class="ins-title">M2 Wrap Up</div>'
+    + '<div class="ins-subtitle">' + total + ' ticket' + (total !== 1 ? 's' : '') + (total > 0 ? ' · ' + donePct + '% complete' : '') + '</div>'
+    + '</div>'
+    + '<div class="m2-hdr-actions">'
+    + '<button id="m2RefreshBtn" class="m2-refresh-btn" onclick="m2RefreshPanel()" title="Refresh from Jira">'
+    + '<svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    + 'Refresh'
+    + '</button>'
+    + '<button class="ins-close" onclick="closeM2Panel()" aria-label="Close">&times;</button>'
+    + '</div>'
+    + '</div>';
+
+  return header + buildM2Body();
+}
+
+function openM2Panel() {
+  var panel = document.getElementById('m2Panel');
+  if (!panel) return;
+  buildIssueMap(M2_EPIC_ISSUES);
+  panel.innerHTML = buildM2PanelHTML();
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeM2Panel() {
+  var panel = document.getElementById('m2Panel');
+  if (panel) panel.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function getM2Issues() {
+  var liveMap = {};
+  (_allActive||[]).concat(_allNext||[]).forEach(function(i){ liveMap[i.key]=i; });
+  return M2_EPIC_ISSUES.map(function(t){ return liveMap[t.key]||t; });
 }
 
 function _insDonut(pct) {
