@@ -1342,6 +1342,7 @@ function openFlyout(itemId){
         : `<div><div class="flyout-prop-lbl">Project Lead</div><div class="flyout-prop-val">${p.lead?fEsc(p.lead):'<span class="flyout-prop-val-muted">—</span>'}</div></div>`}
       <div><div class="flyout-prop-lbl">Matrix Quadrant</div><div>${qdHtml}</div></div>
       ${window._nw ? window._nw.buildFlyoutProp('depDev', p.depDev===null?'':String(p.depDev), p.notionId, 'Dev Dependent') : `<div class="flyout-prop"><div class="flyout-prop-lbl">Dev Dependent</div><div>${p.depDev===true?'<span class=\"dd-badge dd-dev\">Dev</span>':p.depDev===false?'<span class=\"dd-badge dd-ai\">AI</span>':'<span class=\"flyout-prop-val-muted\">—</span>'}</div></div>`}
+      ${window._nw ? window._nw.buildFlyoutProp('requestType', p.requestType||'', p.notionId, 'Request Type') : `<div class="flyout-prop"><div class="flyout-prop-lbl">Request Type</div><div class="flyout-prop-val">${fEsc(p.requestType||'—')}</div></div>`}
       <div style="grid-column:1/-1"><div class="flyout-prop-lbl">Engineers</div>${(p.engineers&&p.engineers.length)?`<div class="flyout-engineers">${p.engineers.map(e=>`<span class="flyout-eng-chip"><span class="fe-av" style="background:${engColor(e)}">${engInitials(e)}</span>${fEsc(e)}</span>`).join('')}</div>`:'<div class="flyout-prop-val-muted">—</div>'}</div>
     </div>
     ${_brief ? _brief : `<div class="flyout-section">
