@@ -660,9 +660,9 @@ function renderTable() {
     const pillarCell   = _nw ? _nw.buildSelect('theme',    p.theme,    p.notionId) : themeTag(p.theme);
     const quarterCell  = _nw ? _nw.buildSelect('qLabel',   p.qLabel,   p.notionId) : (p.qLabel||'—');
     const priorityCell = _nw ? _nw.buildSelect('priority', p.priority, p.notionId) : (p.priority||'—');
-    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}"${p.requestType === 'Key Project' ? ' class="key-project"' : ''}>
+    return `<tr onclick="openFlyout(${idx})" data-nid="${p.notionId}"${p.requestType === '1. Key Project' ? ' class="key-project"' : ''}>
       <td style="color:var(--gray-3);font-size:12px">${idx+1}</td>
-      <td><div class="pt-name">${esc(p.name)}${p.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
+      <td><div class="pt-name">${esc(p.name)}${p.requestType === '1. Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${p.desc ? `<div class="pt-name-sub">${esc(p.desc.slice(0,80))}…</div>` : ''}</td>
       <td onclick="event.stopPropagation()">${statusCell}</td>
       <td onclick="event.stopPropagation()">${pillarCell}</td>
       <td onclick="event.stopPropagation()">${quarterCell}</td>
@@ -691,11 +691,11 @@ function renderCards() {
     if (p.i)      pills.push('Impact ' + p.i);
     const leadAvHtml = p.lead ? `<span class="pc-lead-av" style="background:${engColor(p.lead)}" title="${esc(p.lead)}">${engInitials(p.lead)}</span>` : '';
     const engsHtml = (p.engineers && p.engineers.length) ? `<div class="pc-engineers">${p.engineers.map(e=>`<span class="pc-eng-av" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>` : '';
-    return `<div class="${p.requestType === 'Key Project' ? 'project-card key-project' : 'project-card'}" onclick="openFlyout(${idx})">
+    return `<div class="${p.requestType === '1. Key Project' ? 'project-card key-project' : 'project-card'}" onclick="openFlyout(${idx})">
       <div class="pc-accent" style="background:${p.accent}"></div>
       <div class="pc-body">
         <div class="pc-header">
-          <div class="pc-name">${esc(p.name)}${p.requestType === 'Key Project' ? '<span class="kp-star">★ Key Project</span>' : ''}</div>
+          <div class="pc-name">${esc(p.name)}${p.requestType === '1. Key Project' ? '<span class="kp-star">★ Key Project</span>' : ''}</div>
           <div class="pc-header-right">${leadAvHtml}<span class="pc-status ${sm.cls}">${sm.label}</span></div>
         </div>
         <span class="pc-theme" style="background:${tc.bg};border:1px solid ${tc.border};color:${tc.text}">${p.theme}</span>

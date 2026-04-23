@@ -716,8 +716,8 @@ function buildCard(it){
   const stLbl = {live:'Live',progress:'In Progress',planned:'Planned',review:'In Review',done:'Done'}[it.status]||'Planned';
   const leadHtml=it.lead?`<span class="rm-lead-avatar" style="background:${engColor(it.lead)}" title="${esc(it.lead)}">${engInitials(it.lead)}</span>`:'';
   const engsHtml=(it.engineers&&it.engineers.length)?`<div class="rm-card-engineers">${it.engineers.map(e=>`<span class="rm-eng-avatar" style="background:${engColor(e)}" title="${esc(e)}">${engInitials(e)}</span>`).join('')}</div>`:'';
-  return `<div class="${it.requestType === 'Key Project' ? 'rm-card key-project' : 'rm-card'}" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
-    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}${it.requestType === 'Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${leadHtml}</div>
+  return `<div class="${it.requestType === '1. Key Project' ? 'rm-card key-project' : 'rm-card'}" data-id="${it.id}" draggable="true" style="border-left-color:${c.bar}">
+    <div class="rm-card-hdr"><div class="rm-card-name">${esc(it.name)}${it.requestType === '1. Key Project' ? '<span class="kp-star">★ Key</span>' : ''}</div>${leadHtml}</div>
     <div class="rm-card-footer">
       ${engsHtml}
       <div class="rm-card-pills">
