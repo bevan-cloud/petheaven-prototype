@@ -932,6 +932,8 @@ function closeInsights() {
 function openM2Panel() {
   var panel = document.getElementById('m2Panel');
   if (!panel) return;
+  /* Ensure static M2 tickets are in the issue map for flyout */
+  buildIssueMap(M2_EPIC_ISSUES);
   panel.innerHTML = buildM2PanelHTML();
   panel.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -943,11 +945,31 @@ function closeM2Panel() {
   document.body.style.overflow = '';
 }
 
+/* Static FM-3966 epic issues — always shown; live sprint data overlays status/assignee when available */
+var M2_EPIC_ISSUES = [
+  { key:'FM-3969', summary:'Test and validate sitemap migration from M1 (Anton + Shaughn)(5d)(*SSR dependent) - Turn off topic', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3970', summary:'GTM + Analytics implementation (shaughn)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3971', summary:'Test search results against M1 common queries - validate quality of search results (merchandising)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3972', summary:'Content & Images - Review product image CDN migration approach (Anton+Fran)(3w)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3973', summary:'Filters Troubleshooting /w Chelsea', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3974', summary:'Erply Integration (Fran)( testing )', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3975', summary:'Delta Sync maintenance / monitoring (Shaughn) (1d p/w)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3976', summary:'Push notifications', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3977', summary:'Banner system - Banners for emergencies', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3978', summary:'UberEat feed fixes', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3979', summary:'Load testing', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3980', summary:'M2 admin behind CF access', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3981', summary:'M2 domain changes - move eco-warriors.innovate to eco-warriors.ftn.co.za', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3982', summary:'SEO audit', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3983', summary:'Fix Product Content formatting and Fonts', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
+  { key:'FM-3984', summary:'Product Enable/Disable Not Triggering Index Refresh', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} }
+];
+
 function getM2Issues() {
-  var all = (_allActive || []).concat(_allNext || []);
-  return all.filter(function(i) {
-    return i.parent && i.parent.key === 'FM-3966';
-  });
+  /* Build a live-data map from sprint data so updated statuses/assignees take precedence */
+  var liveMap = {};
+  (_allActive || []).concat(_allNext || []).forEach(function(i) { liveMap[i.key] = i; });
+  return M2_EPIC_ISSUES.map(function(t) { return liveMap[t.key] || t; });
 }
 
 function buildM2PanelHTML() {
