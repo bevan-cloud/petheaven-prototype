@@ -304,6 +304,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .m2-add-submit:disabled{opacity:.5;cursor:not-allowed}
 .m2-pending-card .issue-card{opacity:.6;border-style:dashed}
 
+/* ── Off-epic card highlight ── */
+.off-epic-card{border-color:#ED5454!important;box-shadow:0 0 0 3px rgba(237,84,84,.15),0 2px 8px rgba(237,84,84,.1)!important}
+.off-epic-card:hover{border-color:#c0392b!important;box-shadow:0 0 0 4px rgba(237,84,84,.22),0 2px 12px rgba(237,84,84,.15)!important;background:#fff7f7!important}
+
 /* ── M2 HEADER ACTIONS ── */
 .m2-hdr-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .m2-refresh-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid var(--gray-2);border-radius:var(--radius);background:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-5);cursor:pointer;transition:all .15s}
@@ -654,12 +658,16 @@ function epicBadgeHtml(issue) {
   if (!issue.parent || issue.parent.issuetype !== 'Epic') return '';
   return '<span class="epic-badge" title="' + escHtml(issue.parent.summary) + '">' + escHtml(issue.parent.summary) + '</span>';
 }
+var FOCUS_EPICS = { 'FM-2478': true, 'FM-2765': true };
+
 function renderCard(issue) {
   var assigneeName = (issue.assignee && issue.assignee.displayName) || 'Unassigned';
   var priColor = priorityColor((issue.priority && issue.priority.name) || '');
   var jiraUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + escHtml(issue.key);
+  var parentKey = issue.parent && issue.parent.key;
+  var offEpic = !parentKey || !FOCUS_EPICS[parentKey];
 
-  return '<div class="issue-card" onclick="openFlyout(\'' + escHtml(issue.key) + '\')">'
+  return '<div class="issue-card' + (offEpic ? ' off-epic-card' : '') + '" onclick="openFlyout(\'' + escHtml(issue.key) + '\')">'
     + '<div class="issue-card-top">'
     + '<span class="issue-type-icon">' + typeIconSvg(issue.issuetype && issue.issuetype.name) + '</span>'
     + '<a class="issue-key" href="' + jiraUrl + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + escHtml(issue.key) + '</a>'
@@ -1323,6 +1331,22 @@ function buildInsightsHTML(issues, sprint) {
   html += _insStatCard(todo,   'To Do',       'var(--col-todo)');
   var unassigned = issues.filter(function(i){ return !i.assignee; }).length;
   html += _insStatCard(unassigned, 'Unassigned', 'var(--gray-3)');
+  html += '</div>';
+
+  /* ── Sprint Focus breakdown ── */
+  var focusTotal  = issues.length;
+  var mktgCount   = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2765'; }).length;
+  var m1Count     = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2478'; }).length;
+  var otherCount  = focusTotal - mktgCount - m1Count;
+  var mktgPct     = focusTotal > 0 ? Math.round(mktgCount  / focusTotal * 100) : 0;
+  var m1Pct       = focusTotal > 0 ? Math.round(m1Count    / focusTotal * 100) : 0;
+  var otherPct    = focusTotal > 0 ? Math.round(otherCount / focusTotal * 100) : 0;
+
+  html += '<div style="margin-bottom:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)">Sprint Focus</div>';
+  html += '<div class="ins-metrics-row" style="margin-bottom:28px">';
+  html += _insStatCard(mktgPct + '%',  'Marketing Launch',   '#3C8BB6');
+  html += _insStatCard(m1Pct  + '%',  'M1 Switch-off',      'var(--brand)');
+  html += _insStatCard(otherPct + '%', 'Off-epic ⚠',         '#ED5454');
   html += '</div>';
 
   html += '<div class="ins-charts-grid">';
