@@ -1340,7 +1340,7 @@ function buildInsightsHTML(issues, sprint) {
   var otherCount  = focusTotal - mktgCount - m1Count;
   var mktgPct     = focusTotal > 0 ? Math.round(mktgCount  / focusTotal * 100) : 0;
   var m1Pct       = focusTotal > 0 ? Math.round(m1Count    / focusTotal * 100) : 0;
-  var otherPct    = focusTotal > 0 ? Math.round(otherCount / focusTotal * 100) : 0;
+  var otherPct    = focusTotal > 0 ? 100 - mktgPct - m1Pct : 0;
 
   html += '<div style="margin-bottom:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)">Sprint Focus</div>';
   html += '<div class="ins-metrics-row" style="margin-bottom:28px">';
