@@ -974,19 +974,8 @@ var M2_EPIC_ISSUES = [
   { key:'FM-3984', summary:'Product Enable/Disable Not Triggering Index Refresh', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} }
 ];
 
-/* ── Jira credentials ── */
-function m2GetAuth() {
-  var creds = localStorage.getItem('m2_jira_auth');
-  if (!creds) {
-    var email = prompt('Jira email address:');
-    if (!email) return null;
-    var token = prompt('Jira API token\n(create one at id.atlassian.com → Security → API tokens):');
-    if (!token) return null;
-    creds = btoa(email.trim() + ':' + token.trim());
-    localStorage.setItem('m2_jira_auth', creds);
-  }
-  return creds;
-}
+/* ── N8N proxy base URL ── */
+var M2_N8N = 'https://workflow.sih.services/webhook';
 
 function m2ShowToast(msg, color) {
   var t = document.createElement('div');
@@ -996,22 +985,14 @@ function m2ShowToast(msg, color) {
   setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); },320); },3000);
 }
 
-/* ── Live fetch from Jira REST API ── */
+/* ── Live fetch via N8N proxy ── */
 function m2FetchLive(onDone) {
-  var auth = m2GetAuth();
-  if (!auth) { onDone && onDone(false); return; }
-  var jql  = encodeURIComponent('parent = FM-3966 ORDER BY created ASC');
-  var flds = 'summary,status,issuetype,priority,assignee';
-  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/search?jql=' + jql + '&maxResults=50&fields=' + flds, {
-    headers: { 'Authorization': 'Basic ' + auth, 'Accept': 'application/json' }
-  })
-  .then(function(r){
-    if (r.status === 401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
-    return r.json();
-  })
+  fetch(M2_N8N + '/m2-list', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+  .then(function(r){ return r.json(); })
   .then(function(data){
-    if (!data.issues) throw new Error('no issues');
-    var fresh = data.issues.map(function(i){
+    var issues = data.issues || data;
+    if (!Array.isArray(issues)) throw new Error('no issues');
+    var fresh = issues.map(function(i){
       var cat = (i.fields.status.statusCategory && i.fields.status.statusCategory.key) || 'new';
       return {
         key: i.key, summary: i.fields.summary,
@@ -1085,49 +1066,26 @@ function m2Drop(e, targetCat, el) {
 }
 
 function m2TransitionIssue(key, targetCat) {
-  var auth = m2GetAuth(); if (!auth) return;
-  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue/' + key + '/transitions', {
-    headers: { 'Authorization': 'Basic ' + auth, 'Accept': 'application/json' }
+  fetch(M2_N8N + '/m2-transition', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key: key, targetCategory: targetCat })
   })
-  .then(function(r){
-    if (r.status===401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
-    return r.json();
-  })
+  .then(function(r){ return r.json(); })
   .then(function(data){
-    var ts = data.transitions || [], t = null;
-    for (var i=0;i<ts.length;i++){
-      var cat = ts[i].to && ts[i].to.statusCategory && ts[i].to.statusCategory.key;
-      if (cat === targetCat){ t=ts[i]; break; }
-    }
-    if (!t){
-      var nm = { 'new':'to do','indeterminate':'in progress','done':'done' }[targetCat] || targetCat;
-      for (var j=0;j<ts.length;j++){
-        if ((ts[j].name||'').toLowerCase()===nm || ((ts[j].to&&ts[j].to.name)||'').toLowerCase()===nm){ t=ts[j]; break; }
-      }
-    }
-    if (!t){ m2ShowToast('No transition found for ' + key, '#e53935'); return Promise.resolve(); }
-    return fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue/' + key + '/transitions', {
-      method: 'POST',
-      headers: { 'Authorization':'Basic '+auth, 'Content-Type':'application/json', 'Accept':'application/json' },
-      body: JSON.stringify({ transition:{ id: t.id } })
-    });
-  })
-  .then(function(r){
-    if (!r) return;
-    if (r.ok || r.status===204) m2ShowToast('✓ ' + key + ' status updated', '#10b981');
+    if (data.success || data.status === 'ok') m2ShowToast('✓ ' + key + ' status updated', '#10b981');
     else m2ShowToast('Could not update ' + key + ' in Jira', '#e53935');
   })
   .catch(function(err){ console.error('Transition error:',err); m2ShowToast('Error updating ' + key, '#e53935'); });
 }
 
-/* ── Create new ticket ── */
+/* ── Create new ticket via N8N proxy ── */
 function m2SubmitNew() {
   var input = document.getElementById('m2NewInput');
   var btn   = document.getElementById('m2NewSubmit');
   if (!input) return;
   var summary = input.value.trim();
   if (!summary){ input.focus(); return; }
-  var auth = m2GetAuth(); if (!auth) return;
   if (btn) btn.disabled = true;
 
   var tempKey = '_new_' + Date.now();
@@ -1137,28 +1095,29 @@ function m2SubmitNew() {
   input.value = '';
   m2RedrawBody();
 
-  fetch(SPRINT_CONFIG.jiraUrl + '/rest/api/3/issue', {
+  fetch(M2_N8N + '/m2-create', {
     method: 'POST',
-    headers: { 'Authorization':'Basic '+auth, 'Content-Type':'application/json', 'Accept':'application/json' },
-    body: JSON.stringify({ fields:{ project:{key:'FM'}, summary:summary, issuetype:{name:'Story'}, parent:{key:'FM-3966'}, labels:['FTN-CAPEX'] } })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ summary: summary })
   })
-  .then(function(r){
-    if (r.status===401){ localStorage.removeItem('m2_jira_auth'); throw new Error('auth'); }
-    return r.json();
-  })
+  .then(function(r){ return r.json(); })
   .then(function(data){
-    if (!data.key) throw new Error(JSON.stringify(data));
+    var newKey = data.key || (data.issue && data.issue.key);
+    if (!newKey) throw new Error(JSON.stringify(data));
     for (var i=0;i<M2_EPIC_ISSUES.length;i++){
-      if (M2_EPIC_ISSUES[i].key===tempKey){ M2_EPIC_ISSUES[i].key=data.key; M2_EPIC_ISSUES[i]._pending=false; break; }
+      if (M2_EPIC_ISSUES[i].key===tempKey){ M2_EPIC_ISSUES[i].key=newKey; M2_EPIC_ISSUES[i]._pending=false; break; }
     }
     buildIssueMap(M2_EPIC_ISSUES);
     m2RedrawBody();
-    m2ShowToast('✓ Created ' + data.key, '#10b981');
+    if (btn) btn.disabled = false;
+    m2ShowToast('✓ Created ' + newKey, '#10b981');
   })
   .catch(function(err){
     console.error('Create error:',err);
     M2_EPIC_ISSUES = M2_EPIC_ISSUES.filter(function(i){ return i.key!==tempKey; });
+    buildIssueMap(M2_EPIC_ISSUES);
     m2RedrawBody();
+    if (btn) btn.disabled = false;
     m2ShowToast('Failed to create ticket in Jira', '#e53935');
   });
 }
