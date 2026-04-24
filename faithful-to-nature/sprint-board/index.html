@@ -277,10 +277,11 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .issue-card-top{flex-wrap:nowrap}
 .epic-badge{margin-left:auto;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:rgba(0,0,0,.06);color:var(--gray-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;flex-shrink:0;line-height:1.5}
 
-/* ── M2 WRAP UP BUTTON ── */
-.m2-btn{position:absolute;top:28px;right:48px;display:flex;align-items:center;gap:7px;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);cursor:pointer;transition:all .15s;white-space:nowrap;z-index:2}
-.m2-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
-.m2-btn svg{flex-shrink:0}
+/* ── EPIC PANEL BUTTONS ── */
+.epic-btns{position:absolute;top:28px;right:48px;display:flex;align-items:center;gap:8px;z-index:2}
+.epic-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.15);cursor:pointer;transition:all .15s;white-space:nowrap}
+.epic-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
+.epic-btn svg{flex-shrink:0}
 
 /* ── M2 WRAP UP PANEL ── */
 .m2-panel{position:fixed;inset:0;background:var(--gray-1);z-index:500;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
@@ -349,10 +350,16 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 
   <!-- HERO -->
   <section class="hero">
-    <button class="m2-btn" onclick="openM2Panel()" title="View M2 Wrap Up epic tickets">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
-      M2 Wrap Up
-    </button>
+    <div class="epic-btns">
+      <button class="epic-btn" onclick="openEpicPanel('m1-switchoff')" title="View M1 Switch-off epic tickets">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
+        M1 Switch-off
+      </button>
+      <button class="epic-btn" onclick="openEpicPanel('mktg-launch')" title="View Marketing Launch of M2 App epic tickets">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
+        Marketing Launch
+      </button>
+    </div>
     <div class="hero-badge">Faithful to Nature · Sprint Board</div>
     <h1>Sprint Board</h1>
     <p class="hero-sub">Active sprint pulled from Jira. Cards show live status — click any ticket to see full details.</p>
@@ -441,8 +448,8 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <!-- Content built by JS -->
 </div>
 
-<!-- M2 WRAP UP PANEL -->
-<div class="m2-panel" id="m2Panel" role="dialog" aria-modal="true" aria-label="M2 Wrap Up">
+<!-- EPIC PANEL -->
+<div class="m2-panel" id="epicPanel" role="dialog" aria-modal="true" aria-label="Epic Panel">
   <!-- Content built by JS -->
 </div>
 
@@ -925,8 +932,8 @@ function closeFlyout() {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    var m2 = document.getElementById('m2Panel');
-    if (m2 && m2.classList.contains('open')) { closeM2Panel(); return; }
+    var m2 = document.getElementById('epicPanel');
+    if (m2 && m2.classList.contains('open')) { closeEpicPanel(); return; }
     var ins = document.getElementById('insightsPanel');
     if (ins && ins.classList.contains('open')) { closeInsights(); return; }
     closeFlyout();
@@ -951,31 +958,31 @@ function closeInsights() {
 }
 
 /* ─────────────────────────────────────────────
-   M2 WRAP UP PANEL
+   EPIC PANEL SYSTEM (generic — works for any epic)
    ───────────────────────────────────────────── */
 
-/* Static FM-3966 epic issues — always shown; Refresh overlays live Jira data */
-var M2_EPIC_ISSUES = [
-  { key:'FM-3969', summary:'Test and validate sitemap migration from M1 (Anton + Shaughn)(5d)(*SSR dependent) - Turn off topic', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3970', summary:'GTM + Analytics implementation (shaughn)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3971', summary:'Test search results against M1 common queries - validate quality of search results (merchandising)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3972', summary:'Content & Images - Review product image CDN migration approach (Anton+Fran)(3w)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3973', summary:'Filters Troubleshooting /w Chelsea', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3974', summary:'Erply Integration (Fran)( testing )', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3975', summary:'Delta Sync maintenance / monitoring (Shaughn) (1d p/w)', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3976', summary:'Push notifications', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3977', summary:'Banner system - Banners for emergencies', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3978', summary:'UberEat feed fixes', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3979', summary:'Load testing', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3980', summary:'M2 admin behind CF access', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3981', summary:'M2 domain changes - move eco-warriors.innovate to eco-warriors.ftn.co.za', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3982', summary:'SEO audit', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3983', summary:'Fix Product Content formatting and Fonts', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} },
-  { key:'FM-3984', summary:'Product Enable/Disable Not Triggering Index Refresh', status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} }
-];
+/* ── Epic configs ── */
+var EPIC_CONFIGS = {
+  'm1-switchoff': {
+    id:       'm1-switchoff',
+    epicKey:  'FM-2478',
+    title:    'M1 Switch-off',
+    label:    'FTN-CAPEX'
+  },
+  'mktg-launch': {
+    id:       'mktg-launch',
+    epicKey:  'FM-2765',
+    title:    'Marketing Launch of M2 App',
+    label:    'FTN-MKTG'
+  }
+};
 
 /* ── N8N proxy base URL ── */
-var M2_N8N = 'https://workflow.sih.services/webhook';
+var EPIC_N8N = 'https://workflow.sih.services/webhook';
+
+/* ── Active epic state ── */
+var _activeEpic = null;   /* current EPIC_CONFIGS entry */
+var _epicIssues = [];     /* issues for the active epic */
 
 function m2ShowToast(msg, color) {
   var t = document.createElement('div');
@@ -986,8 +993,9 @@ function m2ShowToast(msg, color) {
 }
 
 /* ── Live fetch via N8N proxy ── */
-function m2FetchLive(onDone) {
-  fetch(M2_N8N + '/m2-list', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+function epicFetchLive(onDone) {
+  if (!_activeEpic) { onDone && onDone(false); return; }
+  fetch(EPIC_N8N + '/m2-list', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ epicKey: _activeEpic.epicKey }) })
   .then(function(r){ return r.json(); })
   .then(function(data){
     var issues = data.issues || data;
@@ -1003,70 +1011,69 @@ function m2FetchLive(onDone) {
           displayName: i.fields.assignee.displayName,
           avatar: i.fields.assignee.avatarUrls && i.fields.assignee.avatarUrls['48x48']
         } : null,
-        parent: { key:'FM-3966', summary:'Wrap Up M2', issuetype:'Epic' }
+        parent: { key: _activeEpic.epicKey, summary: _activeEpic.title, issuetype: 'Epic' }
       };
     });
-    /* Keep any pending items not yet in Jira */
     var freshKeys = {};
     fresh.forEach(function(i){ freshKeys[i.key]=true; });
-    var pending = M2_EPIC_ISSUES.filter(function(i){ return i._pending && !freshKeys[i.key]; });
-    M2_EPIC_ISSUES = fresh.concat(pending);
-    buildIssueMap(M2_EPIC_ISSUES);
+    var pending = _epicIssues.filter(function(i){ return i._pending && !freshKeys[i.key]; });
+    _epicIssues = fresh.concat(pending);
+    buildIssueMap(_epicIssues);
     onDone && onDone(true);
   })
   .catch(function(err){
-    console.warn('M2 live fetch failed:', err.message);
+    console.warn('Epic live fetch failed:', err.message);
     onDone && onDone(false);
   });
 }
 
 /* ── Refresh button ── */
-function m2RefreshPanel() {
-  var btn = document.getElementById('m2RefreshBtn');
+function epicRefreshPanel() {
+  var btn = document.getElementById('epicRefreshBtn');
   if (btn){ btn.disabled=true; btn.classList.add('spinning'); }
-  m2FetchLive(function(ok){
+  epicFetchLive(function(ok){
     if (btn){ btn.disabled=false; btn.classList.remove('spinning'); }
-    m2RedrawBody();
-    m2ShowToast(ok ? '✓ M2 tickets refreshed from Jira' : 'Using cached data — check Jira credentials', ok ? '#10b981' : '#f59e0b');
+    epicRedrawBody();
+    m2ShowToast(ok ? '✓ Tickets refreshed from Jira' : 'Could not reach Jira — try again', ok ? '#10b981' : '#f59e0b');
   });
 }
 
 /* ── Redraw just the body, preserving panel header ── */
-function m2RedrawBody() {
-  var panel = document.getElementById('m2Panel');
+function epicRedrawBody() {
+  var panel = document.getElementById('epicPanel');
   if (!panel) return;
   var oldBody = panel.querySelector('.ins-body');
-  var newBodyHtml = buildM2Body();
+  var newBodyHtml = buildEpicBody();
   if (oldBody) {
     var tmp = document.createElement('div');
     tmp.innerHTML = newBodyHtml;
     oldBody.parentNode.replaceChild(tmp.firstChild, oldBody);
   } else {
-    panel.innerHTML = buildM2PanelHTML();
+    panel.innerHTML = buildEpicPanelHTML();
   }
 }
 
 /* ── Drag & Drop ── */
-var _m2DragKey = null;
-function m2DragStart(key, el){ _m2DragKey = key; el.classList.add('m2-dragging'); }
+var _epicDragKey = null;
+function m2DragStart(key, el){ _epicDragKey = key; el.classList.add('m2-dragging'); }
 function m2DragEnd(el){ el.classList.remove('m2-dragging'); }
 function m2DragOver(e, el){ e.preventDefault(); el.classList.add('drag-over'); }
 function m2DragLeave(el){ el.classList.remove('drag-over'); }
 function m2Drop(e, targetCat, el) {
   e.preventDefault(); el.classList.remove('drag-over');
-  var key = _m2DragKey; _m2DragKey = null;
+  var key = _epicDragKey; _epicDragKey = null;
   if (!key) return;
-  var issue = _issueMap[key];
-  if (!issue) { for(var x=0;x<M2_EPIC_ISSUES.length;x++){ if(M2_EPIC_ISSUES[x].key===key){ issue=M2_EPIC_ISSUES[x]; break; } } }
+  var issue = null;
+  for(var x=0;x<_epicIssues.length;x++){ if(_epicIssues[x].key===key){ issue=_epicIssues[x]; break; } }
   if (!issue || (issue.status && issue.status.category) === targetCat) return;
   var names = { 'new':'To Do','indeterminate':'In Progress','done':'Done' };
   issue.status = { name: names[targetCat]||targetCat, category: targetCat };
-  m2RedrawBody();
-  m2TransitionIssue(key, targetCat);
+  epicRedrawBody();
+  epicTransitionIssue(key, targetCat);
 }
 
-function m2TransitionIssue(key, targetCat) {
-  fetch(M2_N8N + '/m2-transition', {
+function epicTransitionIssue(key, targetCat) {
+  fetch(EPIC_N8N + '/m2-transition', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ key: key, targetCategory: targetCat })
@@ -1080,49 +1087,50 @@ function m2TransitionIssue(key, targetCat) {
 }
 
 /* ── Create new ticket via N8N proxy ── */
-function m2SubmitNew() {
-  var input = document.getElementById('m2NewInput');
-  var btn   = document.getElementById('m2NewSubmit');
+function epicSubmitNew() {
+  if (!_activeEpic) return;
+  var input = document.getElementById('epicNewInput');
+  var btn   = document.getElementById('epicNewSubmit');
   if (!input) return;
   var summary = input.value.trim();
   if (!summary){ input.focus(); return; }
   if (btn) btn.disabled = true;
 
   var tempKey = '_new_' + Date.now();
-  var newIssue = { key:tempKey, _pending:true, summary:summary, status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{key:'FM-3966',summary:'Wrap Up M2',issuetype:'Epic'} };
-  M2_EPIC_ISSUES.push(newIssue);
-  buildIssueMap(M2_EPIC_ISSUES);
+  var newIssue = { key:tempKey, _pending:true, summary:summary, status:{name:'To Do',category:'new'}, issuetype:{name:'Story'}, priority:{name:'Medium'}, assignee:null, parent:{ key:_activeEpic.epicKey, summary:_activeEpic.title, issuetype:'Epic' } };
+  _epicIssues.push(newIssue);
+  buildIssueMap(_epicIssues);
   input.value = '';
-  m2RedrawBody();
+  epicRedrawBody();
 
-  fetch(M2_N8N + '/m2-create', {
+  fetch(EPIC_N8N + '/m2-create', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ summary: summary })
+    body: JSON.stringify({ summary: summary, epicKey: _activeEpic.epicKey, label: _activeEpic.label })
   })
   .then(function(r){ return r.json(); })
   .then(function(data){
     var newKey = data.key || (data.issue && data.issue.key);
     if (!newKey) throw new Error(JSON.stringify(data));
-    for (var i=0;i<M2_EPIC_ISSUES.length;i++){
-      if (M2_EPIC_ISSUES[i].key===tempKey){ M2_EPIC_ISSUES[i].key=newKey; M2_EPIC_ISSUES[i]._pending=false; break; }
+    for (var i=0;i<_epicIssues.length;i++){
+      if (_epicIssues[i].key===tempKey){ _epicIssues[i].key=newKey; _epicIssues[i]._pending=false; break; }
     }
-    buildIssueMap(M2_EPIC_ISSUES);
-    m2RedrawBody();
+    buildIssueMap(_epicIssues);
+    epicRedrawBody();
     if (btn) btn.disabled = false;
     m2ShowToast('✓ Created ' + newKey, '#10b981');
   })
   .catch(function(err){
     console.error('Create error:',err);
-    M2_EPIC_ISSUES = M2_EPIC_ISSUES.filter(function(i){ return i.key!==tempKey; });
-    buildIssueMap(M2_EPIC_ISSUES);
-    m2RedrawBody();
+    _epicIssues = _epicIssues.filter(function(i){ return i.key!==tempKey; });
+    buildIssueMap(_epicIssues);
+    epicRedrawBody();
     if (btn) btn.disabled = false;
     m2ShowToast('Failed to create ticket in Jira', '#e53935');
   });
 }
 
-function m2NewKeydown(e){ if(e.key==='Enter') m2SubmitNew(); }
+function epicNewKeydown(e){ if(e.key==='Enter') epicSubmitNew(); }
 
 /* ── Render helpers ── */
 function renderM2Card(issue) {
@@ -1133,104 +1141,114 @@ function renderM2Card(issue) {
   return html;
 }
 
-function buildM2Body() {
-  var issues = getM2Issues();
+function buildEpicBody() {
+  if (!_activeEpic) return '<div class="ins-body"></div>';
+  var issues = _epicIssues;
   var total  = issues.length;
   var done   = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
   var inprog = issues.filter(function(i){ return i.status && i.status.category === 'indeterminate'; });
   var todo   = issues.filter(function(i){ return i.status && i.status.category === 'new'; });
   var donePct = total > 0 ? Math.round((done.length / total) * 100) : 0;
-  var jiraEpicUrl = SPRINT_CONFIG.jiraUrl + '/browse/FM-3966';
+  var jiraEpicUrl = SPRINT_CONFIG.jiraUrl + '/browse/' + _activeEpic.epicKey;
 
   var html = '<div class="ins-body">';
 
-  html += '<div style="margin-bottom:20px">'
-    + '<a href="' + jiraEpicUrl + '" target="_blank" rel="noopener" class="flyout-epic-link" style="font-size:12px">'
-    + '<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    + '<span class="flyout-epic-key">FM-3966</span><span>·</span><span class="flyout-epic-sum">Wrap Up M2</span>'
-    + '</a></div>';
-
-  html += '<div class="ins-metrics-row" style="margin-bottom:24px">'
-    + '<div class="ins-stat-card donut-card">' + _insDonut(donePct) + '<div class="ins-donut-text"><div class="ins-donut-pct">' + donePct + '%</div><div class="ins-donut-sub">Complete</div></div></div>'
-    + _insStatCard(done.length,   'Done',        'var(--col-done)')
-    + _insStatCard(inprog.length, 'In Progress', 'var(--col-inprog)')
-    + _insStatCard(todo.length,   'To Do',       'var(--col-todo)')
-    + '</div>';
-
-  function m2Col(cls, title, items, cat) {
-    var hdr = '<div class="kanban-col-hdr ' + cls + '">'
-      + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
-      + '<span class="kanban-count-badge">' + items.length + '</span>'
+  if (total === 0) {
+    html += '<div style="padding:32px;text-align:center;color:var(--gray-4);font-size:14px">'
+      + '<div style="margin-bottom:8px;font-size:28px">⏳</div>'
+      + 'Loading tickets from Jira…'
       + '</div>';
-    var body = '<div class="kanban-col-body m2-drop-zone"'
-      + ' ondragover="m2DragOver(event,this)"'
-      + ' ondragleave="m2DragLeave(this)"'
-      + ' ondrop="m2Drop(event,\'' + cat + '\',this)">';
-    if (items.length === 0) body += '<div class="kanban-empty">No issues</div>';
-    else items.forEach(function(i){ body += renderM2Card(i); });
-    if (cat === 'new') {
-      body += '<div class="m2-add-row">'
-        + '<input id="m2NewInput" class="m2-add-input" type="text" placeholder="New ticket summary…" autocomplete="off" onkeydown="m2NewKeydown(event)">'
-        + '<button id="m2NewSubmit" class="m2-add-submit" onclick="m2SubmitNew()">Add</button>'
-        + '</div>';
-    }
-    body += '</div>';
-    return '<div class="kanban-col">' + hdr + body + '</div>';
-  }
+  } else {
+    html += '<div style="margin-bottom:20px">'
+      + '<a href="' + jiraEpicUrl + '" target="_blank" rel="noopener" class="flyout-epic-link" style="font-size:12px">'
+      + '<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + '<span class="flyout-epic-key">' + escHtml(_activeEpic.epicKey) + '</span><span>·</span><span class="flyout-epic-sum">' + escHtml(_activeEpic.title) + '</span>'
+      + '</a></div>';
 
-  html += '<div class="kanban-grid">'
-    + m2Col('todo',   'To Do',       todo,   'new')
-    + m2Col('inprog', 'In Progress', inprog, 'indeterminate')
-    + m2Col('done',   'Done',        done,   'done')
-    + '</div>';
+    html += '<div class="ins-metrics-row" style="margin-bottom:24px">'
+      + '<div class="ins-stat-card donut-card">' + _insDonut(donePct) + '<div class="ins-donut-text"><div class="ins-donut-pct">' + donePct + '%</div><div class="ins-donut-sub">Complete</div></div></div>'
+      + _insStatCard(done.length,   'Done',        'var(--col-done)')
+      + _insStatCard(inprog.length, 'In Progress', 'var(--col-inprog)')
+      + _insStatCard(todo.length,   'To Do',       'var(--col-todo)')
+      + '</div>';
+
+    function epicCol(cls, title, items, cat) {
+      var hdr = '<div class="kanban-col-hdr ' + cls + '">'
+        + '<span class="kanban-col-title">' + escHtml(title) + '</span>'
+        + '<span class="kanban-count-badge">' + items.length + '</span>'
+        + '</div>';
+      var body = '<div class="kanban-col-body m2-drop-zone"'
+        + ' ondragover="m2DragOver(event,this)"'
+        + ' ondragleave="m2DragLeave(this)"'
+        + ' ondrop="m2Drop(event,\'' + cat + '\',this)">';
+      if (items.length === 0) body += '<div class="kanban-empty">No issues</div>';
+      else items.forEach(function(i){ body += renderM2Card(i); });
+      if (cat === 'new') {
+        body += '<div class="m2-add-row">'
+          + '<input id="epicNewInput" class="m2-add-input" type="text" placeholder="New ticket summary…" autocomplete="off" onkeydown="epicNewKeydown(event)">'
+          + '<button id="epicNewSubmit" class="m2-add-submit" onclick="epicSubmitNew()">Add</button>'
+          + '</div>';
+      }
+      body += '</div>';
+      return '<div class="kanban-col">' + hdr + body + '</div>';
+    }
+
+    html += '<div class="kanban-grid">'
+      + epicCol('todo',   'To Do',       todo,   'new')
+      + epicCol('inprog', 'In Progress', inprog, 'indeterminate')
+      + epicCol('done',   'Done',        done,   'done')
+      + '</div>';
+  }
 
   html += '</div>';
   return html;
 }
 
-function buildM2PanelHTML() {
-  var issues  = getM2Issues();
-  var total   = issues.length;
-  var done    = issues.filter(function(i){ return i.status && i.status.category === 'done'; });
+function buildEpicPanelHTML() {
+  if (!_activeEpic) return '';
+  var total   = _epicIssues.length;
+  var done    = _epicIssues.filter(function(i){ return i.status && i.status.category === 'done'; });
   var donePct = total > 0 ? Math.round((done.length / total) * 100) : 0;
 
   var header = '<div class="ins-header">'
     + '<div class="ins-header-left">'
-    + '<div class="ins-breadcrumb">Faithful to Nature · Epic FM-3966</div>'
-    + '<div class="ins-title">M2 Wrap Up</div>'
-    + '<div class="ins-subtitle">' + total + ' ticket' + (total !== 1 ? 's' : '') + (total > 0 ? ' · ' + donePct + '% complete' : '') + '</div>'
+    + '<div class="ins-breadcrumb">Faithful to Nature · Epic ' + escHtml(_activeEpic.epicKey) + '</div>'
+    + '<div class="ins-title">' + escHtml(_activeEpic.title) + '</div>'
+    + '<div class="ins-subtitle">' + (total > 0 ? total + ' ticket' + (total !== 1 ? 's' : '') + ' · ' + donePct + '% complete' : 'Loading…') + '</div>'
     + '</div>'
     + '<div class="m2-hdr-actions">'
-    + '<button id="m2RefreshBtn" class="m2-refresh-btn" onclick="m2RefreshPanel()" title="Refresh from Jira">'
+    + '<button id="epicRefreshBtn" class="m2-refresh-btn" onclick="epicRefreshPanel()" title="Refresh from Jira">'
     + '<svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4.5 10a5.5 5.5 0 005.5 5.5 5.5 5.5 0 004.2-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M15.5 10a5.5 5.5 0 00-5.5-5.5A5.5 5.5 0 005.8 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13 13.5l1.7 2 1.8-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6.5L5.3 4.5 3.5 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     + 'Refresh'
     + '</button>'
-    + '<button class="ins-close" onclick="closeM2Panel()" aria-label="Close">&times;</button>'
+    + '<button class="ins-close" onclick="closeEpicPanel()" aria-label="Close">&times;</button>'
     + '</div>'
     + '</div>';
 
-  return header + buildM2Body();
+  return header + buildEpicBody();
 }
 
-function openM2Panel() {
-  var panel = document.getElementById('m2Panel');
+function openEpicPanel(epicId) {
+  var cfg = EPIC_CONFIGS[epicId];
+  if (!cfg) return;
+  _activeEpic  = cfg;
+  _epicIssues  = [];
+  var panel = document.getElementById('epicPanel');
   if (!panel) return;
-  buildIssueMap(M2_EPIC_ISSUES);
-  panel.innerHTML = buildM2PanelHTML();
+  panel.innerHTML = buildEpicPanelHTML();
   panel.classList.add('open');
   document.body.style.overflow = 'hidden';
+  /* Auto-fetch tickets on open */
+  epicFetchLive(function(ok){
+    epicRedrawBody();
+    if (!ok) m2ShowToast('Could not load tickets — click Refresh to retry', '#f59e0b');
+  });
 }
 
-function closeM2Panel() {
-  var panel = document.getElementById('m2Panel');
+function closeEpicPanel() {
+  var panel = document.getElementById('epicPanel');
   if (panel) panel.classList.remove('open');
   document.body.style.overflow = '';
-}
-
-function getM2Issues() {
-  var liveMap = {};
-  (_allActive||[]).concat(_allNext||[]).forEach(function(i){ liveMap[i.key]=i; });
-  return M2_EPIC_ISSUES.map(function(t){ return liveMap[t.key]||t; });
 }
 
 function _insDonut(pct) {
