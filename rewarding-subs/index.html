@@ -3,610 +3,607 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Schedule & Save — Rewarding Subs Prototype | Pet Heaven</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>My Schedule &amp; Save — Rewarding Subs Prototype | Pet Heaven</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET ─────────────────────────────────────────── */
+/* ─── RESET ─────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;font-size:14px;color:#1A2419;background:#f5f5f5;line-height:1.5}
+body{font-family:'Open Sans',sans-serif;font-size:14px;color:#333;background:#fff;line-height:1.5}
 a{text-decoration:none;color:inherit}
 
-/* ─── PROTOTYPE BAR ──────────────────────────────────── */
-.proto-bar{display:flex;gap:8px;padding:10px 16px;background:#1A2419;border-bottom:1px solid #333;position:sticky;top:0;z-index:2000;align-items:center;flex-wrap:wrap}
-.proto-bar-label{font-size:10px;color:#aaa;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-right:4px;white-space:nowrap}
-.proto-btn{font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border:1.5px solid #555;border-radius:20px;background:transparent;color:#aaa;cursor:pointer;outline:none;transition:all .2s;white-space:nowrap}
-.proto-btn:hover{border-color:#57AB4E;color:#57AB4E}
-.proto-btn.active{background:#57AB4E;color:#fff;border-color:#57AB4E}
-.proto-badge{margin-left:auto;font-size:10px;color:#666;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
-.proto-divider{width:1px;height:20px;background:#444;margin:0 4px;flex-shrink:0}
+/* ─── PROTOTYPE BAR ──────────────────────────────── */
+.proto-bar{display:flex;gap:8px;padding:8px 16px;background:#1a1a1a;position:sticky;top:0;z-index:2000;align-items:center;flex-wrap:wrap}
+.proto-label{font-size:10px;color:#888;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:2px;white-space:nowrap}
+.proto-btn{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:700;padding:5px 14px;border:1.5px solid #444;border-radius:20px;background:transparent;color:#888;cursor:pointer;outline:none;transition:all .15s;white-space:nowrap}
+.proto-btn:hover{border-color:#43b02a;color:#43b02a}
+.proto-btn.active{background:#43b02a;color:#fff;border-color:#43b02a}
+.proto-spacer{flex:1}
+.fix-pill{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.fix-pill.bug{background:#ED5454;color:#fff}
+.fix-pill.fix{background:#2F6C38;color:#fff}
+.proto-name{font-size:10px;color:#555;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 
-/* fix indicator pill */
-.fix-pill{display:inline-flex;align-items:center;gap:5px;background:#2F6C38;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
-.fix-pill.broken{background:#ED5454}
-
-/* ─── SITE HEADER ────────────────────────────────────── */
-.site-header{background:#57AB4E;padding:0 24px;height:60px;display:flex;align-items:center;gap:12px}
+/* ─── SITE HEADER ────────────────────────────────── */
+.site-header{background:#43b02a;padding:0 24px;height:56px;display:flex;align-items:center;gap:14px}
 .hdr-logo{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.hdr-logo svg{width:28px;height:28px;fill:#fff}
-.hdr-logo-text{font-size:16px;font-weight:800;color:#fff;letter-spacing:.06em}
-.hdr-search{flex:1;max-width:420px;position:relative;margin:0 12px}
-.hdr-search input{width:100%;padding:8px 36px 8px 13px;border:none;border-radius:4px;font-family:'Poppins',sans-serif;font-size:13px;outline:none;color:#333}
-.hdr-search-btn{position:absolute;right:0;top:0;height:100%;width:34px;background:#f0f0f0;border:none;cursor:pointer;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center}
-.hdr-actions{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0}
-.hdr-app-btn{padding:6px 14px;border:1.5px solid #fff;border-radius:20px;color:#fff;background:transparent;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+.hdr-logo-text{font-size:17px;font-weight:800;color:#fff;letter-spacing:.05em}
+.hdr-search{flex:1;max-width:460px;position:relative}
+.hdr-search input{width:100%;padding:8px 36px 8px 13px;border:none;border-radius:4px;font-family:'Open Sans',sans-serif;font-size:13px;outline:none;color:#333}
+.hdr-search-btn{position:absolute;right:0;top:0;height:100%;width:34px;background:#e8e8e8;border:none;cursor:pointer;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center}
+.hdr-actions{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0}
+.hdr-welcome{color:#ffdf40;font-size:12px;font-weight:700}
+.hdr-app-btn{padding:6px 14px;border:1.5px solid #fff;border-radius:20px;color:#fff;background:transparent;font-family:'Open Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .hdr-link{color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
-.hdr-welcome{color:#FFDF40;font-size:12px;font-weight:600}
 
-/* ─── PROMO BAR ──────────────────────────────────────── */
-.promo-bar{background:#BD08C3;padding:7px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.promo-item{display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:500}
+/* ─── PROMO BAR ──────────────────────────────────── */
+.promo-bar{background:#9c27b0;padding:7px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.promo-item{display:flex;align-items:center;gap:6px;color:#fff;font-size:12px;font-weight:500}
 .promo-item strong{font-weight:800}
-.promo-icon{width:18px;height:18px;flex-shrink:0}
 
-/* ─── SITE NAV ───────────────────────────────────────── */
-.site-nav{background:#57AB4E;border-top:1px solid rgba(255,255,255,.2)}
-.site-nav ul{list-style:none;display:flex;padding:0 24px;margin:0 auto;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.site-nav li a{display:block;padding:11px 14px;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent;transition:background .15s}
-.site-nav li.active a{border-bottom-color:#FFDF40}
+/* ─── SITE NAV ───────────────────────────────────── */
+.site-nav{background:#43b02a;border-top:1px solid rgba(255,255,255,.2)}
+.site-nav ul{list-style:none;display:flex;padding:0 24px;overflow-x:auto}
+.site-nav li a{display:block;padding:10px 14px;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent}
+.site-nav li.active a{border-bottom-color:#fff}
 .site-nav li a:hover{background:rgba(0,0,0,.1)}
 
-/* ─── FULL-WIDTH MESSAGE BAR (THE FIX) ───────────────── */
-/* This lives OUTSIDE the page-wrap so it spans 100% viewport width */
-.msg-bar{display:none;width:100%;padding:12px 24px;align-items:center;gap:12px;font-size:14px;font-weight:500}
-.msg-bar.msg-success{background:#e8f5e9;border-bottom:1px solid #c8e6c9}
-.msg-bar.msg-error{background:#fdecea;border-bottom:1px solid #f5c6c6}
-.msg-bar.show{display:flex}
+/* ─── FULL-WIDTH MESSAGE BAR ─────────────────────── */
+/* Lives outside page-wrap so it spans 100vw — this is the fix */
+.msg-bar{width:100%;padding:11px 24px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.msg-bar.success{background:#dff0d8;border-bottom:1px solid #c3e6cb}
+.msg-bar.error{background:#fdecea;border-bottom:1px solid #f5c6c6}
 .msg-icon{width:22px;height:22px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.msg-icon.success{background:#57AB4E;color:#fff}
-.msg-icon.error{background:#ED5454;color:#fff}
-.msg-text{color:#1A2419;font-size:13px;font-weight:500}
+.msg-icon.s{background:#43b02a}
+.msg-icon.e{background:#ED5454}
 
-/* broken version — message constrained inside content column */
-.msg-bar-broken{display:none;padding:10px 16px;align-items:center;gap:10px;font-size:13px;font-weight:500;border-radius:4px;margin-bottom:16px}
-.msg-bar-broken.msg-success{background:#e8f5e9;border:1px solid #c8e6c9}
-.msg-bar-broken.msg-error{background:#fdecea;border:1px solid #f5c6c6}
-.msg-bar-broken.show{display:flex}
+/* ─── PAGE WRAPPER ───────────────────────────────── */
+.page-wrap{background:#fff;padding:0}
+.page-inner{max-width:1280px;margin:0 auto;padding:16px 24px 48px;display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
 
-/* ─── PAGE LAYOUT ────────────────────────────────────── */
-.page-wrap{max-width:1280px;margin:0 auto;padding:16px 24px 48px}
-.page-layout{display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:start}
-
-/* ─── LEFT SIDEBAR ───────────────────────────────────── */
+/* ─── LEFT SIDEBAR ───────────────────────────────── */
 .sidebar{}
-.sidebar-section{margin-bottom:4px}
-.sidebar-heading{background:#57AB4E;color:#fff;font-size:12px;font-weight:700;padding:10px 14px;display:flex;align-items:center;gap:8px;letter-spacing:.02em;text-transform:uppercase;border-radius:4px 4px 0 0;cursor:pointer}
-.sidebar-heading svg{width:14px;height:14px;fill:#fff;flex-shrink:0}
-.sidebar-links{background:#fff;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 4px 4px;overflow:hidden}
-.sidebar-link{display:flex;align-items:center;gap:8px;padding:9px 14px 9px 28px;font-size:13px;color:#555;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .15s}
-.sidebar-link:last-child{border-bottom:none}
-.sidebar-link:hover{background:#f9f9f9;color:#57AB4E}
-.sidebar-link.active{color:#57AB4E;font-weight:600;background:#f0faf0}
-.sidebar-link svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
+.sidebar-block{margin-bottom:2px}
+.sb-head{background:#43b02a;color:#fff;font-size:13px;font-weight:700;padding:9px 14px;display:flex;align-items:center;gap:7px;cursor:pointer;border-radius:0}
+.sb-head svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+.sb-links{background:#fff;border:1px solid #ddd;border-top:none}
+.sb-link{display:flex;align-items:center;gap:0;padding:8px 14px;font-size:13px;color:#555;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.sb-link:last-child{border-bottom:none}
+.sb-link:hover{background:#f9faf9;color:#43b02a}
+.sb-link.active{color:#43b02a;font-weight:700}
+.sb-chevron{color:#ccc;font-size:11px;margin-right:6px}
+.sb-link.active .sb-chevron{color:#43b02a}
 
-/* ─── MAIN CONTENT ───────────────────────────────────── */
-.main-content{}
+/* ─── MAIN CONTENT ───────────────────────────────── */
+.main-col{background:#fff;padding:20px 24px;border:1px solid #ddd}
 
-/* Page heading row */
-.page-heading-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.page-heading{font-size:22px;font-weight:700;color:#1A2419}
-.active-badge{display:flex;align-items:center;gap:5px;color:#57AB4E;font-size:14px;font-weight:700}
-.active-badge::before{content:'✓';font-size:16px}
+/* page title row */
+.pg-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.pg-title{font-size:22px;font-weight:700;color:#333}
+.active-badge{color:#43b02a;font-size:14px;font-weight:700}
 
-/* card meta row */
-.card-meta{display:flex;align-items:center;justify-content:space-between;padding:10px 0;margin-bottom:16px;border-bottom:1px solid #e8e8e8;font-size:13px;flex-wrap:wrap;gap:8px}
-.card-cc{color:#555;display:flex;align-items:center;gap:6px}
-.card-cc-edit{color:#57AB4E;font-weight:600;cursor:pointer;margin-left:4px}
-.card-cc-update{color:#57AB4E;font-weight:600;cursor:pointer}
-.card-points{display:flex;align-items:center;gap:10px}
-.card-points-label{color:#555}
-.pts-toggle{display:inline-flex;align-items:center;gap:4px}
-.pts-no{background:#e0e0e0;color:#555;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;cursor:pointer}
-.pts-help{color:#999;cursor:help;font-size:13px}
-.need-help-btn{background:#ED5454;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;border:none;font-family:'Poppins',sans-serif}
+/* card meta */
+.card-meta{display:flex;align-items:center;justify-content:space-between;padding:10px 0;margin-bottom:18px;border-bottom:1px solid #e8e8e8;font-size:13px;flex-wrap:wrap;gap:8px}
+.cc-info{color:#555;display:flex;align-items:center;gap:5px}
+.cc-link{color:#43b02a;font-weight:700;cursor:pointer}
+.pts-row{display:flex;align-items:center;gap:8px}
+.pts-lbl{color:#555}
+.pts-no{background:#e0e0e0;color:#555;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;cursor:pointer}
+.pts-help{color:#999;cursor:help}
+.need-help-btn{background:#e8463b;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;border:none;font-family:'Open Sans',sans-serif}
 
-/* ─── SCHEDULED ITEMS SECTION ────────────────────────── */
-.section-heading{font-size:18px;font-weight:700;color:#1A2419;margin-bottom:14px}
-.item-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:16px;display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:start;margin-bottom:12px;position:relative}
-.item-img{width:80px;height:80px;border:1px solid #f0f0f0;border-radius:4px;object-fit:cover;background:#f9f9f9;display:flex;align-items:center;justify-content:center}
-.item-img img{width:100%;height:100%;object-fit:contain;border-radius:4px}
-.item-body{}
-.item-name{font-size:15px;font-weight:700;color:#1A2419;margin-bottom:10px}
+/* section heading */
+.sec-heading{font-size:20px;font-weight:700;color:#333;margin-bottom:14px}
+
+/* ─── ITEM CARD ──────────────────────────────────── */
+.item-card{border:1px solid #e0e0e0;border-radius:4px;padding:16px;display:flex;gap:16px;align-items:flex-start;margin-bottom:12px;background:#fafafa}
+.item-img-wrap{width:80px;height:80px;flex-shrink:0;border:1px solid #e8e8e8;border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.item-img-wrap img{width:100%;height:100%;object-fit:contain}
+.item-body{flex:1;min-width:0}
+.item-name{font-size:15px;font-weight:700;color:#222;margin-bottom:10px}
 .item-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
-.item-field{display:flex;flex-direction:column;gap:2px}
-.item-field-label{font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-.item-field-val{font-size:13px;color:#333;font-weight:500}
-.item-field-val .edit-link{color:#57AB4E;font-size:12px;font-weight:600;cursor:pointer;margin-left:4px}
-.item-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.item-tag{background:#e8f5e9;color:#2F6C38;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px}
-.item-tag.fast{color:#57AB4E;font-weight:600;font-size:11px;background:none;padding:0}
-.item-price{font-size:18px;font-weight:700;color:#57AB4E;white-space:nowrap}
-.item-remove{position:absolute;top:14px;right:14px;color:#ED5454;cursor:pointer;font-size:18px;line-height:1}
+.item-field-label{font-size:11px;color:#333;font-weight:700;text-transform:uppercase;letter-spacing:.04em;display:block}
+.item-field-val{font-size:13px;color:#333}
+.edit-lnk{color:#43b02a;font-weight:600;cursor:pointer;margin-left:4px;font-size:12px}
+.item-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.tag-badge{background:#e8f5e9;color:#2F6C38;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px}
+.tag-fast{color:#43b02a;font-size:12px;font-weight:600}
 
-/* ─── MY NEXT ORDER SECTION ──────────────────────────── */
+/* item right side — remove on top, price below */
+.item-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.item-price{font-size:17px;font-weight:700;color:#43b02a;white-space:nowrap}
+.item-remove{color:#ED5454;cursor:pointer;font-size:18px;line-height:1;font-weight:700}
+/* mobile-only elements hidden on desktop */
+.item-remove-mobile{display:none}
+.item-price-mobile{display:none}
+
+/* get help widget */
+.get-help-btn{position:fixed;bottom:24px;right:24px;background:#00838f;color:#fff;border:none;border-radius:50px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:1000}
+.get-help-btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* ─── MY NEXT ORDER ──────────────────────────────── */
 .next-order-section{margin-top:28px}
-.next-order-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-.form-field{margin-bottom:16px}
-.form-label{font-size:13px;font-weight:600;color:#444;margin-bottom:6px;display:block}
-.form-select{width:100%;padding:9px 12px;border:1px solid #ccc;border-radius:4px;font-family:'Poppins',sans-serif;font-size:13px;color:#333;background:#fff;outline:none;cursor:pointer}
-.form-select:focus{border-color:#57AB4E}
+.form-row{display:grid;grid-template-columns:200px 1fr;align-items:center;gap:12px;margin-bottom:14px}
+.form-lbl{font-size:13px;font-weight:600;color:#444}
+.form-select{width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:0;font-family:'Open Sans',sans-serif;font-size:13px;color:#333;background:#fff;outline:none}
+.form-select:focus{border-color:#43b02a}
 
-/* Discount code field */
-.discount-field{display:flex;align-items:stretch;gap:0;margin-top:6px}
-.code-applied-badge{display:inline-flex;align-items:center;gap:6px;background:#57AB4E;color:#fff;font-size:13px;font-weight:700;padding:8px 14px;border-radius:4px 0 0 4px;border:1px solid #57AB4E;height:38px}
-.code-remove-btn{padding:0 14px;background:#ED5454;color:#fff;border:1px solid #ED5454;border-radius:0 4px 4px 0;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;height:38px;white-space:nowrap}
-.code-input{flex:1;padding:8px 12px;border:1px solid #ccc;border-radius:4px 0 0 4px;font-family:'Poppins',sans-serif;font-size:13px;outline:none}
-.code-input:focus{border-color:#57AB4E}
-.code-apply-btn{padding:0 16px;background:#57AB4E;color:#fff;border:none;border-radius:0 4px 4px 0;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;height:38px;white-space:nowrap}
-.code-desc{font-size:12px;color:#888;margin-top:5px}
-.code-desc.applied-name{color:#57AB4E;font-weight:600}
+/* discount code field */
+.disc-wrap{}
+.disc-field{display:flex;height:38px}
+.disc-input{flex:1;padding:0 12px;border:1px solid #ccc;border-right:none;border-radius:0;font-family:'Open Sans',sans-serif;font-size:13px;outline:none}
+.disc-input:focus{border-color:#43b02a}
+.disc-input.err{border-color:#ED5454}
+.disc-apply-btn{padding:0 16px;background:#43b02a;color:#fff;border:none;font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.disc-applied-tag{display:flex;align-items:center;gap:6px;background:#43b02a;color:#fff;font-size:13px;font-weight:700;padding:0 12px;border:1px solid #43b02a;height:38px;flex:1}
+.disc-remove-btn{padding:0 14px;background:#e8463b;color:#fff;border:none;font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;height:38px}
+.disc-code-name{font-size:12px;color:#555;margin-top:5px}
+.disc-code-name.valid{color:#43b02a;font-weight:600}
 
-/* ─── ORDER SUMMARY TABLE ────────────────────────────── */
-.order-table{width:100%;border-collapse:collapse;margin-top:8px}
-.order-table th{font-size:12px;color:#999;font-weight:600;text-align:left;padding:8px 0;border-bottom:1px solid #e8e8e8;text-transform:none}
-.order-table th:last-child{text-align:right}
-.order-table td{padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;vertical-align:middle}
-.order-table td:last-child{text-align:right;font-weight:600}
-.order-table td:nth-child(2){text-align:center;color:#888}
-.order-total-row td{border-top:2px solid #e0e0e0;border-bottom:none;padding-top:12px;font-weight:700;font-size:14px;color:#1A2419}
-.order-total-row td:last-child{color:#57AB4E;font-size:16px}
-.order-vat-row td{border-bottom:none;font-size:12px;color:#888;font-weight:400}
-.order-discount-row td{color:#57AB4E;font-weight:600}
-.order-discount-row td:first-child{display:flex;align-items:center;gap:6px}
-.discount-code-tag{background:#e8f5e9;color:#2F6C38;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px}
+/* ─── ORDER SUMMARY TABLE ────────────────────────── */
+.order-tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.order-tbl col.col-num{width:32px}
+.order-tbl col.col-name{width:auto}
+.order-tbl col.col-qty{width:72px}
+.order-tbl col.col-sub{width:80px}
+.order-tbl th{font-size:12px;color:#999;font-weight:600;padding:8px 0;border-bottom:1px solid #e0e0e0;text-align:left}
+.order-tbl th:nth-child(3){text-align:center}
+.order-tbl th:nth-child(4){text-align:right}
+.order-tbl td{padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px;color:#333;vertical-align:middle}
+.order-tbl td:nth-child(1){color:#888}
+.order-tbl td:nth-child(3){text-align:center;color:#888}
+.order-tbl td:nth-child(4){text-align:right;font-weight:600}
+.order-tbl .subtotal-row td{border-top:1px solid #e0e0e0;border-bottom:none;padding-top:10px;font-size:12px;color:#888;font-weight:400}
+.order-tbl .subtotal-row td:nth-child(2){text-align:right;font-weight:400;color:#888}
+.order-tbl .total-row td{border-top:2px solid #ddd;border-bottom:none;padding-top:10px;font-size:14px;font-weight:700;color:#333;white-space:nowrap}
+.order-tbl .subtotal-row td{white-space:nowrap}
+.order-tbl .total-row td:nth-child(2){text-align:right;color:#43b02a;font-size:16px;font-weight:700}
+.order-tbl .discount-row td{border-bottom:none;color:#43b02a;font-weight:600;font-size:13px}
+.order-tbl .discount-row td:nth-child(2){text-align:right;color:#43b02a}
+.disc-code-badge{background:#e8f5e9;color:#2F6C38;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px}
 
-/* ─── ANNOTATIONS ────────────────────────────────────── */
-.annotation{display:none;background:#FFDF40;color:#1A2419;font-size:11px;font-weight:700;padding:4px 10px;border-radius:3px;margin-top:6px;display:inline-flex;align-items:center;gap:5px}
-.annotation.bug{background:#fdecea;color:#ED5454;border:1px solid #ED5454}
-.annotation.fix{background:#e8f5e9;color:#2F6C38;border:1px solid #c8e6c9}
-.annotation-arrow{font-size:14px}
+/* ─── FAQ ────────────────────────────────────────── */
+.faq-section{margin-top:32px;border-top:1px solid #e0e0e0;padding-top:24px}
+.faq-heading{font-size:18px;font-weight:700;color:#333;margin-bottom:14px}
+.faq-item{border-bottom:1px solid #e8e8e8}
+.faq-q{padding:12px 0;font-size:14px;font-weight:600;color:#333;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.faq-q:hover{color:#43b02a}
+.faq-arrow{font-size:14px;color:#999;flex-shrink:0}
 
-/* ─── RESPONSIVE ─────────────────────────────────────── */
+/* ─── MOBILE ACCOUNT MENU BAR ────────────────────── */
+.mobile-acct-bar{display:none;background:#43b02a;padding:0 16px;height:44px;align-items:center;justify-content:space-between}
+.mobile-acct-lbl{color:#fff;font-size:13px;font-weight:700}
+.mobile-hamburger{color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:4px}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
 @media(max-width:768px){
-  .page-layout{grid-template-columns:1fr}
+  /* swap header chrome */
+  .site-header{display:none}
+  .promo-bar{display:none}
+  .site-nav{display:none}
+  .mobile-acct-bar{display:flex}
+
+  .page-inner{grid-template-columns:1fr;padding:12px 14px 40px;gap:12px}
   .sidebar{display:none}
-  .next-order-grid{grid-template-columns:1fr}
-  .item-card{grid-template-columns:64px 1fr;gap:12px}
-  .item-meta{grid-template-columns:1fr}
-  .page-heading{font-size:18px}
-  .hdr-search{display:none}
-  .hdr-welcome{display:none}
-  .promo-bar{flex-direction:column;gap:4px;align-items:flex-start}
-  .card-meta{flex-direction:column;align-items:flex-start}
+  .pg-title{font-size:20px}
+  .main-col{padding:14px 14px;border:none}
+
+  /* card meta stacks */
+  .card-meta{flex-direction:column;align-items:flex-start;gap:8px;padding:8px 0;margin-bottom:12px}
+  .pts-row{flex-wrap:wrap;gap:6px}
+
+  /* item card: switch to block, image + body stacked */
+  .item-card{display:block;position:relative;padding:14px;background:#f5f5f5}
+  /* desktop right column hidden on mobile */
+  .item-right-desktop{display:none}
+  /* mobile ✕ pinned top-right */
+  .item-remove-mobile{display:block;position:absolute;top:12px;right:12px;color:#ED5454;font-size:18px;font-weight:700;cursor:pointer;line-height:1}
+  /* image: left-aligned, larger on mobile */
+  .item-img-wrap{width:140px;height:140px;margin-bottom:12px;background:#fff;border:1px solid #e0e0e0}
+  /* name full width, no right padding needed now */
+  .item-name{font-size:15px;font-weight:700;margin-bottom:6px;padding-right:0}
+  /* mobile price: right-aligned, shown below name */
+  .item-price-mobile{display:block;font-size:17px;font-weight:700;color:#43b02a;text-align:right;margin-bottom:10px}
+  /* meta rows: full width 2-col, values in bordered box */
+  .item-meta{display:block}
+  .item-meta > div{display:grid;grid-template-columns:100px 1fr;align-items:start;gap:6px;margin-bottom:8px}
+  .item-field-label{font-size:12px;font-weight:700;padding-top:8px}
+  .item-field-val{display:block;background:#fff;border:1px solid #ddd;border-radius:2px;padding:6px 10px;font-size:13px;color:#333}
+
+  /* form rows: stack label above field */
+  .form-row{grid-template-columns:1fr;gap:4px}
+  .form-lbl{padding-top:0 !important}
+
+  /* order table fits viewport on mobile */
+  .order-tbl-wrap{overflow-x:visible}
+  .order-tbl{min-width:0;width:100%;font-size:12px}
+  .order-tbl col.col-num{width:24px}
+  .order-tbl col.col-qty{width:52px}
+  .order-tbl col.col-sub{width:72px}
+
+  .sec-heading{font-size:17px}
+  .next-order-section{margin-top:20px}
 }
-
-/* ─── STATE VISIBILITY ───────────────────────────────── */
-/* elements toggled by JS based on active state */
-.state-default .show-applied,
-.state-default .show-removed,
-.state-default .show-error{display:none!important}
-
-.state-applied .show-default,
-.state-applied .show-removed,
-.state-applied .show-error{display:none!important}
-
-.state-removed .show-default,
-.state-removed .show-applied,
-.state-removed .show-error{display:none!important}
-
-.state-error .show-default,
-.state-error .show-applied,
-.state-error .show-removed{display:none!important}
 </style>
 </head>
 <body>
 
-<!-- ═══ PROTOTYPE BAR ═══════════════════════════════════════════════════════ -->
+<!-- ══ PROTOTYPE BAR ═══════════════════════════════════════════════ -->
 <div class="proto-bar">
-  <span class="proto-bar-label">State:</span>
+  <span class="proto-label">State:</span>
   <button class="proto-btn active" onclick="setState('default',this)">Default</button>
   <button class="proto-btn" onclick="setState('applied',this)">✓ Code Applied</button>
   <button class="proto-btn" onclick="setState('removed',this)">Code Removed</button>
   <button class="proto-btn" onclick="setState('error',this)">✗ Invalid Code</button>
-  <div class="proto-divider"></div>
-  <span id="fix-indicator" class="fix-pill broken">● BUG STATE</span>
-  <span class="proto-badge">Rewarding Subs · Discount Code Prototype</span>
+  <span class="proto-spacer"></span>
+  <span id="fix-pill" class="fix-pill bug">● Default</span>
+  <span class="proto-name">Rewarding Subs · Discount Code</span>
 </div>
 
-<!-- ═══ SITE HEADER ══════════════════════════════════════════════════════════ -->
-<div id="site-chrome">
-  <header class="site-header">
-    <div class="hdr-logo">
-      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="none" stroke="#fff" stroke-width="2"/><path d="M12 20c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z" fill="#fff" opacity=".3"/><path d="M20 14c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z" fill="#fff"/></svg>
-      <span class="hdr-logo-text">PET HEAVEN</span>
-    </div>
-    <div class="hdr-search">
-      <input type="text" placeholder="Search entire store here...">
-      <button class="hdr-search-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </button>
-    </div>
-    <div class="hdr-actions">
-      <span class="hdr-welcome">Welcome, Bevan Hendricks!</span>
-      <button class="hdr-app-btn">Get App</button>
-      <span class="hdr-link">Need Help?</span>
-      <span class="hdr-link">Account</span>
-      <span class="hdr-link">🛒 My Cart ∨</span>
-    </div>
-  </header>
+<!-- ══ MOBILE ACCOUNT BAR (visible on mobile only) ══════════════════ -->
+<div class="mobile-acct-bar">
+  <span class="mobile-acct-lbl">Account Menu</span>
+  <span class="mobile-hamburger">&#9776;</span>
+</div>
 
-  <!-- PROMO BAR -->
-  <div class="promo-bar">
-    <div class="promo-item">
-      <svg class="promo-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <span><strong>Schedule &amp; Save</strong> up to 5% on recurring deliveries</span>
-    </div>
-    <div class="promo-item">
-      <svg class="promo-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-      <span><strong>Free Delivery</strong> for orders over R500</span>
-    </div>
+<!-- ══ SITE HEADER ══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="hdr-logo">
+    <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#fff" stroke-width="2"/><path d="M20 11a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 14a5 5 0 1 1 0-10 5 5 0 0 1 0 10z" fill="#fff" opacity=".5"/><circle cx="20" cy="20" r="3" fill="#fff"/></svg>
+    <span class="hdr-logo-text">PET HEAVEN</span>
   </div>
-
-  <!-- SITE NAV -->
-  <nav class="site-nav">
-    <ul>
-      <li><a href="#">Dogs ∨</a></li>
-      <li><a href="#">Cats ∨</a></li>
-      <li><a href="#">Other Pets ∨</a></li>
-      <li class="active"><a href="#">Schedule &amp; Save</a></li>
-      <li><a href="#">New Pet Parent</a></li>
-      <li><a href="#">Shop New</a></li>
-      <li><a href="#">Shop Brand</a></li>
-      <li><a href="#">Deals</a></li>
-    </ul>
-  </nav>
-
-  <!-- ═══ FULL-WIDTH MESSAGE BAR (FIX: lives outside page-wrap) ══════════════
-       BUG: On the live site this message is rendered inside the content column,
-       making it appear narrow and misaligned. The fix: render it here at the
-       document level so it spans 100% viewport width, identical to all other
-       success/error messages across the site.
-  ══════════════════════════════════════════════════════════════════════════ -->
-
-  <!-- SUCCESS: Code applied -->
-  <div id="msg-applied" class="msg-bar msg-success show-applied">
-    <span class="msg-icon success">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-    </span>
-    <span class="msg-text">Coupon saved for your next order.</span>
+  <div class="hdr-search">
+    <input type="text" placeholder="Search entire store here...">
+    <button class="hdr-search-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
   </div>
-
-  <!-- SUCCESS: Code removed -->
-  <div id="msg-removed" class="msg-bar msg-success show-removed">
-    <span class="msg-icon success">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-    </span>
-    <span class="msg-text">Coupon removed.</span>
+  <div class="hdr-actions">
+    <span class="hdr-welcome">Welcome, Bevan Hendricks!</span>
+    <button class="hdr-app-btn">Get App</button>
+    <span class="hdr-link">Need Help?</span>
+    <span class="hdr-link">Account</span>
+    <span class="hdr-link">🛒 My Cart ∨</span>
   </div>
+</header>
 
-  <!-- ERROR: Invalid code -->
-  <div id="msg-error" class="msg-bar msg-error show-error">
-    <span class="msg-icon error">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </span>
-    <span class="msg-text">This coupon is not valid for your customer group.</span>
+<!-- ══ PROMO BAR ════════════════════════════════════════════════════ -->
+<div class="promo-bar">
+  <div class="promo-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+    <span><strong>Schedule &amp; Save</strong> up to 5% on recurring deliveries</span>
+  </div>
+  <div class="promo-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    <span><strong>Free Delivery</strong> for orders over R500</span>
   </div>
 </div>
 
-<!-- ═══ PAGE CONTENT ══════════════════════════════════════════════════════════ -->
+<!-- ══ SITE NAV ══════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <ul>
+    <li><a href="#">Dogs ∨</a></li>
+    <li><a href="#">Cats ∨</a></li>
+    <li><a href="#">Other Pets ∨</a></li>
+    <li class="active"><a href="#">Schedule &amp; Save</a></li>
+    <li><a href="#">New Pet Parent</a></li>
+    <li><a href="#">Shop New</a></li>
+    <li><a href="#">Shop Brand</a></li>
+    <li><a href="#">Deals</a></li>
+  </ul>
+</nav>
+
+<!-- ══ FULL-WIDTH MESSAGE BAR ════════════════════════════════════════
+     KEY FIX: Rendered here at document level, outside page-wrap,
+     so it spans 100% of viewport width — matching all other pages.
+     BUG on live site: this is rendered inside the content column.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="msg-applied" class="msg-bar success" style="display:none">
+  <span class="msg-icon s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+  <span>Coupon saved for your next order.</span>
+</div>
+<div id="msg-removed" class="msg-bar success" style="display:none">
+  <span class="msg-icon s"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+  <span>Coupon removed.</span>
+</div>
+<div id="msg-error" class="msg-bar error" style="display:none">
+  <span class="msg-icon e"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+  <span>This coupon is not valid for your customer group.</span>
+</div>
+
+<!-- ══ PAGE CONTENT ══════════════════════════════════════════════════ -->
 <div class="page-wrap">
-  <div class="page-layout">
+  <div class="page-inner">
 
-    <!-- ── LEFT SIDEBAR ──────────────────────────────────────────────────── -->
+    <!-- ── SIDEBAR ────────────────────────────────────────────────── -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <div class="sidebar-heading">
+      <div class="sidebar-block">
+        <div class="sb-head">
           <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/></svg>
           Orders
         </div>
-        <div class="sidebar-links">
-          <div class="sidebar-link"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Latest Order</div>
-          <div class="sidebar-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Order History</div>
-          <div class="sidebar-link"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>My Addresses</div>
-          <div class="sidebar-link active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>My Schedule &amp; Save</div>
+        <div class="sb-links">
+          <div class="sb-link"><span class="sb-chevron">›</span>Latest Order</div>
+          <div class="sb-link"><span class="sb-chevron">›</span>Order History</div>
+          <div class="sb-link"><span class="sb-chevron">›</span>My Addresses</div>
+          <div class="sb-link active"><span class="sb-chevron">›</span>My Schedule &amp; Save</div>
         </div>
       </div>
-      <div class="sidebar-section" style="margin-top:8px">
-        <div class="sidebar-heading">
-          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <div class="sidebar-block" style="margin-top:4px">
+        <div class="sb-head">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           Payment
         </div>
-        <div class="sidebar-links">
-          <div class="sidebar-link"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/></svg>My Cards</div>
+        <div class="sb-links">
+          <div class="sb-link"><span class="sb-chevron">›</span>My Cards</div>
         </div>
       </div>
-      <div class="sidebar-section" style="margin-top:8px">
-        <div class="sidebar-heading">
+      <div class="sidebar-block" style="margin-top:4px">
+        <div class="sb-head">
           <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           Rewards
         </div>
-        <div class="sidebar-links">
-          <div class="sidebar-link">My Rewards</div>
-          <div class="sidebar-link">Point Transactions</div>
-          <div class="sidebar-link">Settings</div>
+        <div class="sb-links">
+          <div class="sb-link"><span class="sb-chevron">›</span>My Rewards</div>
+          <div class="sb-link"><span class="sb-chevron">›</span>Point Transactions</div>
+          <div class="sb-link"><span class="sb-chevron">›</span>Settings</div>
         </div>
       </div>
-      <div class="sidebar-section" style="margin-top:8px">
-        <div class="sidebar-heading">
+      <div class="sidebar-block" style="margin-top:4px">
+        <div class="sb-head">
           <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           My Account
         </div>
-        <div class="sidebar-links">
-          <div class="sidebar-link">Personal Information</div>
-          <div class="sidebar-link">Pet Profiles</div>
+        <div class="sb-links">
+          <div class="sb-link"><span class="sb-chevron">›</span>Personal Information</div>
+          <div class="sb-link"><span class="sb-chevron">›</span>Pet Profiles</div>
         </div>
       </div>
     </aside>
 
-    <!-- ── MAIN CONTENT ───────────────────────────────────────────────────── -->
-    <main class="main-content">
+    <!-- ── MAIN COLUMN ────────────────────────────────────────────── -->
+    <main class="main-col">
 
-      <!-- Page heading row -->
-      <div class="page-heading-row">
-        <h1 class="page-heading">My Schedule &amp; Save</h1>
-        <div class="active-badge">Active</div>
+      <!-- Title row -->
+      <div class="pg-title-row">
+        <h1 class="pg-title">My Schedule &amp; Save</h1>
+        <span class="active-badge">✓ Active</span>
       </div>
 
-      <!-- Card meta -->
+      <!-- Card meta row -->
       <div class="card-meta">
-        <div class="card-cc">
+        <div class="cc-info">
           Credit Card **** **** **** 0042
-          <span class="card-cc-edit">Edit</span>
-          <span style="color:#ccc">|</span>
-          <span class="card-cc-update">Update Card Details</span>
+          <span class="cc-link" style="margin-left:6px">Edit</span>
+          <span style="color:#ddd;margin:0 4px">|</span>
+          <span class="cc-link">Update Card Details</span>
         </div>
-        <div class="card-points">
-          <span class="card-points-label">Spend pet points:</span>
-          <div class="pts-toggle">
-            <span class="pts-no">No</span>
-            <span class="pts-help">?</span>
-          </div>
+        <div class="pts-row">
+          <span class="pts-lbl">Spend pet points:</span>
+          <span class="pts-no">No</span>
+          <span class="pts-help">?</span>
           <button class="need-help-btn">I Need Assistance</button>
         </div>
       </div>
 
-      <!-- BROKEN message (only shown in broken view for comparison) -->
-      <div id="msg-broken-applied" class="msg-bar-broken msg-success show-applied" style="display:none">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#57AB4E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        <span style="color:#333">Coupon saved for your next order.</span>
-      </div>
-      <div id="msg-broken-removed" class="msg-bar-broken msg-success show-removed" style="display:none">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#57AB4E" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        <span style="color:#333">Coupon removed.</span>
-      </div>
-      <div id="msg-broken-error" class="msg-bar-broken msg-error show-error" style="display:none">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ED5454" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        <span style="color:#333">This coupon is not valid for your customer group.</span>
-      </div>
-
-      <!-- ── SCHEDULED DELIVERY ITEMS ─────────────────────────────────────── -->
-      <h2 class="section-heading">Scheduled Delivery Items</h2>
+      <!-- ── SCHEDULED DELIVERY ITEMS ──────────────────────────────── -->
+      <h2 class="sec-heading">Scheduled Delivery Items</h2>
 
       <div class="item-card">
-        <div class="item-img">
-          <img src="https://stage-b.petheaven.co.za/media/catalog/product/cache/b66a39a4e28e0d6c6d869c30f9060ae7/m/o/montego_classic_adult_dog_food_chicken.jpg"
+        <!-- ✕ button — absolute top-right on mobile, inside item-right on desktop -->
+        <span class="item-remove item-remove-mobile" title="Remove item">✕</span>
+        <div class="item-img-wrap">
+          <img src="https://stage-b.petheaven.co.za/media/catalog/product/cache/1/small_image/150x/9df78eab33525d08d6e5fb8d27136e95/m/o/montego-dog-food-all-breed-classic-adult.jpg"
                alt="Montego Classic Adult Dog Food 25kg"
-               onerror="this.style.display='none';this.parentNode.innerHTML='<div style=\'font-size:10px;color:#999;text-align:center;padding:10px\'>Montego Classic<br>Dog Food<br>25kg</div>'">
+               onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'font-size:10px;color:#999;text-align:center;padding:8px;display:block\'>Montego Classic<br>25kg</span>')">
         </div>
         <div class="item-body">
           <div class="item-name">Montego Classic Adult Dog Food-25kg</div>
+          <!-- price shown inline on mobile only -->
+          <div class="item-price item-price-mobile">R682.00</div>
           <div class="item-meta">
-            <div class="item-field">
+            <div>
               <span class="item-field-label">How often</span>
-              <span class="item-field-val">Weekly Intervals Every 3 Weeks <span class="edit-link">Edit</span></span>
+              <span class="item-field-val">Weekly Intervals Every 3 Weeks<span class="edit-lnk">Edit</span></span>
             </div>
-            <div class="item-field">
+            <div>
               <span class="item-field-label">Billing date</span>
-              <span class="item-field-val">Tue, 18 November 2025 <span class="edit-link">Edit</span></span>
+              <span class="item-field-val">Tue, 18 November 2025<span class="edit-lnk">Edit</span></span>
             </div>
-            <div class="item-field">
+            <div>
               <span class="item-field-label">How many</span>
-              <span class="item-field-val">1 <span class="edit-link">Edit</span></span>
+              <span class="item-field-val">1<span class="edit-lnk">Edit</span></span>
             </div>
-            <div class="item-field">
+            <div>
               <span class="item-field-label">Est. Delivery Date</span>
               <span class="item-field-val">Fri, 21 November 2025</span>
             </div>
           </div>
           <div class="item-tags">
-            <span class="item-tag">JHB</span>
-            <span class="item-tag">CPT</span>
-            <span class="item-tag fast">Eligible for fast delivery</span>
+            <span class="tag-badge">JHB</span>
+            <span class="tag-badge">CPT</span>
+            <span class="tag-fast">Eligible for fast delivery</span>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-          <div class="item-price">R682.00</div>
+        <!-- desktop: remove + price in right column -->
+        <div class="item-right item-right-desktop">
           <span class="item-remove" title="Remove item">✕</span>
+          <div class="item-price">R682.00</div>
         </div>
       </div>
 
-      <!-- ── MY NEXT ORDER ──────────────────────────────────────────────────── -->
+      <!-- ── MY NEXT ORDER ──────────────────────────────────────────── -->
       <div class="next-order-section">
-        <h2 class="section-heading">My Next Order</h2>
+        <h2 class="sec-heading">My Next Order</h2>
 
-        <div class="next-order-grid">
+        <!-- Billing date row -->
+        <div class="form-row">
+          <label class="form-lbl">Select Billing Date:</label>
+          <select class="form-select">
+            <option>Tuesday 18th November 2025</option>
+            <option>Tuesday 25th November 2025</option>
+            <option>Tuesday 2nd December 2025</option>
+          </select>
+        </div>
 
-          <!-- Left: billing date + discount code -->
-          <div>
-            <div class="form-field">
-              <label class="form-label">Select Billing Date:</label>
-              <select class="form-select">
-                <option>Tuesday 18th November 2025</option>
-                <option>Tuesday 25th November 2025</option>
-                <option>Tuesday 2nd December 2025</option>
-              </select>
-            </div>
-
-            <div class="form-field">
-              <label class="form-label">Discount Code:</label>
-
-              <!-- Default state: input + apply button -->
-              <div class="show-default" style="display:flex;flex-direction:column;gap:6px">
-                <div class="discount-field">
-                  <input class="code-input" type="text" placeholder="Enter discount code">
-                  <button class="code-apply-btn">Apply</button>
-                </div>
-              </div>
-
-              <!-- Applied state: code badge + remove button -->
-              <div class="show-applied" style="display:none">
-                <div class="discount-field">
-                  <span class="code-applied-badge">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    TEST
-                  </span>
-                  <button class="code-remove-btn">Remove</button>
-                </div>
-                <div class="code-desc applied-name">Test · Test</div>
-              </div>
-
-              <!-- Removed state: empty input -->
-              <div class="show-removed" style="display:none">
-                <div class="discount-field">
-                  <input class="code-input" type="text" placeholder="Enter discount code">
-                  <button class="code-apply-btn">Apply</button>
-                </div>
-              </div>
-
-              <!-- Error state: input with error styling -->
-              <div class="show-error" style="display:none">
-                <div class="discount-field">
-                  <input class="code-input" type="text" value="INVALID123" style="border-color:#ED5454">
-                  <button class="code-apply-btn">Apply</button>
-                </div>
+        <!-- Discount code row -->
+        <div class="form-row" style="align-items:flex-start">
+          <label class="form-lbl" style="padding-top:8px">Discount Code:</label>
+          <div class="disc-wrap">
+            <!-- Default state -->
+            <div id="disc-default">
+              <div class="disc-field">
+                <input class="disc-input" type="text" placeholder="Enter discount code">
+                <button class="disc-apply-btn">Apply</button>
               </div>
             </div>
-          </div>
-
-          <!-- Right: order summary -->
-          <div>
-            <table class="order-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th style="text-align:left">Product Name</th>
-                  <th>Quantity</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Montego Classic Adult Dog Food-25kg</td>
-                  <td style="text-align:center">1</td>
-                  <td>R682.00</td>
-                </tr>
-
-                <!-- FIX: Discount row — only shown when code is applied -->
-                <!-- BUG: On live site this row does not appear even when a valid code is applied -->
-                <tr class="order-discount-row show-applied" style="display:none">
-                  <td colspan="3">
-                    <span>Discount</span>
-                    <span class="discount-code-tag">TEST</span>
-                  </td>
-                  <td style="color:#57AB4E">−R34.10</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr class="order-vat-row">
-                  <td colspan="3">Subtotal</td>
-                  <td>R682.00</td>
-                </tr>
-                <tr class="order-vat-row">
-                  <td colspan="3">VAT (included)</td>
-                  <td>R88.96</td>
-                </tr>
-
-                <!-- Discount saving shown in total when applied -->
-                <tr class="order-vat-row show-applied" style="display:none">
-                  <td colspan="3" style="color:#57AB4E;font-weight:600">Discount saving</td>
-                  <td style="color:#57AB4E;font-weight:600">−R34.10</td>
-                </tr>
-
-                <tr class="order-total-row">
-                  <td colspan="3">Grand Total</td>
-                  <!-- Default / Removed / Error: R682 -->
-                  <td class="show-default show-removed show-error">R682.00</td>
-                  <!-- Applied: R682 - R34.10 = R647.90 (5% discount) -->
-                  <td class="show-applied" style="display:none">R647.90</td>
-                </tr>
-              </tfoot>
-            </table>
+            <!-- Applied state -->
+            <div id="disc-applied" style="display:none">
+              <div class="disc-field">
+                <span class="disc-applied-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  TEST
+                </span>
+                <button class="disc-remove-btn">Remove</button>
+              </div>
+              <div class="disc-code-name valid">Test · Test</div>
+            </div>
+            <!-- Removed state -->
+            <div id="disc-removed" style="display:none">
+              <div class="disc-field">
+                <input class="disc-input" type="text" placeholder="Enter discount code">
+                <button class="disc-apply-btn">Apply</button>
+              </div>
+            </div>
+            <!-- Error state -->
+            <div id="disc-error" style="display:none">
+              <div class="disc-field">
+                <input class="disc-input err" type="text" value="INVALID123">
+                <button class="disc-apply-btn">Apply</button>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Order summary table — full width -->
+        <div class="order-tbl-wrap" style="margin-top:8px">
+        <table class="order-tbl">
+          <colgroup>
+            <col class="col-num">
+            <col class="col-name">
+            <col class="col-qty">
+            <col class="col-sub">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Montego Classic Adult Dog Food-25kg</td>
+              <td>1</td>
+              <td>R682.00</td>
+            </tr>
+            <!-- FIX: discount row — appears only when code applied -->
+            <tr id="discount-row" class="discount-row" style="display:none">
+              <td colspan="3">Discount<span class="disc-code-badge">TEST</span></td>
+              <td>−R34.10</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="subtotal-row">
+              <td colspan="3" style="text-align:right;font-weight:700;color:#333">Subtotal</td>
+              <td>R682.00</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td colspan="3" style="text-align:right;color:#888">VAT (included)</td>
+              <td>R88.96</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3" style="text-align:right;color:#43b02a;font-weight:700">Grand Total</td>
+              <td id="grand-total" style="color:#43b02a">R682.00</td>
+            </tr>
+          </tfoot>
+        </table>
+        </div><!-- /order-tbl-wrap -->
       </div><!-- /next-order-section -->
 
+      <!-- ── NEED HELP FAQ ───────────────────────────────────────────── -->
+      <div class="faq-section">
+        <h2 class="faq-heading">Need Help? Read our FAQ's</h2>
+        <div class="faq-item">
+          <div class="faq-q">I'd like to de-activate my subscription <span class="faq-arrow">▾</span></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">I'd like to edit my scheduled delivery items and details <span class="faq-arrow">▾</span></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do discount codes work with Schedule &amp; Save? <span class="faq-arrow">▾</span></div>
+        </div>
+      </div>
+
     </main>
-  </div><!-- /page-layout -->
+  </div><!-- /page-inner -->
 </div><!-- /page-wrap -->
 
-<!-- ═══ ANNOTATIONS PANEL ═════════════════════════════════════════════════════ -->
-<div id="annotations" style="background:#fff;border-top:2px solid #e0e0e0;padding:24px;margin-top:32px;display:none">
-  <div style="max-width:900px;margin:0 auto">
-    <h3 style="font-size:16px;font-weight:700;color:#1A2419;margin-bottom:16px">🔍 What's fixed in this prototype</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div style="background:#fdecea;border:1px solid #f5c6c6;border-radius:8px;padding:16px">
-        <div style="font-size:12px;font-weight:700;color:#ED5454;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">❌ Bug (Live Site)</div>
-        <ul style="font-size:13px;color:#333;line-height:1.8;padding-left:16px">
-          <li>Success/error messages rendered <strong>inside the content column</strong> — appear narrow and misaligned</li>
-          <li>No discount line item shown in order summary when a valid code is applied</li>
-          <li>Grand Total does not update to reflect the discount</li>
-        </ul>
-      </div>
-      <div style="background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:16px">
-        <div style="font-size:12px;font-weight:700;color:#2F6C38;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">✅ Fix (This Prototype)</div>
-        <ul style="font-size:13px;color:#333;line-height:1.8;padding-left:16px">
-          <li>Message bar rendered <strong>outside page-wrap</strong> at document level — spans full viewport width</li>
-          <li>When TEST code applied: discount row appears in order table with −R34.10</li>
-          <li>Grand Total updates from R682.00 → R647.90</li>
-          <li>All 4 states handled: Default, Applied, Removed, Invalid</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- GET HELP FLOATING BUTTON -->
+<button class="get-help-btn">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  Get help
+</button>
 
 <script>
-  const STATES = {
-    default: { label: '● DEFAULT', cls: 'broken', pill: '● DEFAULT STATE' },
-    applied: { label: '✓ CODE APPLIED', cls: 'fix', pill: '✅ FIX: Code Applied' },
-    removed: { label: '✓ CODE REMOVED', cls: 'fix', pill: '✅ FIX: Code Removed' },
-    error:   { label: '✗ INVALID CODE', cls: 'fix', pill: '✅ FIX: Invalid Code' }
-  };
+function setState(state, btn) {
+  // Toggle active button
+  document.querySelectorAll('.proto-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 
-  function setState(state, btn) {
-    // Update button active state
-    document.querySelectorAll('.proto-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  // Hide all messages
+  ['msg-applied','msg-removed','msg-error'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
 
-    // Update body class for CSS visibility rules
-    document.body.className = 'state-' + state;
+  // Hide all discount field variants
+  ['disc-default','disc-applied','disc-removed','disc-error'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
 
-    // Update fix indicator pill
-    const pill = document.getElementById('fix-indicator');
-    pill.className = 'fix-pill ' + STATES[state].cls;
-    pill.textContent = STATES[state].pill;
+  // Hide discount row, reset total
+  document.getElementById('discount-row').style.display = 'none';
+  document.getElementById('grand-total').textContent = 'R682.00';
 
-    // Handle elements with multiple show classes (grand total cells)
-    document.querySelectorAll('.show-default, .show-applied, .show-removed, .show-error').forEach(el => {
-      const classes = Array.from(el.classList);
-      const showClass = 'show-' + state;
-      if (classes.includes(showClass)) {
-        el.style.display = '';
-      } else {
-        // Check if it has other show classes — if none match, hide
-        const hasOtherShow = classes.some(c => c.startsWith('show-') && c !== showClass);
-        if (hasOtherShow) {
-          el.style.display = 'none';
-        }
-      }
-    });
+  const pill = document.getElementById('fix-pill');
 
-    // Show/hide annotations
-    document.getElementById('annotations').style.display = state === 'default' ? 'none' : 'block';
+  if (state === 'default') {
+    document.getElementById('disc-default').style.display = 'block';
+    pill.className = 'fix-pill bug';
+    pill.textContent = '● Default';
   }
-
-  // Initialize
-  document.body.className = 'state-default';
+  else if (state === 'applied') {
+    document.getElementById('msg-applied').style.display = 'flex';
+    document.getElementById('disc-applied').style.display = 'block';
+    document.getElementById('discount-row').style.display = 'table-row';
+    document.getElementById('grand-total').textContent = 'R647.90';
+    pill.className = 'fix-pill fix';
+    pill.textContent = '✅ Fix: Code Applied';
+  }
+  else if (state === 'removed') {
+    document.getElementById('msg-removed').style.display = 'flex';
+    document.getElementById('disc-removed').style.display = 'block';
+    pill.className = 'fix-pill fix';
+    pill.textContent = '✅ Fix: Code Removed';
+  }
+  else if (state === 'error') {
+    document.getElementById('msg-error').style.display = 'flex';
+    document.getElementById('disc-error').style.display = 'block';
+    pill.className = 'fix-pill fix';
+    pill.textContent = '✅ Fix: Invalid Code';
+  }
+}
 </script>
 </body>
 </html>
