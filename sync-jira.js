@@ -34,7 +34,7 @@ if (!config) {
 const PROJECTS = config.projects;
 
 const ACTIVE_FIELDS = 'summary,status,issuetype,priority,assignee,parent,subtasks,timetracking,description,customfield_10020';
-const NEXT_FIELDS   = 'summary,status,issuetype,priority,assignee,customfield_10020';
+const NEXT_FIELDS   = 'summary,status,issuetype,priority,assignee,parent,customfield_10020';
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
