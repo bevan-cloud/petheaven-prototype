@@ -305,6 +305,10 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
 .m2-pending-card .issue-card{opacity:.6;border-style:dashed}
 
 /* ── Off-epic card highlight ── */
+.bt-epic-cell{max-width:200px}
+.bt-epic-pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:10px;background:rgba(0,0,0,.06);color:var(--gray-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;line-height:1.4}
+.bt-epic-pill.bt-epic-focus{background:var(--brand-light);color:var(--brand);border:1px solid var(--brand-mid)}
+.bt-epic-empty{color:var(--gray-3);font-size:13px}
 .off-epic-card{border-color:#ED5454!important;box-shadow:0 0 0 3px rgba(237,84,84,.15),0 2px 8px rgba(237,84,84,.1)!important}
 .off-epic-card:hover{border-color:#c0392b!important;box-shadow:0 0 0 4px rgba(237,84,84,.22),0 2px 12px rgba(237,84,84,.15)!important;background:#fff7f7!important}
 
@@ -441,6 +445,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
             <th class="bt-type-cell">Type</th>
             <th>Ticket</th>
             <th>Summary</th>
+            <th>Epic</th>
             <th>Status</th>
             <th class="bt-pri-cell">Pri</th>
             <th>Assignee</th>
@@ -739,6 +744,16 @@ function renderKanban(activeIssues, sprint) {
 /* ─────────────────────────────────────────────
    RENDER BACKLOG TABLE
    ───────────────────────────────────────────── */
+function backlogEpicHtml(issue) {
+  if (!issue.parent || !issue.parent.key) {
+    return '<span class="bt-epic-empty">—</span>';
+  }
+  var pk = issue.parent.key;
+  var sum = issue.parent.summary || pk;
+  var isFocus = pk === 'FM-3966' || pk === 'FM-2765' || pk === 'FM-2478';
+  return '<span class="bt-epic-pill' + (isFocus ? ' bt-epic-focus' : '') + '" title="' + escHtml(pk + ' · ' + sum) + '">' + escHtml(sum) + '</span>';
+}
+
 function renderBacklogTable(nextIssues, nextSprint) {
   var tbody = document.getElementById('backlogBody');
   if (nextSprint && (nextSprint.name)) {
@@ -746,7 +761,7 @@ function renderBacklogTable(nextIssues, nextSprint) {
   }
 
   if (!nextIssues || nextIssues.length === 0) {
-    tbody.innerHTML = '<tr class="empty-table-row"><td colspan="6">No backlog issues found</td></tr>';
+    tbody.innerHTML = '<tr class="empty-table-row"><td colspan="7">No backlog issues found</td></tr>';
     return;
   }
 
@@ -763,6 +778,7 @@ function renderBacklogTable(nextIssues, nextSprint) {
       + '<td class="bt-type-cell"><span style="display:flex;align-items:center">' + typeIconSvg(issue.issuetype && issue.issuetype.name) + '</span></td>'
       + '<td><a class="bt-key" href="' + jiraUrl + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + escHtml(issue.key) + '</a></td>'
       + '<td class="bt-summary"><span class="bt-summary-text">' + escHtml(issue.summary) + '</span></td>'
+      + '<td class="bt-epic-cell">' + backlogEpicHtml(issue) + '</td>'
       + '<td><span class="status-badge ' + sCls + '">' + escHtml(sName) + '</span></td>'
       + '<td class="bt-pri-cell"><span class="priority-dot" style="background:' + priColor + ';display:inline-block;margin:0 auto" title="' + escHtml((issue.priority && issue.priority.name) || '') + '"></span></td>'
       + '<td><div class="bt-assignee-cell">' + assigneeHtml(issue, 20) + '<span>' + escHtml(assigneeName) + '</span></div></td>'
@@ -1063,6 +1079,8 @@ function buildPlanningHTML(issues, sprint) {
     var pct   = total > 0 ? Math.round(count / total * 100) : 0;
     html += _insStatCard(count + ' (' + pct + '%)', EPICS[k].name, EPICS[k].color);
   });
+  var offPctTile = total > 0 ? Math.round(offEpicCount / total * 100) : 0;
+  html += _insStatCard(offEpicCount + ' (' + offPctTile + '%)', 'Off-Epic', '#ED5454');
   html += '</div>';
 
   /* Visual bar */
