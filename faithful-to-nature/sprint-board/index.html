@@ -355,13 +355,17 @@ body{font-family:'DM Sans',sans-serif;color:var(--black);background:var(--gray-1
   <!-- HERO -->
   <section class="hero">
     <div class="epic-btns">
-      <button class="epic-btn" onclick="openEpicPanel('m1-switchoff')" title="View M1 Switch-off epic tickets">
+      <button class="epic-btn" onclick="openEpicPanel('app-launch')" title="View App Launch M2 epic tickets">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
-        M1 Switch-off
+        App Launch M2
       </button>
-      <button class="epic-btn" onclick="openEpicPanel('mktg-launch')" title="View Marketing Launch of M2 App epic tickets">
+      <button class="epic-btn" onclick="openEpicPanel('desktop-launch')" title="View Desktop Launch M2 epic tickets">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
-        Marketing Launch
+        Desktop Launch M2
+      </button>
+      <button class="epic-btn" onclick="openEpicPanel('m1-switchoff')" title="View M1 Switch Off epic tickets">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="1" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="1" y="7" width="5" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="7" y="7" width="5" height="5" rx="1" fill="currentColor"/></svg>
+        M1 Switch Off
       </button>
     </div>
     <div class="hero-badge">Faithful to Nature · Sprint Board</div>
@@ -971,16 +975,22 @@ function closeInsights() {
 
 /* ── Epic configs ── */
 var EPIC_CONFIGS = {
+  'app-launch': {
+    id:       'app-launch',
+    epicKey:  'FM-3966',
+    title:    'App Launch M2',
+    label:    'FTN-CAPEX'
+  },
+  'desktop-launch': {
+    id:       'desktop-launch',
+    epicKey:  'FM-2765',
+    title:    'Desktop Launch M2',
+    label:    'FTN-CAPEX'
+  },
   'm1-switchoff': {
     id:       'm1-switchoff',
     epicKey:  'FM-2478',
-    title:    'M1 Switch-off',
-    label:    'FTN-CAPEX'
-  },
-  'mktg-launch': {
-    id:       'mktg-launch',
-    epicKey:  'FM-2765',
-    title:    'Marketing Launch of M2 App',
+    title:    'M1 Switch Off',
     label:    'FTN-CAPEX'
   }
 };
@@ -1334,19 +1344,22 @@ function buildInsightsHTML(issues, sprint) {
   html += '</div>';
 
   /* ── Sprint Focus breakdown ── */
-  var focusTotal  = issues.length;
-  var mktgCount   = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2765'; }).length;
-  var m1Count     = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2478'; }).length;
-  var otherCount  = focusTotal - mktgCount - m1Count;
-  var mktgPct     = focusTotal > 0 ? Math.round(mktgCount  / focusTotal * 100) : 0;
-  var m1Pct       = focusTotal > 0 ? Math.round(m1Count    / focusTotal * 100) : 0;
-  var otherPct    = focusTotal > 0 ? 100 - mktgPct - m1Pct : 0;
+  var focusTotal     = issues.length;
+  var appCount       = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-3966'; }).length;
+  var desktopCount   = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2765'; }).length;
+  var m1Count        = issues.filter(function(i){ return i.parent && i.parent.key === 'FM-2478'; }).length;
+  var otherCount     = focusTotal - appCount - desktopCount - m1Count;
+  var appPct         = focusTotal > 0 ? Math.round(appCount     / focusTotal * 100) : 0;
+  var desktopPct     = focusTotal > 0 ? Math.round(desktopCount / focusTotal * 100) : 0;
+  var m1Pct          = focusTotal > 0 ? Math.round(m1Count      / focusTotal * 100) : 0;
+  var otherPct       = focusTotal > 0 ? 100 - appPct - desktopPct - m1Pct : 0;
 
   html += '<div style="margin-bottom:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-4)">Sprint Focus</div>';
   html += '<div class="ins-metrics-row" style="margin-bottom:28px">';
-  html += _insStatCard(mktgPct + '%',  'Marketing Launch',   '#3C8BB6');
-  html += _insStatCard(m1Pct  + '%',  'M1 Switch-off',      'var(--brand)');
-  html += _insStatCard(otherPct + '%', 'Off-epic ⚠',         '#ED5454');
+  html += _insStatCard(appPct     + '%', 'App Launch M2',     '#3C8BB6');
+  html += _insStatCard(desktopPct + '%', 'Desktop Launch M2', '#7B5EA7');
+  html += _insStatCard(m1Pct      + '%', 'M1 Switch Off',     'var(--brand)');
+  html += _insStatCard(otherPct   + '%', 'Off-epic ⚠',       '#ED5454');
   html += '</div>';
 
   html += '<div class="ins-charts-grid">';
