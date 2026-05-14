@@ -92,6 +92,11 @@ function mapItem(page, idx) {
   const depDev    = depDevRaw === 'Yes' ? true : depDevRaw === 'No' ? false : null;
   const lead      = (p.Lead?.rich_text ?? []).map(t => t.plain_text).join('').trim() || '';
   const engineers = (p.Engineers?.people ?? []).map(e => e.name).filter(Boolean);
+  const files     = (p['Files & media']?.files ?? []).map(f => ({
+    name: f.name || '',
+    url:  f.type === 'external' ? (f.external?.url || '') : (f.file?.url || ''),
+    type: f.type,
+  })).filter(f => f.url);
   const stagingUrl = p['Refernce']?.url || '';
   const requestType = p['Request Type']?.select?.name || '';
 
@@ -112,6 +117,7 @@ function mapItem(page, idx) {
     lead,
     engineers,
     stagingUrl,
+    files,
     archive,
     depDev,
     requestType,
