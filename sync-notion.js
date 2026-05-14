@@ -90,7 +90,7 @@ function mapItem(page, idx) {
   const archive  = p.Archive?.checkbox ?? false;
   const depDevRaw = p['Dependent on Dev']?.select?.name || null;
   const depDev    = depDevRaw === 'Yes' ? true : depDevRaw === 'No' ? false : null;
-  const lead      = (p.Lead?.people ?? []).map(u => u.name).filter(Boolean).join(', ') || '';
+  const lead      = (p.Lead?.rich_text ?? []).map(t => t.plain_text).join('').trim() || '';
   const engineers = (p.Engineers?.people ?? []).map(e => e.name).filter(Boolean);
   const stagingUrl = p['Refernce']?.url || '';
   const requestType = p['Request Type']?.select?.name || '';
