@@ -331,18 +331,22 @@
   }
 
   // ─── Lead save (routed via N8N — N8N resolves name → Notion user ID) ─────────
+  // Normalise to title case so the N8N name→user lookup matches Notion's capitalisation.
+  function _toTitleCase(str) { return str.replace(/\b\w/g, function(c) { return c.toUpperCase(); }); }
+
   async function saveLeadInternal(notionId, newName) {
+    const normalised = _toTitleCase(String(newName || '').trim());
     try {
       const res = await fetch(N8N_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ notionPageId: notionId, leadName: newName }),
+        body: JSON.stringify({ notionPageId: notionId, leadName: normalised }),
       });
       if (!res.ok) { showToast(`⚠ Save failed (${res.status})`); return; }
       showToast('✓ Saved to Notion');
-      updateLocal(notionId, 'lead', newName);
+      updateLocal(notionId, 'lead', normalised);
       document.querySelectorAll(`.nw-editable[data-field="lead"][data-nid="${CSS.escape(notionId)}"]`)
-        .forEach(s => { s.dataset.val = newName; s.innerHTML = displayHtml('lead', newName); });
+        .forEach(s => { s.dataset.val = normalised; s.innerHTML = displayHtml('lead', normalised); });
     } catch (err) {
       showToast('⚠ Could not reach N8N — check your connection');
     }
